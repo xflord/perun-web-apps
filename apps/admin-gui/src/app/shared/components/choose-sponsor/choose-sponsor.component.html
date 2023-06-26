@@ -1,7 +1,5 @@
 <div class="mt-4">
-  <h6>
-    {{(copy ? 'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR_COPY' : 'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR') | translate }}
-  </h6>
+  <h6>{{customTitle | translate}}</h6>
   <mat-radio-group
     [(ngModel)]="sponsorType"
     (ngModelChange)="emitSponsorType()"

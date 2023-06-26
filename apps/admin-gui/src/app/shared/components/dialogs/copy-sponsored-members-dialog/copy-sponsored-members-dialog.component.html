@@ -38,7 +38,7 @@
         <app-choose-sponsor
           *ngIf="!tableLoading"
           [voId]="data.voId"
-          [copy]="true"
+          [customTitle]="'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR_COPY'"
           [disableSelf]="disableSelf"
           [voSponsors]="voSponsorsTarget"
           (sponsorTypeSelected)="sponsorType = $event"

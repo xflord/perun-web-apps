@@ -1,0 +1,36 @@
+<div class="{{theme}}">
+  <h1 mat-dialog-title>{{'DIALOGS.SPONSOR_THIS_MEMBER.TITLE' | translate}}</h1>
+  <div mat-dialog-content>
+    <app-choose-sponsor
+      [voId]="member.voId"
+      [voSponsors]="sponsors"
+      [customTitle]="'DIALOGS.SPONSOR_THIS_MEMBER.SELECT_SPONSOR'"
+      (sponsorTypeSelected)="sponsorType = $event"
+      (sponsorSelected)="selectedSponsor = $event">
+    </app-choose-sponsor>
+
+    <div>
+      <br />
+      <h6>{{'DIALOGS.SPONSOR_EXISTING_MEMBER.EXPIRATION' | translate}}</h6>
+      <perun-web-apps-expiration-select
+        [minDate]="minDate"
+        (expirationSelected)="setExpiration($event)">
+      </perun-web-apps-expiration-select>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button (click)="onCancel()" class="ms-auto" mat-stroked-button>
+      {{'DIALOGS.SPONSOR_THIS_MEMBER.CANCEL' | translate}}
+    </button>
+    <button
+      data-cy="sponsor-member-button"
+      (click)="onSponsor()"
+      class="ms-2"
+      color="accent"
+      [disabled]="loading || (sponsorType === 'other' && !selectedSponsor)"
+      mat-flat-button>
+      {{'DIALOGS.SPONSOR_THIS_MEMBER.SPONSOR' | translate}}
+    </button>
+  </div>
+</div>

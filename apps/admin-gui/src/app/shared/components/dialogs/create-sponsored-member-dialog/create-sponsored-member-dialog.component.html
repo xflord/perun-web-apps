@@ -134,6 +134,7 @@
             <app-choose-sponsor
               [voId]="data.voId"
               [voSponsors]="data.sponsors"
+              [customTitle]="'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR'"
               (sponsorTypeSelected)="sponsorType = $event"
               (sponsorSelected)="selectedSponsor = $event">
             </app-choose-sponsor>

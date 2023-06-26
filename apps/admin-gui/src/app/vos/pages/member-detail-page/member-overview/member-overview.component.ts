@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuItem } from '@perun-web-apps/perun/models';
+import { MenuItem, Role } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { PasswordResetRequestDialogComponent } from '../../../../shared/components/dialogs/password-reset-request-dialog/password-reset-request-dialog.component';
@@ -9,13 +9,20 @@ import {
   AttributesManagerService,
   MembersManagerService,
   RichMember,
+  RichUser,
   Sponsor,
   UsersManagerService,
   Vo,
 } from '@perun-web-apps/perun/openapi';
-import { GuiAuthResolver, RoutePolicyService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  FindSponsorsService,
+  GuiAuthResolver,
+  RoutePolicyService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { EditMemberSponsorsDialogComponent } from '../../../../shared/components/dialogs/edit-member-sponsors-dialog/edit-member-sponsors-dialog.component';
+import { SponsorThisMemberDialogComponent } from '../../../../shared/components/dialogs/sponsor-this-member-dialog/sponsor-this-member-dialog.component';
 
 @Component({
   selector: 'app-member-overview',
@@ -35,10 +42,14 @@ export class MemberOverviewComponent implements OnInit {
   dataSource = new MatTableDataSource<string>();
   displayedColumns = ['attName', 'attValue'];
   sponsors: Sponsor[] = [];
+  voSponsors: RichUser[] = [];
   sponsorsDataSource = new MatTableDataSource<Sponsor>();
   vo: Vo;
   loading = false;
   pwdResetAuth: boolean;
+  isSponsor = false;
+  isPerunAdmin = false;
+  sponsorButtonEnabled = false;
 
   constructor(
     private attributesManager: AttributesManagerService,
@@ -48,7 +59,8 @@ export class MemberOverviewComponent implements OnInit {
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
     private storeService: StoreService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
+    private findSponsors: FindSponsorsService
   ) {}
 
   ngOnInit(): void {
@@ -64,8 +76,8 @@ export class MemberOverviewComponent implements OnInit {
             const urns: string[] = urn.split(':');
             return urns[urns.length - 1];
           });
-        this.attributesManager.getLogins(member.userId).subscribe(
-          (logins) => {
+        this.attributesManager.getLogins(member.userId).subscribe({
+          next: (logins) => {
             this.logins = logins.filter((login) =>
               this.attUrns.includes(login.friendlyNameParameter)
             );
@@ -82,6 +94,8 @@ export class MemberOverviewComponent implements OnInit {
               'sendPasswordResetLinkEmail_Member_String_String_String_String_policy',
               [this.vo, this.member]
             );
+            this.isPerunAdmin = this.authResolver.isPerunAdmin();
+            this.isSponsor = this.authResolver.principalHasRole(Role.SPONSOR, 'Vo', this.vo.id);
             if (
               this.member.sponsored &&
               this.authResolver.isAuthorized('getSponsorsForMember_Member_List<String>_policy', [
@@ -100,8 +114,10 @@ export class MemberOverviewComponent implements OnInit {
               this.refreshData();
             }
           },
-          () => (this.loading = false)
-        );
+          error: () => {
+            this.loading = false;
+          },
+        });
       });
     });
   }
@@ -129,19 +145,39 @@ export class MemberOverviewComponent implements OnInit {
     const dialogRef = this.dialog.open(EditMemberSponsorsDialogComponent, config);
     dialogRef.afterClosed().subscribe((edited) => {
       if (edited) {
-        this.loading = true;
-        this.membersService.getRichMemberWithAttributes(this.member.id).subscribe((member) => {
-          this.member = member;
-          if (this.member.sponsored) {
-            this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
-              this.sponsors = sponsors;
-              this.sponsorsDataSource.data = this.sponsors;
-            });
-          }
-          this.loading = false;
-        });
+        this.refreshData();
       }
     });
+  }
+
+  sponsorThisMember(): void {
+    const config = getDefaultDialogConfig();
+    config.width = '400px';
+    config.data = {
+      theme: 'member-theme',
+      member: this.member,
+      sponsors: this.voSponsors.filter(
+        (s) => !this.sponsors.map((sponsor) => sponsor.user.id).includes(s.id)
+      ),
+    };
+
+    const dialogRef = this.dialog.open(SponsorThisMemberDialogComponent, config);
+
+    dialogRef.afterClosed().subscribe((edited) => {
+      if (edited) {
+        this.refreshData();
+      }
+    });
+  }
+
+  private isSponsorButtonEnabled(): boolean {
+    const sponsorIds = this.sponsors.map((sponsor) => sponsor.user.id);
+    const availableVoSponsors = this.voSponsors.filter((s) => !sponsorIds.includes(s.id));
+
+    return (
+      (this.isSponsor && !sponsorIds.includes(this.storeService.getPerunPrincipal().user.id)) ||
+      (this.isPerunAdmin && availableVoSponsors.length !== 0)
+    );
   }
 
   private initAttributes(): void {
@@ -216,12 +252,28 @@ export class MemberOverviewComponent implements OnInit {
 
   private refreshData(): void {
     this.loading = true;
-    this.membersService.getRichMemberWithAttributes(this.member.id).subscribe(
-      (member) => {
+    this.membersService.getRichMemberWithAttributes(this.member.id).subscribe({
+      next: (member) => {
         this.member = member;
+        this.findSponsors.getSponsors(member.voId).subscribe((sponsors) => {
+          this.voSponsors = sponsors;
+        });
+        if (member.sponsored) {
+          this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
+            this.sponsors = sponsors;
+            this.sponsorsDataSource.data = this.sponsors;
+            this.sponsorButtonEnabled = this.isSponsorButtonEnabled();
+          });
+        } else {
+          this.sponsors = [];
+          this.sponsorsDataSource.data = this.sponsors;
+          this.sponsorButtonEnabled = this.isSponsorButtonEnabled();
+        }
         this.loading = false;
       },
-      () => (this.loading = false)
-    );
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 }

@@ -804,12 +804,15 @@
       "PERSONAL": "Personal information",
       "SPONSORSHIP": "Sponsorship",
       "SPONSORED_BY": "This member is sponsored",
+      "NOT_SPONSORED": "This member is not sponsored",
       "SPONSORS": "Sponsors",
       "RESET_PASSWORD": "Reset password",
       "RESET_DISABLED": "Unsupported functionality for user's namespaces",
       "SEND_REQUEST": "Send request",
       "SPONSOR_NAME": "Sponsor name",
-      "EXPIRATION_TABLE": "Expiration"
+      "EXPIRATION_TABLE": "Expiration",
+      "SPONSOR_MEMBER": "Sponsor this member",
+      "NO_SPONSORS": "This organisation has no available sponsors"
     },
     "GROUPS": {
       "TITLE": "Member groups",
@@ -2033,6 +2036,7 @@
       "EXPIRE_NEVER": "Never expire",
       "EXPIRATION_ERROR": "The date has to be in format yyyy-mm-dd",
       "SELECT_SPONSOR": "Choose sponsor for created user",
+      "SELECT_SPONSOR_DEFAULT": "Choose sponsor",
       "SELECT_SPONSOR_COPY": "Select target sponsor",
       "SELECT_SELF": "Make myself sponsor",
       "SELECT_OTHER": "Select other sponsor from this organization",
@@ -2157,7 +2161,16 @@
       "EMPTY_SEARCH_MESSAGE": "Search field cannot be empty",
       "EXPIRATION": "Sponsorship expiration",
       "BEGIN_SEARCH": "Search for members you would like to sponsor",
-      "SUCCESS": "Members successfully sponsored"
+      "SUCCESS": "Members successfully sponsored",
+      "SELECT_SPONSOR": "Choose sponsor for user"
+    },
+    "SPONSOR_THIS_MEMBER": {
+      "TITLE": "Sponsor this member",
+      "EXPIRATION": "Sponsorship expiration",
+      "SUCCESS": "Member successfully sponsored",
+      "CANCEL": "Cancel",
+      "SPONSOR": "Sponsor",
+      "SELECT_SPONSOR": "Choose sponsor for this user"
     },
     "COPY_SPONSORED_MEMBERS": {
       "TITLE": "Copy sponsored members",

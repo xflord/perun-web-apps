@@ -11,8 +11,8 @@ import { RichUser, User } from '@perun-web-apps/perun/openapi';
 export class ChooseSponsorComponent implements OnInit, OnChanges {
   @Input() voId: number;
   @Input() voSponsors: RichUser[] = [];
-  @Input() copy = false;
   @Input() disableSelf = false;
+  @Input() customTitle = 'DIALOGS.CREATE_SPONSORED_MEMBER.SELECT_SPONSOR_DEFAULT';
   @Output() sponsorTypeSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() sponsorSelected: EventEmitter<User> = new EventEmitter<User>();
   sponsorType = 'self';
