@@ -44,14 +44,18 @@ export class MfaHandlerService {
     configVerify.width = '450px';
     configVerify.data = {
       mfaRoleException:
-        mfaExceptionType === ('MfaRolePrivilegeException' || 'MfaRoleTimeoutException'),
+        mfaExceptionType === 'MfaRolePrivilegeException' ||
+        mfaExceptionType === 'MfaRoleTimeoutException',
     };
     const dialogVerifyRef = this.dialog.open(MfaRequiredDialogComponent, configVerify);
     let verificationSkipped = false;
 
     dialogVerifyRef.afterClosed().subscribe((result) => {
       if (result) {
-        if (mfaExceptionType === ('MfaTimeoutException' || 'MfaRoleTimeoutException')) {
+        if (
+          mfaExceptionType === 'MfaTimeoutException' ||
+          mfaExceptionType === 'MfaRoleTimeoutException'
+        ) {
           localStorage.setItem('mfaTimeout', 'true');
         }
 
