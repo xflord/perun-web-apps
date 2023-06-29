@@ -1,16 +1,9 @@
 <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 <div *ngIf="!loading">
-  <p *ngIf="parentGroup !== null">
-    {{'GROUP_DETAIL.SUBGROUP_INFO' | translate}}
-    <a
-      class="group-link"
-      [perunWebAppsMiddleClickRouterLink]="['/organizations', parentGroup.voId.toString(), 'groups', parentGroup.id.toString()]"
-      (auxclick)="$event.preventDefault()"
-      [routerLink]="['/organizations', parentGroup.voId, 'groups', parentGroup.id]">
-      {{parentGroup.name}}
-    </a>
-  </p>
-  <perun-web-apps-menu-buttons-field
-    [items]="navItems"
-    [size]="'small'"></perun-web-apps-menu-buttons-field>
+  <perun-web-apps-menu-buttons-field [items]="items"></perun-web-apps-menu-buttons-field>
+  <perun-web-apps-expandable-tiles
+    [items]="settingsItems"
+    [title]="'MENU_ITEMS.GROUP.SETTINGS'"
+    [sectionId]="'settings'">
+  </perun-web-apps-expandable-tiles>
 </div>

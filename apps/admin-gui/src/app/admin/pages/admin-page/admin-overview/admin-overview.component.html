@@ -1,9 +1,7 @@
 <div>
-  <perun-web-apps-menu-buttons-field
-    [items]="navItems"
-    [size]="'small'"></perun-web-apps-menu-buttons-field>
-
-  <!--  <h1 class="page-subtitle">Quick actions</h1>-->
-  <!--  <app-menu-buttons-field [items]="items" [size]="'medium'">-->
-  <!--  </app-menu-buttons-field>-->
+  <perun-web-apps-menu-buttons-field [items]="items"></perun-web-apps-menu-buttons-field>
+  <perun-web-apps-expandable-tiles
+    [items]="visualizerItems"
+    [sectionId]="'visualizer'"
+    [title]="'MENU_ITEMS.ADMIN.VISUALIZER'"></perun-web-apps-expandable-tiles>
 </div>

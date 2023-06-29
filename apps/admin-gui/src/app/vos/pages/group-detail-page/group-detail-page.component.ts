@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SideMenuItemService } from '../../../shared/side-menu/side-menu-item.service';
 import { fadeIn } from '@perun-web-apps/perun/animations';
 import {
+  Group,
   GroupsManagerService,
   RichGroup,
   Vo,
@@ -26,8 +27,9 @@ import {
 import { DeleteGroupDialogComponent } from '../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 import { destroyDetailMixin } from '../../../shared/destroy-entity-detail';
-import { takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { QueryParamsRouterService } from '../../../shared/query-params-router.service';
+import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-group-detail-page',
@@ -38,6 +40,7 @@ import { QueryParamsRouterService } from '../../../shared/query-params-router.se
 export class GroupDetailPageComponent extends destroyDetailMixin() implements OnInit {
   vo: Vo;
   group: RichGroup;
+  parentGroup: Group;
   editAuth = false;
   deleteAuth = false;
   loading = false;
@@ -107,61 +110,48 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
 
   reloadData(): void {
     this.loading = true;
-    this.route.params.subscribe((params) => {
-      const voId = Number(params['voId']);
-      const groupId = Number(params['groupId']);
-      this.entityStorageService.setEntity({ id: groupId, beanName: 'Group' });
-
-      this.voService.getVoById(voId).subscribe(
-        (vo) => {
-          this.vo = vo;
-          this.groupService.getGroupById(groupId).subscribe(
-            (group) => {
-              this.group = group;
-              this.entityStorageService.setEntity(this.group);
-              addRecentlyVisited('groups', this.group);
-              addRecentlyVisitedObject(this.group, vo.name);
-              if (
-                this.guiAuthResolver.isAuthorized(
-                  'getRichGroupByIdWithAttributesByNames_int_List<String>_policy',
-                  [this.group]
-                )
-              ) {
-                this.groupService
-                  .getRichGroupByIdWithAttributesByNames(groupId, this.attrNames)
-                  .subscribe(
-                    (richGroup) => {
-                      this.group = richGroup;
-                      this.syncEnabled = isGroupSynchronized(richGroup);
-
-                      this.syncAuth = this.guiAuthResolver.isAuthorized(
-                        'forceGroupSynchronization_Group_policy',
-                        [this.group]
-                      );
-                    },
-                    () => (this.loading = false)
-                  );
-              } else {
-                this.syncEnabled = false;
-              }
-
-              this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [
-                this.group,
-              ]);
-              this.deleteAuth = this.guiAuthResolver.isAuthorized(
-                'deleteGroup_Group_boolean_policy',
-                [this.group]
-              );
-
-              this.setMenuItems();
-              this.loading = false;
-            },
-            () => (this.loading = false)
+    this.route.params
+      .pipe(
+        // Get Group id from url
+        map((params) => Number(params['groupId'])),
+        // Get Group
+        switchMap((groupId) => this.groupService.getGroupById(groupId)),
+        // Get additional entities (Vo, parent Group if exists, RichGroup if authorized)
+        switchMap((group) => {
+          this.group = group;
+          const richGroupAuth = this.guiAuthResolver.isAuthorized(
+            'getRichGroupByIdWithAttributesByNames_int_List<String>_policy',
+            [this.group]
           );
+
+          return forkJoin({
+            vo: this.voService.getVoById(group.voId),
+            parentGroup: group.parentGroupId
+              ? this.groupService.getGroupById(group.parentGroupId)
+              : of(null),
+            richGroup: richGroupAuth
+              ? this.groupService.getRichGroupByIdWithAttributesByNames(group.id, this.attrNames)
+              : of(group),
+          });
+        })
+      )
+      .subscribe({
+        next: (additionalEntities) => {
+          this.vo = additionalEntities.vo;
+          this.parentGroup = additionalEntities.parentGroup;
+          this.group = additionalEntities.richGroup;
+
+          this.entityStorageService.setEntity(this.group);
+          addRecentlyVisited('groups', this.group);
+          addRecentlyVisitedObject(this.group, this.vo.name);
+
+          this.syncEnabled = isGroupSynchronized(this.group);
+          this.setAuth();
+          this.setMenuItems();
+          this.loading = false;
         },
-        () => (this.loading = false)
-      );
-    });
+        error: () => (this.loading = false),
+      });
   }
 
   setMenuItems(): void {
@@ -185,5 +175,15 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
         this.queryParamsRouter.navigate(['../'], this.route);
       }
     });
+  }
+
+  private setAuth(): void {
+    this.syncAuth = this.guiAuthResolver.isAuthorized('forceGroupSynchronization_Group_policy', [
+      this.group,
+    ]);
+    this.editAuth = this.guiAuthResolver.isAuthorized('updateGroup_Group_policy', [this.group]);
+    this.deleteAuth = this.guiAuthResolver.isAuthorized('deleteGroup_Group_boolean_policy', [
+      this.group,
+    ]);
   }
 }

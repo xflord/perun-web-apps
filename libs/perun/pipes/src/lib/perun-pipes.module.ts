@@ -62,6 +62,7 @@ import { ApplicationColumnSelectLabelPipe } from './application-column-select-la
 import { SelectedSponsorPipe } from './selected-sponsor.pipe';
 import { GlobalNamespacePipe } from './global-namespace.pipe';
 import { LastSuccessfulPropagationPipe } from './last-successful-propagation.pipe';
+import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { LastSuccessfulPropagationPipe } from './last-successful-propagation.pip
     ApplicationColumnSelectLabelPipe,
     GlobalNamespacePipe,
     LastSuccessfulPropagationPipe,
+    ActiveSideMenuItemPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -193,6 +195,7 @@ import { LastSuccessfulPropagationPipe } from './last-successful-propagation.pip
     ApplicationColumnSelectLabelPipe,
     GlobalNamespacePipe,
     LastSuccessfulPropagationPipe,
+    ActiveSideMenuItemPipe,
   ],
   imports: [CommonModule],
 })

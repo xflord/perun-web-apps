@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { EntityMenuLink, SideMenuItem } from './side-menu.component';
+import { SideMenuLink, SideMenuItem } from './side-menu.component';
 import {
   ApiRequestConfigurationService,
   GuiAuthResolver,
@@ -30,7 +29,6 @@ export class SideMenuItemService {
   theme = this.store.getProperty('theme');
 
   constructor(
-    private translate: TranslateService,
     private authResolver: GuiAuthResolver,
     private store: StoreService,
     private apiRequest: ApiRequestConfigurationService,
@@ -48,7 +46,7 @@ export class SideMenuItemService {
       baseLink: ['/facilities'],
       links: [],
       baseColorClass: 'base-item-color',
-      baseColorClassRegex: '^/facilities$',
+      baseColorClassRegex: '^/facilities/*',
       backgroundColorCss: this.theme.sidemenu_bg_color,
       textColorCss: this.theme.sidemenu_text_color,
     };
@@ -62,7 +60,7 @@ export class SideMenuItemService {
       links: [],
       baseLink: ['/organizations'],
       baseColorClass: 'base-item-color',
-      baseColorClassRegex: '^/organizations$',
+      baseColorClassRegex: '^/organizations/*',
       backgroundColorCss: this.theme.sidemenu_bg_color,
       textColorCss: this.theme.sidemenu_text_color,
     };
@@ -87,12 +85,11 @@ export class SideMenuItemService {
   getUserItem(): SideMenuItem {
     return {
       baseLink: ['/myProfile'],
-      expandable: false,
       label: 'MAIN_MENU.MY_PROFILE',
       colorClass: 'base-item-color-activated',
       icon: 'perun-user',
       baseColorClass: 'base-item-color',
-      baseColorClassRegex: '^/dont-use$',
+      baseColorClassRegex: '^/myProfile/*',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',
       backgroundColorCss: this.theme.sidemenu_bg_color,
@@ -149,7 +146,7 @@ export class SideMenuItemService {
               activatedRegex: '/myProfile/settings/guiConfig',
             },
           ],
-          showChildrenRegex: `/myProfile/settings`,
+          showChildren: `settings`,
         },
       ],
     };
@@ -158,12 +155,11 @@ export class SideMenuItemService {
   getAdminItem(): SideMenuItem {
     return {
       baseLink: ['/admin'],
-      expandable: false,
       label: 'MAIN_MENU.ADMIN',
       colorClass: 'base-item-color-activated',
       icon: 'perun-perun-admin',
       baseColorClass: 'base-item-color',
-      baseColorClassRegex: '^/dont-use$',
+      baseColorClassRegex: '^/admin/*',
       activatedClass: 'dark-item-activated',
       linksClass: 'dark-item-links',
       backgroundColorCss: this.theme.sidemenu_bg_color,
@@ -195,24 +191,6 @@ export class SideMenuItemService {
           activatedRegex: '^/admin/services$',
         },
         {
-          label: 'MENU_ITEMS.ADMIN.VISUALIZER',
-          url: ['/admin/visualizer'],
-          activatedRegex: '^/admin/visualizer$',
-          children: [
-            {
-              label: 'MENU_ITEMS.VISUALIZER.ATTR_DEPENDENCIES',
-              url: ['/admin/visualizer/attrDependencies'],
-              activatedRegex: '^/admin/visualizer/attrDependencies',
-            },
-            {
-              label: this.translate.instant('MENU_ITEMS.VISUALIZER.USER_DESTINATION') as string,
-              url: ['/admin/visualizer/userDestinationRelationship'],
-              activatedRegex: '^/admin/visualizer/userDestinationRelationship',
-            },
-          ],
-          showChildrenRegex: '/admin/visualizer',
-        },
-        {
           label: 'MENU_ITEMS.ADMIN.EXT_SOURCES',
           url: ['/admin/ext_sources'],
           activatedRegex: '^/admin/ext_sources$',
@@ -236,6 +214,24 @@ export class SideMenuItemService {
           label: 'MENU_ITEMS.ADMIN.BLOCKED_LOGINS',
           url: ['/admin/blocked_logins'],
           activatedRegex: '^/admin/blocked_logins',
+        },
+        {
+          label: 'MENU_ITEMS.ADMIN.VISUALIZER',
+          url: ['/admin/visualizer'],
+          activatedRegex: '^/admin/visualizer$',
+          children: [
+            {
+              label: 'MENU_ITEMS.VISUALIZER.ATTR_DEPENDENCIES',
+              url: ['/admin/visualizer/attrDependencies'],
+              activatedRegex: '^/admin/visualizer/attrDependencies',
+            },
+            {
+              label: 'MENU_ITEMS.VISUALIZER.USER_DESTINATION',
+              url: ['/admin/visualizer/userDestinationRelationship'],
+              activatedRegex: '^/admin/visualizer/userDestinationRelationship',
+            },
+          ],
+          showChildren: 'visualizer',
         },
       ],
     };
@@ -380,7 +376,7 @@ export class SideMenuItemService {
               activatedRegex: `/myProfile/service-identities/\\d+/authentication/ssh-keys`,
             },
           ],
-          showChildrenRegex: '/myProfile/service-identities/\\d+/authentication',
+          showChildren: 'authentication',
         },
       ],
       colorClass: 'user-bg-color',
@@ -420,8 +416,8 @@ export class SideMenuItemService {
     };
   }
 
-  getVoLinks(vo: Vo, isMemberVo: boolean): EntityMenuLink[] {
-    const links: EntityMenuLink[] = [];
+  getVoLinks(vo: Vo, isMemberVo: boolean): SideMenuLink[] {
+    const links: SideMenuLink[] = [];
 
     // Overview
     links.push({
@@ -445,45 +441,6 @@ export class SideMenuItemService {
         label: 'MENU_ITEMS.VO.GROUPS',
         url: [`/organizations/${vo.id}/groups`],
         activatedRegex: '/organizations/\\d+/groups$',
-      });
-    }
-
-    // Resource management
-    if (this.routePolicyService.canNavigate('organizations-resources', vo)) {
-      const children: EntityMenuLink[] = [];
-      // Preview
-      if (this.routePolicyService.canNavigate('organizations-resources-preview', vo)) {
-        children.push({
-          label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
-          url: [`/organizations/${vo.id}/resources/preview`],
-          activatedRegex: '/organizations/\\d+/resources/preview$',
-        });
-      }
-
-      // Tags
-      if (this.routePolicyService.canNavigate('organizations-resources-tags', vo)) {
-        children.push({
-          label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
-          url: [`/organizations/${vo.id}/resources/tags`],
-          activatedRegex: '/organizations/\\d+/resources/tags$',
-        });
-      }
-
-      // States
-      if (this.routePolicyService.canNavigate('organizations-resources-states', vo)) {
-        children.push({
-          label: 'MENU_ITEMS.VO.RESOURCE_STATES',
-          url: [`/organizations/${vo.id}/resources/states`],
-          activatedRegex: '/organizations/\\d+/resources/states$',
-        });
-      }
-
-      links.push({
-        label: 'MENU_ITEMS.VO.RESOURCES',
-        url: [`/organizations/${vo.id}/resources`],
-        activatedRegex: '/organizations/\\d+/resources$',
-        children: children,
-        showChildrenRegex: '/organizations/\\d+/resources',
       });
     }
 
@@ -529,6 +486,45 @@ export class SideMenuItemService {
         label: 'MENU_ITEMS.VO.STATISTICS',
         url: [`/organizations/${vo.id}/statistics`],
         activatedRegex: '/organizations/\\d+/statistics',
+      });
+    }
+
+    // Resource management
+    if (this.routePolicyService.canNavigate('organizations-resources', vo)) {
+      const children: SideMenuLink[] = [];
+      // Preview
+      if (this.routePolicyService.canNavigate('organizations-resources-preview', vo)) {
+        children.push({
+          label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
+          url: [`/organizations/${vo.id}/resources/preview`],
+          activatedRegex: '/organizations/\\d+/resources/preview$',
+        });
+      }
+
+      // Tags
+      if (this.routePolicyService.canNavigate('organizations-resources-tags', vo)) {
+        children.push({
+          label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
+          url: [`/organizations/${vo.id}/resources/tags`],
+          activatedRegex: '/organizations/\\d+/resources/tags$',
+        });
+      }
+
+      // States
+      if (this.routePolicyService.canNavigate('organizations-resources-states', vo)) {
+        children.push({
+          label: 'MENU_ITEMS.VO.RESOURCE_STATES',
+          url: [`/organizations/${vo.id}/resources/states`],
+          activatedRegex: '/organizations/\\d+/resources/states$',
+        });
+      }
+
+      links.push({
+        label: 'MENU_ITEMS.VO.RESOURCES',
+        url: [`/organizations/${vo.id}/resources`],
+        activatedRegex: '/organizations/\\d+/resources$',
+        children: children,
+        showChildren: 'resources',
       });
     }
 
@@ -615,15 +611,15 @@ export class SideMenuItemService {
         url: [`/organizations/${vo.id}/settings`],
         activatedRegex: '/organizations/\\d+/settings$',
         children: children,
-        showChildrenRegex: '/organizations/\\d+/settings',
+        showChildren: 'settings',
       });
     }
 
     return links;
   }
 
-  getUserLinks(user: User, path: string, regex: string): EntityMenuLink[] {
-    const links: EntityMenuLink[] = [];
+  getUserLinks(user: User, path: string, regex: string): SideMenuLink[] {
+    const links: SideMenuLink[] = [];
 
     // Overview
     links.push({
@@ -722,9 +718,9 @@ export class SideMenuItemService {
     return links;
   }
 
-  getMemberLinks(member: RichMember): EntityMenuLink[] {
+  getMemberLinks(member: RichMember): SideMenuLink[] {
     // Overview
-    const links: EntityMenuLink[] = [
+    const links: SideMenuLink[] = [
       {
         label: 'MENU_ITEMS.MEMBER.OVERVIEW',
         url: [`/organizations/${member.voId}/members/${member.id}`],
@@ -789,8 +785,8 @@ export class SideMenuItemService {
     return links;
   }
 
-  getFacilityLinks(facility: Facility): EntityMenuLink[] {
-    const links: EntityMenuLink[] = [
+  getFacilityLinks(facility: Facility): SideMenuLink[] {
+    const links: SideMenuLink[] = [
       {
         label: 'MENU_ITEMS.FACILITY.OVERVIEW',
         url: [`/facilities/${facility.id}`],
@@ -856,7 +852,7 @@ export class SideMenuItemService {
 
     // Settings
     if (this.routePolicyService.canNavigate('facilities-settings', facility)) {
-      const children: EntityMenuLink[] = [];
+      const children: SideMenuLink[] = [];
 
       // Owners
       if (this.routePolicyService.canNavigate('facilities-settings-owners', facility)) {
@@ -906,15 +902,15 @@ export class SideMenuItemService {
         url: ['/facilities', facility.id.toString(), 'settings'],
         activatedRegex: '/facilities/\\d+/settings$',
         children: children,
-        showChildrenRegex: '/facilities/\\d+/settings',
+        showChildren: 'settings',
       });
     }
     return links;
   }
 
-  getGroupLinks(group: Group): EntityMenuLink[] {
-    const links: EntityMenuLink[] = [];
-    const settingsChildrenLinks: EntityMenuLink[] = [];
+  getGroupLinks(group: Group): SideMenuLink[] {
+    const links: SideMenuLink[] = [];
+    const settingsChildrenLinks: SideMenuLink[] = [];
 
     //Overview
     links.push({
@@ -1068,7 +1064,7 @@ export class SideMenuItemService {
         url: [`/organizations/${group.voId}/groups/${group.id}/settings`],
         activatedRegex: '/organizations/\\d+/groups/\\d+/settings$',
         children: settingsChildrenLinks,
-        showChildrenRegex: '/organizations/\\d+/groups/\\d+/settings',
+        showChildren: 'settings',
       });
     }
 
@@ -1079,8 +1075,8 @@ export class SideMenuItemService {
     baseUrl: string,
     regexStart: string,
     resource: Resource
-  ): EntityMenuLink[] {
-    const links: EntityMenuLink[] = [
+  ): SideMenuLink[] {
+    const links: SideMenuLink[] = [
       {
         label: 'MENU_ITEMS.RESOURCE.OVERVIEW',
         url: [baseUrl],
@@ -1126,7 +1122,7 @@ export class SideMenuItemService {
 
     // Settings
     if (this.routePolicyService.canNavigate('resources-settings', resource)) {
-      const children: EntityMenuLink[] = [];
+      const children: SideMenuLink[] = [];
 
       // Managers
       if (this.routePolicyService.canNavigate('resources-settings-managers', resource)) {
@@ -1150,7 +1146,7 @@ export class SideMenuItemService {
         url: [baseUrl, `settings`],
         activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
         children: children,
-        showChildrenRegex: `${regexStart}/\\d+/resources/\\d+/settings`,
+        showChildren: `settings`,
       });
     }
 

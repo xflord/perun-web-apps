@@ -20,3 +20,4 @@ export * from './lib/AppType';
 export * from './lib/HttpResponseError';
 export * from './lib/MfaSettings';
 export * from './lib/TabItem';
+export * from './lib/ExpandabelTiles';

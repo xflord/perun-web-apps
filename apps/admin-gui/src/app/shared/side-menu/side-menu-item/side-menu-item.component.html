@@ -1,72 +1,56 @@
-<div class="entity-menu-item">
+<div class="w-100">
   <div
-    (click)="toggle()"
-    class="entity-menu-item-header"
-    [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
-    [ngStyle]="{'background': item.backgroundColorCss, 'border-top': index ? dividerStyle: 'none'}"
+    [routerLink]="item.baseLink"
+    [perunWebAppsMiddleClickRouterLink]="item.baseLink"
+    [ngStyle]="{'background': item.backgroundColorCss, 'border-top': !root ? dividerStyle: ''}"
+    [matRippleColor]="rippleColor"
+    [class.header-activated]="(currentUrl | activeSideMenuItem: item.baseColorClassRegex) && root"
+    class="side-menu-item"
     matRipple>
-    <div
-      class="entity-menu-item-link {{item.labelClass}}"
-      [perunWebAppsMiddleClickRouterLink]="item.baseLink"
-      matRipple>
-      <a [ngStyle]="{'color': item.textColorCss}" class="entity-menu-item-label">
-        <div>
-          <mat-icon
-            [ngStyle]="{'color': 'currentColor'}"
-            [svgIcon]="item.icon"
-            class="perun-icon"></mat-icon>
-        </div>
-        <div class="ms-3">{{item.label | translate}}</div>
+    <div class="{{item.labelClass}}" matRipple>
+      <a [ngStyle]="{'color': item.textColorCss}" class="side-menu-item-label clickable">
+        <mat-icon
+          [ngStyle]="{'color': 'currentColor'}"
+          [svgIcon]="item.icon"
+          class="perun-icon me-3">
+        </mat-icon>
+        {{item.label | translate}}
       </a>
     </div>
   </div>
 
-  <div [@openClose]="expanded ? 'open' : 'closed'">
-    <div [ngStyle]="{'background': linkBgColor}" class="side-entity-menu {{item.linksClass}}">
-      <div *ngIf="showLinks" @rollInOut>
-        <div *ngFor="let link of item.links">
+  <div [@openClose]="showLinks ? 'open' : 'closed'">
+    <div
+      [ngStyle]="{'background': linkBgColor}"
+      class="side-menu-link {{item.linksClass}}"
+      @rollInOut>
+      <div *ngFor="let link of item.links">
+        <a
+          (click)="linkClicked(link)"
+          [perunWebAppsMiddleClickRouterLink]="link.url"
+          [ngClass]="(currentUrl | activeSideMenuItem: link.activatedRegex) && item.activatedClass"
+          [ngStyle]="{'color': linkTextColor}"
+          class="clickable d-flex"
+          matRipple>
+          {{link.label | translate}}
+          <span *ngIf="link.children" class="ms-auto">
+            <mat-icon [ngStyle]="{'color': 'linkTextColor'}" class="perun-icon icon-beak">
+              {{(expandSections.get(link.showChildren)) ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}
+            </mat-icon>
+          </span>
+        </a>
+        <div *ngIf="expandSections.get(link.showChildren)" @rollInOut class="overflow-hidden">
           <a
-            (click)="navigate(link.url)"
-            [perunWebAppsMiddleClickRouterLink]="link.url"
-            [class.activated]="isActive(currentUrl, link.activatedRegex) && item.activatedClass === undefined"
-            [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
-            [ngClass]="isActive(currentUrl, link.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''"
+            *ngFor="let child of link?.children"
+            [routerLink]="child.url"
+            [perunWebAppsMiddleClickRouterLink]="child.url"
+            [matRippleColor]="rippleColor"
+            [ngClass]="(currentUrl | activeSideMenuItem:  child.activatedRegex) && item.activatedClass"
             [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
-            class="clickable d-flex"
+            class="ps-5 clickable"
             matRipple>
-            {{link.label | translate}}
-            <span *ngIf="link.children" class="ms-auto">
-              <mat-icon
-                *ngIf="!isActive(currentUrl, link.showChildrenRegex)"
-                [ngStyle]="{'color': 'linkTextColor'}"
-                class="perun-icon icon-beak"
-                >keyboard_arrow_right</mat-icon
-              >
-              <mat-icon
-                *ngIf="isActive(currentUrl, link.showChildrenRegex)"
-                [ngStyle]="{'color': 'linkTextColor'}"
-                class="perun-icon icon-beak"
-                >keyboard_arrow_down</mat-icon
-              >
-            </span>
+            {{child.label | translate}}
           </a>
-          <div
-            *ngIf="isActive(currentUrl, link.showChildrenRegex)"
-            @rollInOut
-            class="entity-menu-item-sub-menu">
-            <a
-              (click)="navigate(child.url)"
-              *ngFor="let child of link?.children"
-              [perunWebAppsMiddleClickRouterLink]="child.url"
-              [class.activated]="isActive(currentUrl, child.activatedRegex) && item.activatedClass === undefined"
-              [matRippleColor]="'rgba(255, 255, 255, 0.1)'"
-              [ngClass]="isActive(currentUrl, child.activatedRegex) && item.activatedClass !== undefined ? item.activatedClass : ''"
-              [ngStyle]="{'color': linkTextColor, 'border-color': linkTextColor}"
-              class="entity-menu-item-sub-menu-item clickable"
-              matRipple>
-              {{child.label | translate}}
-            </a>
-          </div>
         </div>
       </div>
     </div>

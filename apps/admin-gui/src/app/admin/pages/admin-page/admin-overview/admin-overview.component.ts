@@ -9,7 +9,7 @@ import { MenuItem } from '@perun-web-apps/perun/models';
 export class AdminOverviewComponent {
   @HostBinding('class.router-component') true;
 
-  navItems: MenuItem[] = [
+  items: MenuItem[] = [
     {
       cssIcon: 'perun-attributes',
       url: '/admin/attributes',
@@ -32,12 +32,6 @@ export class AdminOverviewComponent {
       cssIcon: 'perun-service',
       url: '/admin/services',
       label: 'MENU_ITEMS.ADMIN.SERVICES',
-      style: 'admin-btn',
-    },
-    {
-      cssIcon: 'perun-preview',
-      url: '/admin/visualizer',
-      label: 'MENU_ITEMS.ADMIN.VISUALIZER',
       style: 'admin-btn',
     },
     {
@@ -68,6 +62,20 @@ export class AdminOverviewComponent {
       cssIcon: 'perun-blocked-logins',
       url: '/admin/blocked_logins',
       label: 'MENU_ITEMS.ADMIN.BLOCKED_LOGINS',
+      style: 'admin-btn',
+    },
+  ];
+  visualizerItems: MenuItem[] = [
+    {
+      cssIcon: 'perun-module-dependencies',
+      url: `/admin/visualizer/attrDependencies`,
+      label: 'MENU_ITEMS.VISUALIZER.ATTR_DEPENDENCIES',
+      style: 'admin-btn',
+    },
+    {
+      cssIcon: 'perun-user-destination-relationship',
+      url: '/admin/visualizer/userDestinationRelationship',
+      label: 'MENU_ITEMS.VISUALIZER.USER_DESTINATION',
       style: 'admin-btn',
     },
   ];

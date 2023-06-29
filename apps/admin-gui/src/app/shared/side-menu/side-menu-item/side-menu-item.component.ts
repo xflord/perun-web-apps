@@ -1,10 +1,9 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { SideMenuItem } from '../side-menu.component';
+import { Component, Input } from '@angular/core';
+import { SideMenuLink, SideMenuItem } from '../side-menu.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { openClose, rollInOut } from '@perun-web-apps/perun/animations';
-import { MatSidenav } from '@angular/material/sidenav';
-import { StoreService } from '@perun-web-apps/perun/services';
-import { QueryParamsRouterService } from '../../query-params-router.service';
+import { ExpandedTilesStoreService, StoreService } from '@perun-web-apps/perun/services';
+import { ExpandableSectionId } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-side-menu-item',
@@ -13,25 +12,21 @@ import { QueryParamsRouterService } from '../../query-params-router.service';
   animations: [openClose, rollInOut],
 })
 export class SideMenuItemComponent {
-  @Input()
-  item: SideMenuItem;
-  @Input()
-  index: number;
-  @Input()
-  showLinks: boolean;
-  @ViewChild('collapse') collapseDiv: ElementRef;
-  @Input()
-  sideNav: MatSidenav;
+  @Input() item: SideMenuItem;
+  @Input() root = false;
+  @Input() showLinks = false;
+
   currentUrl: string;
-  expanded = true;
   linkBgColor = this.store.getProperty('theme').sidemenu_submenu_bg_color;
   linkTextColor = this.store.getProperty('theme').sidemenu_submenu_text_color;
   dividerStyle = '1px solid ' + this.store.getProperty('theme').sidemenu_divider_color;
+  rippleColor = 'rgba(255, 255, 255, 0.1)';
+  expandSections: Map<ExpandableSectionId, boolean>;
 
   constructor(
     private router: Router,
     private store: StoreService,
-    private queryParamsRouter: QueryParamsRouterService
+    private expandedTilesStore: ExpandedTilesStoreService
   ) {
     this.currentUrl = router.url;
 
@@ -40,29 +35,20 @@ export class SideMenuItemComponent {
         this.currentUrl = _.url;
       }
     });
+
+    this.expandedTilesStore.getStates().subscribe({
+      next: (state) => {
+        this.expandSections = state;
+      },
+    });
   }
 
-  toggle(): void {
-    if (this.item.baseLink !== undefined) {
-      this.navigate(this.item.baseLink);
-      // this.router.navigate(this.item.baseLink);
-      // this.closeOnSmallDevice();
+  linkClicked(link: SideMenuLink): void {
+    // Navigate or expand children based on item
+    if (!link.children) {
+      void this.router.navigate(link.url);
     } else {
-      // this.expanded = !this.expanded;
-    }
-  }
-
-  isActive(currentUrl: string, regexValue: string): boolean {
-    const regexp = new RegExp(regexValue);
-
-    return regexp.test(currentUrl.split('?')[0]);
-  }
-
-  navigate(url: string[]): void {
-    if (this.sideNav.mode === 'over') {
-      void this.sideNav.close().then(() => this.queryParamsRouter.navigate(url));
-    } else {
-      this.queryParamsRouter.navigate(url);
+      this.expandedTilesStore.setItem(link.showChildren);
     }
   }
 }

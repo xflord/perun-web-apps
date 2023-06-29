@@ -1,6 +1,9 @@
 <mat-spinner *ngIf="loading" class="me-auto ms-auto"></mat-spinner>
 <div *ngIf="!loading">
-  <perun-web-apps-menu-buttons-field
-    [items]="navItems"
-    [size]="'small'"></perun-web-apps-menu-buttons-field>
+  <perun-web-apps-menu-buttons-field [items]="items"></perun-web-apps-menu-buttons-field>
+  <perun-web-apps-expandable-tiles
+    [items]="settingsItems"
+    [title]="'MENU_ITEMS.RESOURCE.SETTINGS'"
+    [sectionId]="'settings'">
+  </perun-web-apps-expandable-tiles>
 </div>

@@ -21,7 +21,8 @@ import { ChangeEmailDialogComponent } from '@perun-web-apps/perun/dialogs';
 })
 export class UserOverviewComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  navItems: MenuItem[] = [];
+  items: MenuItem[] = [];
+  settingsItems: MenuItem[] = [];
   user: User;
   isServiceUser = false;
   userID: number;
@@ -45,7 +46,8 @@ export class UserOverviewComponent implements OnInit {
         this.userService.getUserById(Number(params['userId'])).subscribe((user) => {
           this.user = user;
           this.isServiceUser = user.serviceUser;
-          this.initNavItems(`/admin/users/${this.user.id}`);
+          this.setItems(`/admin/users/${this.user.id}`);
+          this.setSettingsItems();
         });
       } else {
         this.inMyProfile = true;
@@ -58,7 +60,8 @@ export class UserOverviewComponent implements OnInit {
             this.handleMailNotDefined();
 
             this.mailDataSource = new MatTableDataSource<Attribute>([this.preferredMail]);
-            this.initNavItems('/myProfile');
+            this.setItems('/myProfile');
+            this.setSettingsItems();
           });
       }
     });
@@ -96,8 +99,8 @@ export class UserOverviewComponent implements OnInit {
     }
   }
 
-  private initNavItems(urlStart: string): void {
-    this.navItems = [
+  private setItems(urlStart: string): void {
+    this.items = [
       {
         cssIcon: 'perun-vo',
         url: `${urlStart}/organizations`,
@@ -111,8 +114,8 @@ export class UserOverviewComponent implements OnInit {
         style: 'user-btn',
       },
     ];
-    if (window.location.pathname.startsWith('/admin')) {
-      this.navItems.push(
+    if (!this.inMyProfile) {
+      this.items.push(
         {
           cssIcon: 'perun-user',
           url: `${urlStart}/accounts`,
@@ -139,46 +142,58 @@ export class UserOverviewComponent implements OnInit {
         }
       );
     }
-    this.navItems.push({
+    this.items.push({
       cssIcon: 'perun-attributes',
       url: `${urlStart}/attributes`,
       label: 'MENU_ITEMS.USER.ATTRIBUTES',
       style: 'user-btn',
     });
-    this.navItems.push({
+    this.items.push({
       cssIcon: 'perun-roles',
       url: `${urlStart}/roles`,
       label: 'MENU_ITEMS.USER.ROLES',
       style: 'user-btn',
     });
     if (this.isServiceUser) {
-      this.navItems.push({
+      this.items.push({
         cssIcon: 'perun-manager',
         url: `${urlStart}/associated-users`,
         label: 'MENU_ITEMS.USER.ASSOCIATED_USERS',
         style: 'user-btn',
       });
     } else {
-      this.navItems.push({
+      this.items.push({
         cssIcon: 'perun-service-identity',
         url: `${urlStart}/service-identities`,
         label: 'MENU_ITEMS.USER.SERVICE_IDENTITIES',
         style: 'user-btn',
       });
     }
-    this.navItems.push({
+    this.items.push({
       cssIcon: 'perun-ban',
       url: `bans`,
       label: 'MENU_ITEMS.USER.BANS',
       style: 'user-btn',
     });
-    if (!window.location.pathname.startsWith('/admin')) {
-      this.navItems.push({
-        cssIcon: 'perun-settings2',
-        url: `${urlStart}/settings`,
-        label: 'MENU_ITEMS.ADMIN.SETTINGS',
-        style: 'user-btn',
-      });
+  }
+
+  private setSettingsItems(): void {
+    this.settingsItems = [];
+    if (this.inMyProfile) {
+      this.settingsItems.push(
+        {
+          cssIcon: 'perun-settings2',
+          url: '/myProfile/settings/passwordReset',
+          label: 'MENU_ITEMS.USER.PASSWORD_RESET',
+          style: 'user-btn',
+        },
+        {
+          cssIcon: 'perun-settings1',
+          url: '/myProfile/settings/guiConfig',
+          label: 'MENU_ITEMS.USER.GUI_CONFIG',
+          style: 'user-btn',
+        }
+      );
     }
   }
 }

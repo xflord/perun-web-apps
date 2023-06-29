@@ -1,73 +1,41 @@
-<div id="sideMenuSpacer">
-  <div class="accordion entity-menu-accordion" id="sideMenuAccordion">
-    <app-side-menu-root-item [id]="'home-item-btn'" [item]="homeItem" [sideNav]="sideNav">
-    </app-side-menu-root-item>
-    <div *ngFor="let item of homeItems; let i = index" @rollInOut class="overflow-hidden">
-      <app-side-menu-item [index]="i" [item]="item" [sideNav]="sideNav"> </app-side-menu-item>
-    </div>
+<div class="side-menu-width">
+  <app-side-menu-item [item]="homeItem" [root]="true"></app-side-menu-item>
 
-    <app-side-menu-root-item
-      [item]="accessItem"
-      [id]="'access-item-btn'"
-      [sideNav]="sideNav"
-      data-cy="access-item-button">
-    </app-side-menu-root-item>
-    <div>
-      <div *ngFor="let item of accessItems; let i = index" @rollInOut class="overflow-hidden">
-        <app-side-menu-item
-          [index]="i"
-          [item]="item"
-          [showLinks]="i === accessItems.length - 1"
-          [sideNav]="sideNav">
-        </app-side-menu-item>
-      </div>
-    </div>
+  <app-side-menu-item
+    [item]="accessItem"
+    [root]="true"
+    data-cy="access-item-button"></app-side-menu-item>
+  <div *ngFor="let item of accessItems; let i = index" @rollInOut class="overflow-hidden">
+    <app-side-menu-item [item]="item" [showLinks]="i === accessItems.length - 1">
+    </app-side-menu-item>
+  </div>
 
-    <app-side-menu-root-item
-      data-cy="facilities-button"
-      [id]="'facilities-item-btn'"
-      *ngIf="authResolver.canManageFacilities()"
-      [item]="facilityItem"
-      [sideNav]="sideNav">
-    </app-side-menu-root-item>
-    <div *ngIf="authResolver.canManageFacilities()">
-      <div *ngFor="let item of facilityItems; let i = index" @rollInOut class="overflow-hidden">
-        <app-side-menu-item
-          [index]="i"
-          [item]="item"
-          [showLinks]="i === facilityItems.length - 1"
-          [sideNav]="sideNav">
-        </app-side-menu-item>
-      </div>
-    </div>
+  <app-side-menu-item
+    *ngIf="authResolver.canManageFacilities()"
+    [item]="facilityItem"
+    [root]="true"
+    data-cy="facilities-button">
+  </app-side-menu-item>
+  <div *ngFor="let item of facilityItems; let i = index" @rollInOut class="overflow-hidden">
+    <app-side-menu-item [item]="item" [showLinks]="i === facilityItems.length - 1">
+    </app-side-menu-item>
+  </div>
 
-    <app-side-menu-root-item
-      [id]="'profile-item-btn'"
-      [item]="userItem"
-      [showOpen]="userItemOpened"
-      [sideNav]="sideNav">
-    </app-side-menu-root-item>
-    <div *ngFor="let item of userItems; let i = index" @rollInOut class="overflow-hidden">
-      <app-side-menu-item
-        [index]="i"
-        [item]="item"
-        [showLinks]="i === userItems.length - 1"
-        [sideNav]="sideNav">
-      </app-side-menu-item>
-    </div>
-    <app-side-menu-root-item
-      data-cy="admin-button"
-      [id]="'admin-item-btn'"
-      *ngIf="authResolver.isPerunAdminOrObserver()"
-      [item]="adminItem"
-      [showOpen]="adminItemOpened"
-      [sideNav]="sideNav">
-    </app-side-menu-root-item>
-    <div *ngIf="authResolver.isPerunAdminOrObserver()">
-      <div *ngFor="let item of adminItems; let i = index" @rollInOut class="overflow-hidden">
-        <app-side-menu-item [index]="i" [item]="item" [showLinks]="true" [sideNav]="sideNav">
-        </app-side-menu-item>
-      </div>
-    </div>
+  <app-side-menu-item [item]="userItem" [showLinks]="userItemOpened" [root]="true">
+  </app-side-menu-item>
+  <div *ngFor="let item of userItems; let i = index" @rollInOut class="overflow-hidden">
+    <app-side-menu-item [item]="item" [showLinks]="i === userItems.length - 1">
+    </app-side-menu-item>
+  </div>
+
+  <app-side-menu-item
+    *ngIf="authResolver.isPerunAdminOrObserver()"
+    [item]="adminItem"
+    [showLinks]="adminItemOpened"
+    [root]="true"
+    data-cy="admin-button">
+  </app-side-menu-item>
+  <div *ngFor="let item of adminItems; let i = index" @rollInOut class="overflow-hidden">
+    <app-side-menu-item [item]="item" [showLinks]="true"> </app-side-menu-item>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { AppComponent } from '../../app.component';
 import { SideMenuItemService } from './side-menu-item.service';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { rollInOut } from '@perun-web-apps/perun/animations';
+import { ExpandableSectionId } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-side-menu',
@@ -13,8 +14,7 @@ import { rollInOut } from '@perun-web-apps/perun/animations';
   animations: [rollInOut],
 })
 export class SideMenuComponent implements OnInit {
-  @Input()
-  sideNav: MatSidenav;
+  @Input() sideNav: MatSidenav;
 
   accessItems: SideMenuItem[] = [];
   facilityItems: SideMenuItem[] = [];
@@ -198,10 +198,9 @@ export interface SideMenuItem {
   labelClass?: string;
   colorClass: string;
   activatedClass?: string;
-  links: EntityMenuLink[];
+  links: SideMenuLink[];
   icon: string;
   baseLink?: string[];
-  expandable?: boolean;
   baseColorClass?: string;
   baseColorClassRegex?: string;
   linksClass?: string;
@@ -209,10 +208,10 @@ export interface SideMenuItem {
   textColorCss?: string;
 }
 
-export interface EntityMenuLink {
+export interface SideMenuLink {
   label: string;
-  url: string[] | string;
+  url: string[];
   activatedRegex: string;
-  children?: EntityMenuLink[];
-  showChildrenRegex?: string;
+  children?: SideMenuLink[];
+  showChildren?: ExpandableSectionId;
 }

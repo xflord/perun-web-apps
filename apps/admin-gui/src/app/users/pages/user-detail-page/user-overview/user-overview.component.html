@@ -33,6 +33,8 @@
   </mat-card>
 </div>
 
-<perun-web-apps-menu-buttons-field
-  [items]="navItems"
-  [size]="'small'"></perun-web-apps-menu-buttons-field>
+<perun-web-apps-menu-buttons-field [items]="items"></perun-web-apps-menu-buttons-field>
+<perun-web-apps-expandable-tiles
+  [items]="settingsItems"
+  [title]="'MENU_ITEMS.USER.SETTINGS'"
+  [sectionId]="'settings'"></perun-web-apps-expandable-tiles>

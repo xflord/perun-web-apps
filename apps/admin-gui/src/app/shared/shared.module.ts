@@ -46,7 +46,6 @@ import { ApplicationRejectDialogComponent } from './components/dialogs/applicati
 import { AnyToStringPipe } from './pipes/any-to-string.pipe';
 import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { RemoveMembersDialogComponent } from './components/dialogs/remove-members-dialog/remove-members-dialog.component';
-import { SideMenuRootItemComponent } from './side-menu/side-menu-root-item/side-menu-root-item.component';
 import { DebuggerPageComponent } from './debugger-page/debugger-page.component';
 import { RemoveResourceDialogComponent } from './components/dialogs/remove-resource-dialog/remove-resource-dialog.component';
 import { AddManagerDialogComponent } from './components/dialogs/add-manager-dialog/add-manager-dialog.component';
@@ -306,7 +305,6 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     ExtSourcesListComponent,
     ExtSourceTypePipe,
     ConfigTableConfigModule,
-    SideMenuRootItemComponent,
     DestinationListComponent,
     TwoEntityAttributePageComponent,
     HostsListComponent,
@@ -352,7 +350,6 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     ApplicationFormCopyItemsDialogComponent,
     AddApplicationFormItemDialogComponent,
     EditApplicationFormItemDialogComponent,
-    SideMenuRootItemComponent,
     AnyToStringPipe,
     DeleteAttributeDialogComponent,
     AddMemberDialogComponent,
