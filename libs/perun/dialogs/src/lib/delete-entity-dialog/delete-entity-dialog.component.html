@@ -9,7 +9,7 @@
         {{entityType}}
       </h1>
       <div class="dialog-container" mat-dialog-content>
-        <div *ngIf="!disableForce" class="mb-4">
+        <div *ngIf="!disableForce">
           {{'DIALOGS.DELETE_ENTITY.BASIC' | translate: {action: this.anonymize | deleteDialogType} }}
           {{'DIALOGS.DELETE_ENTITY.ONLY' | translate}}
           {{entityType}}
@@ -17,7 +17,7 @@
           {{entityType}}
           {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}?
         </div>
-        <div *ngIf="disableForce" class="mb-4">
+        <div *ngIf="disableForce">
           {{'DIALOGS.DELETE_ENTITY.BASIC' | translate: {action: this.anonymize | deleteDialogType} }}
           {{entityType}}
           ?
