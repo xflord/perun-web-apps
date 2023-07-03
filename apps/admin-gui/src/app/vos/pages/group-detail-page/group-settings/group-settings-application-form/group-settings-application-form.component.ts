@@ -42,9 +42,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   group: Group;
   editAuth = false;
   createEmptyForm = false;
-  voHasEmbeddedGroupApplication = false;
   autoRegistrationEnabled: boolean;
-  changeAutoRegistration: boolean;
   refreshApplicationForm = false;
   // to recognize new items in other items' dependencies
   private idCounter = -1;
@@ -81,7 +79,6 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
                 'urn:perun:group:attribute-def:virt:autoRegistrationEnabled'
               )
               .subscribe((attr) => {
-                this.voHasEmbeddedGroupApplication = attr.value !== null;
                 this.autoRegistrationEnabled = !!attr.value;
                 this.loading = false;
               });
@@ -107,10 +104,6 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     );
     this.createEmptyForm = this.guiAuthResolver.isAuthorized(
       'createApplicationFormInGroup_Group_policy',
-      [this.group]
-    );
-    this.changeAutoRegistration = this.guiAuthResolver.isAuthorized(
-      'addGroupsToAutoRegistration_List<Group>_policy',
       [this.group]
     );
   }
@@ -254,36 +247,5 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   clear(): void {
     this.applicationFormItems = [];
     this.itemsChanged = true;
-  }
-
-  updateAutoRegistration(): void {
-    this.autoRegToggle.setDisabledState(true);
-    if (this.autoRegistrationEnabled) {
-      this.registrarManager.deleteGroupsFromAutoRegistration([this.group.id]).subscribe(
-        () => {
-          this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
-          this.translate
-            .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-            .subscribe((successMessage: string) => {
-              this.notificator.showSuccess(successMessage);
-            });
-          this.autoRegToggle.setDisabledState(false);
-        },
-        () => this.autoRegToggle.setDisabledState(false)
-      );
-    } else {
-      this.registrarManager.addGroupsToAutoRegistration([this.group.id]).subscribe(
-        () => {
-          this.autoRegistrationEnabled = !this.autoRegistrationEnabled;
-          this.translate
-            .get('VO_DETAIL.SETTINGS.APPLICATION_FORM.CHANGE_SETTINGS_SUCCESS')
-            .subscribe((successMessage: string) => {
-              this.notificator.showSuccess(successMessage);
-            });
-          this.autoRegToggle.setDisabledState(false);
-        },
-        () => this.autoRegToggle.setDisabledState(false)
-      );
-    }
   }
 }

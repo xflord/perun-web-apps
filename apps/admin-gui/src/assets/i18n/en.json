@@ -734,7 +734,7 @@
         "CLEAR": "Clear form",
         "CLEAR_TOOLTIP": "Removes all form items",
         "CHANGE_SETTINGS_SUCCESS": "Application form settings successfully changed.",
-        "ALLOW_EMBEDDED": "Allowed for embedded applications"
+        "ALLOW_EMBEDDED": "This group is allowed for embedded applications"
       },
       "NOTIFICATIONS": {
         "TITLE": "Email notifications",
