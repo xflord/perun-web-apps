@@ -65,6 +65,8 @@ export class MfaHandlerService {
         sessionStorage.setItem('oldAccessToken', this.oauthService.getAccessToken());
         sessionStorage.setItem('oldRefreshToken', this.oauthService.getRefreshToken());
 
+        // set 'mfaWindow' property to session
+        localStorage.setItem('mfaWindow', 'true');
         newWindow = this.setupMfaWindow();
 
         if (newWindow) {
@@ -103,6 +105,8 @@ export class MfaHandlerService {
             localStorage.setItem('access_token', sessionStorage.getItem('oldAccessToken'));
             localStorage.setItem('refresh_token', sessionStorage.getItem('oldRefreshToken'));
           }
+          // remove 'mfaWindow' property
+          localStorage.removeItem('mfaWindow');
           return observer.next(true);
         }
         if (verificationSkipped) {

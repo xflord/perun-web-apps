@@ -56,6 +56,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     ? 'calc(100vh - 112px)'
     : 'calc(100vh - 64px)';
 
+  isMfaWindowOpen = false;
+
   constructor(
     private cache: CacheHelperService,
     private store: StoreService,
@@ -86,6 +88,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('mfaWindow')) {
+      this.isMfaWindowOpen = true;
+      return;
+    }
     this.isLoginScreenShow = this.initAuth.isLoginScreenShown();
     this.isServiceAccess = this.initAuth.isServiceAccessLoginScreenShown();
     sessionStorage.removeItem('baLogout');

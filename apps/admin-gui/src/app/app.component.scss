@@ -27,3 +27,8 @@ ng-scrollbar {
   --scrollbar-thumb: (106, 106, 106, 0.5);
   --scrollbar-thumb-hover-color: lightgrey;
 }
+
+.loader-wrapper {
+  display: block;
+  height: 100vh;
+}
