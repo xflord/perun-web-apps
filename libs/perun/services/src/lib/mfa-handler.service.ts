@@ -159,8 +159,8 @@ export class MfaHandlerService {
 
   private setupMfaWindow(): Window {
     const url = location.pathname + location.search;
-    const width = 600;
-    const height = 600;
+    const width = Math.max(window.screen.width * 0.6, 1100);
+    const height = Math.max(window.screen.height * 0.8, 800);
     const topmostWindow = window.top;
 
     const top = topmostWindow.outerHeight / 2 + topmostWindow.screenY - height / 2;
