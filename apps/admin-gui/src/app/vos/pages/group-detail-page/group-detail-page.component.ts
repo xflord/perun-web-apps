@@ -110,6 +110,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
     this.route.params.subscribe((params) => {
       const voId = Number(params['voId']);
       const groupId = Number(params['groupId']);
+      this.entityStorageService.setEntity({ id: groupId, beanName: 'Group' });
 
       this.voService.getVoById(voId).subscribe(
         (vo) => {
