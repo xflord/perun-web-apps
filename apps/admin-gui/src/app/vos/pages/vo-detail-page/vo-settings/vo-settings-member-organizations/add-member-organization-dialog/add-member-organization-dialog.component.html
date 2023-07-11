@@ -48,34 +48,36 @@
         </mat-step>
       </mat-stepper>
     </div>
-    <div mat-dialog-actions>
-      <button (click)="close()" mat-stroked-button>
-        {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CANCEL' | translate}}
-      </button>
-      <div class="ms-auto">
-        <button
-          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-          (click)="stepperPrevious()"
-          [disabled]="loading"
-          mat-stroked-button>
-          {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.BACK' | translate}}
+    <div mat-dialog-actions class="justify-content-end">
+      <div class="d-flex">
+        <button (click)="close()" mat-stroked-button class="me-2">
+          {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.CANCEL' | translate}}
         </button>
-        <button
-          *ngIf="stepper?.selectedIndex !== 1"
-          (click)="stepperNext()"
-          [disabled]="voSelection.selected.length === 0 || loading"
-          color="accent"
-          mat-flat-button>
-          {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.NEXT' | translate}}
-        </button>
-        <button
-          *ngIf="stepper?.selectedIndex === 1"
-          (click)="addMemberOrganization()"
-          [disabled]="loading"
-          color="accent"
-          mat-flat-button>
-          {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.ADD' | translate}}
-        </button>
+        <div class="ms-auto">
+          <button
+            *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+            (click)="stepperPrevious()"
+            [disabled]="loading"
+            mat-stroked-button>
+            {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.BACK' | translate}}
+          </button>
+          <button
+            *ngIf="stepper?.selectedIndex !== 1"
+            (click)="stepperNext()"
+            [disabled]="voSelection.selected.length === 0 || loading"
+            color="accent"
+            mat-flat-button>
+            {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.NEXT' | translate}}
+          </button>
+          <button
+            *ngIf="stepper?.selectedIndex === 1"
+            (click)="addMemberOrganization()"
+            [disabled]="loading"
+            color="accent"
+            mat-flat-button>
+            {{'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.ADD' | translate}}
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -39,14 +39,6 @@
           {{'DIALOGS.DELETE_ENTITY.CANCEL' | translate}}
         </button>
         <button
-          (click)="onDelete()"
-          class="ms-2"
-          data-cy="delete-button-dialog"
-          color="warn"
-          mat-flat-button>
-          {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
-        </button>
-        <button
           *ngIf="!disableForce"
           (click)="force = true"
           class="ms-2"
@@ -56,6 +48,14 @@
           <mat-icon>warning</mat-icon>
           {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
           {{'DIALOGS.DELETE_ENTITY.RELATIONS' | translate}}
+        </button>
+        <button
+          (click)="onDelete()"
+          class="ms-2"
+          data-cy="delete-button-dialog"
+          color="warn"
+          mat-flat-button>
+          {{'DIALOGS.DELETE_ENTITY.DELETE' | translate: {action: this.anonymize | deleteDialogType | titlecase} }}
         </button>
       </div>
     </div>

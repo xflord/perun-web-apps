@@ -70,36 +70,38 @@
         </mat-step>
       </mat-stepper>
     </div>
-    <div mat-dialog-actions>
-      <button (click)="onCancel()" mat-stroked-button>
-        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
-      </button>
-      <button
-        (click)="stepperPrevious()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ms-auto"
-        mat-stroked-button>
-        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
-      </button>
-      <button
-        (click)="stepperNext(); loadGroups()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-        [disabled]="selectedResource === null || processing || loading"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}
-      </button>
-      <button
-        (click)="onFinish()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        [disabled]="selectedGroups.selected.length === 0 || processing"
-        class="ms-2"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}
-      </button>
+    <div mat-dialog-actions class="justify-content-end">
+      <div>
+        <button (click)="onCancel()" mat-stroked-button class="me-2">
+          {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CANCEL' | translate}}
+        </button>
+        <button
+          (click)="stepperPrevious()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+          class="ms-auto"
+          mat-stroked-button>
+          {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.BACK' | translate}}
+        </button>
+        <button
+          (click)="stepperNext(); loadGroups()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+          [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+          [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+          [disabled]="selectedResource === null || processing || loading"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.CONTINUE' | translate}}
+        </button>
+        <button
+          (click)="onFinish()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          [disabled]="selectedGroups.selected.length === 0 || processing"
+          class="ms-2"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.ADD_MEMBER_TO_RESOURCE.SUBMIT' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -137,57 +137,64 @@
         </perun-web-apps-alert>
       </div>
     </div>
-    <div *ngIf="stepper !== undefined && state !== 'results'" mat-dialog-actions>
-      <button (click)="onCancel()" mat-stroked-button>
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
-      </button>
-      <button
-        (click)="stepperPrevious()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ms-auto"
-        mat-stroked-button>
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
-      </button>
-      <button
-        data-cy="next-button"
-        (click)="stepperNext()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-        [disabled]="getStepperNextConditions()"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
-      </button>
-      <button
-        data-cy="submit-button"
-        (click)="onSubmit()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        [disabled]="!submitAllowed"
-        color="accent"
-        mat-flat-button>
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUBMIT' | translate}}
-      </button>
+    <div
+      *ngIf="stepper !== undefined && state !== 'results'"
+      mat-dialog-actions
+      class="justify-content-end">
+      <div>
+        <button (click)="onCancel()" mat-stroked-button class="me-2">
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CANCEL' | translate}}
+        </button>
+        <button
+          (click)="stepperPrevious()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+          class="ms-auto"
+          mat-stroked-button>
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.BACK' | translate}}
+        </button>
+        <button
+          data-cy="next-button"
+          (click)="stepperNext()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+          [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+          [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+          [disabled]="getStepperNextConditions()"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.NEXT' | translate}}
+        </button>
+        <button
+          data-cy="submit-button"
+          (click)="onSubmit()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          [disabled]="!submitAllowed"
+          color="accent"
+          mat-flat-button>
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.SUBMIT' | translate}}
+        </button>
+      </div>
     </div>
-    <div *ngIf='state === "results"' mat-dialog-actions>
-      <button (click)="onClose()" mat-stroked-button data-cy="close-button">
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
-      </button>
-      <button
-        [matMenuTriggerFor]="menu"
-        color="accent"
-        class="ms-auto dropdown-toggle"
-        mat-flat-button>
-        {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD' | translate}}
-      </button>
-      <mat-menu #menu="matMenu">
-        <button (click)="generatePdf()" mat-menu-item>
-          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_PDF' | translate}}
+    <div *ngIf='state === "results"' mat-dialog-actions class="justify-content-end">
+      <div>
+        <button (click)="onClose()" mat-stroked-button data-cy="close-button" class="me-2">
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.CLOSE' | translate}}
         </button>
-        <button (click)="downloadCsv()" mat-menu-item>
-          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_CSV' | translate}}
+        <button
+          [matMenuTriggerFor]="menu"
+          color="accent"
+          class="ms-auto dropdown-toggle"
+          mat-flat-button>
+          {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD' | translate}}
         </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <button (click)="generatePdf()" mat-menu-item>
+            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_PDF' | translate}}
+          </button>
+          <button (click)="downloadCsv()" mat-menu-item>
+            {{'DIALOGS.GENERATE_SPONSORED_MEMBERS.DOWNLOAD_CSV' | translate}}
+          </button>
+        </mat-menu>
+      </div>
     </div>
   </div>
 </div>

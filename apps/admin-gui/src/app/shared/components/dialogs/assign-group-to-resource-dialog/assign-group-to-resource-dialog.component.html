@@ -66,39 +66,41 @@
         </mat-step>
       </mat-stepper>
     </div>
-    <div *ngIf="stepper" mat-dialog-actions>
-      <button (click)="onCancel()" mat-stroked-button>
-        {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
-      </button>
-      <button
-        (click)="stepperPrevious()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ms-auto"
-        mat-stroked-button>
-        {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.BACK' | translate}}
-      </button>
-      <button
-        (click)="stepperNext()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-        [disabled]="selection.selected.length === 0 || !canAddGroups()"
-        color="accent"
-        mat-flat-button
-        type="button"
-        data-cy="next-button">
-        {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
-      </button>
-      <button
-        (click)="onAdd()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        class="ms-2"
-        color="accent"
-        mat-flat-button
-        type="button"
-        data-cy="assign-button">
-        {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
-      </button>
+    <div *ngIf="stepper" mat-dialog-actions class="justify-content-end">
+      <div>
+        <button (click)="onCancel()" mat-stroked-button class="me-2">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.CANCEL_BUTTON' | translate}}
+        </button>
+        <button
+          (click)="stepperPrevious()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+          class="ms-auto"
+          mat-stroked-button>
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.BACK' | translate}}
+        </button>
+        <button
+          (click)="stepperNext()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+          [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+          [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+          [disabled]="selection.selected.length === 0 || !canAddGroups()"
+          color="accent"
+          mat-flat-button
+          type="button"
+          data-cy="next-button">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.NEXT' | translate}}
+        </button>
+        <button
+          (click)="onAdd()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          class="ms-2"
+          color="accent"
+          mat-flat-button
+          type="button"
+          data-cy="assign-button">
+          {{'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ADD_BUTTON' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

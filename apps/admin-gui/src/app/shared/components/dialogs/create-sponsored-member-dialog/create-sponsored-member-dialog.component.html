@@ -184,46 +184,51 @@
       >
     </div>
 
-    <div *ngIf="successfullyCreated" mat-dialog-actions>
+    <div *ngIf="successfullyCreated" mat-dialog-actions class="justify-content-end">
       <button (click)="onCancel()" class="ms-auto" mat-flat-button data-cy="ok-button">
         {{'DIALOGS.CREATE_SPONSORED_MEMBER.OK' | translate}}
       </button>
     </div>
 
-    <div *ngIf="!successfullyCreated && stepper !== undefined" mat-dialog-actions>
-      <button (click)="onCancel()" mat-stroked-button>
-        {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
-      </button>
-      <button
-        (click)="stepperPrevious()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ms-auto"
-        mat-stroked-button>
-        {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
-      </button>
-      <button
-        data-cy="next-button"
-        (click)="stepperNext()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-        [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-        [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-        [disabled]="getStepperNextConditions()"
-        color="accent"
-        mat-flat-button
-        type="button">
-        {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
-      </button>
-      <button
-        data-cy="confirm-button"
-        (click)="onConfirm()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        [disabled]="!submitAllowed"
-        class="ms-2"
-        color="accent"
-        mat-flat-button
-        type="button">
-        {{'DIALOGS.CREATE_SPONSORED_MEMBER.SUBMIT' | translate}}
-      </button>
+    <div
+      *ngIf="!successfullyCreated && stepper !== undefined"
+      mat-dialog-actions
+      class="justify-content-end">
+      <div>
+        <button (click)="onCancel()" mat-stroked-button class="me-2">
+          {{'DIALOGS.CREATE_SPONSORED_MEMBER.CANCEL' | translate}}
+        </button>
+        <button
+          (click)="stepperPrevious()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+          class="ms-auto"
+          mat-stroked-button>
+          {{'DIALOGS.CREATE_SPONSORED_MEMBER.BACK' | translate}}
+        </button>
+        <button
+          data-cy="next-button"
+          (click)="stepperNext()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+          [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+          [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+          [disabled]="getStepperNextConditions()"
+          color="accent"
+          mat-flat-button
+          type="button">
+          {{'DIALOGS.CREATE_SPONSORED_MEMBER.NEXT' | translate}}
+        </button>
+        <button
+          data-cy="confirm-button"
+          (click)="onConfirm()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          [disabled]="!submitAllowed"
+          class="ms-2"
+          color="accent"
+          mat-flat-button
+          type="button">
+          {{'DIALOGS.CREATE_SPONSORED_MEMBER.SUBMIT' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>

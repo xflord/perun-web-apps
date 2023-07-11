@@ -152,49 +152,51 @@
         </mat-step>
       </mat-stepper>
     </div>
-    <div mat-dialog-actions>
-      <button (click)="onCancel()" mat-stroked-button>
-        {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
-      </button>
-      <button
-        (click)="stepperPrevious()"
-        *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
-        class="ms-auto"
-        mat-stroked-button>
-        {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
-      </button>
-      <span
-        [matTooltipDisabled]="selection.selected.length === 0"
-        [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.NEXT_BUTTON_DISABLED_TOOLTIP' | translate">
+    <div mat-dialog-actions class="justify-content-end">
+      <div>
+        <button (click)="onCancel()" mat-stroked-button class="me-2">
+          {{'DIALOGS.CREATE_SERVICE_MEMBER.CANCEL' | translate}}
+        </button>
         <button
-          (click)="stepperNext()"
-          *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
-          [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
-          [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
-          [disabled]="getStepperNextConditions()"
+          (click)="stepperPrevious()"
+          *ngIf="stepper !== undefined && stepper.selectedIndex !== 0"
+          class="ms-auto"
+          mat-stroked-button>
+          {{'DIALOGS.CREATE_SERVICE_MEMBER.BACK' | translate}}
+        </button>
+        <span
+          [matTooltipDisabled]="selection.selected.length === 0"
+          [matTooltip]="'DIALOGS.CREATE_SERVICE_MEMBER.NEXT_BUTTON_DISABLED_TOOLTIP' | translate">
+          <button
+            (click)="stepperNext()"
+            *ngIf="stepper !== undefined && stepper.selectedIndex !== stepper._steps.length - 1"
+            [class.ms-2]="stepper !== undefined && stepper.selectedIndex !== 0"
+            [class.ms-auto]="!(stepper !== undefined && stepper.selectedIndex !== 0)"
+            [disabled]="getStepperNextConditions()"
+            color="accent"
+            mat-flat-button>
+            {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+          </button>
+        </span>
+        <button
+          (click)="onCreate(true)"
+          *ngIf="(findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth) && stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+          class="ms-2"
           color="accent"
           mat-flat-button>
-          {{'DIALOGS.CREATE_SERVICE_MEMBER.NEXT' | translate}}
+          {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE_AND_SPONSOR" | translate}}
         </button>
-      </span>
-      <button
-        (click)="onCreate(false)"
-        *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
-        class="ms-2"
-        color="accent"
-        mat-flat-button>
-        {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}
-      </button>
-      <button
-        (click)="onCreate(true)"
-        *ngIf="(findSponsorsAuth && voSponsors.length !== 0 && setSponsorshipAuth) && stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
-        [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
-        class="ms-2"
-        color="accent"
-        mat-flat-button>
-        {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE_AND_SPONSOR" | translate}}
-      </button>
+        <button
+          (click)="onCreate(false)"
+          *ngIf="stepper !== undefined && stepper.selectedIndex === stepper._steps.length -1"
+          [disabled]="firstFormGroup.invalid || (secondFormGroup.get('namespaceCtrl').value !== 'Not selected' && secondFormGroup.invalid)"
+          class="ms-2"
+          color="accent"
+          mat-flat-button>
+          {{"DIALOGS.CREATE_SERVICE_MEMBER.CREATE" | translate}}
+        </button>
+      </div>
     </div>
   </div>
 </div>
