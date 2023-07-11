@@ -1,0 +1,23 @@
+{
+  "extends": ["@commitlint/config-conventional"],
+  "helpUrl": "https://perunaai.atlassian.net/wiki/spaces/STRIBOG/pages/13467868/Semantic+versioning",
+  "prompt": {
+    "questions": {
+      "scope": {
+        "description": "Enter the name of the affected app (e.g. profile)"
+      },
+      "isIssueAffected": {
+        "description": "Are there any specifics for deployment (upgrade notes)?"
+      },
+      "issuesBody": {
+        "description": "If there are deployment/upgrade notes, the commit requires a body. Please enter a longer description of the commit itself"
+      },
+      "issues": {
+        "description": "Enter UPGRADE NOTE: description of what needs to be done"
+      }
+    }
+  },
+  "rules": {
+    "scope-enum": [2, "always", ["admin", "profile", "pwdreset", "consolidator", "linker", "publications", "openapi", "lib", "npm", "deps", "deps-dev"]]
+  }
+}

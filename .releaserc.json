@@ -8,14 +8,60 @@
   "preset": "conventionalcommits",
   "plugins": [
     "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    ["@semantic-release/npm", {
+    [
+      "@semantic-release/release-notes-generator",
+      ["@semantic-release/npm", {
         "npmPublish": false
-    }],
-    ["@semantic-release/git", {
-      "assets": ["dist"],
-      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    }],
+      }],
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            {
+              "type": "feat",
+              "section": "New features and notable changes",
+              "hidden": false
+            },
+            { "type": "fix", "hidden": true },
+            { "type": "perf", "hidden": true },
+            { "type": "revert", "hidden": true },
+            { "type": "docs", "hidden": true },
+            { "type": "style", "hidden": true },
+            { "type": "chore", "hidden": true },
+            { "type": "refactor", "hidden": true },
+            { "type": "test", "hidden": true },
+            { "type": "build", "hidden": true },
+            { "type": "ci", "hidden": true }
+          ],
+          "issuePrefixes": ["ST"],
+          "issueUrlFormat": "https://perunaai.atlassian.net/browse/{{prefix}}{{id}}"
+        },
+        "parserOpts": {
+          "noteKeywords": [
+            "BREAKING CHANGE",
+            "BREAKING CHANGES",
+            "DEPLOYMENT NOTE",
+            "DEPLOYMENT NOTES",
+            "UPGRADE NOTE",
+            "UPGRADE NOTES"
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "UPGRADE.md",
+        "changelogTitle": "Upgrade notes"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["dist"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
     "@semantic-release/github"
   ]
 }

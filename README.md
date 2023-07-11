@@ -1,4 +1,9 @@
 # PerunWebApps
+[![conventional commits](https://img.shields.io/badge/semantic--release-conventional-e10079?logo=semantic-release)](https://www.conventionalcommits.org/)
+[![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](https://commitizen.github.io/cz-cli/)
+[![CI status](https://github.com/cesnet/perun-web-apps/actions/workflows/release.yml/badge.svg)](https://github.com/cesnet/perun-web-apps/actions/workflows/release.yml)
+[![latest release](https://img.shields.io/github/v/release/cesnet/perun-web-apps)](https://github.com/CESNET/perun-web-apps/releases)
+
 
 This repository contains Perun web applications.
 ## Tools and dependencies
