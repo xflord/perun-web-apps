@@ -2,6 +2,6 @@
   "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "parserOptions": {
-    "project": ["apps/password-reset-e2e/tsconfig.*?.json"]
+    "project": ["apps/password-reset-e2e/tsconfig.json"]
   }
 }

@@ -1,0 +1,125 @@
+{
+  "name": "password-reset",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/password-reset/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/password-reset",
+        "index": "apps/password-reset/src/index.html",
+        "main": "apps/password-reset/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/password-reset/tsconfig.app.json",
+        "aot": true,
+        "assets": ["apps/password-reset/src/favicon.ico", "apps/password-reset/src/assets"],
+        "styles": [
+          "apps/password-reset/src/styles.scss",
+          "./node_modules/bootstrap/dist/css/bootstrap.css"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/password-reset/src/environments/environment.ts",
+              "with": "apps/password-reset/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "buildOptimizer": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "password-reset:build"
+      },
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "browserTarget": "password-reset:build:production"
+        },
+        "development": {
+          "browserTarget": "password-reset:build:development"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "password-reset:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/password-reset/src/**/*.ts", "apps/password-reset/src/**/*.html"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/password-reset/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/password-reset"]
+    }
+  },
+  "tags": []
+}

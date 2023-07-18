@@ -1,0 +1,28 @@
+{
+  "name": "perun-namespace-password-form",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/perun/namespace-password-form/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/perun/namespace-password-form"],
+      "options": {
+        "jestConfig": "libs/perun/namespace-password-form/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/perun/namespace-password-form/src/**/*.ts",
+          "libs/perun/namespace-password-form/src/**/*.html"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}

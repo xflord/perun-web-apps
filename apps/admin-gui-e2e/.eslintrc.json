@@ -2,6 +2,6 @@
   "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "parserOptions": {
-    "project": ["apps/admin-gui-e2e/tsconfig.*?.json"]
+    "project": ["apps/admin-gui-e2e/tsconfig.json"]
   }
 }

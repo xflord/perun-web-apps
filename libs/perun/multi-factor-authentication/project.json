@@ -1,0 +1,27 @@
+{
+  "name": "perun-multi-factor-authentication",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/perun/multi-factor-authentication/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/perun/multi-factor-authentication"],
+      "options": {
+        "jestConfig": "libs/perun/multi-factor-authentication/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/perun/multi-factor-authentication/**/*.ts",
+          "libs/perun/multi-factor-authentication/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

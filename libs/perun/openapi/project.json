@@ -1,0 +1,26 @@
+{
+  "name": "perun-openapi",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/perun/openapi/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/perun/openapi/src/**/*.ts", "libs/perun/openapi/src/**/*.html"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/perun/openapi/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/perun/openapi"]
+    }
+  },
+  "generators": {},
+  "tags": []
+}

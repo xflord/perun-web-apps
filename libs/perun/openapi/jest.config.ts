@@ -4,7 +4,7 @@ export default {
   coverageDirectory: '../../../coverage/libs/perun/openapi',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
+  globals: {},
   displayName: 'perun-openapi',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

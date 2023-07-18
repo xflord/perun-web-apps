@@ -32,7 +32,7 @@ jobs:
             eslintcache-
       - name: Install Dependencies
         if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm ci --legacy-peer-deps
+        run: npm ci
       - name: Run color-migration script
         run: node ./color-migration.js
       - name: Build

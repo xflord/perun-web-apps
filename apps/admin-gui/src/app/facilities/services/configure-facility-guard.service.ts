@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanDeactivate,
-  Router,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FacilityConfigurationPageComponent } from '../pages/facility-configuration-page/facility-configuration-page.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ConfigureFacilityGuardService
-  implements CanActivate, CanDeactivate<FacilityConfigurationPageComponent>
-{
+export class ConfigureFacilityGuardService {
   constructor(private router: Router) {}
 
   canActivate(

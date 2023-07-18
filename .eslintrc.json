@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nx"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -44,7 +44,13 @@
         // Disable formatting rules as formatting is handled by Prettier
         "@typescript-eslint/no-extra-semi": "off",
         // Naming conventions - variables, selectors
-        "@typescript-eslint/naming-convention": ["error", {"selector": "variable", "format": ["camelCase", "UPPER_CASE", "PascalCase"]}],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "variable",
+            "format": ["camelCase", "UPPER_CASE", "PascalCase"]
+          }
+        ],
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -67,7 +73,7 @@
         "@angular-eslint/use-lifecycle-interface": "error",
 
         // Nx rules
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "allow": [],
@@ -81,15 +87,11 @@
           }
         ]
       },
-      "plugins": [
-        "eslint-plugin-import",
-        "@angular-eslint/eslint-plugin",
-        "@typescript-eslint"
-      ]
+      "plugins": ["eslint-plugin-import", "@angular-eslint/eslint-plugin", "@typescript-eslint"]
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@nrwl/nx/angular-template"],
+      "extends": ["plugin:@nx/angular-template"],
       "rules": {
         "@angular-eslint/template/banana-in-box": "error",
         "@angular-eslint/template/eqeqeq": "error",

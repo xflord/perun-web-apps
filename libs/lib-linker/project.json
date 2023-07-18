@@ -1,0 +1,23 @@
+{
+  "name": "lib-linker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/lib-linker/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/lib-linker"],
+      "options": {
+        "jestConfig": "libs/lib-linker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/lib-linker/src/**/*.ts", "libs/lib-linker/src/**/*.html"]
+      }
+    }
+  }
+}

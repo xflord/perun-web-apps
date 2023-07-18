@@ -1,0 +1,27 @@
+{
+  "name": "consolidator-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/consolidator-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/consolidator-e2e/cypress.config.ts",
+        "devServerTarget": "consolidator:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "consolidator:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/consolidator-e2e/**/*.{js,ts}"]
+      }
+    }
+  }
+}

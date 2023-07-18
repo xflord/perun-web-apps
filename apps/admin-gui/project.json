@@ -1,0 +1,130 @@
+{
+  "name": "admin-gui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/admin-gui/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/admin-gui",
+        "index": "apps/admin-gui/src/index.html",
+        "main": "apps/admin-gui/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/admin-gui/tsconfig.app.json",
+        "aot": true,
+        "assets": [
+          "apps/admin-gui/src/favicon.ico",
+          "apps/admin-gui/src/assets",
+          "apps/admin-gui/src/silent-refresh.html",
+          "apps/admin-gui/src/silent-refresh.js",
+          "apps/admin-gui/src/oidc-client.slim.min.js"
+        ],
+        "styles": [
+          "apps/admin-gui/src/styles.scss",
+          "./node_modules/bootstrap/dist/css/bootstrap.css"
+        ],
+        "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/admin-gui/src/environments/environment.ts",
+              "with": "apps/admin-gui/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "4mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "buildOptimizer": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "admin-gui:build"
+      },
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "browserTarget": "admin-gui:build:production"
+        },
+        "development": {
+          "browserTarget": "admin-gui:build:development"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "admin-gui:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/admin-gui/src/**/*.ts", "apps/admin-gui/src/**/*.html"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/admin-gui/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/admin-gui"]
+    }
+  },
+  "tags": []
+}

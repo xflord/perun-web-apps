@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateChild,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   ApiRequestConfigurationService,
@@ -38,7 +32,7 @@ interface AuthPair {
 @Injectable({
   providedIn: 'root',
 })
-export class RouteAuthGuardService implements CanActivateChild {
+export class RouteAuthGuardService {
   constructor(
     private authResolver: GuiAuthResolver,
     private routePolicyService: RoutePolicyService,

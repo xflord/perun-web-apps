@@ -4,7 +4,7 @@ export default {
   coverageDirectory: '../../../coverage/libs/perun/animations',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
+  globals: {},
   displayName: 'perun-animations',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

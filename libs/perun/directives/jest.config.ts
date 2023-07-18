@@ -4,7 +4,7 @@ export default {
   coverageDirectory: '../../../coverage/libs/perun/directives',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
+  globals: {},
   displayName: 'perun-directives',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

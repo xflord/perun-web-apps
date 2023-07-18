@@ -1,0 +1,124 @@
+{
+  "name": "consolidator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/consolidator/src",
+  "prefix": "perun-web-apps",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/consolidator",
+        "index": "apps/consolidator/src/index.html",
+        "main": "apps/consolidator/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/consolidator/tsconfig.app.json",
+        "aot": true,
+        "assets": ["apps/consolidator/src/favicon.ico", "apps/consolidator/src/assets"],
+        "styles": [
+          "apps/consolidator/src/styles.scss",
+          "./node_modules/bootstrap/dist/css/bootstrap.css"
+        ],
+        "scripts": ["./node_modules/tinycolor2/dist/tinycolor-min.js"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/consolidator/src/environments/environment.ts",
+              "with": "apps/consolidator/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": true,
+          "sourceMap": true,
+          "namedChunks": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "consolidator:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "consolidator:build:production"
+        },
+        "development": {
+          "browserTarget": "consolidator:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "consolidator:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/consolidator/src/**/*.ts", "apps/consolidator/src/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/consolidator"],
+      "options": {
+        "jestConfig": "apps/consolidator/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
