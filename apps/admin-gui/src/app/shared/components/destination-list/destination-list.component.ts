@@ -12,11 +12,13 @@ import {
   TableWrapperComponent,
 } from '@perun-web-apps/perun/utils';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
+import { LastSuccessfulPropagationPipe } from '@perun-web-apps/perun/pipes';
 
 @Component({
   selector: 'app-perun-web-apps-destination-list',
   templateUrl: './destination-list.component.html',
   styleUrls: ['./destination-list.component.scss'],
+  providers: [LastSuccessfulPropagationPipe],
 })
 export class DestinationListComponent implements AfterViewInit, OnChanges {
   @Input()
@@ -36,14 +38,18 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+    private lastSuccessPipe: LastSuccessfulPropagationPipe
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
     this.setDataSource();
   }
 
-  static getDataForColumn(data: RichDestination, column: string): string {
+  getDataForColumn(data: RichDestination, column: string): string {
     switch (column) {
       case 'destinationId':
         return data.id.toString();
@@ -59,6 +65,8 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
         return data.blocked ? 'blocked' : 'allowed';
       case 'propagationType':
         return data.propagationType;
+      case 'lastSuccessfulPropagation':
+        return this.lastSuccessPipe.transform(data.lastSuccessfulPropagation);
       default:
         return '';
     }
@@ -75,10 +83,8 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
 
   exportAllData(format: string): void {
     downloadData(
-      getDataForExport(
-        this.dataSource.filteredData,
-        this.displayedColumns,
-        DestinationListComponent.getDataForColumn
+      getDataForExport(this.dataSource.filteredData, this.displayedColumns, (data, column) =>
+        this.getDataForColumn(data, column)
       ),
       format
     );
@@ -93,7 +99,7 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        DestinationListComponent.getDataForColumn
+        (data, column) => this.getDataForColumn(data, column)
       ),
       format
     );
@@ -107,10 +113,12 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          DestinationListComponent.getDataForColumn
+          (destination, column) => this.getDataForColumn(destination, column)
         );
       this.dataSource.sortData = (data: Vo[], sort: MatSort): Vo[] =>
-        customDataSourceSort(data, sort, DestinationListComponent.getDataForColumn);
+        customDataSourceSort(data, sort, (destination, column) =>
+          this.getDataForColumn(destination, column)
+        );
       this.dataSource.paginator = this.child.paginator;
     }
   }

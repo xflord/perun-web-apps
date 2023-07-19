@@ -17,4 +17,5 @@ export interface RichDestination extends Destination {
   blocked?: boolean;
   service?: Service;
   facility?: Facility;
+  lastSuccessfulPropagation?: string;
 }

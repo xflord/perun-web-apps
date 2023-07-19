@@ -2787,7 +2787,8 @@
         "BLOCKED": "Blocked",
         "PROPAGATION_TYPE": "Propagation type",
         "NO_DESTINATIONS": "No destinations found",
-        "WARN": "Destination is not properly configured. The service, to which it is connected is not in your service selection"
+        "WARN": "Destination is not properly configured. The service, to which it is connected is not in your service selection",
+        "LAST_SUCCESS": "Last successful propagation"
       },
       "FACILITIES_LIST": {
         "ID": "Id",
