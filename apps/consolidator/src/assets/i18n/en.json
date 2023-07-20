@@ -10,7 +10,8 @@
     "SIGN_NOT_KNOW": "You are trying to sign in with",
     "SIGN_KNOW": "You are signed in with",
     "LINKED_ACCOUNTS": "Linked accounts",
-    "DELETE_DISABLED_TOOLTIP": "You are logged in by this account"
+    "DELETE_DISABLED_TOOLTIP": "You are logged in by this account",
+    "DELETE": "Delete"
   },
   "MAIN_WINDOW": {
     "IS_NOT_KNOWN_IDENTITY": "The account is not registered in the system",

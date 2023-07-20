@@ -82,7 +82,11 @@
           <div *ngIf="member.sponsored" class="mt-3">
             <h6 class="d-flex align-items-center">
               {{'MEMBER_DETAIL.OVERVIEW.SPONSORS' | translate}}:
-              <button (click)="changeSponsors()" class="ms-auto mt-n2" mat-icon-button>
+              <button
+                (click)="changeSponsors()"
+                class="ms-auto mt-n2"
+                matTooltip="{{'MEMBER_DETAIL.OVERVIEW.EDIT_SPONSORS' | translate}}"
+                mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
             </h6>

@@ -13,7 +13,10 @@
         <ng-container matColumnDef="drag">
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let applicationFormItem" mat-cell>
-            <button (mousedown)="dragDisabled = false;" mat-icon-button>
+            <button
+              (mousedown)="dragDisabled = false;"
+              mat-icon-button
+              matTooltip="{{'VO_DETAIL.SETTINGS.APPLICATION_FORM.DRAG' | translate}}">
               <mat-icon>drag_indicator</mat-icon>
             </button>
           </td>

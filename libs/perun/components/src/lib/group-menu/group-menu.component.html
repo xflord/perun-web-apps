@@ -40,7 +40,10 @@
   </span>
 </div>
 <div *ngIf="!displayButtons">
-  <button [mat-menu-trigger-for]="groupMenu" mat-icon-button>
+  <button
+    [mat-menu-trigger-for]="groupMenu"
+    mat-icon-button
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUP_MENU.MORE' | translate}}">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #groupMenu="matMenu">

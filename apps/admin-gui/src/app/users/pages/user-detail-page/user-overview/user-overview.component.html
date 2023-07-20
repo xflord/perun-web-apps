@@ -16,7 +16,11 @@
           <td *matCellDef="let attribute" mat-cell>
             <div class="d-flex align-items-center">
               {{attribute.value}}
-              <button (click)="changeEmail()" class="ms-3" mat-icon-button>
+              <button
+                (click)="changeEmail()"
+                class="ms-3"
+                mat-icon-button
+                matTooltip="{{'USER_DETAIL.OVERVIEW.CHANGE_EMAIL' | translate}}">
                 <mat-icon>edit</mat-icon>
               </button>
             </div>

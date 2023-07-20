@@ -89,6 +89,7 @@
         <td mat-cell *matCellDef="let ban">
           <button
             *ngIf="[(ban.vo ?? ban.resource ?? ban.facility)] | isAuthorized : updatePolicy"
+            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.BAN_ON_ENTITY_LIST.UPDATE_BAN' | translate}}"
             mat-icon-button
             (click)="updateBan.emit(ban)">
             <mat-icon>edit</mat-icon>

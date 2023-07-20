@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     TranslateModule,
     CommonModule,
+    MatTooltipModule,
   ],
   declarations: [TableWrapperComponent, TableOptionsComponent],
   exports: [TableWrapperComponent, TableOptionsComponent],

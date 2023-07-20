@@ -26,6 +26,8 @@
           [routerLink]="disableRouting ? null :['/organizations', group.voId, 'groups', group.id]">
           <button
             mat-icon-button
+            matTooltipPosition="above"
+            matTooltip="{{(treeControl.isExpanded(group) ?'SHARED_LIB.PERUN.COMPONENTS.GROUPS_TREE.SHOW_LESS' : 'SHARED_LIB.PERUN.COMPONENTS.GROUPS_TREE.SHOW_MORE') | translate}}"
             (mouseenter)="disableRouting = true"
             (mouseleave)="disableRouting = false"
             [disabled]="!group.expandable"

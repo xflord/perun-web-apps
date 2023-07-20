@@ -9,8 +9,17 @@
     </div>
   </div>
   <div class="column controls">
-    <button mat-icon-button (click)="removeCollection()"><mat-icon>delete</mat-icon></button>
-    <button color="accent" mat-icon-button (click)="addPolicy()">
+    <button
+      mat-icon-button
+      (click)="removeCollection()"
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.REMOVE_COLLECTION' | translate}}">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button
+      color="accent"
+      mat-icon-button
+      (click)="addPolicy()"
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.ADD_RULE' | translate}}">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>

@@ -48,7 +48,8 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Name",
-    "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed"
+    "MAIL_CHANGE_SUCCESS": "Preferred mail has been changed",
+    "CHANGE_EMAIL": "Change email"
   },
   "IDENTITIES": {
     "IDP": "Your linked accounts",

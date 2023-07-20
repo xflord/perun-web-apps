@@ -26,7 +26,11 @@
 
           <div *ngSwitchCase="'preferredMail'" class="d-flex align-items-center">
             <a class="center-self" href="mailto:{{email}}">{{email}}</a>
-            <button (click)="changeEmail()" class="ms-2" mat-icon-button>
+            <button
+              (click)="changeEmail()"
+              class="ms-2"
+              matTooltip="{{'PROFILE_PAGE.CHANGE_EMAIL' | translate}}"
+              mat-icon-button>
               <mat-icon> edit </mat-icon>
             </button>
           </div>

@@ -11,10 +11,13 @@
   </div>
 </div>
 <div>
-  <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
-    <button *ngIf="groups.length > defaultItemsShown" mat-icon-button (click)="onShowChange()">
-      <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-      <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-    </button>
-  </span>
+  <button
+    *ngIf="groups.length > defaultItemsShown"
+    mat-icon-button
+    (click)="onShowChange()"
+    [matTooltip]="(showMore ? 'SHARED_LIB.PERUN.COMPONENTS.AUTHORIZED_GROUPS_CELL.LESS' : 'SHARED_LIB.PERUN.COMPONENTS.AUTHORIZED_GROUPS_CELL.MORE') | translate"
+    [matTooltipPosition]="'above'">
+    <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+    <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+  </button>
 </div>

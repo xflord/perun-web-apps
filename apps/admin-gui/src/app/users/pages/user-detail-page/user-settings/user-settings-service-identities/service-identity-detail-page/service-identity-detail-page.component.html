@@ -18,7 +18,11 @@
           {{user | userFullName}}
         </a>
         <span class="text-muted"> &nbsp;#{{user.id}} </span>
-        <button (click)="editUser()" *ngIf="authResolver.isPerunAdmin()" mat-icon-button>
+        <button
+          (click)="editUser()"
+          *ngIf="authResolver.isPerunAdmin()"
+          mat-icon-button
+          matTooltip="{{'MENU_ITEMS.USER.EDIT' | translate}}">
           <mat-icon>edit</mat-icon>
         </button>
       </div>

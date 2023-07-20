@@ -32,12 +32,15 @@
     </mat-chip-row>
   </div>
   <div class="w-100" *ngIf="values.length > defaultItemsShown">
-    <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
-      <button class="ms-auto" mat-icon-button (click)="onShowChange()">
-        <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-        <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-      </button>
-    </span>
+    <button
+      class="ms-auto"
+      mat-icon-button
+      [matTooltip]="(showMore ? 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.LESS' : 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_LIST.MORE') | translate"
+      [matTooltipPosition]="'above'"
+      (click)="onShowChange()">
+      <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+      <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+    </button>
   </div>
   <mat-form-field [hidden]="readonly" subscriptSizing="dynamic" class="w-100">
     <input

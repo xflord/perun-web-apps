@@ -43,8 +43,7 @@
                 <span *ngFor="let account of attribute.value">
                   {{account}}
                   <span
-                    [matTooltip]="'LIST_OF_IDENTITIES.DELETE_DISABLED_TOOLTIP' | translate"
-                    [matTooltipDisabled]="!account.includes(idpProvider)">
+                    [matTooltip]="(account.includes(idpProvider) ? 'LIST_OF_IDENTITIES.DELETE_DISABLED_TOOLTIP' : 'LIST_OF_IDENTITIES.DELETE') | translate">
                     <button
                       mat-icon-button
                       color="warn"

@@ -32,7 +32,6 @@
               [class.cursor-pointer]="node.direct || node.include"
               [class.act-disabled]="!node.direct && !node.include"
               (click)="navigate(node.id, node.include)">
-              <button mat-icon-button></button>
               <div [ngStyle]="{'min-width': getMinWidth(node.level)}" class="mt-auto mb-auto">
                 <span>{{node.name | parseGroupName}}</span>
                 <span
@@ -54,7 +53,11 @@
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <li>
             <div class="mat-tree-node">
-              <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+              <button
+                mat-icon-button
+                matTreeNodeToggle
+                [attr.aria-label]="'Toggle ' + node.name"
+                matTooltip="{{(treeControl.isExpanded(node) ?'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.SHOW_LESS' : 'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.SHOW_MORE') | translate}}">
                 <mat-icon class="me-3">
                   {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                 </mat-icon>

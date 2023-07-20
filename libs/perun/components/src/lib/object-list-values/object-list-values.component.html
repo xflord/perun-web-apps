@@ -6,12 +6,15 @@
       </div>
     </div>
     <div>
-      <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
-        <button *ngIf="objects.length > defaultItemsShown" mat-icon-button (click)="onShowChange()">
-          <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-          <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-        </button>
-      </span>
+      <button
+        *ngIf="objects.length > defaultItemsShown"
+        mat-icon-button
+        (click)="onShowChange()"
+        [matTooltip]="(showMore ? 'SHARED_LIB.PERUN.COMPONENTS.OBJECT_LIST_VALUES.LESS' : 'SHARED_LIB.PERUN.COMPONENTS.OBJECT_LIST_VALUES.MORE') | translate"
+        [matTooltipPosition]="'above'">
+        <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+        <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+      </button>
     </div>
   </div>
 </form>

@@ -25,12 +25,14 @@
             *ngIf="group.name !== 'members' && editAuth"
             (click)="editGroup()"
             aria-label="Edit group"
+            matTooltip="{{'GROUP_DETAIL.EDIT' | translate}}"
             mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
           <button
             *ngIf="group.name !== 'members' && deleteAuth"
             (click)="deleteGroup()"
+            matTooltip="{{'GROUP_DETAIL.DELETE' | translate}}"
             mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>

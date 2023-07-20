@@ -14,7 +14,8 @@
   "CATEGORIES_LIST": {
     "ID": "Id",
     "NAME": "Name",
-    "RANK": "Rank"
+    "RANK": "Rank",
+    "EDIT": "Edit"
   },
   "CATEGORIES_PAGE": {
     "TITLE": "Categories",

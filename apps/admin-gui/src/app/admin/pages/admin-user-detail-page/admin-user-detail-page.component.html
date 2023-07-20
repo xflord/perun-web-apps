@@ -19,16 +19,22 @@
             *ngIf="!anonymized"
             (click)="editUser()"
             mat-icon-button
+            matTooltip="{{'ADMIN_USER.EDIT' | translate}}"
             data-cy="edit-user-button">
             <mat-icon>edit</mat-icon>
           </button>
           <button
             *ngIf="!anonymized && !userDeletionForced"
             (click)="anonymizeUser()"
+            matTooltip="{{'ADMIN_USER.ANONYMIZE' | translate}}"
             mat-icon-button>
             <mat-icon>no_accounts</mat-icon>
           </button>
-          <button *ngIf="userDeletionForced" (click)="deleteUser()" mat-icon-button>
+          <button
+            *ngIf="userDeletionForced"
+            (click)="deleteUser()"
+            matTooltip="{{'ADMIN_USER.DELETE' | translate}}"
+            mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>
           <mat-icon

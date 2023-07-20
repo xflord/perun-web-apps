@@ -26,6 +26,7 @@
               (click)="editService()"
               aria-label="Edit service"
               data-cy="service-edit-button"
+              matTooltip="{{'SERVICE_DETAIL.EDIT' | translate}}"
               mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>
@@ -33,6 +34,7 @@
               *ngIf="authResolver.isPerunAdmin()"
               (click)="removeService()"
               aria-label="Remove service"
+              matTooltip="{{'SERVICE_DETAIL.DELETE' | translate}}"
               mat-icon-button>
               <mat-icon>delete_forever</mat-icon>
             </button>

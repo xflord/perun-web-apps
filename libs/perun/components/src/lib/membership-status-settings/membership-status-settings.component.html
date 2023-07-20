@@ -5,7 +5,11 @@
       {{status | memberStatusIcon}}
     </i>
     <span class="me-2">{{status | transformMemberStatus}}</span>
-    <button *ngIf="editStatusAuth" (click)="onChangeStatus()" mat-icon-button>
+    <button
+      *ngIf="editStatusAuth"
+      (click)="onChangeStatus()"
+      mat-icon-button
+      matTooltip="{{'MEMBER_DETAIL.OVERVIEW.CHANGE_STATUS' | translate}}">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
@@ -17,7 +21,11 @@
   <b>{{'MEMBER_DETAIL.OVERVIEW.EXPIRATION' | translate}}</b>
   <div class="d-flex flex-row align-items-center justify-content-center">
     <i class="me-2"> {{expiration | parseDate}} </i>
-    <button *ngIf="editExpirationAuth" (click)="onChangeExpiration()" mat-icon-button>
+    <button
+      *ngIf="editExpirationAuth"
+      (click)="onChangeExpiration()"
+      mat-icon-button
+      matTooltip="{{'MEMBER_DETAIL.OVERVIEW.CHANGE_EXPIRATION' | translate}}">
       <mat-icon>edit</mat-icon>
     </button>
   </div>

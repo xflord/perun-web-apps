@@ -23,7 +23,8 @@
     "LOGOUT": "Log out",
     "PROFILE": "Profile",
     "NOTIFICATIONS_TOOLTIP": "Recent notifications",
-    "OTHER_APPLICATIONS": "Other applications"
+    "OTHER_APPLICATIONS": "Other applications",
+    "MENU": "Menu"
   },
   "MAIN_MENU": {
     "ACCESS": "Access management",
@@ -116,6 +117,8 @@
     "ENTITY": "Facility",
     "DESCRIPTION": "Description",
     "BACK": "Back",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
     "RESOURCES": {
       "TITLE": "Resources",
       "DELETE": "Remove selected",
@@ -238,6 +241,8 @@
     "UUID": "UUID",
     "VO": "Organization",
     "FACILITY": "Facility",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
     "ASSIGNED_GROUPS": {
       "TITLE": "Assigned groups",
       "ADD_GROUP": "Assign groups",
@@ -295,6 +300,8 @@
     "MEMBER_VOS": "Member organizations",
     "PARENT_VOS": "Member of organizations",
     "BACK": "Back",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
     "RESOURCES": {
       "LIST": {
         "TITLE": "Resources",
@@ -403,6 +410,7 @@
         "REVERT_DELETE": "Restore",
         "CLEAR": "Clear form",
         "CLEAR_TOOLTIP": "Removes all form items",
+        "DRAG": "Drag",
         "TYPES": {
           "HEADING": "Header",
           "SUBMIT_BUTTON": "Submit button",
@@ -633,7 +641,8 @@
         "DELETE_MESSAGE": "Application was deleted",
         "APPROVE_MESSAGE": "Application was approved",
         "VERIFY_MESSAGE": "Application was verified",
-        "AUTO_APPROVE_FAILURE": "Automatic approval of application failed"
+        "AUTO_APPROVE_FAILURE": "Automatic approval of application failed",
+        "EDIT": "Edit"
       }
     },
     "STATISTICS": {
@@ -651,6 +660,8 @@
     "DESCRIPTION": "Description",
     "UUID": "UUID",
     "SYNCHRONIZATION": "Synchronization",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
     "SUBGROUPS": {
       "TITLE": "Subgroups",
       "CREATE_GROUP": "Create subgroup",
@@ -812,7 +823,10 @@
       "SPONSOR_NAME": "Sponsor name",
       "EXPIRATION_TABLE": "Expiration",
       "SPONSOR_MEMBER": "Sponsor this member",
-      "NO_SPONSORS": "This organisation has no available sponsors"
+      "NO_SPONSORS": "This organisation has no available sponsors",
+      "EDIT_SPONSORS": "Edit sponsors",
+      "CHANGE_STATUS": "Change status",
+      "CHANGE_EXPIRATION": "Change expiration"
     },
     "GROUPS": {
       "TITLE": "Member groups",
@@ -879,6 +893,8 @@
     "DESCRIPTION": "Description",
     "ENABLE": "Enable service",
     "PROPAGATE": "Propagate expired members",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
     "REQUIRED_ATTRIBUTES": {
       "TITLE": "Required attributes",
       "ADD": "Add",
@@ -1024,7 +1040,8 @@
       "ACCOUNTS": "Accounts",
       "MAILING_LISTS": "Mailing lists opt-out",
       "DATA_QUOTAS": "Data quotas",
-      "BANS": "Bans"
+      "BANS": "Bans",
+      "EDIT": "Edit"
     },
     "SERVICE": {
       "OVERVIEW": "Overview",
@@ -2104,7 +2121,9 @@
       "CANCEL": "Close",
       "SUBMIT": "Submit",
       "REMOVE_SPONSOR_DISABLED": "You are not authorized to remove sponsor",
-      "SUCCESS": "Sponsors successfully edited"
+      "SUCCESS": "Sponsors successfully edited",
+      "CHANGE_EXPIRATION": "Change expiration",
+      "REMOVE_SPONSOR": "Remove sponsor"
     },
     "BULK_INVITE_MEMBERS": {
       "TITLE": "Invite multiple members",
@@ -2267,7 +2286,8 @@
       "ENTER_PASSWORD": "Set password now",
       "SPONSOR": "Sponsor",
       "MANAGE_LIFECYCLE_INFO": "Service account has by default the same lifecycle as a standard user account. You can manage this lifecycle by sponsoring this service account.",
-      "CREATE_AND_SPONSOR": "Create & sponsor"
+      "CREATE_AND_SPONSOR": "Create & sponsor",
+      "REMOVE": "Remove"
     },
     "SET_LOGIN": {
       "TITLE": "Add login and password",
@@ -2439,7 +2459,10 @@
   "ADMIN_USER": {
     "ENTITY": "User",
     "USER_TYPE": "User type",
-    "UUID": "UUID"
+    "UUID": "UUID",
+    "EDIT": "Edit",
+    "ANONYMIZE": "Anonymize",
+    "DELETE": "Delete"
   },
   "ADMIN": {
     "TITLE": "Perun admin",
@@ -2594,7 +2617,8 @@
       "AUTHORIZED_GROUP_BASED_ROLES": "Group based"
     },
     "OVERVIEW": {
-      "GENERAL_SETTINGS": "General settings"
+      "GENERAL_SETTINGS": "General settings",
+      "CHANGE_EMAIL": "Change email"
     },
     "IDENTITIES": {
       "TITLE": "Identities",
@@ -2750,7 +2774,8 @@
         "SPONSORS": "Sponsors",
         "EXPIRATION": "Expiration",
         "NO_SPONSORED_MEMBERS_WARNING": "No sponsored members found",
-        "PASSWORD_RESET": "Reset password"
+        "PASSWORD_RESET": "Reset password",
+        "EDIT": "Edit"
       },
       "DESTINATIONS_LIST": {
         "DESTINATION_ID": "Id",
@@ -2928,12 +2953,18 @@
           "SYNCHRONIZED_GROUP": "Group is filled with members from an external source",
           "INDIRECT_GROUP": "This group is assigned as a part of a groups tree.",
           "MULTIPLE_ASSIGNMENTS": "This group is assigned manually and also as a part of a groups tree. You can remove only manual assignment.",
-          "AUTHZ_GROUP": "Role acquired through"
+          "AUTHZ_GROUP": "Role acquired through",
+          "CHANGE_EXPIRATION": "Change expiration"
+        },
+        "GROUPS_TREE": {
+          "SHOW_MORE": "Show more",
+          "SHOW_LESS": "Show less"
         },
         "GROUP_MENU": {
           "MOVE": "Move group",
           "RENAME": "Update name/description",
-          "COPY": "Copy group name to clipboard"
+          "COPY": "Copy group name to clipboard",
+          "MORE": "More"
         },
         "GROUP_SEARCH_SELECT": {
           "SELECT_GROUP": "Select group",
@@ -3020,6 +3051,14 @@
           "SEARCH_BUTTON": "Search",
           "SEARCH_BUTTON_TOOLTIP": "Search string cannot be empty"
         },
+        "OBJECT_LIST_VALUES": {
+          "LESS": "Show less",
+          "MORE": "Show more"
+        },
+        "AUTHORIZED_GROUPS_CELL": {
+          "LESS": "Show less",
+          "MORE": "Show more"
+        },
         "ATTRIBUTE_VALUE_LIST": {
           "EDIT_DIALOG": {
             "TITLE": "Edit attribute value",
@@ -3032,10 +3071,18 @@
             "DESCRIPTION": "Do you really want to delete this attribute list value from list?",
             "SUBMIT_BUTTON": "Delete",
             "CANCEL_BUTTON": "Cancel"
-          }
+          },
+          "LESS": "Show less",
+          "MORE": "Show more"
         },
         "ATTRIBUTE_VALUE_STRING": {
           "HINT": "This attribute value includes newlines. Please make sure this is intended!"
+        },
+        "ATTRIBUTE_VALUE_MAP": {
+          "ADD": "Add value",
+          "REMOVE": "Remove value",
+          "LESS": "Show less",
+          "MORE": "Show more"
         },
         "ATTRIBUTES_LIST": {
           "FILTER": "Filter attributes by Id, name, value or description",
@@ -3060,7 +3107,8 @@
           "EXPORT_TO_FILE": "Export to file",
           "ALL_DATA": "All data",
           "DISPLAYED_DATA": "Displayed data",
-          "EXPORT_LOADING": "Exporting data..."
+          "EXPORT_LOADING": "Exporting data...",
+          "MORE": "More"
         },
         "NOTIFICATOR": {
           "NOTIFICATION": {
@@ -3200,7 +3248,9 @@
           "INCLUDE": "(Included group)",
           "FILTER": "Search by group name",
           "CLOSE": "Close",
-          "NO_PATHS": "No paths include the entered group name."
+          "NO_PATHS": "No paths include the entered group name.",
+          "SHOW_MORE": "Show more",
+          "SHOW_LESS": "Show less"
         },
         "MFA_REQUIRED_DIALOG": {
           "TITLE": "Step-up authentication required",
@@ -3266,7 +3316,11 @@
           "ENTITY": "Connect entity",
           "AND": "AND",
           "OR": "OR",
-          "INFO": "Create collecions of multiple rules. Each rule must be fulfilled for the collection to be valid. User needs to suffice at least one collection to be eligible for given action."
+          "REMOVE_COLLECTION": "Remove collection",
+          "REMOVE_RULE": "Remove rule",
+          "ADD_RULE": "Add rule",
+          "ADD_COLLECTION": "Add collection",
+          "INFO": "Create collections of multiple rules. Each rule must be fulfilled for the collection to be valid. User needs to suffice at least one collection to be eligible for given action."
         },
         "ATTRIBUTE_UNIQUE_TOGGLE": {
           "UNIQUE": "Unique",
@@ -3331,7 +3385,8 @@
           "SUBJECT_ID_HEADER": "{{ subject }} Id",
           "DESCRIPTION_HEADER": "Description",
           "EXPIRATION_HEADER": "Expiration",
-          "NO_BANS": "No bans found."
+          "NO_BANS": "No bans found.",
+          "UPDATE_BAN": "Update ban"
         },
         "UNIVERSAL_OBJECTS_LIST": {
           "FILTER": "Filter objects by their properties"

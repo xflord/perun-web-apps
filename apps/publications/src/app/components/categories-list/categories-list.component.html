@@ -44,7 +44,11 @@
         </th>
         <td *matCellDef="let category" mat-cell>
           {{category.rank}}
-          <button *ngIf="editAuth" (click)="updateCategory(category)" mat-icon-button>
+          <button
+            *ngIf="editAuth"
+            (click)="updateCategory(category)"
+            matTooltip="{{'CATEGORIES_LIST.EDIT' | translate}}"
+            mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
         </td>

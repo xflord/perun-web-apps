@@ -30,6 +30,7 @@
             <button
               *ngIf="[sponsor.user, vo] | isAuthorized: 'updateSponsorshipValidity_Member_User_LocalDate'"
               (click)="changeExpiration(sponsor)"
+              matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.CHANGE_EXPIRATION' | translate}}"
               mat-icon-button>
               <mat-icon> today </mat-icon>
             </button>
@@ -47,6 +48,7 @@
                 (click)="markSponsor(sponsor)"
                 class="btn-delete"
                 [disabled]="!([member] | isAuthorized: 'sponsored-removeSponsor_Member_User_policy') || !([sponsor.user] | isAuthorized: 'sponsor-removeSponsor_Member_User_policy')"
+                matTooltip="{{'DIALOGS.EDIT_MEMBER_SPONSORS.REMOVE_SPONSOR' | translate}}"
                 mat-icon-button>
                 <mat-icon
                   *ngIf="!sponsorsToRemove.has(sponsor.user.id)"

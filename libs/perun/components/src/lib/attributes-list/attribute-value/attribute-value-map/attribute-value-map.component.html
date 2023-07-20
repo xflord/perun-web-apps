@@ -36,25 +36,35 @@
               id="{{attribute.id}}-value-{{i}}"
               [(ngModel)]="values[i]" />
           </mat-form-field>
-          <button *ngIf="!readonly" mat-icon-button color="warn" (click)="removeValue(i)">
+          <button
+            *ngIf="!readonly"
+            mat-icon-button
+            color="warn"
+            (click)="removeValue(i)"
+            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_MAP.REMOVE' | translate}}">
             <mat-icon> indeterminate_check_box </mat-icon>
           </button>
         </div>
       </div>
       <div>
-        <span [matTooltip]="showMore ? 'Show less' : 'Show more'" [matTooltipPosition]="'above'">
-          <button
-            *ngIf="values.length > defaultItemsShown"
-            mat-icon-button
-            (click)="onShowChange()">
-            <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
-            <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
-          </button>
-        </span>
+        <button
+          [matTooltip]="(showMore ? 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_MAP.LESS' : 'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_MAP.MORE') | translate"
+          [matTooltipPosition]="'above'"
+          *ngIf="values.length > defaultItemsShown"
+          mat-icon-button
+          (click)="onShowChange()">
+          <mat-icon *ngIf="!showMore">more_horiz</mat-icon>
+          <mat-icon *ngIf="showMore">keyboard_arrow_up</mat-icon>
+        </button>
       </div>
     </div>
   </form>
 </div>
-<button *ngIf="!readonly" mat-icon-button color="accent" (click)="addValue()">
+<button
+  *ngIf="!readonly"
+  mat-icon-button
+  color="accent"
+  (click)="addValue()"
+  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_VALUE_MAP.ADD' | translate}}">
   <mat-icon> add_box </mat-icon>
 </button>

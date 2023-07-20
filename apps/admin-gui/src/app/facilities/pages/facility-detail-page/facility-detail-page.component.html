@@ -19,10 +19,18 @@
             >{{facility.name}}</a
           >
           <span class="text-muted"> &nbsp;#{{facility.id}} </span>
-          <button (click)="editFacility()" *ngIf="editFacilityAuth" mat-icon-button>
+          <button
+            (click)="editFacility()"
+            *ngIf="editFacilityAuth"
+            matTooltip="{{'FACILITY_DETAIL.EDIT' | translate}}"
+            mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button (click)="deleteFacility()" *ngIf="deleteAuth" mat-icon-button>
+          <button
+            (click)="deleteFacility()"
+            *ngIf="deleteAuth"
+            matTooltip="{{'FACILITY_DETAIL.DELETE' | translate}}"
+            mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>

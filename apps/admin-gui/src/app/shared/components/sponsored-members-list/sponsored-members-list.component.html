@@ -96,13 +96,12 @@
             (mouseleave)="disableRouting = routingStrategy"
             aria-label="sponsors of member"
             class="dark-hover-list-item"
+            [matTooltipPosition]="'above'"
+            [matTooltip]="'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.EDIT' | translate"
             mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <span
-            *ngIf="passwdResetAuth(sponsoredMember)"
-            [matTooltipPosition]="'above'"
-            [matTooltip]="'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.PASSWORD_RESET' | translate">
+          <span *ngIf="passwdResetAuth(sponsoredMember)">
             <button
               attr.data-cy="{{sponsoredMember.member.user.firstName}}-reset-passwd-button"
               (mouseenter)="disableRouting = true"
@@ -110,6 +109,8 @@
               class="dark-hover-list-item"
               (click)="resetPassword(sponsoredMember)"
               [disabled]="loading"
+              [matTooltipPosition]="'above'"
+              [matTooltip]="'SHARED.COMPONENTS.SPONSORED_MEMBERS_LIST.PASSWORD_RESET' | translate"
               aria-label="sponsors of member"
               mat-icon-button>
               <mat-icon>vpn_key</mat-icon>

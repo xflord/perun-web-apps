@@ -21,7 +21,12 @@
             {{vo.name}}
           </a>
           <span class="text-muted"> &nbsp;#{{vo.id}} </span>
-          <button *ngIf="editAuth" mat-icon-button aria-label="Edit Vo" (click)="editVo()">
+          <button
+            *ngIf="editAuth"
+            mat-icon-button
+            aria-label="Edit Vo"
+            (click)="editVo()"
+            matTooltip="{{'VO_DETAIL.EDIT' | translate}}">
             <mat-icon>edit</mat-icon>
           </button>
           <button
@@ -29,6 +34,7 @@
             mat-icon-button
             aria-label="Remove Vo"
             data-cy="delete-vo"
+            matTooltip="{{'VO_DETAIL.DELETE' | translate}}"
             (click)="removeVo()">
             <mat-icon>delete_forever</mat-icon>
           </button>

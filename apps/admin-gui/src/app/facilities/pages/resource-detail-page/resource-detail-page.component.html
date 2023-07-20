@@ -23,10 +23,15 @@
             (click)="editResource()"
             aria-label="Edit resource"
             *ngIf="editResourceAuth"
+            matTooltip="{{'RESOURCE_DETAIL.EDIT' | translate}}"
             mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button (click)="deleteResource()" *ngIf="deleteAuth" mat-icon-button>
+          <button
+            (click)="deleteResource()"
+            *ngIf="deleteAuth"
+            matTooltip="{{'RESOURCE_DETAIL.DELETE' | translate}}"
+            mat-icon-button>
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>

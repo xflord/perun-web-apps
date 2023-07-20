@@ -13,7 +13,12 @@
       <mat-option *ngFor="let obj of objects | async" [value]="obj">{{obj}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button class="close-button" color="warn" mat-icon-button (click)="remove()">
+  <button
+    class="close-button"
+    color="warn"
+    mat-icon-button
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_RIGHTS.REMOVE_RULE' | translate}}"
+    (click)="remove()">
     <mat-icon inline="true">remove_circle</mat-icon>
   </button>
 </div>
