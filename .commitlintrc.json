@@ -18,6 +18,7 @@
     }
   },
   "rules": {
-    "scope-enum": [2, "always", ["admin", "profile", "pwdreset", "consolidator", "linker", "publications", "openapi", "lib", "npm", "deps", "deps-dev"]]
+    "scope-enum": [2, "always", ["admin", "profile", "pwdreset", "consolidator", "linker", "publications", "openapi", "lib", "npm", "deps", "deps-dev"]],
+    "body-max-line-length": [2, "always", 200]
   }
 }
