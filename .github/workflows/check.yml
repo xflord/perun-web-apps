@@ -2,12 +2,11 @@ name: Check
 
 on:
   pull_request:
-    branches-ignore:
-      - '*dependabot/npm_and_yarn/*'
 
 jobs:
   run-commitlint-on-pr:
     runs-on: ubuntu-latest
+    if: startsWith(github.head_ref, 'dependabot/npm_and_yarn/') != true
     steps:
       - uses: actions/checkout@v3
         with:
