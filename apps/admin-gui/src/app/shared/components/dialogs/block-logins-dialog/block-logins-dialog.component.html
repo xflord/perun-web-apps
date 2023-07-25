@@ -23,6 +23,7 @@
       <perun-web-apps-namespace-search-select
         *ngIf="data.namespaceOptions.length > 0 && !isGlobal"
         [namespaceOptions]="data.namespaceOptions"
+        [namespace]="selectedNamespace"
         [disableAutoSelect]="true"
         [customFindPlaceholder]="'DIALOGS.BLOCK_LOGINS.FIND_PLACEHOLDER'"
         (namespaceSelected)="selectedNamespace = $event">
