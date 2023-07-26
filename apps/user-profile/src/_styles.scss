@@ -113,7 +113,7 @@ $perun-theme: mat.define-light-theme(
 }
 
 button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 button:focus {
@@ -167,6 +167,7 @@ td.mat-mdc-cell {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--bs-card-border-radius) !important;
 }
 
 #preloader {
@@ -298,7 +299,7 @@ mat-list-item .mat-mdc-form-field-subscript-wrapper {
 // angular 15 button fixes
 
 .mdc-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
   white-space: nowrap !important;
   letter-spacing: normal;
 }

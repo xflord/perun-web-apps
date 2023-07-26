@@ -209,7 +209,7 @@ $perun-theme: mat.define-light-theme(
 }
 
 button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 button:focus {
@@ -228,7 +228,7 @@ mat-icon {
 // angular 15 button fixes
 
 .mdc-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
   white-space: nowrap !important;
   letter-spacing: normal;
 }

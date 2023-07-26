@@ -91,7 +91,7 @@ $password-reset-theme: mat.define-light-theme(
 }
 
 .mat-mdc-unelevated-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 .dialog-container {
@@ -152,7 +152,7 @@ mat-form-field mat-icon {
 // angular 15 button fixes
 
 .mdc-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
   white-space: nowrap !important;
   letter-spacing: normal;
 }

@@ -556,7 +556,7 @@ body {
 }
 
 button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 button:focus {
@@ -1325,19 +1325,15 @@ textarea.cdk-textarea-autosize-measuring {
 
 // sharp design
 .mat-mdc-outlined-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 .mat-mdc-unelevated-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 .mat-mdc-button {
-  border-radius: 0 !important;
-}
-
-.card {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 //colors for material icons
@@ -1597,6 +1593,7 @@ td.mat-mdc-cell {
   font-size: 16px !important;
   color: black !important;
   opacity: 1 !important;
+  border-radius: var(--bs-border-radius) !important;
 }
 
 .mdc-tab__icon {
@@ -1687,7 +1684,7 @@ table .mdc-text-field--outlined {
 // angular 15 button fixes
 
 .mdc-button {
-  border-radius: 0 !important;
+  border-radius: var(--bs-border-radius) !important;
   white-space: nowrap !important;
   letter-spacing: normal;
 }
@@ -1706,12 +1703,13 @@ table .mdc-text-field--outlined {
 
 .mat-mdc-tab-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
 }
 
 .mat-mdc-tab.mdc-tab--active {
   background-color: #e8e4e4;
+  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
 }
-
 .mdc-data-table__cell {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
@@ -1726,4 +1724,8 @@ table .mdc-text-field--outlined {
 
 .mb-25 {
   margin-bottom: 0.75rem;
+}
+
+.card {
+  border-radius: var(--bs-border-radius) !important;
 }

@@ -1,5 +1,5 @@
 <div
-  class="notification {{inDialog ? '' : 'mat-elevation-z7'}}"
+  class="card notification {{inDialog ? '' : 'mat-elevation-z7'}}"
   [class.error]="data.type === 'error'"
   [class.success]="data.type === 'success'">
   <div class="notification-container" (click)="!alreadyClosed && !waiting ? closeSelf(): ''">

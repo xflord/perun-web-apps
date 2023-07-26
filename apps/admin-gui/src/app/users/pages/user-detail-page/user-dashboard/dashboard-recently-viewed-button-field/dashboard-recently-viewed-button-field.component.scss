@@ -19,6 +19,13 @@
 
 .item-itself-container {
   margin: 8px;
+  transition: 250ms;
+
+  &:hover {
+    box-shadow: 0 0 25px 5px rgba(0, 0, 0, 0.33);
+    transform: scale(1.02);
+    border-radius: var(--bs-border-radius);
+  }
 }
 
 .item-itself {
@@ -33,6 +40,7 @@
   overflow-wrap: break-word;
   word-break: break-word;
   text-decoration: none;
+  border-radius: var(--bs-border-radius);
 
   & img {
     height: 120px;
