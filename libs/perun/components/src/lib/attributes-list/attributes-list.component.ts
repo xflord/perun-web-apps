@@ -81,7 +81,17 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     if (!this.authResolver.isPerunAdminOrObserver()) {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
-    this.dataSource = new MatTableDataSource<Attribute>(filterCoreAttributes(this.attributes));
+
+    const attributesWithoutEmptyObjects = this.attributes.filter((attribute) => {
+      if (typeof attribute.value === 'object') {
+        return Object.keys(attribute.value as object).length > 0;
+      }
+      return true;
+    });
+
+    const filteredAttributes = filterCoreAttributes(attributesWithoutEmptyObjects);
+
+    this.dataSource = new MatTableDataSource<Attribute>(filteredAttributes);
     this.setDataSource();
   }
 
