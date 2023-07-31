@@ -1,0 +1,9 @@
+<h1 class="page-title">{{'AUTHENTICATION.ACCOUNT_ACTIVATION' | customTranslate | translate}}</h1>
+
+<div *ngIf="displayLocalAccount" class="mb-5">
+  <perun-web-apps-authentication-local-account></perun-web-apps-authentication-local-account>
+</div>
+
+<div *ngIf="displaySambaPassword">
+  <perun-web-apps-authentication-samba-password></perun-web-apps-authentication-samba-password>
+</div>

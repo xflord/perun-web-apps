@@ -14,7 +14,7 @@ export interface ActivateLocalAccountData {
 }
 
 @Component({
-  selector: 'perun-web-apps-activate-local-account-dialog',
+  selector: 'perun-web-apps-activate-authentication-local-account-dialog',
   templateUrl: './activate-local-account-dialog.component.html',
   styleUrls: ['./activate-local-account-dialog.component.scss'],
 })

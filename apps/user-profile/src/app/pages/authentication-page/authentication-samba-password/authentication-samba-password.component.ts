@@ -9,11 +9,11 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'perun-web-apps-settings-samba-password',
-  templateUrl: './settings-samba-password.component.html',
-  styleUrls: ['./settings-samba-password.component.scss'],
+  selector: 'perun-web-apps-authentication-samba-password',
+  templateUrl: './authentication-samba-password.component.html',
+  styleUrls: ['./authentication-samba-password.component.scss'],
 })
-export class SettingsSambaPasswordComponent implements OnInit {
+export class AuthenticationSambaPasswordComponent implements OnInit {
   showPassword: boolean;
   sambaExists: boolean;
   sambaAttribute: Attribute;

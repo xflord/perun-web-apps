@@ -75,6 +75,15 @@ export class SideMenuItemService {
             tabName: 'consents',
           });
           break;
+        case 'authentication':
+          items.push({
+            label: 'MENU_ITEMS.AUTHENTICATION',
+            icon: 'admin_panel_settings',
+            link: '/profile/auth',
+            activatedRegex: '^/profile/auth',
+            tabName: 'authentication',
+          });
+          break;
         case 'settings':
           items.push({
             label: 'MENU_ITEMS.SETTINGS',

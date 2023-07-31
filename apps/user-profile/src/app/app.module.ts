@@ -18,7 +18,7 @@ import { SettingsOverviewComponent } from './pages/settings-page/settings-overvi
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
 import { SettingsAlternativePasswordsComponent } from './pages/settings-page/settings-alternative-passwords/settings-alternative-passwords.component';
-import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
+import { AuthenticationSambaPasswordComponent } from './pages/authentication-page/authentication-samba-password/authentication-samba-password.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { CustomIconService, StoreService } from '@perun-web-apps/perun/services';
 import { MatIconModule } from '@angular/material/icon';
@@ -59,7 +59,6 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { ApiService } from '@perun-web-apps/perun/services';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { SettingsAuthenticationComponent } from './pages/settings-page/settings-authorization/settings-authentication.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AddAuthImgDialogComponent } from './components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -70,14 +69,18 @@ import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
-import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
+import { AuthenticationLocalAccountComponent } from './pages/authentication-page/authentication-local-account/authentication-local-account.component';
 import { ActivateLocalAccountDialogComponent } from './components/dialogs/activate-local-account-dialog/activate-local-account-dialog.component';
 import { PerunNamespacePasswordFormModule } from '@perun-web-apps/perun/namespace-password-form';
-import { MfaSettingsComponent } from './pages/settings-page/settings-authorization/mfa-settings/mfa-settings.component';
+import { AuthenticationMfaSettingsComponent } from './pages/authentication-page/authentication-mfa-settings/authentication-mfa-settings.component';
 import { CategoryLabelPipe } from './pipes/category-label.pipe';
 import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
 import { AddAuthTextDialogComponent } from './components/dialogs/add-auth-text-dialog/add-auth-text-dialog.component';
+import { AuthenticationPageComponent } from './pages/authentication-page/authentication-page.component';
+import { AuthenticationOverviewComponent } from './pages/authentication-page/authentication-overview/authentication-overview.component';
+import { AuthenticationAntiPhishingSecurityComponent } from './pages/authentication-page/authentication-anti-phishing-security/authentication-anti-phishing-security.component';
+import { AuthenticationAccountActivationComponent } from './pages/authentication-page/authentication-account-activation/authentication-account-activation.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -110,11 +113,13 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     VosPageComponent,
     ServicesPageComponent,
     SettingsPageComponent,
+    AuthenticationPageComponent,
+    AuthenticationOverviewComponent,
     SettingsOverviewComponent,
     SettingsPreferredUnixGroupNamesComponent,
     SettingsPreferredShellsComponent,
     SettingsAlternativePasswordsComponent,
-    SettingsSambaPasswordComponent,
+    AuthenticationSambaPasswordComponent,
     SettingsMailingListsComponent,
     SettingsDataQuotasComponent,
     SideMenuComponent,
@@ -128,15 +133,16 @@ const loadConfigs: (appConfig: UserProfileConfigService) => () => Promise<void> 
     ValidateExpirationPipe,
     CategoryLabelPipe,
     BreadcrumbsComponent,
-    SettingsAuthenticationComponent,
     AddAuthImgDialogComponent,
     ConsentsPageComponent,
     ConsentRequestComponent,
     ConsentsPreviewComponent,
-    SettingsLocalAccountComponent,
+    AuthenticationLocalAccountComponent,
+    AuthenticationAntiPhishingSecurityComponent,
     ActivateLocalAccountDialogComponent,
-    MfaSettingsComponent,
+    AuthenticationMfaSettingsComponent,
     AddAuthTextDialogComponent,
+    AuthenticationAccountActivationComponent,
   ],
   imports: [
     BrowserModule,

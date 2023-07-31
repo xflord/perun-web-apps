@@ -15,11 +15,11 @@ import { MfaSettings } from '@perun-web-apps/perun/models';
 import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'perun-web-apps-mfa-settings',
-  templateUrl: './mfa-settings.component.html',
-  styleUrls: ['./mfa-settings.component.scss'],
+  selector: 'perun-web-apps-authentication-mfa-settings',
+  templateUrl: './authentication-mfa-settings.component.html',
+  styleUrls: ['./authentication-mfa-settings.component.scss'],
 })
-export class MfaSettingsComponent implements OnInit {
+export class AuthenticationMfaSettingsComponent implements OnInit {
   @ViewChild('master') checkbox: MatCheckbox;
 
   mfaAvailable = false;

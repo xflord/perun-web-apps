@@ -105,9 +105,11 @@
     "vos",
     "privacy",
     "consents",
+    "authentication",
     "settings",
     "data_quotas",
     "ssh_keys",
+    "mfa",
     "opt_out",
     "samba",
     "alt_passwords",
@@ -115,9 +117,9 @@
     "pref_group_names",
     "password_reset",
     "external",
-    "password_reset",
-    "auth",
-    "local_acc"
+    "local_acc",
+    "anti_phishing",
+    "accountActivation"
   ],
   "custom_labels": [
     {

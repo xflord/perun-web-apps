@@ -10,12 +10,8 @@ import { SettingsAlternativePasswordsComponent } from './pages/settings-page/set
 import { SettingsOverviewComponent } from './pages/settings-page/settings-overview/settings-overview.component';
 import { SettingsPreferredShellsComponent } from './pages/settings-page/settings-preferred-shells/settings-preferred-shells.component';
 import { SettingsPreferredUnixGroupNamesComponent } from './pages/settings-page/settings-preferred-unix-group-names/settings-preferred-unix-group-names.component';
-import { SettingsSambaPasswordComponent } from './pages/settings-page/settings-samba-password/settings-samba-password.component';
-import { SettingsSSHKeysComponent } from '@perun-web-apps/perun/components';
 import { PrivacyPageComponent } from './pages/privacy-page/privacy-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { PasswordResetComponent } from '@perun-web-apps/perun/components';
-import { SettingsAuthenticationComponent } from './pages/settings-page/settings-authorization/settings-authentication.component';
 import {
   LoginScreenComponent,
   LoginScreenServiceAccessComponent,
@@ -23,10 +19,15 @@ import {
 import { ConsentsPageComponent } from './pages/consents-page/consents-page.component';
 import { ConsentRequestComponent } from './pages/consents-page/consent-request/consent-request.component';
 import { ConsentsPreviewComponent } from './pages/consents-page/consents-preview/consents-preview.component';
-import { SettingsLocalAccountComponent } from './pages/settings-page/settings-local-account/settings-local-account.component';
 import { SettingsMailingListsComponent } from './pages/settings-page/settings-mailing-lists/settings-mailing-lists.component';
 import { SettingsDataQuotasComponent } from './pages/settings-page/settings-data-quotas/settings-data-quotas.component';
 import { LogoutLoaderComponent } from '@perun-web-apps/ui/loaders';
+import { AuthenticationPageComponent } from './pages/authentication-page/authentication-page.component';
+import { AuthenticationOverviewComponent } from './pages/authentication-page/authentication-overview/authentication-overview.component';
+import { AuthenticationMfaSettingsComponent } from './pages/authentication-page/authentication-mfa-settings/authentication-mfa-settings.component';
+import { AuthenticationAntiPhishingSecurityComponent } from './pages/authentication-page/authentication-anti-phishing-security/authentication-anti-phishing-security.component';
+import { AuthenticationAccountActivationComponent } from './pages/authentication-page/authentication-account-activation/authentication-account-activation.component';
+import { PasswordResetComponent, SettingsSSHKeysComponent } from '@perun-web-apps/perun/components';
 
 const routes: Routes = [
   {
@@ -99,6 +100,48 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'auth',
+        component: AuthenticationPageComponent,
+        data: { breadcrumb: 'MENU_ITEMS.AUTHENTICATION' },
+        children: [
+          {
+            path: '',
+            component: AuthenticationOverviewComponent,
+            data: { breadcrumb: 'MENU_ITEMS.AUTHENTICATION' },
+          },
+          {
+            path: 'accountActivation',
+            component: AuthenticationAccountActivationComponent,
+            data: { breadcrumb: 'AUTHENTICATION.ACCOUNT_ACTIVATION' },
+          },
+          {
+            path: 'mfa',
+            component: AuthenticationMfaSettingsComponent,
+            data: { breadcrumb: 'AUTHENTICATION.MFA' },
+          },
+          {
+            path: 'antiPhishingSecurity',
+            component: AuthenticationAntiPhishingSecurityComponent,
+            data: { breadcrumb: 'AUTHENTICATION.ANTI_PHISHING' },
+          },
+          {
+            path: 'sshKeys',
+            component: SettingsSSHKeysComponent,
+            data: { breadcrumb: 'AUTHENTICATION.SSH_KEYS' },
+          },
+          {
+            path: 'passwordReset',
+            component: PasswordResetComponent,
+            data: { breadcrumb: 'AUTHENTICATION.PASSWORD_RESET' },
+          },
+          {
+            path: 'altPasswords',
+            component: SettingsAlternativePasswordsComponent,
+            data: { breadcrumb: 'AUTHENTICATION.ALTERNATIVE_PASSWORDS' },
+          },
+        ],
+      },
+      {
         path: 'settings',
         component: SettingsPageComponent,
         data: { breadcrumb: 'MENU_ITEMS.SETTINGS' },
@@ -109,24 +152,9 @@ const routes: Routes = [
             data: { breadcrumb: 'MENU_ITEMS.SETTINGS' },
           },
           {
-            path: 'altPasswords',
-            component: SettingsAlternativePasswordsComponent,
-            data: { breadcrumb: 'SETTINGS.ALTERNATIVE_PASSWORDS' },
-          },
-          {
-            path: 'auth',
-            component: SettingsAuthenticationComponent,
-            data: { breadcrumb: 'SETTINGS.AUTHENTICATION' },
-          },
-          {
             path: 'dataQuotas',
             component: SettingsDataQuotasComponent,
             data: { breadcrumb: 'SETTINGS.DATA_QUOTAS' },
-          },
-          {
-            path: 'localAccount',
-            component: SettingsLocalAccountComponent,
-            data: { breadcrumb: 'SETTINGS.LOCAL_ACCOUNT' },
           },
           {
             path: 'mailingLists',
@@ -142,21 +170,6 @@ const routes: Routes = [
             path: 'prefGroupNames',
             component: SettingsPreferredUnixGroupNamesComponent,
             data: { breadcrumb: 'SETTINGS.PREFERRED_UNIX_GROUP_NAMES' },
-          },
-          {
-            path: 'sambaPassword',
-            component: SettingsSambaPasswordComponent,
-            data: { breadcrumb: 'SETTINGS.SAMBA_PASSWORD' },
-          },
-          {
-            path: 'sshKeys',
-            component: SettingsSSHKeysComponent,
-            data: { breadcrumb: 'SETTINGS.SSH_KEYS' },
-          },
-          {
-            path: 'passwordReset',
-            component: PasswordResetComponent,
-            data: { breadcrumb: 'SETTINGS.PASSWORD_RESET' },
           },
         ],
       },

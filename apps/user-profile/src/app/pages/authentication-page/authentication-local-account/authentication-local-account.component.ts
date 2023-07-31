@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
-  selector: 'perun-web-apps-settings-local-account',
-  templateUrl: './settings-local-account.component.html',
-  styleUrls: ['./settings-local-account.component.scss'],
+  selector: 'perun-web-apps-authentication-local-account',
+  templateUrl: './authentication-local-account.component.html',
+  styleUrls: ['./authentication-local-account.component.scss'],
 })
-export class SettingsLocalAccountComponent {
+export class AuthenticationLocalAccountComponent {
   userId: number = this.store.getPerunPrincipal().userId;
   namespace: string = this.store.getProperty('local_account_namespace');
   loginExists$: Observable<boolean> = this.userService.loginExist(this.userId, this.namespace);

@@ -1,27 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
+import { Component, OnInit } from '@angular/core';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
+import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AddAuthImgDialogComponent } from '../../../components/dialogs/add-auth-img-dialog/add-auth-img-dialog.component';
+import { AddAuthTextDialogComponent } from '../../../components/dialogs/add-auth-text-dialog/add-auth-text-dialog.component';
+import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
 import {
   NotificatorService,
   PerunTranslateService,
   StoreService,
 } from '@perun-web-apps/perun/services';
-import { RemoveStringValueDialogComponent } from '@perun-web-apps/perun/dialogs';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { AddAuthTextDialogComponent } from '../../../components/dialogs/add-auth-text-dialog/add-auth-text-dialog.component';
-import { ComponentType } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';
+import { ComponentType } from '@angular/cdk/overlay';
 
 @Component({
-  selector: 'perun-web-apps-settings-authentication',
-  templateUrl: './settings-authentication.component.html',
-  styleUrls: ['./settings-authentication.component.scss'],
+  selector: 'perun-web-apps-authentication-anti-phishing-security',
+  templateUrl: './authentication-anti-phishing-security.component.html',
+  styleUrls: ['./authentication-anti-phishing-security.component.scss'],
 })
-export class SettingsAuthenticationComponent implements OnInit {
-  @ViewChild('toggle') toggle: MatSlideToggle;
-
+export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
   imgAtt: Attribute;
   imgAttrName: string;
   imageSrc = '';
@@ -30,9 +27,11 @@ export class SettingsAuthenticationComponent implements OnInit {
   componentMapper: {
     [key: string]: ComponentType<AddAuthImgDialogComponent | AddAuthTextDialogComponent>;
   };
+
+  loading = false;
+
   displayImageBlock: boolean;
   displayTextBlock: boolean;
-  loading = false;
 
   constructor(
     private dialog: MatDialog,
@@ -50,6 +49,7 @@ export class SettingsAuthenticationComponent implements OnInit {
       AddAuthImgDialogComponent: AddAuthImgDialogComponent,
       AddAuthTextDialogComponent: AddAuthTextDialogComponent,
     };
+
     this.displayImageBlock = this.store.getProperty('mfa').enable_security_image;
     if (this.displayImageBlock) {
       this.loadSecurityAttribute(this.imgAttrName, true).subscribe((attr) => {

@@ -1,0 +1,10 @@
+.security-text {
+  font-family: FreeMono, monospace;
+  color: grey;
+}
+
+mat-list-item:hover {
+  background: var(--side-hover) !important;
+  color: var(--side-text-hover) !important;
+  cursor: pointer;
+}

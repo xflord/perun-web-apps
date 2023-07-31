@@ -1,7 +1,8 @@
 {
   "NAV": {
     "LOGOUT": "Log out",
-    "OTHER_APPLICATIONS": "Other applications"
+    "OTHER_APPLICATIONS": "Other applications",
+    "MENU": "Menu"
   },
   "MENU_ITEMS": {
     "PROFILE": "Profile",
@@ -12,17 +13,14 @@
     "PRIVACY": "Privacy",
     "CONSENTS": "Consents",
     "CONSENT_REQUEST": "Consent request",
+    "AUTHENTICATION": "Authentication",
     "SETTINGS": "Settings"
   },
   "SETTINGS": {
-    "ALTERNATIVE_PASSWORDS": "Alternative passwords",
     "DATA_QUOTAS": "Data quotas",
     "MAILING_LISTS": "Opt-out from mailing lists",
     "PREFERRED_SHELLS": "Preferred shells",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferred unix group names",
-    "SAMBA_PASSWORD": "Samba password",
-    "SSH_KEYS": "SSH keys",
-    "PASSWORD_RESET": "Change password",
     "AUTHENTICATION": "Authentication",
     "LOCAL_ACCOUNT": "Local account"
   },
@@ -155,7 +153,14 @@
     "SAVE_IMG_SUCCESS": "Security image has been saved.",
     "REMOVE_IMG_SUCCESS": "Security image has been removed.",
     "SAVE_TEXT_SUCCESS": "Security text has been saved.",
-    "REMOVE_TEXT_SUCCESS": "Security text has been removed."
+    "REMOVE_TEXT_SUCCESS": "Security text has been removed.",
+    "SAMBA_PASSWORD": "Samba password",
+    "LOCAL_ACCOUNT": "Local account",
+    "ANTI_PHISHING": "Anti-phishing security",
+    "ACCOUNT_ACTIVATION": "Account activation",
+    "SSH_KEYS": "SSH keys",
+    "PASSWORD_RESET": "Change password",
+    "ALTERNATIVE_PASSWORDS": "Alternative passwords"
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Local account",
