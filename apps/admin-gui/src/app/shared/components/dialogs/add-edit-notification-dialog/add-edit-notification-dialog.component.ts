@@ -33,9 +33,9 @@ export class AddEditNotificationDialogComponent implements OnInit {
   theme: string;
   editAuth: boolean;
   languages = ['en'];
-  formats = ['plain_text', 'html'];
+  formats = ['plain', 'html'];
   htmlAuth: boolean;
-  inputFormGroup: FormGroup = null;
+  inputFormGroup: FormGroup<Record<string, FormControl<string>>> = null;
 
   constructor(
     private dialogRef: MatDialogRef<AddEditNotificationDialogComponent>,
@@ -73,7 +73,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
       );
     }
 
-    const formGroupFields: { [key: string]: FormControl } = {};
+    const formGroupFields: { [key: string]: FormControl<string> } = {};
     for (const lang of this.languages) {
       // Plain
       formGroupFields[`${lang}-plain-subject`] = new FormControl(
@@ -115,24 +115,24 @@ export class AddEditNotificationDialogComponent implements OnInit {
           group: this.data.groupId,
           mail: this.applicationMail,
         })
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     } else {
       this.registrarService
         .addApplicationMailForVo({
           vo: this.data.voId,
           mail: this.applicationMail,
         })
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
-        );
+          error: () => (this.loading = false),
+        });
     }
   }
 
@@ -141,29 +141,27 @@ export class AddEditNotificationDialogComponent implements OnInit {
     // Validate notification
     for (const lang of this.languages) {
       let escaped = this.inputEscape.escapeDangerousHtml(
-        String(this.inputFormGroup.get(`${lang}-html-subject`).value)
+        this.inputFormGroup.get(`${lang}-html-subject`).value
       );
       this.applicationMail.htmlMessage[lang].subject = escaped.escapedHtml;
       escaped = this.inputEscape.escapeDangerousHtml(
-        String(this.inputFormGroup.get(`${lang}-html-text`).value)
+        this.inputFormGroup.get(`${lang}-html-text`).value
       );
       this.applicationMail.htmlMessage[lang].text = escaped.escapedHtml;
 
       // Update application with content from FormControl
-      this.applicationMail.message[lang].subject = String(
-        this.inputFormGroup.get(`${lang}-plain-subject`).value
-      );
-      this.applicationMail.message[lang].text = String(
-        this.inputFormGroup.get(`${lang}-plain-text`).value
-      );
+      this.applicationMail.message[lang].subject = this.inputFormGroup.get(
+        `${lang}-plain-subject`
+      ).value;
+      this.applicationMail.message[lang].text = this.inputFormGroup.get(`${lang}-plain-text`).value;
     }
 
-    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe(
-      () => {
+    this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe({
+      next: () => {
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   addTag(
@@ -177,31 +175,11 @@ export class AddEditNotificationDialogComponent implements OnInit {
       ? (textarea.children.item(0) as HTMLTextAreaElement)
       : (input.children.item(0) as HTMLInputElement);
     const position: number = place.selectionStart;
-    if (this.isTextFocused) {
-      if (format === 'html') {
-        this.applicationMail.htmlMessage[language].text =
-          this.applicationMail.htmlMessage[language].text.substring(0, position) +
-          tag +
-          this.applicationMail.htmlMessage[language].text.substring(position);
-      } else {
-        this.applicationMail.message[language].text =
-          this.applicationMail.message[language].text.substring(0, position) +
-          tag +
-          this.applicationMail.message[language].text.substring(position);
-      }
-    } else {
-      if (format === 'html') {
-        this.applicationMail.htmlMessage[language].subject =
-          this.applicationMail.htmlMessage[language].subject.substring(0, position) +
-          tag +
-          this.applicationMail.htmlMessage[language].subject.substring(position);
-      } else {
-        this.applicationMail.message[language].subject =
-          this.applicationMail.message[language].subject.substring(0, position) +
-          tag +
-          this.applicationMail.message[language].subject.substring(position);
-      }
-    }
+    const form = this.inputFormGroup.get(
+      `${language}-${format}-${this.isTextFocused ? 'text' : 'subject'}`
+    );
+    const curValue = form.value;
+    form.setValue(curValue.substring(0, position) + tag + curValue.substring(position));
     place.focus();
   }
 

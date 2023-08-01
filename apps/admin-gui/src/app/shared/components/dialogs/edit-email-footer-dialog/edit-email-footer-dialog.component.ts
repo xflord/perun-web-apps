@@ -24,7 +24,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
   htmlInput = new FormControl('', [this.escapeInput.htmlContentValidator()]);
   plainEdithAuth: boolean;
   htmlEditAuth: boolean;
-  formats = ['plain_text', 'html'];
+  formats = ['plain', 'html'];
   private mailAttribute: Attribute;
   private htmlMailAttribute: Attribute;
 
