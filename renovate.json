@@ -1,0 +1,26 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"config:best-practices",
+		"config:js-app",
+		":automergeLinters",
+		":automergeRequireAllStatusChecks",
+		":maintainLockFilesMonthly",
+		":semanticCommits",
+		":label(dependencies)",
+		":enableVulnerabilityAlertsWithLabel(security)",
+	],
+	"minimumReleaseAge": 3,
+	"osvVulnerabilityAlerts": true,
+	"packageRules": [
+		{
+			"dependencyDashboardApproval": true,
+			"matchUpdateTypes": [
+				"major",
+				"minor",
+				"patch",
+				"digest"
+			]
+		}
+	]
+}
