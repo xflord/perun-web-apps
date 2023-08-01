@@ -1468,7 +1468,7 @@
       "AVAILABLE_TAGS": "Available tags",
       "SUBJECT": "Subject",
       "TEXT": "Text",
-      "SHOW_TAGS": "Add tags",
+      "SHOW_TAGS": "Show tags",
       "HIDE_TAGS": "Hide tags",
       "TAGS_DESCRIPTION": "Following tags can be used in mail's subject and text and are replaced by actual data on sending. Just choose the place where you want the tag and click on the tag button. When no data for the tag is found, it's replaced by whitespace.",
       "APPLICATION_RELATED_SECTION": "Application related",
