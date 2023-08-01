@@ -16,7 +16,7 @@
             </span>
           </ng-template>
           <mat-form-field class="w-100" subscriptSizing="dynamic">
-            <textarea *ngIf="format === 'plain_text'" [(ngModel)]="mailFooter" matInput rows="5">
+            <textarea *ngIf="format === 'plain'" [(ngModel)]="mailFooter" matInput rows="5">
             </textarea>
             <textarea *ngIf="format === 'html'" [formControl]="htmlInput" matInput rows="5">
             </textarea>
@@ -24,7 +24,7 @@
               {{htmlInput.errors.invalidHtmlContent}}
             </mat-error>
           </mat-form-field>
-          <div class="mt-2 font-italic text-muted" *ngIf="format === 'plain_text'">
+          <div class="mt-2 font-italic text-muted" *ngIf="format === 'plain'">
             {{'DIALOGS.NOTIFICATIONS_EDIT_FOOTER.DESCRIPTION' | translate}}
           </div>
           <div class="mt-2 font-italic text-muted" *ngIf="format === 'html'">

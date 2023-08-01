@@ -146,7 +146,7 @@
                       <mat-form-field class="w-100" subscriptSizing="dynamic">
                         <div #Input>
                           <input
-                            *ngIf="format === 'plain_text'"
+                            *ngIf="format === 'plain'"
                             formControlName="{{lang}}-plain-subject"
                             (focus)="isTextFocused = false"
                             matInput />
@@ -168,7 +168,7 @@
                     <mat-form-field class="w-100" subscriptSizing="dynamic">
                       <div #Textarea>
                         <textarea
-                          *ngIf="format === 'plain_text'"
+                          *ngIf="format === 'plain'"
                           matInput
                           formControlName="{{lang}}-plain-text"
                           (focus)="isTextFocused = true"
