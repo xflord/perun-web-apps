@@ -17,6 +17,6 @@ export interface BlockedLoginsPageQuery {
   offset: number;
   order: SortingOrder;
   sortColumn: BlockedLoginsOrderColumn;
-  searchString?: string;
   namespaces?: Array<string>;
+  searchString?: string;
 }

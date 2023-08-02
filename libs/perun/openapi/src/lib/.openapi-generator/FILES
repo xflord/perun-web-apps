@@ -58,6 +58,9 @@ model/ban.ts
 model/banOnFacility.ts
 model/banOnResource.ts
 model/banOnVo.ts
+model/blockedLogin.ts
+model/blockedLoginsOrderColumn.ts
+model/blockedLoginsPageQuery.ts
 model/brand.ts
 model/candidate.ts
 model/category.ts
@@ -144,6 +147,7 @@ model/inputGetMatchResources.ts
 model/inputGetMembersByUserAttributes.ts
 model/inputGetMessagesPage.ts
 model/inputGetPaginatedApplications.ts
+model/inputGetPaginatedBlockedLogins.ts
 model/inputGetPaginatedGroups.ts
 model/inputGetPaginatedMembers.ts
 model/inputGetPaginatedSubgroups.ts

@@ -66,7 +66,9 @@ export class CreateAttributeDefinitionDialogComponent {
   });
   collections: AttributePolicyCollection[] = [];
   finalReadOperations: boolean;
+  finalReadGlobal = false;
   finalWriteOperations: boolean;
+  finalWriteGlobal = false;
   attDefCreated: AttributeDefinition;
 
   constructor(
@@ -101,6 +103,8 @@ export class CreateAttributeDefinitionDialogComponent {
           this.attributeRightsService.updateAttributeAction(
             this.finalReadOperations,
             false,
+            this.finalReadGlobal,
+            false,
             this.attDefCreated.id,
             AttributeAction.READ
           )
@@ -109,6 +113,8 @@ export class CreateAttributeDefinitionDialogComponent {
           this.attributeRightsService.updateAttributeAction(
             this.finalWriteOperations,
             true, // we want all newly created attributes by default with critical write operations
+            this.finalWriteGlobal,
+            false,
             this.attDefCreated.id,
             AttributeAction.WRITE
           )

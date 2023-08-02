@@ -82,7 +82,9 @@
 
       <perun-web-apps-attribute-critical-operations-toggles
         (readOperationChanged)="finalReadOperations=$event"
-        (writeOperationChanged)="finalWriteOperations=$event">
+        (readGlobalChanged)="finalReadGlobal=$event"
+        (writeOperationChanged)="finalWriteOperations=$event"
+        (writeGlobalChanged)="finalWriteGlobal=$event">
       </perun-web-apps-attribute-critical-operations-toggles>
 
       <perun-web-apps-attribute-rights-tab-group [collections]="collections">

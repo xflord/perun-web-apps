@@ -3330,6 +3330,7 @@
         "ATTRIBUTE_CRITICAL_OPERATIONS_TOGGLE": {
           "READ": "READ operations critical",
           "WRITE": "WRITE operations critical",
+          "GLOBAL": "Critical for all objects",
           "INFO": "All operations of the selected type (READ/WRITE) for this attribute will require multi-factor authentication for objects that are marked as critical."
         },
         "DATA_QUOTAS": {

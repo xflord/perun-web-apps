@@ -9,10 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AttributeAction } from './attributeAction';
 import { AttributePolicyCollection } from './attributePolicyCollection';
 
 export interface AttributeRules {
   attributePolicyCollections?: Array<AttributePolicyCollection>;
-  criticalActions?: Array<AttributeAction>;
+  /**
+   * Represents types of actions (READ, WRITE) that users can perform upon attributes and if they are critical globally or not.
+   */
+  criticalActions?: { [key: string]: boolean };
 }

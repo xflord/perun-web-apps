@@ -34,9 +34,13 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   showKeys = false;
   attDef: AttributeDefinition = this.data.attDef;
   initReadOperations: boolean;
+  initReadGlobal: boolean;
   initWriteOperations: boolean;
+  initWriteGlobal: boolean;
   finalReadOperations: boolean;
+  finalReadGlobal: boolean;
   finalWriteOperations: boolean;
+  finalWriteGlobal: boolean;
   attributeControl: UntypedFormGroup = this.formBuilder.group({
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
@@ -64,8 +68,10 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     this.dialogRef.addPanelClass('mat-dialog-height-transition');
     this.attributesManager.getAttributeRules(this.attDef.id).subscribe((attrRights) => {
       this.collections$ = new BehaviorSubject(attrRights.attributePolicyCollections);
-      this.initReadOperations = attrRights.criticalActions.includes('READ');
-      this.initWriteOperations = attrRights.criticalActions.includes('WRITE');
+      this.initReadOperations = 'READ' in attrRights.criticalActions;
+      this.initWriteOperations = 'WRITE' in attrRights.criticalActions;
+      this.initReadGlobal = attrRights.criticalActions['READ'] || false;
+      this.initWriteGlobal = attrRights.criticalActions['WRITE'] || false;
       this.loading = false;
     });
   }
@@ -85,6 +91,8 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           this.attributeRightsService.updateAttributeAction(
             this.finalReadOperations,
             this.initReadOperations,
+            this.finalReadGlobal,
+            this.initReadGlobal,
             this.attDef.id,
             AttributeAction.READ
           )
@@ -93,6 +101,8 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           this.attributeRightsService.updateAttributeAction(
             this.finalWriteOperations,
             this.initWriteOperations,
+            this.finalWriteGlobal,
+            this.initWriteGlobal,
             this.attDef.id,
             AttributeAction.WRITE
           )
@@ -105,7 +115,10 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
           );
           this.dialogRef.close(true);
         },
-        error: () => (this.loading = false),
+        error: (err) => {
+          this.loading = false;
+          console.error(err);
+        },
       });
   }
 

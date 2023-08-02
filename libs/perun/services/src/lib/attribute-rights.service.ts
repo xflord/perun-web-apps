@@ -71,14 +71,20 @@ export class AttributeRightsService {
   updateAttributeAction(
     finalOperations: boolean,
     initOperations: boolean,
+    finalGlobal: boolean,
+    initGlobal: boolean,
     attrDefId: number,
     operationType: AttributeAction
   ): Observable<void> {
-    if (finalOperations !== undefined && finalOperations !== initOperations) {
+    if (
+      (finalOperations !== undefined && finalOperations !== initOperations) ||
+      (finalGlobal !== undefined && finalGlobal !== initGlobal)
+    ) {
       return this.attributesManager.setAttributeActionCriticality(
         attrDefId,
         operationType,
-        finalOperations
+        finalOperations === undefined ? initOperations : finalOperations,
+        finalGlobal
       ) as Observable<void>;
     } else {
       return of(void 0);

@@ -12,7 +12,7 @@
 import { BlockedLoginsPageQuery } from './blockedLoginsPageQuery';
 
 /**
- * input to getPaginatedBlockedLogins
+ * input to getBlockedLoginsPage
  */
 export interface InputGetPaginatedBlockedLogins {
   query: BlockedLoginsPageQuery;
