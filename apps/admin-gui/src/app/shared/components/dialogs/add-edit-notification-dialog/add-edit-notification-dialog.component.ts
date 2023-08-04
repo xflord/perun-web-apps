@@ -109,6 +109,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
       return;
     }
     this.loading = true;
+    this.validateNotification();
     if (this.data.groupId) {
       this.registrarService
         .addApplicationMailForGroup({
@@ -138,24 +139,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
   save(): void {
     this.loading = true;
-    // Validate notification
-    for (const lang of this.languages) {
-      let escaped = this.inputEscape.escapeDangerousHtml(
-        this.inputFormGroup.get(`${lang}-html-subject`).value
-      );
-      this.applicationMail.htmlMessage[lang].subject = escaped.escapedHtml;
-      escaped = this.inputEscape.escapeDangerousHtml(
-        this.inputFormGroup.get(`${lang}-html-text`).value
-      );
-      this.applicationMail.htmlMessage[lang].text = escaped.escapedHtml;
-
-      // Update application with content from FormControl
-      this.applicationMail.message[lang].subject = this.inputFormGroup.get(
-        `${lang}-plain-subject`
-      ).value;
-      this.applicationMail.message[lang].text = this.inputFormGroup.get(`${lang}-plain-text`).value;
-    }
-
+    this.validateNotification();
     this.registrarService.updateApplicationMail({ mail: this.applicationMail }).subscribe({
       next: () => {
         this.dialogRef.close(true);
@@ -194,5 +178,25 @@ export class AddEditNotificationDialogComponent implements OnInit {
       }
     }
     this.invalidNotification = false;
+  }
+
+  validateNotification(): void {
+    // Validate notification
+    for (const lang of this.languages) {
+      let escaped = this.inputEscape.escapeDangerousHtml(
+        this.inputFormGroup.get(`${lang}-html-subject`).value
+      );
+      this.applicationMail.htmlMessage[lang].subject = escaped.escapedHtml;
+      escaped = this.inputEscape.escapeDangerousHtml(
+        this.inputFormGroup.get(`${lang}-html-text`).value
+      );
+      this.applicationMail.htmlMessage[lang].text = escaped.escapedHtml;
+
+      // Update application with content from FormControl
+      this.applicationMail.message[lang].subject = this.inputFormGroup.get(
+        `${lang}-plain-subject`
+      ).value;
+      this.applicationMail.message[lang].text = this.inputFormGroup.get(`${lang}-plain-text`).value;
+    }
   }
 }
