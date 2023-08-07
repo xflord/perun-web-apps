@@ -84,7 +84,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
 
     const attributesWithoutEmptyObjects = this.attributes.filter((attribute) => {
       if (typeof attribute.value === 'object') {
-        return Object.keys(attribute.value as object).length > 0;
+        return Object.keys((attribute.value ?? '') as object).length > 0;
       }
       return true;
     });
