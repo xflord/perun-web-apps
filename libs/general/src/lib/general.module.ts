@@ -6,17 +6,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserDontExistDialogComponent } from './user-dont-exist-dialog/user-dont-exist-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PreventProxyOverloadDialogComponent } from './prevent-proxy-overload-dialog/prevent-proxy-overload-dialog.component';
+import { UserNotAllowedAccessComponent } from './user-not-allowed-access/user-not-allowed-access.component';
 
 @NgModule({
   imports: [CommonModule, MatDialogModule, MatButtonModule, TranslateModule],
   exports: [
     ServerDownDialogComponent,
     UserDontExistDialogComponent,
+    UserNotAllowedAccessComponent,
     PreventProxyOverloadDialogComponent,
   ],
   declarations: [
     ServerDownDialogComponent,
     UserDontExistDialogComponent,
+    UserNotAllowedAccessComponent,
     PreventProxyOverloadDialogComponent,
   ],
 })

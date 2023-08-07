@@ -309,6 +309,11 @@
         "USER_DONT_EXIST": {
           "TITLE": "Požadovaný uživatel (dle ID nebo externí identity) neexistuje."
         },
+        "USER_NOT_ALLOWED": {
+          "TITLE": "Přístup není povolen",
+          "MESSAGE": "Servisní účty (Service account) nemají povolen přístup k této aplikaci.",
+          "REDIRECT": "Přesměrovaní na přihlášení"
+        },
         "TABLE_OPTIONS": {
           "EXPORT_TO_FILE": "Exportovat do souboru",
           "ALL_DATA": "Všechna data",

@@ -35,6 +35,11 @@
         "FOCUS_ON_MFA_DIALOG": {
           "MODAL": "Modal window is opened.",
           "MODAL_WARNING": "Please check your browser settings if no modal window is open."
+        },
+        "USER_NOT_ALLOWED": {
+          "TITLE": "Access not allowed",
+          "MESSAGE": "Service accounts are not allowed to access this application.",
+          "REDIRECT": "Redirect to login page"
         }
       }
     },

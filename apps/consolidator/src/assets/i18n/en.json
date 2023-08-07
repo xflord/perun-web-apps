@@ -76,6 +76,11 @@
           "REMOVE": "Remove",
           "SUCCESS": "User account successfully removed"
         }
+      },
+      "USER_NOT_ALLOWED": {
+        "TITLE": "Access not allowed",
+        "MESSAGE": "Service accounts are not allowed to access this application.",
+        "REDIRECT": "Redirect to login page"
       }
     },
     "CONSOLIDATOR": {

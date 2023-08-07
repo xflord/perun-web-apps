@@ -12,6 +12,7 @@ import { OAuthInfoEvent, OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { firstValueFrom, timer } from 'rxjs';
 import { MfaHandlerService } from './mfa-handler.service';
+import { UserNotAllowedAccessComponent } from '@perun-web-apps/general';
 
 @Injectable({
   providedIn: 'root',
@@ -109,6 +110,14 @@ export class InitAuthService {
       if (perunPrincipal.user === null) {
         const config = getDefaultDialogConfig();
         this.dialog.open(UserDontExistDialogComponent, config);
+      } else if (perunPrincipal.user.serviceUser) {
+        const config = getDefaultDialogConfig();
+        this.dialog
+          .open(UserNotAllowedAccessComponent, config)
+          .afterClosed()
+          .subscribe(() => {
+            this.authService.logout();
+          });
       } else {
         this.storeService.setPerunPrincipal(perunPrincipal);
         this.authResolver.init(perunPrincipal);

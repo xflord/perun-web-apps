@@ -38,6 +38,11 @@
         "USER_DONT_EXIST": {
           "TITLE": "Requested user (by ID or external identity) doesn't exist."
         },
+        "USER_NOT_ALLOWED": {
+          "TITLE": "Access not allowed",
+          "MESSAGE": "Service accounts are not allowed to access this application.",
+          "REDIRECT": "Redirect to login page"
+        },
         "SESSION_EXPIRATION": {
           "TITLE": "Session expiration",
           "DESCRIPTION": "Your session has expired. Please sign in to continue.",

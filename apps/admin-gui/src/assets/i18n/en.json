@@ -3104,6 +3104,11 @@
         "USER_DONT_EXIST": {
           "TITLE": "The requested user (by Id or external identity) doesn't exist."
         },
+        "USER_NOT_ALLOWED": {
+          "TITLE": "Access not allowed",
+          "MESSAGE": "Service accounts are not allowed to access this application.",
+          "REDIRECT": "Redirect to login page"
+        },
         "TABLE_OPTIONS": {
           "EXPORT_TO_FILE": "Export to file",
           "ALL_DATA": "All data",
