@@ -49,13 +49,14 @@ export class AuthService {
       void this.router.navigate(['/service-access'], { queryParamsHandling: 'preserve' });
     } else {
       this.logoutProcess = true;
-      this.oauthService.logOut();
+      const proxyLogout = this.store.getProperty('proxy_logout');
+      this.oauthService.logOut(!proxyLogout);
 
       const postLogoutUrl = this.store.getProperty('oidc_client').oauth_post_logout_redirect_uri;
       if (!postLogoutUrl) {
         // redirect to the login page if there is no postLogoutUrl
         void this.router.navigate(['/login'], { queryParamsHandling: 'preserve' });
-      } else if (this.store.getProperty('proxy_logout')) {
+      } else if (proxyLogout) {
         // redirect to the logout loading page if postLogoutUrl exist and logout should be handled by proxy
         void this.router.navigate(['/logout'], { queryParamsHandling: 'preserve' });
       } else {
