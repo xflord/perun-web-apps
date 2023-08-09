@@ -26,12 +26,13 @@
             color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
+        <td *matCellDef="let blockedLogin" class="static-column-size align-checkbox" mat-cell>
           <mat-checkbox
-            (change)="$event ? selection.toggle(row) : null"
+            attr.data-cy="{{blockedLogin.login}}-checkbox"
+            (change)="$event ? selection.toggle(blockedLogin) : null"
             (click)="$event.stopPropagation()"
-            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row}"
-            [checked]="selection.isSelected(row)"
+            [aria-label]="selection.isSelected(blockedLogin) | checkboxLabel | translate: {name: blockedLogin.login}"
+            [checked]="selection.isSelected(blockedLogin)"
             color="primary">
           </mat-checkbox>
         </td>

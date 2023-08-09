@@ -11,6 +11,7 @@ describe('Perun admin management with role Perun observer', () => {
   const dbSearcherAttrValue = 'e2etestlogin';
   const dbSearcherUserFirstName = 'Test6';
   const dbOwnerName = 'DbOwnerTest';
+  const dbBlockedLoginListOnly = "test_blocking_login_list"
 
   before(() => {
     cy.login('PERUN_OBSERVER', 'perunObserver');
@@ -112,6 +113,15 @@ describe('Perun admin management with role Perun observer', () => {
       .get('[data-cy=searcher-search-button]')
       .click()
       .get(`[data-cy=${dbSearcherUserFirstName.toLowerCase()}-firstName-td]`)
+      .should('exist');
+  });
+
+  it("test get blocked login", () => {
+    cy.get('[data-cy=blocked-logins]')
+      .click()
+      .get('[data-cy=filter-input]')
+      .type(dbBlockedLoginListOnly, {force: true})
+      .get(`[data-cy=${dbBlockedLoginListOnly}-checkbox]`)
       .should('exist');
   });
 });

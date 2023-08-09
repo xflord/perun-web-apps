@@ -7,6 +7,7 @@
       (click)="block()"
       color="accent"
       class="me-2 action-button"
+      data-cy="block-logins-button"
       mat-flat-button
       *ngIf="isAdmin">
       {{'ADMIN.BLOCKED_LOGINS.BLOCK' | translate}}
@@ -16,6 +17,7 @@
       (click)="unblock()"
       class="me-2"
       color="warn"
+      data-cy="unblock-logins-button"
       mat-flat-button
       [disabled]="selection.selected.length === 0">
       {{'ADMIN.BLOCKED_LOGINS.UNBLOCK' | translate}}

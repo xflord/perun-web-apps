@@ -34,6 +34,7 @@
         <textarea
           cols="50"
           class="md-textarea form-control"
+          data-cy="logins-input"
           [formControl]="blockLogins"
           required
           matInput
@@ -53,6 +54,7 @@
         (click)="onSubmit()"
         class="ms-2"
         color="accent"
+        data-cy="submit-blocked-logins-button"
         [disabled]="loading || blockLogins.invalid || (!isGlobal && selectedNamespace === null)"
         mat-flat-button>
         {{'DIALOGS.BLOCK_LOGINS.BLOCK' | translate}}

@@ -42,7 +42,12 @@
       <button (click)="onCancel()" class="ms-auto" mat-stroked-button>
         {{'DIALOGS.UNBLOCK_LOGINS.CANCEL' | translate}}
       </button>
-      <button (click)="onSubmit()" class="ms-2" color="warn" mat-flat-button>
+      <button
+        (click)="onSubmit()"
+        class="ms-2"
+        color="warn"
+        mat-flat-button
+        data-cy="unblock-button-dialog">
         {{'DIALOGS.UNBLOCK_LOGINS.UNBLOCK' | translate}}
       </button>
     </div>

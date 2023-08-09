@@ -7,6 +7,9 @@ describe('Perun admin management with role Perun admin', () => {
   const dbExtSourceName = 'test_ext_source_db';
   const dbConsentHubName = 'test-e2e-facility-from-db-3';
   const dbOwnerName = 'DbOwnerTest';
+  const loginToBlock = "testLoginToBlock"
+  const dbBlockedLogin = "test_blocking_login"
+  const dbBlockedLoginListOnly = "test_blocking_login_list"
 
   const dbSearcherAttrDisplayName = 'login-namespace:einfra';
   const dbSearcherAttrValue = 'e2etestlogin';
@@ -196,6 +199,60 @@ describe('Perun admin management with role Perun admin', () => {
         // assert that service is renamed
         .get(`[data-cy=service-name-link]`)
         .contains(dbServiceName2 + 'edit');
+    });
+  });
+
+  context('Blocked logins management', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=blocked-logins]')
+        .click();
+    });
+
+    it("test get blocked login", () => {
+      cy.get('[data-cy=filter-input]')
+        .type(dbBlockedLoginListOnly, {force: true})
+        .get(`[data-cy=${dbBlockedLoginListOnly}-checkbox]`)
+        .should('exist');
+    })
+
+    it('test block login', () => {
+      cy.intercept('**/usersManager/blockLogins**')
+        .as('blockLogin')
+        .intercept('**/usersManager/getBlockedLoginsPage**')
+        .as('getBlockedLogins')
+        .get('[data-cy=block-logins-button]')
+        .click({force: true})
+        .get('[data-cy=logins-input]')
+        .type(loginToBlock, {force: true})
+        .get('[data-cy=submit-blocked-logins-button]')
+        .click()
+        .wait('@blockLogin')
+        .wait('@getBlockedLogins')
+        // assert that the login is listed as blocked
+        .get('[data-cy=filter-input]')
+        .type(loginToBlock, {force: true})
+        .get(`[data-cy=${loginToBlock}-checkbox]`)
+        .should('exist');
+    });
+
+    it('test unblock login', () => {
+      cy.intercept('**/usersManager/unblockLoginsById**')
+        .as('unblockLogins')
+        .intercept('**/usersManager/getBlockedLoginsPage**')
+        .as('getBlockedLogins')
+        .get('[data-cy=filter-input]')
+        .type(dbBlockedLogin, {force: true})
+        .get(`[data-cy=${dbBlockedLogin}-checkbox]`)
+        .click()
+        .get('[data-cy=unblock-logins-button]')
+        .click({force: true})
+        .get('[data-cy=unblock-button-dialog]')
+        .click()
+        .wait('@unblockLogins')
+        .wait('@getBlockedLogins')
+        // assert that the login is no longer listed as blocked
+        .get(`[data-cy=${dbBlockedLogin}-checkbox]`)
+        .should('not.exist');
     });
   });
 
