@@ -5,12 +5,7 @@ import {
   EditFacilityResourceGroupVoDialogOptions,
   GroupSyncDetailDialogComponent,
 } from '@perun-web-apps/perun/dialogs';
-import {
-  Group,
-  Member,
-  PaginatedRichGroups,
-  VosManagerService,
-} from '@perun-web-apps/perun/openapi';
+import { Group, PaginatedRichGroups, VosManagerService } from '@perun-web-apps/perun/openapi';
 import { GuiAuthResolver, TableCheckbox } from '@perun-web-apps/perun/services';
 import {
   customDataSourceFilterPredicate,
@@ -259,8 +254,8 @@ export class GroupsListComponent {
     };
 
     const dialogRef = this.dialog.open(ChangeGroupExpirationDialogComponent, config);
-    dialogRef.afterClosed().subscribe((success: { success: boolean; member: Member }) => {
-      if (success.success) {
+    dialogRef.afterClosed().subscribe((success) => {
+      if (success) {
         this.refreshTable.emit();
       }
     });

@@ -832,7 +832,9 @@
       "TITLE": "Member groups",
       "ADD": "Add",
       "REMOVE": "Remove",
-      "REMOVE_PERMISSION_HINT": "You don't have permission to remove some of the selected groups."
+      "REMOVE_PERMISSION_HINT": "You don't have permission to remove some of the selected groups.",
+      "LIST_VIEW": "List view",
+      "TREE_VIEW": "Tree view"
     },
     "APPLICATIONS": {
       "TITLE": "Application",

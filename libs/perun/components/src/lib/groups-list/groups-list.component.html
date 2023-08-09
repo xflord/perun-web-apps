@@ -160,16 +160,18 @@
           {{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.TABLE_GROUP_EXPIRATION' | translate}}
         </th>
         <td *matCellDef="let group" class="wrap-content" mat-cell>
-          {{group | groupExpiration | parseDate}}
-          <button
-            *ngIf="group | canManageGroup"
-            (click)="changeExpiration(group)"
-            (mouseenter)="disabledRouting = true"
-            (mouseleave)="disabledRouting = disableRouting"
-            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CHANGE_EXPIRATION' | translate}}"
-            mat-icon-button>
-            <mat-icon>edit</mat-icon>
-          </button>
+          <span class="align-elements">
+            {{group | groupExpiration | parseDate}}
+            <button
+              *ngIf="group | canManageGroup"
+              (click)="changeExpiration(group)"
+              (mouseenter)="disabledRouting = true"
+              (mouseleave)="disabledRouting = disableRouting"
+              matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CHANGE_EXPIRATION' | translate}}"
+              mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+          </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="menu">

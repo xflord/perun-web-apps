@@ -12,7 +12,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RichGroup, Vo } from '@perun-web-apps/perun/openapi';
-import { GroupFlatNode, TreeGroup } from '@perun-web-apps/perun/models';
+import { GroupFlatNode, GroupWithStatus, TreeGroup } from '@perun-web-apps/perun/models';
 import { MatDialog } from '@angular/material/dialog';
 import { findParent, getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { GroupSyncDetailDialogComponent } from '@perun-web-apps/perun/dialogs';
@@ -37,6 +37,7 @@ export class GroupsTreeComponent implements OnChanges {
   @Input() theme = 'group-theme';
   @Output() moveGroup = new EventEmitter<GroupFlatNode>();
   @Output() refreshTable = new EventEmitter<void>();
+  @Output() changeExpiration = new EventEmitter<GroupWithStatus>();
   @Input() groups: RichGroup[];
   @Input() filterValue: string;
   @Input() expandAll = false;
@@ -44,8 +45,10 @@ export class GroupsTreeComponent implements OnChanges {
   @Input() selection = new SelectionModel<GroupFlatNode>(true, []);
   @Input() hideCheckbox = false;
   @Input() vo: Vo;
+  @Input() displayedColumns = ['nameWithId', 'description', 'menu', 'expiration', 'status'];
   @ViewChild('scrollViewport', { static: false }) scrollViewport: CdkVirtualScrollViewport;
 
+  disabledRouting = false;
   displayButtons = window.innerWidth > 600;
 
   removeAuth: boolean;

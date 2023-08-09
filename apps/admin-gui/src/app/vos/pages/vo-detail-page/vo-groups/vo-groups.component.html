@@ -42,6 +42,7 @@
         *perunWebAppsLoader="loading$ | async; indicator: spinner"
         (moveGroup)="onMoveGroup($event)"
         (refreshTable)="refresh()"
+        [displayedColumns]="['nameWithId', 'description', 'menu']"
         [expandAll]="filtering"
         [disableRouting]="!routeAuth"
         [groups]="groups"

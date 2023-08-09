@@ -37,7 +37,7 @@
               {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          <div class="w-50">
+          <div *ngIf="displayedColumns.includes('nameWithId')" class="w-50">
             <span attr.data-cy="{{group.name}}" class="me-2">
               {{group.name}}
             </span>
@@ -45,13 +45,41 @@
               #{{group.id}}
             </span>
           </div>
-          <div class="w-50 text-muted description-text" #rootDescription>
+          <div
+            *ngIf="displayedColumns.includes('description')"
+            class="w-50 text-muted description-text"
+            #rootDescription>
             <span matTooltip="{{group.description}}" matTooltipPosition="before">
               {{group.description}}
             </span>
           </div>
         </a>
-        <div class="group-buttons">
+        <div *ngIf="displayedColumns.includes('expiration')" class="me-4 align-elements">
+          {{group | groupExpiration | parseDate}}
+          <button
+            *ngIf="group | canManageGroup"
+            (click)="changeExpiration.emit(group)"
+            (mouseenter)="disabledRouting = true"
+            (mouseleave)="disabledRouting = disableRouting"
+            matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.GROUPS_LIST.CHANGE_EXPIRATION' | translate}}"
+            mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="displayedColumns.includes('status')" class="w-25">
+          <i
+            *ngIf="{status: group.attributes | findAttribute: 'groupStatus'} as groupStatus"
+            (click)="$event.stopPropagation()"
+            class="material-icons status-change {{groupStatus.status | groupStatusIconColor}} cursor-default me-4"
+            matTooltip="{{groupStatus.status}}"
+            matTooltipClass="status-tooltip"
+            matTooltipPosition="left">
+            <span>
+              {{groupStatus.status | memberStatusIcon}}
+            </span>
+          </i>
+        </div>
+        <div *ngIf="displayedColumns.includes('menu')" class="group-buttons">
           <perun-web-apps-group-menu
             [disabled]="group.fullName === 'members'"
             (moveGroup)="onMoveGroup(group)"

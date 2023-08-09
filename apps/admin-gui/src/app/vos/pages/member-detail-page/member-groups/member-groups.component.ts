@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Group,
@@ -17,6 +17,9 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { GroupsListComponent } from '@perun-web-apps/perun/components';
+import { GroupWithStatus } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'app-member-groups',
@@ -28,6 +31,8 @@ export class MemberGroupsComponent implements OnInit {
 
   // used for router animation
   @HostBinding('class.router-component') true;
+  @ViewChild('toggle', { static: true }) toggle: MatSlideToggle;
+  @ViewChild('list') private list: GroupsListComponent;
 
   groups: Group[] = [];
   memberId: number;
@@ -35,7 +40,9 @@ export class MemberGroupsComponent implements OnInit {
   allGroups: Group[];
   loading: boolean;
   filterValue = '';
+  filtering = false;
   tableId = TABLE_MEMBER_DETAIL_GROUPS;
+  showGroupList = false;
   selection = new SelectionModel<Group>(true, []);
   addAuth: boolean;
   routeAuth: boolean;
@@ -67,6 +74,16 @@ export class MemberGroupsComponent implements OnInit {
         this.groupsService.getAllGroups(this.member.voId).subscribe((allGroups) => {
           this.allGroups = allGroups;
           this.refreshTable();
+          if (localStorage.getItem('preferedValue') === 'list') {
+            this.toggle.toggle();
+            this.showGroupList = true;
+          }
+
+          this.toggle.change.subscribe(() => {
+            const value = this.toggle.checked ? 'list' : 'tree';
+            localStorage.setItem('preferedValue', value);
+            this.refreshTable();
+          });
         });
       });
     });
@@ -80,15 +97,19 @@ export class MemberGroupsComponent implements OnInit {
         Urns.MEMBER_GROUP_STATUS,
         Urns.MEMBER_GROUP_STATUS_INDIRECT,
       ])
-      .subscribe(
-        (groups) => {
+      .subscribe({
+        next: (groups) => {
           this.selection.clear();
           this.groups = groups;
           this.setAuthRights();
           this.loading = false;
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
+  }
+
+  changeExpiration(group: GroupWithStatus): void {
+    this.list.changeExpiration(group);
   }
 
   setAuthRights(): void {
@@ -148,5 +169,11 @@ export class MemberGroupsComponent implements OnInit {
 
   applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
+    this.filtering = filterValue !== '';
+  }
+
+  labelToggle(): void {
+    this.showGroupList = !this.showGroupList;
+    this.refreshTable();
   }
 }

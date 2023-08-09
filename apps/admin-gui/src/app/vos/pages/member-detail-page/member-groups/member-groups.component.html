@@ -25,20 +25,45 @@
   (filter)="applyFilter($event)"
   [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
 </perun-web-apps-debounce-filter>
+<label class="slide-label" (click)="labelToggle()">
+  {{'MEMBER_DETAIL.GROUPS.TREE_VIEW' | translate}}
+</label>
+<mat-slide-toggle #toggle (change)="selection.clear()" [(ngModel)]="showGroupList" class="me-1">
+</mat-slide-toggle>
+<label class="slide-label" (click)="labelToggle()">
+  {{'MEMBER_DETAIL.GROUPS.LIST_VIEW' | translate}}
+</label>
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>
 <div class="position-relative">
-  <perun-web-apps-groups-list
-    *perunWebAppsLoader="loading; indicator: spinner"
-    (refreshTable)="refreshTable()"
-    [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
-    [memberId]="memberId"
-    [disableRouting]="!routeAuth"
-    [groups]="groups"
-    [filter]="filterValue"
-    [memberGroupStatus]="member?.groupStatus"
-    [selection]="selection"
-    [tableId]="tableId">
-  </perun-web-apps-groups-list>
+  <div *ngIf="!showGroupList">
+    <perun-web-apps-groups-tree
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (refreshTable)="refreshTable()"
+      (changeExpiration)="changeExpiration($event)"
+      [expandAll]="filtering"
+      [disableRouting]="!routeAuth"
+      [groups]="groups"
+      [selection]="selection"
+      [filterValue]="filterValue"
+      [displayedColumns]="['nameWithId', 'description', 'expiration', 'status']"
+      theme="member-theme">
+    </perun-web-apps-groups-tree>
+  </div>
+  <div [hidden]="!showGroupList">
+    <perun-web-apps-groups-list
+      #list
+      *perunWebAppsLoader="loading; indicator: spinner"
+      (refreshTable)="refreshTable()"
+      [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
+      [memberId]="memberId"
+      [disableRouting]="!routeAuth"
+      [groups]="groups"
+      [filter]="filterValue"
+      [memberGroupStatus]="member?.groupStatus"
+      [selection]="selection"
+      [tableId]="tableId">
+    </perun-web-apps-groups-list>
+  </div>
 </div>
