@@ -48,6 +48,7 @@ import { ExportDataDialogComponent } from './exporting-data-dialog/export-data-d
 import { RequestChangeDataQuotaDialogComponent } from './request-change-data-quota-dialog/request-change-data-quota-dialog.component';
 import { ExpirationSelectComponent } from './expiration-select/expiration-select.component';
 import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
+import { PasswordResetDialogComponent } from './password-reset-dialog/password-reset-dialog.component';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dial
     RequestChangeDataQuotaDialogComponent,
     ExpirationSelectComponent,
     DeleteUserDialogComponent,
+    PasswordResetDialogComponent,
   ],
   exports: [
     ChangeExpirationDialogComponent,
@@ -128,6 +130,7 @@ import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dial
     RequestChangeDataQuotaDialogComponent,
     ExpirationSelectComponent,
     DeleteUserDialogComponent,
+    PasswordResetDialogComponent,
   ],
 })
 export class PerunDialogsModule {}

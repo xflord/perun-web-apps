@@ -480,6 +480,15 @@
           "FIELD_EMPTY": "This field cannot be empty",
           "SUCCESS": "Password has been changed successfully,"
         },
+        "RESET_PASSWORD_DIALOG": {
+          "LOGIN": "Login",
+          "NAMESPACE": "Namespace",
+          "TITLE": "Reset password",
+          "CANCEL": "Cancel",
+          "CHANGE": "Confirm",
+          "FIELD_EMPTY": "This field cannot be empty",
+          "SUCCESS": "Password has been reset successfully,"
+        },
         "PASSWORD_FORM_FIELD": {
           "PASSWORD": "New password",
           "PASSWORD_AGAIN": "New password again",

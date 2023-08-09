@@ -412,6 +412,15 @@
           "FIELD_EMPTY": "Tohle políčko musí být vyplněné.",
           "SUCCESS": "Heslo bylo úspěšně změněno"
         },
+        "RESET_PASSWORD_DIALOG": {
+          "LOGIN": "Jméno",
+          "NAMESPACE": "Namespace",
+          "TITLE": "Resetovat heslo",
+          "CANCEL": "Zrušit",
+          "CHANGE": "Potvrdit",
+          "FIELD_EMPTY": "Tohle políčko musí být vyplněné.",
+          "SUCCESS": "Heslo bylo úspěšně resetováno"
+        },
         "PASSWORD_FORM_FIELD": {
           "PASSWORD": "Nové heslo",
           "PASSWORD_AGAIN": "Znovu zadejte nové heslo",

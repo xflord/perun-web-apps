@@ -1,16 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Attribute, AttributesManagerService } from '@perun-web-apps/perun/openapi';
-import {
-  EntityStorageService,
-  OtherApplicationsService,
-  StoreService,
-} from '@perun-web-apps/perun/services';
+import { EntityStorageService, StoreService } from '@perun-web-apps/perun/services';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ChangePasswordDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { PasswordResetDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppType } from '@perun-web-apps/perun/models';
 
 @Component({
   selector: 'perun-web-apps-password-reset',
@@ -32,7 +28,6 @@ export class PasswordResetComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private otherApplicationService: OtherApplicationsService,
     private entityStorageService: EntityStorageService
   ) {}
 
@@ -69,11 +64,16 @@ export class PasswordResetComponent implements OnInit {
     });
   }
 
-  resetPassword(login: string): void {
-    window.open(
-      this.otherApplicationService.getUrlForOtherApplication(AppType.PwdReset, login),
-      '_blank'
-    );
+  resetPassword(login: Attribute): void {
+    const config = getDefaultDialogConfig();
+    config.width = '600px';
+    config.data = {
+      mode: 'reset',
+      login: String(login.value),
+      namespace: login.friendlyName.split(':')[1],
+    };
+
+    this.dialog.open(PasswordResetDialogComponent, config);
   }
 
   changePassword(login: Attribute): void {
