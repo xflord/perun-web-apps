@@ -994,20 +994,20 @@ export class SideMenuItemService {
     this.apiRequest.dontHandleErrorForNext();
     this.attributesManager
       .getGroupAttributeByName(group.id, Urns.GROUP_DEF_EXPIRATION_RULES)
-      .subscribe(
-        () => {
-          settingsChildrenLinks.push({
+      .subscribe({
+        next: () => {
+          settingsChildrenLinks.unshift({
             label: 'MENU_ITEMS.GROUP.EXPIRATION',
             url: [`/organizations/${group.voId}/groups/${group.id}/settings/expiration`],
             activatedRegex: '/organizations/\\d+/groups/\\d+/settings/expiration$',
           });
         },
-        (error: RPCError) => {
+        error: (error: RPCError) => {
           if (error.name !== 'PrivilegeException') {
             this.notificator.showRPCError(error);
           }
-        }
-      );
+        },
+      });
 
     //SettingsManagers
     if (this.routePolicyService.canNavigate('groups-settings-managers', group)) {
