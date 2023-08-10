@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>
+  {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.EXPORT_TITLE'| translate}}
+</h1>
+<div mat-dialog-content class="dialog-container user-theme">
+  <mat-form-field>
+    <mat-label>{{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.SELECT_FORMAT'| translate}}</mat-label>
+    <mat-select [formControl]="selectedFormat">
+      <mat-option *ngFor="let format of formats" [value]="format.value">
+        {{format.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p>{{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.EXPORT_OPTIONS'| translate}}</p>
+
+  <mat-radio-group class="flex-column d-flex mb-2" required [formControl]="selectedExportType">
+    <mat-radio-button value="current" color="primary">
+      {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.DISPLAYED_DATA'| translate}}
+    </mat-radio-button>
+    <mat-radio-button *ngIf="inputData.allowExportAll" value="all" color="primary">
+      {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.ALL_DATA'| translate}}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>
+    {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.BUTTON_CLOSE'| translate}}
+  </button>
+  <div
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.ERROR_FORMAT'| translate}}"
+    [matTooltipDisabled]="selectedFormat.valid || selectedFormat.getRawValue()?.length > 0">
+    <div
+      matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.ERROR_OPTION'| translate}}"
+      [matTooltipDisabled]="selectedFormat.invalid || selectedExportType.valid || selectedExportType.getRawValue()?.length > 0"
+      class="ms-2">
+      <button
+        mat-flat-button
+        color="accent"
+        [disabled]="selectedFormat.invalid || selectedExportType.invalid"
+        [matDialogClose]="export()">
+        {{'SHARED_LIB.PERUN.COMPONENTS.TABLE_OPTIONS.BUTTON_EXPORT'| translate}}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,26 +1,17 @@
 import { NgModule } from '@angular/core';
 import { TableWrapperComponent } from './table-wrapper/table-wrapper.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { TableOptionsComponent } from './table-options/table-options.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { ExportTableDialogComponent } from './export-table-dialog/export-table-dialog.component';
+import { UiMaterialModule } from '@perun-web-apps/ui/material';
+import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    MatPaginatorModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    TranslateModule,
-    CommonModule,
-    MatTooltipModule,
-  ],
-  declarations: [TableWrapperComponent, TableOptionsComponent],
-  exports: [TableWrapperComponent, TableOptionsComponent],
+  imports: [TranslateModule, CommonModule, ReactiveFormsModule, UiMaterialModule, MatRadioModule],
+  declarations: [TableWrapperComponent, TableOptionsComponent, ExportTableDialogComponent],
+  exports: [TableWrapperComponent, TableOptionsComponent, ExportTableDialogComponent],
   providers: [],
 })
 export class PerunUtilsModule {}

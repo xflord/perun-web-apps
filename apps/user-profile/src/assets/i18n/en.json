@@ -360,9 +360,17 @@
         },
         "TABLE_OPTIONS": {
           "EXPORT_TO_FILE": "Export to file",
-          "ALL_DATA": "All data",
+          "EXPORT_TITLE": "Export table",
+          "BUTTON_EXPORT": "Export",
+          "BUTTON_CLOSE": "Close",
+          "SELECT_FORMAT": "Select format",
+          "EXPORT_OPTIONS": "Export options",
           "DISPLAYED_DATA": "Displayed data",
-          "EXPORT_LOADING": "Exporting data..."
+          "ALL_DATA": "All data",
+          "ERROR_FORMAT":"Export format is not selected",
+          "ERROR_OPTION": "Export option is not selected",
+          "EXPORT_LOADING": "Exporting data...",
+          "MORE": "More"
         },
         "NOTIFICATOR": {
           "NOTIFICATION": {
