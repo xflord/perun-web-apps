@@ -5,7 +5,10 @@
       <perun-web-apps-alert *ngIf="wrongUsernameOrPassword" alert_type="error">
         {{'SHARED_LIB.PERUN.LOGIN_SERVICE_ACCESS.WRONG_LOGIN_OR_PASSWORD' | translate}}
       </perun-web-apps-alert>
-      <perun-web-apps-alert *ngIf="afterLogout" class="mb-2" alert_type="success">
+      <perun-web-apps-alert
+        *ngIf="afterLogout && !wrongUsernameOrPassword"
+        class="mb-2"
+        alert_type="success">
         {{'SHARED_LIB.PERUN.LOGIN.LOGOUT_INFO' | translate}}
       </perun-web-apps-alert>
       <mat-form-field appearance="outline" subscriptSizing="dynamic">
