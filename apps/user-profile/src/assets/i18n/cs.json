@@ -12,17 +12,14 @@
     "PRIVACY": "Soukromí",
     "CONSENTS": "Souhlasy",
     "CONSENT_REQUEST": "Žádost o souhlas",
+    "AUTHENTICATION": "Autentizace",
     "SETTINGS": "Nastavení"
   },
   "SETTINGS": {
-    "ALTERNATIVE_PASSWORDS": "Alternativní hesla",
     "DATA_QUOTAS": "Kvóty dat",
     "MAILING_LISTS": "Vyřazení ze seznamu adresátů",
     "PREFERRED_SHELLS": "Preferované shelly",
     "PREFERRED_UNIX_GROUP_NAMES": "Preferovaná jména Unixových skupin",
-    "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
-    "SSH_KEYS": "SSH klíče",
-    "PASSWORD_RESET": "Změna hesla",
     "AUTHENTICATION": "Autentizace",
     "LOCAL_ACCOUNT": "Lokální účet"
   },
@@ -154,7 +151,14 @@
     "SAVE_IMG_SUCCESS": "Bezpečnostní obrázek byl změněn.",
     "REMOVE_IMG_SUCCESS": "Bezpečnostní obrázek byl odebrán.",
     "SAVE_TEXT_SUCCESS": "Bezpečnostní text byl změněn.",
-    "REMOVE_TEXT_SUCCESS": "Bezpečnostní text byl odebrán."
+    "REMOVE_TEXT_SUCCESS": "Bezpečnostní text byl odebrán.",
+    "SAMBA_PASSWORD": "Heslo pro službu SAMBA",
+    "LOCAL_ACCOUNT": "Lokální účet",
+    "ANTI_PHISHING": "Anti-phishingová ochrana",
+    "ACCOUNT_ACTIVATION": "Aktivace účtu",
+    "SSH_KEYS": "SSH klíče",
+    "PASSWORD_RESET": "Změna hesla",
+    "ALTERNATIVE_PASSWORDS": "Alternativní hesla"
   },
   "LOCAL_ACCOUNT": {
     "TITLE": "Lokální účet",
