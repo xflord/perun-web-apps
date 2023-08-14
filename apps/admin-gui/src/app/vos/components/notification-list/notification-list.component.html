@@ -52,13 +52,17 @@
           {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE' | translate}}
         </th>
         <td *matCellDef="let applicationMail" mat-cell>
-          <div *ngIf="applicationMail.appType === 'INITIAL'; else extension">
+          <div
+            *ngIf="applicationMail.appType === 'INITIAL'; else extension"
+            class="d-flex align-items-center">
             <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
             {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE_INITIAL' | translate}}
           </div>
           <ng-template #extension>
-            <mat-icon matTooltip="Extension" matTooltipPosition="above">cached</mat-icon>
-            {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE_EXTENSION' | translate}}
+            <div class="d-flex align-items-center">
+              <mat-icon matTooltip="Extension" matTooltipPosition="above">cached</mat-icon>
+              {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.TABLE_APPLICATION_TYPE_EXTENSION' | translate}}
+            </div>
           </ng-template>
         </td>
       </ng-container>
