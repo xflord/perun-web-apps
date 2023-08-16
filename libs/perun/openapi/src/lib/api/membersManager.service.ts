@@ -6016,6 +6016,168 @@ export class MembersManagerService {
   }
 
   /**
+   * Send mail to user\&#39;s preferred email address with a reminder of the username for the given namespace.
+   * @param member id of Member
+   * @param namespace namespace
+   * @param emailAttributeURN urn of the attribute with stored mail
+   * @param language language of the message
+   * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public sendUsernameReminderEmail(
+    member: number,
+    namespace: string,
+    emailAttributeURN: string,
+    language: string,
+    useNon?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any>;
+  public sendUsernameReminderEmail(
+    member: number,
+    namespace: string,
+    emailAttributeURN: string,
+    language: string,
+    useNon?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpResponse<any>>;
+  public sendUsernameReminderEmail(
+    member: number,
+    namespace: string,
+    emailAttributeURN: string,
+    language: string,
+    useNon?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<HttpEvent<any>>;
+  public sendUsernameReminderEmail(
+    member: number,
+    namespace: string,
+    emailAttributeURN: string,
+    language: string,
+    useNon: boolean = false,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+  ): Observable<any> {
+    if (member === null || member === undefined) {
+      throw new Error(
+        'Required parameter member was null or undefined when calling sendUsernameReminderEmail.'
+      );
+    }
+    if (namespace === null || namespace === undefined) {
+      throw new Error(
+        'Required parameter namespace was null or undefined when calling sendUsernameReminderEmail.'
+      );
+    }
+    if (emailAttributeURN === null || emailAttributeURN === undefined) {
+      throw new Error(
+        'Required parameter emailAttributeURN was null or undefined when calling sendUsernameReminderEmail.'
+      );
+    }
+    if (language === null || language === undefined) {
+      throw new Error(
+        'Required parameter language was null or undefined when calling sendUsernameReminderEmail.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (member !== undefined && member !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>member,
+        'member'
+      );
+    }
+    if (namespace !== undefined && namespace !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>namespace,
+        'namespace'
+      );
+    }
+    if (emailAttributeURN !== undefined && emailAttributeURN !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>emailAttributeURN,
+        'emailAttributeURN'
+      );
+    }
+    if (language !== undefined && language !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>language,
+        'language'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (BasicAuth) required
+    localVarCredential = this.configuration.lookupCredential('BasicAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Basic ' + localVarCredential);
+    }
+
+    // authentication (BearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('BearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let requestUrl = `${this.configuration.basePath}/urlinjsonout/membersManager/sendUsernameReminderEmail`;
+    if (useNon) {
+      // replace the authentication part of url with 'non' authentication
+      let helperUrl = new URL(requestUrl);
+      let path = helperUrl.pathname.split('/');
+      path[1] = 'non';
+      helperUrl.pathname = path.join('/');
+      requestUrl = helperUrl.toString();
+    }
+    return this.httpClient.post<any>(requestUrl, null, {
+      context: localVarHttpContext,
+      params: localVarQueryParameters,
+      responseType: <any>responseType_,
+      withCredentials: this.configuration.withCredentials,
+      headers: localVarHeaders,
+      observe: observe,
+      reportProgress: reportProgress,
+    });
+  }
+
+  /**
    * Creates a sponsored membership for the given user.
    * @param InputSetSponsoredMember
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).

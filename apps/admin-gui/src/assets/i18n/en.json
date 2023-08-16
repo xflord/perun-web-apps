@@ -2920,6 +2920,8 @@
     "AUDITCONSUMERADMIN": "Audit consumer admin",
     "PERUNADMIN": "Perun admin",
     "PERUNADMIN_SELF": "You have the role of perun admin",
+    "PERUNADMINBA": "Perun admin for BA accounts",
+    "PERUNADMINBA_SELF": "You have the role of perun admin for BA accounts",
     "PERUNOBSERVER": "Perun observer",
     "PERUNOBSERVER_SELF": "You have the role of perun observer"
   },
