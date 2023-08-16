@@ -9,10 +9,10 @@
       [vo]="thisVo.vo"
       [vos]="vosToSelect"
       (voSelected)="getGroupsToInclude($event.id)"></perun-web-apps-vo-search-select>
-    <perun-web-apps-debounce-filter
-      (filter)="applyFilter($event)"
-      [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-debounce-filter>
     <div class="dialog-container" mat-dialog-content>
+      <perun-web-apps-debounce-filter
+        (filter)="applyFilter($event)"
+        [placeholder]="'GROUP_DETAIL.SETTINGS.RELATIONS.FILTER'"></perun-web-apps-debounce-filter>
       <ng-template #spinner>
         <perun-web-apps-loading-table></perun-web-apps-loading-table>
       </ng-template>
