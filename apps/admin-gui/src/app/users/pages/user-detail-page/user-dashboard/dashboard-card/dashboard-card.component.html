@@ -12,7 +12,6 @@
   <span *ngIf="primaryObject === 'Vo'" class="position-relative">
     <perun-web-apps-vos-list
       *perunWebAppsLoader="loading; indicator: spinner"
-      [pageSizeOptions]="null"
       [displayedColumns]="['id', 'recent', 'shortName', 'name']"
       [recentIds]="this.recentIds"
       [vos]="this.objects">
@@ -21,7 +20,6 @@
   <span *ngIf="primaryObject === 'Group'" class="position-relative">
     <perun-web-apps-groups-list
       *perunWebAppsLoader="loading; indicator: spinner"
-      [pageSizeOptions]="null"
       [displayedColumns]="['id', 'recent', 'vo', 'name', 'description']"
       [groups]="this.objects"
       [recentIds]="recentIds">
@@ -30,7 +28,6 @@
   <span *ngIf="primaryObject === 'Resource'" class="position-relative">
     <perun-web-apps-resources-list
       *perunWebAppsLoader="loading; indicator: spinner"
-      [pageSizeOptions]="null"
       [displayedColumns]="['id', 'recent', 'name', 'vo', 'facility']"
       [resources]="this.objects"
       [recentIds]="recentIds"
@@ -42,7 +39,6 @@
       *perunWebAppsLoader="loading; indicator: spinner"
       [displayedColumns]="['id', 'recent', 'name', 'description']"
       [facilities]="this.objects"
-      [pageSizeOptions]="null"
       [recentIds]="recentIds">
     </perun-web-apps-facilities-list>
   </span>
