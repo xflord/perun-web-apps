@@ -531,7 +531,9 @@
         "NO_EMAILS": "No mail notifications found.",
         "EDIT_SUCCESS": "Email notification was successfully edited",
         "ADD_SUCCESS": "Email notification was successfully added",
-        "DISABLED_HINT": "You don't have permission to change sending settings."
+        "DISABLED_HINT": "You don't have permission to change sending settings.",
+        "SENDING_ENABLE": "Sending of notification was successfully enabled.",
+        "SENDING_DISABLE": "Sending of notification was successfully disabled."
       },
       "EXT_SOURCES": {
         "TITLE": "External sources",

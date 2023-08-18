@@ -72,14 +72,14 @@
         </th>
         <td *matCellDef="let applicationMail" mat-cell>
           <section>
-            <mat-checkbox
+            <mat-slide-toggle
               (change)="changeSending(applicationMail)"
               (click)="$event.stopPropagation()"
               [disabled]="disableSend"
               [matTooltipDisabled]="!disableSend"
               [ngModel]="applicationMail.send"
               matTooltip="{{'VO_DETAIL.SETTINGS.NOTIFICATIONS.DISABLED_HINT' | translate}}">
-            </mat-checkbox>
+            </mat-slide-toggle>
           </section>
         </td>
       </ng-container>

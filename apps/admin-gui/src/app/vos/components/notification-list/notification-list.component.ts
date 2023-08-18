@@ -99,12 +99,14 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
         .setSendingEnabled({ mails: [applicationMail], enabled: false })
         .subscribe(() => {
           applicationMail.send = false;
+          this.notificator.showInstantSuccess('VO_DETAIL.SETTINGS.NOTIFICATIONS.SENDING_DISABLE');
         });
     } else {
       this.registrarService
         .setSendingEnabled({ mails: [applicationMail], enabled: true })
         .subscribe(() => {
           applicationMail.send = true;
+          this.notificator.showInstantSuccess('VO_DETAIL.SETTINGS.NOTIFICATIONS.SENDING_ENABLE');
         });
     }
   }
