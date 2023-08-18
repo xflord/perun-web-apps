@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import {
   Attribute,
   AttributesManagerService,
@@ -14,11 +15,13 @@ import {
 import { StoreService, NotificatorService } from '@perun-web-apps/perun/services';
 import { compareFnName } from '@perun-web-apps/perun/utils';
 import { TranslateService } from '@ngx-translate/core';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'perun-web-apps-mailing-lists',
   templateUrl: './mailing-lists.component.html',
   styleUrls: ['./mailing-lists.component.scss'],
+  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
 })
 export class MailingListsComponent implements OnInit, OnDestroy {
   @Input() user: User;
@@ -33,6 +36,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
   selectedVo: string = null;
   selectedResource: string = null;
   changeOptOut: string;
+  routingSubscription: Subscription;
 
   constructor(
     private store: StoreService,
@@ -43,18 +47,18 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private location: Location
   ) {}
 
   ngOnDestroy(): void {
-    if (!this.isService) {
-      void this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { vo: null, resource: null },
-        replaceUrl: true,
-        queryParamsHandling: 'merge',
-      });
-    }
+    this.routingSubscription.unsubscribe();
+    // clear the query params in the new component
+    void this.router.navigate([location.pathname], {
+      replaceUrl: true,
+      queryParams: { vo: null, resource: null },
+      queryParamsHandling: 'merge',
+    });
   }
 
   ngOnInit(): void {
@@ -82,6 +86,17 @@ export class MailingListsComponent implements OnInit, OnDestroy {
         });
       })
       .unsubscribe();
+    this.routingSubscription = this.router.events
+      .pipe(filter((event): event is NavigationStart => event instanceof NavigationStart))
+      .subscribe((event) => {
+        if (!event.url.startsWith(location.pathname)) {
+          // clear the query params when navigating away
+          this.location.replaceState(
+            location.pathname,
+            this.clearParamsFromCurrUrl(['vo', 'resource'])
+          );
+        }
+      });
   }
 
   changeSelectedResource(resource: RichResource): void {
@@ -99,6 +114,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
       }
       void this.router.navigate([], {
         relativeTo: this.route,
+        replaceUrl: true,
         queryParams: { vo: this.selectedVo, resource: this.selectedResource, action: null },
         queryParamsHandling: 'merge',
       });
@@ -113,6 +129,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     if (!this.isService) {
       void this.router.navigate([], {
         relativeTo: this.route,
+        replaceUrl: true,
         queryParams: { vo: this.selectedVo, resource: this.selectedResource },
         queryParamsHandling: 'merge',
       });
@@ -217,9 +234,9 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyFilter(filter: string): void {
+  applyFilter(mailingListsFilter: string): void {
     this.filteredVos = this.vos.filter((vo) =>
-      vo.name.toLowerCase().includes(filter.toLowerCase())
+      vo.name.toLowerCase().includes(mailingListsFilter.toLowerCase())
     );
   }
 
@@ -230,6 +247,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     if (!this.isService) {
       void this.router.navigate([], {
         relativeTo: this.route,
+        replaceUrl: true,
         queryParams: { vo: this.selectedVo, resource: this.selectedResource },
         queryParamsHandling: 'merge',
       });
@@ -241,9 +259,16 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     if (!this.isService) {
       void this.router.navigate([], {
         relativeTo: this.route,
+        replaceUrl: true,
         queryParams: { vo: this.selectedVo, resource: this.selectedResource },
         queryParamsHandling: 'merge',
       });
     }
+  }
+
+  clearParamsFromCurrUrl(paramsToClear: string[]): string {
+    const searchParams = new URLSearchParams(location.search);
+    paramsToClear.forEach((param) => searchParams.delete(param));
+    return searchParams.toString();
   }
 }
