@@ -29,50 +29,34 @@
         >
         <button
           (click)="this.rightSettingOpened = true"
-          *ngIf="!isOnlySelfRole"
+          *ngIf="!hasOnlyNoRightsRoles"
           class="ms-auto text-bigger"
           mat-stroked-button>
           <mat-icon>settings</mat-icon>
         </button>
       </h1>
 
-      <div *ngIf="isOnlySelfRole">
-        <div class="card m-3 p-5">
+      <div *ngIf="hasOnlyNoRightsRoles">
+        <div class="card m-3 p-4">
           <div class="text-align">
-            {{'USER_DETAIL.DASHBOARD.NOT_MANAGER' | translate}}
+            {{'USER_DETAIL.DASHBOARD.NO_ASSIGNED_ROLES' | translate}}
           </div>
-          <div class="text-align pt-3">
-            <span
-              *ngIf="!userProfileUrl"
-              >{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO_NO_USER_PROFILE' | translate}}</span
-            >
-            <span
-              *ngIf="userProfileUrl"
-              >{{'USER_DETAIL.DASHBOARD.NOT_MANAGER_INFO' | translate}}</span
-            >
+          <div class="text-align pt-3 mt-2">
+            {{'USER_DETAIL.DASHBOARD.NO_ASSIGNED_ROLES_PROFILE' | translate}}
           </div>
           <div class="mx-auto pt-3">
             <button
               [routerLink]="['/myProfile']"
               queryParamsHandling="merge"
-              class="text-bigger"
-              mat-stroked-button>
-              <mat-icon class="me-1 user-icon perun-icon" svgIcon="perun-user-dark"></mat-icon>
-              {{'USER_DETAIL.DASHBOARD.GO_TO_MY_PROFILE' | translate}}
-            </button>
-
-            <button
-              (click)="goToUserProfile()"
-              class="text-bigger ms-2 mt-2"
-              *ngIf="userProfileUrl"
-              mat-stroked-button>
-              <mat-icon class="me-1">exit_to_app</mat-icon
-              >{{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}} {{this.userProfileName}}
+              class="ms-2 mt-2"
+              color="accent"
+              mat-flat-button>
+              {{'USER_DETAIL.DASHBOARD.GO_TO_USER_PROFILE' | translate}}
             </button>
           </div>
         </div>
       </div>
-      <div *ngIf="!isOnlySelfRole">
+      <div *ngIf="!hasOnlyNoRightsRoles">
         <span *ngIf="recentlyViewedShow">
           <div class="page-subtitle">
             {{'USER_DETAIL.DASHBOARD.RECENTLY_VIEWED' | translate}}

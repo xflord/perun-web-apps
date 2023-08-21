@@ -25,10 +25,11 @@ export class UserDashboardComponent implements OnInit {
   roles: { [key: string]: { [key: string]: Array<number> } } = {};
   userProfileUrl = '';
   roleNames: string[];
-  isOnlySelfRole = false;
+  hasOnlyNoRightsRoles = false;
   rightSettingOpened = false;
   recentlyViewedShow = true;
   rolesToHide: string[] = [];
+  noRightsRoles = new Set<string>(['SELF', 'MEMBERSHIP', 'SPONSORSHIP']);
   allowedRoles = [
     'VOADMIN',
     'GROUPADMIN',
@@ -70,13 +71,9 @@ export class UserDashboardComponent implements OnInit {
     this.roles = this.storeService.getPerunPrincipal().roles;
     this.getUserProfile();
     const allUserRoles = Object.keys(this.roles);
-    this.isOnlySelfRole = allUserRoles.toString() === ['SELF'].toString();
+    this.hasOnlyNoRightsRoles = allUserRoles.every((role) => this.noRightsRoles.has(role));
     this.roleNames = this.allowedRoles.filter((value) => allUserRoles.includes(value));
     this.getDashboardSettings();
-  }
-
-  goToUserProfile(): void {
-    window.open(this.userProfileUrl);
   }
 
   recentlyViewedChanged(): void {
