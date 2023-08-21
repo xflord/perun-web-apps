@@ -1,11 +1,11 @@
 <div *ngIf="{expanded: expanded | async} as ex" class="mt-4">
-  <div class="d-flex align-items-center justify-content-start">
-    <span class="fs-5">{{title | translate}}</span>
-    <button mat-icon-button (click)="toggle()">
+  <button mat-button (click)="toggle()">
+    <div class="d-flex align-items-center justify-content-start">
+      <span class="fs-5">{{title | translate}}</span>
       <mat-icon *ngIf="ex.expanded">keyboard_arrow_down</mat-icon>
       <mat-icon *ngIf="!ex.expanded">keyboard_arrow_right</mat-icon>
-    </button>
-  </div>
+    </div>
+  </button>
   <mat-divider class="max-divider-width mb-3"></mat-divider>
   <perun-web-apps-menu-buttons-field *ngIf="ex.expanded" [items]="items">
   </perun-web-apps-menu-buttons-field>
