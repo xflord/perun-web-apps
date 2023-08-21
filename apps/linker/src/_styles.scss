@@ -7,29 +7,6 @@
 // Changes to the styles.scss would result in the styles being overwritten
 // during the build process and the changes would be lost.
 
-@function mat-color-from-palette($palette, $hue: default, $opacity: null) {
-  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
-    @return mat-color-from-palette($palette, default, $hue);
-  }
-
-  $color: map-get($palette, $hue);
-
-  @if (type-of($color) != color) {
-    @if ($opacity == null) {
-      @return $color;
-    }
-
-    // Here is the change from the original function:
-    // If the $color resolved to something different from a color, we assume it is a CSS variable
-    // in the form of rgba(var(--rgba-css-var),a) and replace the 'a' value.
-    @return #{str-slice($color, 0, str-index($color, ',')) + $opacity + ')'};
-  }
-
-  @return rgba($color, if($opacity == null, opacity($color), $opacity));
-}
-
-// Plus imports for other components in your app.
-
 // Include the common styles for Angular Material.
 @include mat.all-component-typographies();
 @include mat.core();
@@ -61,6 +38,9 @@ $perun-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($perun-theme);
 
+/*************************************
+************** User theme ************
+*************************************/
 .user-theme {
   $user-dynamic-colors: (
     50: rgba(var(--user-theme-primary-50), 1),
@@ -110,6 +90,49 @@ $perun-theme: mat.define-light-theme(
   @include mat.all-component-colors($user-theme);
 }
 
+/*************************************
+*************** Icons ****************
+*************************************/
+mat-icon {
+  overflow: inherit !important;
+}
+
+.perun-icon {
+  path {
+    fill: currentColor !important;
+  }
+  rect {
+    fill: currentColor;
+  }
+  polygon {
+    fill: currentColor;
+  }
+}
+
+/*************************************
+************** Buttons ***************
+*************************************/
+button {
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.mdc-button {
+  border-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
+
+/*************************************
+*************** Titles ***************
+*************************************/
+.page-subtitle {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/*************************************
+************** Loading ***************
+*************************************/
 .spinner-container {
   position: absolute;
   top: 0;
@@ -194,41 +217,4 @@ $perun-theme: mat.define-light-theme(
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
-
-.perun-icon {
-  path {
-    fill: currentColor !important;
-  }
-  rect {
-    fill: currentColor;
-  }
-  polygon {
-    fill: currentColor;
-  }
-}
-
-button {
-  border-radius: var(--bs-border-radius) !important;
-}
-
-button:focus {
-  outline: none !important;
-}
-
-mat-icon {
-  overflow: inherit !important;
-}
-
-.page-subtitle {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-// angular 15 button fixes
-
-.mdc-button {
-  border-radius: var(--bs-border-radius) !important;
-  white-space: nowrap !important;
-  letter-spacing: normal;
 }

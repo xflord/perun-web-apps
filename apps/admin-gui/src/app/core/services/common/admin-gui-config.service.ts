@@ -4,7 +4,7 @@ import {
   InitAuthService,
   MfaHandlerService,
 } from '@perun-web-apps/perun/services';
-import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
+import { AppConfigService } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
@@ -20,84 +20,6 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminGuiConfigService {
-  entityColorConfigs: EntityColorConfig[] = [
-    {
-      entity: 'vo',
-      configValue: 'vo_color',
-      cssVariable: '--vo-color',
-    },
-    {
-      entity: 'group',
-      configValue: 'group_color',
-      cssVariable: '--group-color',
-    },
-    {
-      entity: 'user',
-      configValue: 'user_color',
-      cssVariable: '--user-color',
-    },
-    {
-      entity: 'member',
-      configValue: 'member_color',
-      cssVariable: '--member-color',
-    },
-    {
-      entity: 'facility',
-      configValue: 'facility_color',
-      cssVariable: '--facility-color',
-    },
-    {
-      entity: 'resource',
-      configValue: 'resource_color',
-      cssVariable: '--resource-color',
-    },
-    {
-      entity: 'admin',
-      configValue: 'admin_color',
-      cssVariable: '--admin-color',
-    },
-    {
-      entity: 'service',
-      configValue: 'service_color',
-      cssVariable: '--service-color',
-    },
-  ];
-
-  colorConfigs: ColorConfig[] = [
-    {
-      configValue: 'sidemenu_hover_color',
-      cssVariable: '--side-root-item-hover',
-    },
-    {
-      configValue: 'sidemenu_active_color',
-      cssVariable: '--side-root-item-active',
-    },
-    {
-      configValue: 'sidemenu_submenu_active_color',
-      cssVariable: '--side-link-active',
-    },
-    {
-      configValue: 'sidemenu_submenu_hover_color',
-      cssVariable: '--side-link-hover',
-    },
-    {
-      configValue: 'sidemenu_hover_text_color',
-      cssVariable: '--side-root-item-text-hover',
-    },
-    {
-      configValue: 'sidemenu_active_text_color',
-      cssVariable: '--side-root-item-text-active',
-    },
-    {
-      configValue: 'sidemenu_submenu_active_text_color',
-      cssVariable: '--side-link-text-active',
-    },
-    {
-      configValue: 'sidemenu_submenu_hover_text_color',
-      cssVariable: '--side-link-text-hover',
-    },
-  ];
-
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
@@ -113,9 +35,6 @@ export class AdminGuiConfigService {
       .loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
-      .then(() =>
-        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
-      )
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {

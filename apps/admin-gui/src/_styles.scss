@@ -8,29 +8,6 @@
 // Changes to the styles.scss would result in the styles being overwritten
 // during the build process and the changes would be lost.
 
-@function mat-color-from-palette($palette, $hue: default, $opacity: null) {
-  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
-    @return mat-color-from-palette($palette, default, $hue);
-  }
-
-  $color: map-get($palette, $hue);
-
-  @if (type-of($color) != color) {
-    @if ($opacity == null) {
-      @return $color;
-    }
-
-    // Here is the change from the original function:
-    // If the $color resolved to something different from a color, we assume it is a CSS variable
-    // in the form of rgba(var(--rgba-css-var),a) and replace the 'a' value.
-    @return #{str-slice($color, 0, str-index($color, ',')) + $opacity + ')'};
-  }
-
-  @return rgba($color, if($opacity == null, opacity($color), $opacity));
-}
-
-// Plus imports for other components in your app.
-
 // Include the common styles for Angular Material.
 @include mat.all-component-typographies();
 @include mat.core();
@@ -63,63 +40,11 @@ $perun-theme: mat.define-light-theme(
 mat.$theme-ignore-duplication-warnings: true;
 @include mat.all-component-themes($perun-theme);
 
-:root {
-  //--vo-color: #ff0000;
-  //--vo-theme-primary-50: 0,158,224;
-  //--vo-theme-primary-100: 0,158,224;
-  //--vo-theme-primary-200: 0,158,224;
-  //--vo-theme-primary-300: 0,158,224;
-  //--vo-theme-primary-400: 0,158,224;
-  //--vo-theme-primary-500: 0,158,224;
-  //--vo-theme-primary-600: 0,158,224;
-  //--vo-theme-primary-700: 0,158,224;
-  //--vo-theme-primary-800: 0,158,224;
-  //--vo-theme-primary-900: 0,158,224;
-  //--vo-theme-primary-A100: 0,158,224;
-  //--vo-theme-primary-A200: 0,158,224;
-  //--vo-theme-primary-A400: 0,158,224;
-  //--vo-theme-primary-A700: 0,158,224;
-  //--vo-theme-primary-contrast-50: 0,158,224;
-  //--vo-theme-primary-contrast-100: 0,158,224;
-  //--vo-theme-primary-contrast-200: 0,158,224;
-  //--vo-theme-primary-contrast-300: 0,158,224;
-  //--vo-theme-primary-contrast-400: 0,158,224;
-  //--vo-theme-primary-contrast-500: 0,158,224;
-  //--vo-theme-primary-contrast-600: 0,158,224;
-  //--vo-theme-primary-contrast-700: 0,158,224;
-  //--vo-theme-primary-contrast-800: 0,158,224;
-  //--vo-theme-primary-contrast-900: 0,158,224;
-  //--vo-theme-primary-contrast-A100: 0,158,224;
-  //--vo-theme-primary-contrast-A200: 0,158,224;
-  //--vo-theme-primary-contrast-A400: 0,158,224;
-  //--vo-theme-primary-contrast-A700: 0,158,224;
-}
-
-@function mixw($variable, $opacity) {
-  @return unquote(
-    'linear-gradient(to top, rgba(255, 255, 255,' + $opacity + '),rgba(255, 255, 255,' + $opacity +
-      ')) ' + $variable
-  );
-}
-
-@function mixb($variable, $opacity) {
-  @return unquote(
-    'linear-gradient(to top, rgba(0, 0, 0,' + $opacity + '),rgba(0, 0, 0,' + $opacity + '))' +
-      $variable
-  );
-}
-
-// Perun entities colors
-//$vo-color: #283593;
-//var(--facility-color): #d84315;
-//$resource-color: #6a1b9a;
-//$group-color: #33691e;
-//var(--member-color): #ad1457;
-//var(--admin-color): #c62828;
-//var(--user-color): #00796b;
-
+/*************************************
+************** Vo theme **************
+*************************************/
 .vo-theme {
-  $vo-dynamic-colors: (
+  $vo-palette: (
     50: rgba(var(--vo-theme-primary-50), 1),
     100: rgba(var(--vo-theme-primary-100), 1),
     200: rgba(var(--vo-theme-primary-200), 1),
@@ -152,7 +77,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $vo-primary: mat.define-palette($vo-dynamic-colors, 500);
+  $vo-primary: mat.define-palette($vo-palette, 500);
   $vo-accent: mat.define-palette(mat.$green-palette, 600);
 
   $vo-theme: mat.define-light-theme(
@@ -167,16 +92,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($vo-theme);
 }
 
-//.facility-theme {
-//  $vo-primary: mat.define-palette(mat.$deep-orange-palette, 800);
-//  $vo-accent: mat.define-palette(mat.$green-palette, 600);
-//  $vo-theme: mat.define-light-theme($vo-primary, $vo-accent);
-//
-//  @include mat.all-component-themes($vo-theme);
-//}
+.vo-btn {
+  background: var(--vo-color);
+  color: rgba(var(--vo-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--vo-theme-primary-contrast-500), 1);
+  }
+}
+
+.vo-link {
+  color: var(--vo-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--vo-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+*********** Facility theme ***********
+*************************************/
 .facility-theme {
-  $facility-dynamic-colors: (
+  $facility-palette: (
     50: rgba(var(--facility-theme-primary-50), 1),
     100: rgba(var(--facility-theme-primary-100), 1),
     200: rgba(var(--facility-theme-primary-200), 1),
@@ -209,7 +147,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $facility-primary: mat.define-palette($facility-dynamic-colors, 500);
+  $facility-primary: mat.define-palette($facility-palette, 500);
   $facility-accent: mat.define-palette(mat.$green-palette, 600);
   $facility-theme: mat.define-light-theme(
     (
@@ -223,16 +161,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($facility-theme);
 }
 
-//.resource-theme {
-//  $vo-primary: mat.define-palette(mat.$purple-palette, 800);
-//  $vo-accent: mat.define-palette(mat.$green-palette, 600);
-//  $vo-theme: mat.define-light-theme($vo-primary, $vo-accent);
-//
-//  @include mat.all-component-themes($vo-theme);
-//}
+.facility-btn {
+  background-color: var(--facility-color);
+  color: rgba(var(--facility-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--facility-theme-primary-contrast-500), 1);
+  }
+}
+
+.facility-link {
+  color: var(--facility-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--facility-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+********** Resource theme ************
+*************************************/
 .resource-theme {
-  $resource-dynamic-colors: (
+  $resource-palette: (
     50: rgba(var(--resource-theme-primary-50), 1),
     100: rgba(var(--resource-theme-primary-100), 1),
     200: rgba(var(--resource-theme-primary-200), 1),
@@ -265,7 +216,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $resource-primary: mat.define-palette($resource-dynamic-colors, 500);
+  $resource-primary: mat.define-palette($resource-palette, 500);
   $resource-accent: mat.define-palette(mat.$green-palette, 600);
   $resource-theme: mat.define-light-theme(
     (
@@ -279,16 +230,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($resource-theme);
 }
 
-//.group-theme {
-//  $group-primary: mat.define-palette(mat.$light-green-palette, 900);
-//  $group-accent: mat.define-palette(mat.$green-palette, 600);
-//  $group-theme: mat.define-light-theme($group-primary, $group-accent);
-//
-//  @include mat.all-component-themes($group-theme);
-//}
+.resource-btn {
+  background-color: var(--resource-color);
+  color: rgba(var(--resource-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--resource-theme-primary-contrast-500), 1);
+  }
+}
+
+.resource-link {
+  color: var(--resource-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--resource-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+************ Group theme *************
+*************************************/
 .group-theme {
-  $group-dynamic-colors: (
+  $group-palette: (
     50: rgba(var(--group-theme-primary-50), 1),
     100: rgba(var(--group-theme-primary-100), 1),
     200: rgba(var(--group-theme-primary-200), 1),
@@ -321,7 +285,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $group-primary: mat.define-palette($group-dynamic-colors, 500);
+  $group-primary: mat.define-palette($group-palette, 500);
   $group-accent: mat.define-palette(mat.$green-palette, 600);
   $group-theme: mat.define-light-theme(
     (
@@ -335,16 +299,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($group-theme);
 }
 
-//.member-theme {
-//  $member-primary: mat.define-palette(mat.$pink-palette, 800);
-//  $member-accent: mat.define-palette(mat.$green-palette, 600);
-//  $member-theme: mat.define-light-theme($member-primary, $member-accent);
-//
-//  @include mat.all-component-themes($member-theme);
-//}
+.group-btn {
+  background: var(--group-color);
+  color: rgba(var(--group-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--group-theme-primary-contrast-500), 1);
+  }
+}
+
+.group-link {
+  color: var(--group-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--group-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+************ Member theme ************
+*************************************/
 .member-theme {
-  $member-dynamic-colors: (
+  $member-palette: (
     50: rgba(var(--member-theme-primary-50), 1),
     100: rgba(var(--member-theme-primary-100), 1),
     200: rgba(var(--member-theme-primary-200), 1),
@@ -377,7 +354,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $member-primary: mat.define-palette($member-dynamic-colors, 500);
+  $member-primary: mat.define-palette($member-palette, 500);
   $member-accent: mat.define-palette(mat.$green-palette, 600);
   $member-theme: mat.define-light-theme(
     (
@@ -391,16 +368,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($member-theme);
 }
 
-//.admin-theme {
-//  $admin-primary: mat.define-palette(mat.$red-palette, 800);
-//  $admin-accent: mat.define-palette(mat.$green-palette, 600);
-//  $admin-theme: mat.define-light-theme($admin-primary, $admin-accent);
-//
-//  @include mat.all-component-themes($admin-theme);
-//}
+.member-btn {
+  background-color: var(--member-color);
+  color: rgba(var(--member-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--member-theme-primary-contrast-500), 1);
+  }
+}
+
+.member-link {
+  color: var(--member-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--member-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+************ Admin theme *************
+*************************************/
 .admin-theme {
-  $admin-dynamic-colors: (
+  $admin-palette: (
     50: rgba(var(--admin-theme-primary-50), 1),
     100: rgba(var(--admin-theme-primary-100), 1),
     200: rgba(var(--admin-theme-primary-200), 1),
@@ -433,7 +423,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $admin-primary: mat.define-palette($admin-dynamic-colors, 500);
+  $admin-primary: mat.define-palette($admin-palette, 500);
   $admin-accent: mat.define-palette(mat.$green-palette, 600);
   $admin-theme: mat.define-light-theme(
     (
@@ -447,16 +437,20 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($admin-theme);
 }
 
-//.user-theme {
-//  $user-primary: mat.define-palette(mat.$teal-palette, 700);
-//  $user-accent: mat.define-palette(mat.$green-palette, 600);
-//  $user-theme: mat.define-light-theme($user-primary, $user-accent);
-//
-//  @include mat.all-component-themes($user-theme);
-//}
+.admin-btn {
+  background-color: var(--admin-color);
+  color: rgba(var(--admin-theme-primary-contrast-500), 1);
 
+  &:hover {
+    color: rgba(var(--admin-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+************* User theme *************
+*************************************/
 .user-theme {
-  $user-dynamic-colors: (
+  $user-palette: (
     50: rgba(var(--user-theme-primary-50), 1),
     100: rgba(var(--user-theme-primary-100), 1),
     200: rgba(var(--user-theme-primary-200), 1),
@@ -489,7 +483,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $user-primary: mat.define-palette($user-dynamic-colors, 500);
+  $user-primary: mat.define-palette($user-palette, 500);
   $user-accent: mat.define-palette(mat.$green-palette, 600);
   $user-theme: mat.define-light-theme(
     (
@@ -503,8 +497,29 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($user-theme);
 }
 
+.user-btn {
+  background-color: var(--user-color);
+  color: rgba(var(--user-theme-primary-contrast-500), 1);
+
+  &:hover {
+    color: rgba(var(--user-theme-primary-contrast-500), 1);
+  }
+}
+
+.user-link {
+  color: var(--user-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--user-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+*********** Service theme ************
+*************************************/
 .service-theme {
-  $service-dynamic-colors: (
+  $service-palette: (
     50: rgba(var(--service-theme-primary-50), 1),
     100: rgba(var(--service-theme-primary-100), 1),
     200: rgba(var(--service-theme-primary-200), 1),
@@ -537,7 +552,7 @@ mat.$theme-ignore-duplication-warnings: true;
     ),
   );
 
-  $service-primary: mat.define-palette($service-dynamic-colors, 500);
+  $service-primary: mat.define-palette($service-palette, 500);
   $service-accent: mat.define-palette(mat.$green-palette, 600);
   $service-theme: mat.define-light-theme(
     (
@@ -551,248 +566,188 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-colors($service-theme);
 }
 
+.service-btn {
+  background-color: var(--service-color);
+  color: rgba(var(--service-theme-primary-contrast-500), 1);
+
+  &:hover {
+    color: rgba(var(--service-theme-primary-contrast-500), 1);
+  }
+}
+
+.service-link {
+  color: var(--service-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: rgba(var(--service-theme-primary-contrast-500), 1);
+  }
+}
+
+/*************************************
+************** General ***************
+*************************************/
 body {
   background-color: #fafafa;
 }
 
+.mb-25 {
+  margin-bottom: 0.75rem;
+}
+
+.clickable {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.word-break-all {
+  word-break: break-all;
+}
+
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.status-change {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+
+  // Using ::before to create a pseudo-element serving as circular background
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    padding-bottom: 150%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    opacity: 0;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.input-width-250 {
+  width: 250px;
+}
+
+.setting-item {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+// hack to make the content of the virtual scroll be limited by its width
+.cdk-virtual-scroll-content-wrapper {
+  contain: size !important;
+}
+
+.align-checkbox {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+.align-elements {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/*************************************
+************** Buttons ***************
+*************************************/
 button {
   border-radius: var(--bs-border-radius) !important;
 }
 
-button:focus {
-  outline: none !important;
+.mat-mdc-outlined-button {
+  border-radius: var(--bs-border-radius) !important;
 }
 
-.vo-item {
-  background-color: var(--vo-color);
+.mat-mdc-unelevated-button {
+  border-radius: var(--bs-border-radius) !important;
 }
 
-.facility-item {
-  background-color: var(--facility-color);
+.mat-mdc-button {
+  border-radius: var(--bs-border-radius) !important;
 }
 
-.resource-item {
-  background-color: var(--resource-color);
+.mdc-button {
+  border-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
 }
 
-.group-item {
-  background-color: var(--group-color);
+.action-button {
+  display: inline-block !important;
 }
 
-.member-item {
-  background-color: var(--member-color);
+.action-button::after {
+  content: '\2026';
+  margin-left: -4px;
 }
 
-.service-item {
-  background-color: var(--service-color);
+/*************************************
+************** Sidemenu **************
+*************************************/
+.side-menu-item {
+  a {
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--sidemenu-hover-color) !important;
+      color: var(--sidemenu-hover-text-color) !important;
+    }
+  }
+}
+
+.side-menu-item-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  word-break: break-word;
+  text-decoration: none;
+}
+
+.side-menu-link {
+  a {
+    padding: 0.25rem 0.25rem 0.25rem 2rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
+    display: block;
+
+    &:hover {
+      background: var(--sidemenu-submenu-hover-color) !important;
+      color: var(--sidemenu-submenu-hover-text-color) !important;
+    }
+  }
+}
+
+.header-activated {
+  background: var(--sidemenu-active-color) !important;
+  color: var(--sidemenu-active-text-color) !important;
 }
 
 .dark-item-activated {
-  //border-left: 5px solid #ffffff;
-  //font-weight: 600;
-  background: var(--side-link-active) !important;
-  color: var(--side-link-text-active) !important;
-
-  &:hover {
-    //background-color: rgba(255, 255, 255, 0.15) !important;
-  }
+  background: var(--sidemenu-submenu-active-color) !important;
+  color: var(--sidemenu-submenu-active-text-color) !important;
 }
 
-.vo-item-activated {
-  border-right: 5px solid var(--vo-color);
-  color: var(--vo-color) !important;
-  font-weight: 500;
-  background-color: rgba(63, 76, 255, 0.1) !important;
-
-  &:hover {
-    background-color: rgba(63, 76, 255, 0.15) !important;
-  }
-}
-
-.admin-item-activated {
-  border-right: 5px solid var(--admin-color);
-  color: var(--admin-color) !important;
-  font-weight: 500;
-  background-color: rgba(255, 50, 50, 0.1);
-
-  &:hover {
-    background-color: rgba(255, 50, 50, 0.15) !important;
-  }
-}
-
-.facility-item-activated {
-  border-right: 5px solid var(--facility-color);
-  color: var(--facility-color) !important;
-  font-weight: 500;
-  background-color: rgba(255, 80, 23, 0.1);
-
-  &:hover {
-    background-color: rgba(255, 80, 23, 0.15) !important;
-  }
-
-  //background-color: #eaeaea !important;
-}
-
-.resource-item-activated {
-  border-right: 5px solid var(--resource-color);
-  color: var(--resource-color) !important;
-  font-weight: 500;
-  background-color: rgba(176, 44, 255, 0.1);
-
-  &:hover {
-    background-color: rgba(176, 44, 255, 0.15) !important;
-  }
-
-  //background-color: #eaeaea !important;
-}
-
-.group-item-activated {
-  border-right: 5px solid var(--group-color);
-  color: var(--group-color) !important;
-  font-weight: 500;
-  background-color: rgba(123, 255, 71, 0.1);
-
-  &:hover {
-    background-color: rgba(123, 255, 71, 0.15) !important;
-  }
-}
-
-.member-item-activated {
-  border-right: 5px solid var(--member-color);
-  color: var(--member-color) !important;
-  font-weight: 500;
-  background-color: rgba(255, 28, 133, 0.1);
-
-  &:hover {
-    background-color: rgba(255, 28, 133, 0.15) !important;
-  }
-
-  //background-color: #eaeaea !important;
-}
-
-.user-item-activated {
-  border-right: 5px solid var(--member-color);
-  color: var(--member-color) !important;
-  font-weight: 500;
-  background-color: rgba(0, 121, 107, 0.1);
-
-  &:hover {
-    background-color: rgba(0, 121, 107, 0.15) !important;
-  }
-}
-
-.service-item-activated {
-  border-right: 5px solid var(--service-color);
-  color: var(--service-color) !important;
-  font-weight: 500;
-  background-color: rgba(86, 19, 53, 0.1);
-
-  &:hover {
-    background-color: rgba(86, 19, 53, 0.15) !important;
-  }
-}
-
-.dark-item-links a:hover {
-  //background-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-.vo-item-links a:hover {
-  color: var(--vo-color) !important;
-  background-color: rgba(63, 76, 255, 0.15) !important;
-}
-
-.group-item-links a:hover {
-  color: var(--group-color) !important;
-  background-color: rgba(123, 255, 71, 0.15) !important;
-}
-
-.admin-item-links a:hover {
-  color: var(--admin-color) !important;
-  background-color: rgba(255, 50, 50, 0.15) !important;
-}
-
-.facility-item-links a:hover {
-  color: var(--facility-color) !important;
-  background-color: rgba(255, 82, 28, 0.15) !important;
-}
-
-.resource-item-links a:hover {
-  color: var(--resource-color) !important;
-  background-color: rgba(176, 44, 255, 0.15) !important;
-}
-
-.member-item-links a:hover {
-  color: var(--member-color) !important;
-  background-color: rgba(255, 28, 133, 0.15) !important;
-}
-
-.user-item-links a:hover {
-  color: var(--user-color) !important;
-  background-color: rgba(0, 121, 107, 0.15) !important;
-}
-
-.service-item-links a:hover {
-  color: var(--service-color) !important;
-  background-color: rgba(86, 19, 53, 0.15) !important;
-}
-
-.vo-text {
-  color: var(--vo-color) !important;
-}
-
-.facility-text {
-  color: var(--facility-color) !important;
-}
-
-.resource-text {
-  color: var(--resource-color) !important;
-}
-
-.group-text {
-  color: var(--group-color) !important;
-}
-
-.member-text {
-  color: var(--member-color) !important;
-}
-
-.user-text {
-  color: var(--user-color) !important;
-}
-
-.service-text {
-  color: var(--service-color) !important;
-}
-
-.router-component {
-  padding-bottom: 5rem;
-  min-height: calc(100vh - 314px);
-  @media (min-width: 769px) and (max-width: 1199px) {
-    width: calc(100vw - 330px);
-  }
-  @media (max-width: 768px) {
-    width: calc(100vw - 30px);
-  }
-}
-
-.main-input {
-  font-size: 1.2rem !important;
-  line-height: 1.2 !important;
-}
-
-.error-text {
-  color: #d32f2f;
-}
-
-.tab-padding-top {
-  /* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version.*/
-  .mat-tab-body-content {
-    padding-top: 2rem;
-  }
-}
-
-#nav-menu {
-  background: #102027;
+/*************************************
+*************** Nav *****************
+*************************************/
+.nav-menu {
+  background: var(--nav-bg-color);
   position: fixed;
   width: 100%;
   z-index: 999;
@@ -800,21 +755,21 @@ button:focus {
   justify-content: space-between;
   height: 64px;
   max-height: 64px;
-  //display: table;
 }
 
-textarea.cdk-textarea-autosize-measuring {
-  padding: 4px 0 !important;
+.side-nav {
+  background: var(--sidemenu-bg-color);
+  border-color: var(--sidemenu-border-color);
 }
 
-.base-item-color {
-  background-color: mat.get-color-from-palette(mat.$blue-grey-palette, 900);
+.side-nav-content {
+  position: relative;
+  background: var(--content-bg-color);
 }
 
-.base-item-color-activated {
-  background-color: #62727b;
-}
-
+/*************************************
+*************** Dialogs **************
+*************************************/
 .dialog-container {
   display: flex;
   flex-direction: column;
@@ -824,6 +779,14 @@ textarea.cdk-textarea-autosize-measuring {
   width: 100%;
 }
 
+//specific style for dialog without any border
+.noBorderDialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+}
+
+/*************************************
+*************** Titles ***************
+*************************************/
 .page-title {
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -843,7 +806,6 @@ textarea.cdk-textarea-autosize-measuring {
   flex-direction: column;
   margin-left: 2rem;
   margin-bottom: 2rem;
-  //d-flex flex-column ms-5 pb-4
 }
 
 .page-subtitle {
@@ -851,492 +813,44 @@ textarea.cdk-textarea-autosize-measuring {
   font-size: 1.5rem;
 }
 
-.page-subtitle-2 {
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-}
-
-.input-width-250 {
-  width: 250px;
-}
-
-.space-right {
-  margin-right: 20px;
-}
-
-.box-button-large {
-  text-align: center;
-  font-size: 1.25em;
-  color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-}
-
-.box-button-small {
-  color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-}
-
-.box-button-medium {
-  color: #ffffff;
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-}
-
-.button-shadow {
-  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
-  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35) !important;
-}
-
-.menu-items {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.menu-item-large {
-  img {
-    width: 100%;
-    flex-grow: 1;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  @media (min-width: 768px) and (max-width: 991px) {
-    img {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-  }
-
-  @media (min-width: 992px) and (max-width: 1199px) {
-    img {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    img {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: 1.25em;
-  padding: 0.5rem 0.5rem 1.5rem 0.5rem;
-  width: 100%;
-  margin: 1rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover {
-    color: white;
-    text-decoration: none !important;
-  }
-}
-
-.menu-item-small {
-  img {
-    width: 100%;
-    flex-grow: 1;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  @media (min-width: 768px) and (max-width: 991px) {
-    img {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-  }
-
-  @media (min-width: 992px) and (max-width: 1199px) {
-    img {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    img {
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    }
-  }
-
-  @media (min-width: 1600px) {
-    img {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  font-size: 1.25em;
-  padding: 0.5rem;
-  width: 100%;
-  margin: 1rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover {
-    color: white;
-    text-decoration: none !important;
-  }
-}
-
-.dark-hover-list-item {
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-}
-
-.info-table {
-  td:first-child {
-    width: 40%;
-    white-space: nowrap;
-  }
-}
-
-.menu-items-row {
-  margin-left: -15px !important;
-  margin-right: -15px !important;
-}
-
-.menu-item-medium {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  padding: 0.75rem;
-  width: 100%;
-  margin: 1rem;
-  font-size: 1.25rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover {
-    color: white;
-    text-decoration: none !important;
-  }
-
-  img {
-    width: 4rem;
-    height: 4rem;
-    flex-grow: 1;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  div {
-    flex-grow: 5;
-  }
-
-  /*@media (min-width: 992px) and (max-width: 1199px) {
-    img {
-      padding-left: .75rem;
-      padding-right: .75rem;
-    }
-  }
-
-  @media (min-width: 768px) and (max-width: 991px) {
-    img {
-      padding-left: .75rem;
-      padding-right: .75rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    img {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }*/
-}
-
-// Color styles for entities
-.vo-bg-color {
-  background-color: var(--vo-color);
-}
-
-.facility-bg-color {
-  background-color: var(--facility-color);
-}
-
-.group-bg-color {
-  background-color: var(--group-color);
-}
-
-.member-bg-color {
-  background-color: var(--member-color);
-}
-
-.admin-bg-color {
-  background-color: var(--admin-color);
-}
-
-.user-bg-color {
-  background-color: var(--user-color);
-
-  .cdk-text-field-autofilled {
-    background-color: black !important;
-  }
-}
-
-.service-bg-color {
-  background-color: var(--service-color);
-}
-
-.setting-item {
-  font-size: 1.15rem;
-  font-weight: 500;
-}
-
-.clickable {
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.unselected-setting {
-  color: #888888;
-}
-
-.app-btn {
-  display: inline-block;
-  font-weight: 400;
-  color: #212529;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
+.entity-info {
   font-size: 1rem;
-  line-height: 1.5;
 }
 
-.app-btn.disabled,
-.app-btn:disabled {
-  opacity: 0.65;
+/*************************************
+*************** Icons ****************
+*************************************/
+mat-icon {
+  overflow: inherit !important;
 }
 
-.app-btn:focus {
-  outline: none;
+// Proper mat icon inside button
+.mat-mdc-outlined-button > .mat-icon,
+.mat-mdc-unelevated-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
 }
 
-.vo-btn {
-  background: var(--vo-color);
-  color: rgba(var(--vo-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--vo-theme-primary-contrast-500), 1);
-  }
+.perun-icon-detail {
+  transform: scale(2.7);
+  margin-left: 1.4rem;
+  margin-top: 1.4rem;
 }
 
-.facility-btn {
-  background-color: var(--facility-color);
-  color: rgba(var(--facility-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--facility-theme-primary-contrast-500), 1);
-  }
+.icon-beak {
+  vertical-align: bottom;
 }
 
-.resource-btn {
-  background-color: var(--resource-color);
-  color: rgba(var(--resource-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--resource-theme-primary-contrast-500), 1);
-  }
+.icon-scale {
+  transform: scale(1.7);
+  margin-left: 0.5rem;
+  margin-top: -0.4rem;
+  margin-right: 0.9rem;
 }
 
-.group-btn {
-  background: var(--group-color);
-  color: rgba(var(--group-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--group-theme-primary-contrast-500), 1);
-  }
-}
-
-.member-btn {
-  background-color: var(--member-color);
-  color: rgba(var(--member-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--member-theme-primary-contrast-500), 1);
-  }
-}
-
-.admin-btn {
-  background-color: var(--admin-color);
-  color: rgba(var(--admin-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--admin-theme-primary-contrast-500), 1);
-  }
-}
-
-.user-btn {
-  background-color: var(--user-color);
-  color: rgba(var(--user-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--user-theme-primary-contrast-500), 1);
-  }
-}
-
-.service-btn {
-  background-color: var(--service-color);
-  color: rgba(var(--service-theme-primary-contrast-500), 1);
-  border-radius: 0;
-
-  &:hover {
-    color: rgba(var(--service-theme-primary-contrast-500), 1);
-  }
-}
-
-.title-link {
-  color: #000000;
-  text-decoration: underline;
-
-  &:hover {
-    color: #404040;
-  }
-}
-
-.vo-link {
-  color: var(--vo-color);
-  text-decoration: underline;
-
-  &:hover {
-    //color: lighten(var(--vo-color), 10%);
-    color: mixw(var(--vo-color), 0.1);
-  }
-}
-
-.facility-link {
-  color: var(--facility-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--facility-color), 0.1);
-  }
-}
-
-.resource-link {
-  color: var(--resource-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--resource-color), 0.1);
-  }
-}
-
-.member-link {
-  color: var(--member-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--member-color), 0.1);
-  }
-}
-
-.group-link {
-  color: var(--group-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--group-color), 0.1);
-  }
-}
-
-.user-link {
-  color: var(--user-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--user-color), 0.1);
-  }
-}
-
-.service-link {
-  color: var(--service-color);
-  text-decoration: underline;
-
-  &:hover {
-    color: mixw(var(--service-color), 0.1);
-  }
-}
-
-// HACKS
-
-// Dont show horizontal scroll at menu items
-.mat-mdc-tab-body-content {
-  overflow: hidden !important;
-}
-
-.no-label-margin-bottom {
-  label {
-    margin-bottom: 0 !important;
-  }
-}
-
-// sharp design
-.mat-mdc-outlined-button {
-  border-radius: var(--bs-border-radius) !important;
-}
-
-.mat-mdc-unelevated-button {
-  border-radius: var(--bs-border-radius) !important;
-}
-
-.mat-mdc-button {
-  border-radius: var(--bs-border-radius) !important;
-}
-
-//colors for material icons
 .material-icons.orange {
   color: #fb8c00;
   vertical-align: bottom;
@@ -1367,31 +881,6 @@ textarea.cdk-textarea-autosize-measuring {
   vertical-align: bottom;
 }
 
-//specific style for dialog without any border
-.noBorderDialog .mat-mdc-dialog-container {
-  padding: 0 !important;
-}
-
-.mat-drawer-inner-container {
-  //background-color: mat.get-color-from-palette(mat.$blue-grey-palette, 900);
-}
-
-.align-inline {
-  display: flex;
-  line-height: 75px;
-  align-items: flex-end;
-}
-
-.static-column-size {
-  width: 80px;
-}
-
-.hide-table {
-  height: 0 !important;
-  overflow: hidden !important;
-  border: none !important;
-}
-
 // this allows custom colors for perun icons used in material icons
 .perun-icon {
   path {
@@ -1410,8 +899,17 @@ textarea.cdk-textarea-autosize-measuring {
   min-height: 24px;
 }
 
-.word-break-all {
-  word-break: break-all;
+/*************************************
+*************** Tables ***************
+*************************************/
+.static-column-size {
+  width: 80px;
+}
+
+.hide-table {
+  height: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
 }
 
 th,
@@ -1419,14 +917,128 @@ td.mat-mdc-cell {
   padding: 0.25rem !important;
 }
 
-.overflow-ellipsis {
-  text-overflow: ellipsis;
+.mdc-data-table__cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
-.entity-info {
-  font-size: 1rem;
+// sticky table headers
+.mat-mdc-header-cell {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+  font-weight: bold !important;
 }
 
+/*************************************
+************* Tooltip ****************
+*************************************/
+.mat-mdc-tooltip {
+  font-size: 14px !important;
+  word-wrap: break-word !important;
+}
+
+/*************************************
+**************** Tab *****************
+*************************************/
+.mdc-tab__text-label {
+  font-size: 16px !important;
+  color: black !important;
+  opacity: 1 !important;
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.mdc-tab__icon {
+  font-size: 16px !important;
+}
+
+.mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
+}
+
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #e8e4e4;
+  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
+}
+
+// Dont show horizontal scroll at menu items
+.mat-mdc-tab-body-content {
+  overflow: hidden !important;
+}
+
+/*************************************
+************* Form field *************
+*************************************/
+.mdc-text-field {
+  background-color: transparent !important;
+  margin-top: 5px !important;
+}
+label:not(.mdc-floating-label--float-above) {
+  padding-top: 16px !important;
+  width: 100%;
+}
+.mat-form-field-appearance-outline {
+  label:not(.mdc-floating-label--float-above) {
+    padding-top: 0 !important;
+  }
+}
+.mdc-floating-label--float-above {
+  width: 133.33% !important;
+}
+mat-form-field mat-icon {
+  padding: 0 !important;
+}
+
+// Custom MDC form field in table - for attributes
+table .mdc-text-field {
+  margin-top: 0 !important;
+}
+table .mat-mdc-form-field-infix {
+  min-height: 35px !important;
+  padding-top: 7px !important;
+  padding-bottom: 0 !important;
+}
+
+// Custom MDC outlined form field in table - for attributes
+table .mdc-notched-outline__leading,
+table .mdc-notched-outline__trailing {
+  border: 0 !important;
+}
+table .mdc-text-field--outlined {
+  padding-left: 0 !important;
+}
+
+/*************************************
+************** Checkbox **************
+*************************************/
+.mat-mdc-checkbox label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Radio *****************
+*************************************/
+.mat-mdc-radio-button label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Toggle *****************
+*************************************/
+.mat-mdc-slide-toggle label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Cards *****************
+*************************************/
+.card {
+  border-radius: var(--bs-border-radius) !important;
+}
+
+/*************************************
+************** Loading ***************
+*************************************/
 .spinner-container {
   position: absolute;
   top: 0;
@@ -1438,30 +1050,6 @@ td.mat-mdc-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.status-change {
-  position: relative;
-  display: inline-block;
-  margin-left: 5px;
-
-  // Using ::before to create a pseudo-element serving as circular background
-  &:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    padding-bottom: 150%;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.05);
-    opacity: 0;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
 }
 
 #preloader {
@@ -1550,182 +1138,4 @@ td.mat-mdc-cell {
   position: absolute;
   right: 0;
   width: 180px;
-}
-
-@keyframes load {
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes load {
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-.perun-icon-detail {
-  transform: scale(2.7);
-  margin-left: 1.4rem;
-  margin-top: 1.4rem;
-}
-
-.icon-beak {
-  vertical-align: bottom;
-}
-
-.icon-scale {
-  transform: scale(1.7);
-  margin-left: 0.5rem;
-  margin-top: -0.4rem;
-  margin-right: 0.9rem;
-}
-
-//font size of tooltip
-.mat-mdc-tooltip {
-  font-size: 14px !important;
-  word-wrap: break-word !important;
-}
-
-.mdc-tab__text-label {
-  font-size: 16px !important;
-  color: black !important;
-  opacity: 1 !important;
-  border-radius: var(--bs-border-radius) !important;
-}
-
-.mdc-tab__icon {
-  font-size: 16px !important;
-}
-
-// hack to make the content of the virtual scroll be limited by its width
-.cdk-virtual-scroll-content-wrapper {
-  contain: size !important;
-}
-
-.action-button {
-  display: inline-block !important;
-}
-
-.action-button::after {
-  content: '\2026';
-  margin-left: -4px;
-}
-
-.align-checkbox {
-  text-align: center !important;
-  vertical-align: middle !important;
-}
-
-//.align-checkbox mat-checkbox {
-//  margin-top: 7px !important;
-//}
-
-mat-icon {
-  overflow: inherit !important;
-}
-
-/*************************************
-******** Customization of MDC ********
-*************************************/
-
-// Custom MDC form field
-.mdc-text-field {
-  background-color: transparent !important;
-  margin-top: 5px !important;
-}
-label:not(.mdc-floating-label--float-above) {
-  padding-top: 16px !important;
-  width: 100%;
-}
-.mat-form-field-appearance-outline {
-  label:not(.mdc-floating-label--float-above) {
-    padding-top: 0 !important;
-  }
-}
-.mdc-floating-label--float-above {
-  width: 133.33% !important;
-}
-mat-form-field mat-icon {
-  padding: 0 !important;
-}
-
-// Custom MDC form field in table - for attributes
-table .mdc-text-field {
-  margin-top: 0 !important;
-}
-table .mat-mdc-form-field-infix {
-  min-height: 35px !important;
-  padding-top: 7px !important;
-  padding-bottom: 0 !important;
-}
-
-// Custom MDC outlined form field in table - for attributes
-table .mdc-notched-outline__leading,
-table .mdc-notched-outline__trailing {
-  border: 0 !important;
-}
-table .mdc-text-field--outlined {
-  padding-left: 0 !important;
-}
-
-// Proper mat icon inside button
-.mat-mdc-outlined-button > .mat-icon,
-.mat-mdc-unelevated-button > .mat-icon {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  height: 1.5rem !important;
-  width: 1.5rem !important;
-  font-size: 1.5rem !important;
-}
-
-// angular 15 button fixes
-
-.mdc-button {
-  border-radius: var(--bs-border-radius) !important;
-  white-space: nowrap !important;
-  letter-spacing: normal;
-}
-
-.align-elements {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.mat-mdc-checkbox label,
-.mat-mdc-radio-button label,
-.mat-mdc-slide-toggle label {
-  padding-top: 0 !important;
-}
-
-.mat-mdc-tab-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
-}
-
-.mat-mdc-tab.mdc-tab--active {
-  background-color: #e8e4e4;
-  border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0 !important;
-}
-.mdc-data-table__cell {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-}
-
-// sticky table headers
-.mat-mdc-header-cell {
-  position: sticky !important;
-  top: 0;
-  z-index: 100;
-  font-weight: bold !important;
-}
-
-.mb-25 {
-  margin-bottom: 0.75rem;
-}
-
-.card {
-  border-radius: var(--bs-border-radius) !important;
 }

@@ -7,29 +7,6 @@
 // Changes to the styles.scss would result in the styles being overwritten
 // during the build process and the changes would be lost.
 
-@function mat-color-from-palette($palette, $hue: default, $opacity: null) {
-  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
-    @return mat-color-from-palette($palette, default, $hue);
-  }
-
-  $color: map-get($palette, $hue);
-
-  @if (type-of($color) != color) {
-    @if ($opacity == null) {
-      @return $color;
-    }
-
-    // Here is the change from the original function:
-    // If the $color resolved to something different from a color, we assume it is a CSS variable
-    // in the form of rgba(var(--rgba-css-var),a) and replace the 'a' value.
-    @return #{str-slice($color, 0, str-index($color, ',')) + $opacity + ')'};
-  }
-
-  @return rgba($color, if($opacity == null, opacity($color), $opacity));
-}
-
-// Plus imports for other components in your app.
-
 // Include the common styles for Angular Material.
 @include mat.all-component-typographies();
 @include mat.core();
@@ -61,6 +38,9 @@ $perun-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($perun-theme);
 
+/*************************************
+************* User theme *************
+*************************************/
 .user-theme {
   $user-dynamic-colors: (
     50: rgba(var(--user-theme-primary-50), 1),
@@ -68,9 +48,7 @@ $perun-theme: mat.define-light-theme(
     200: rgba(var(--user-theme-primary-200), 1),
     300: rgba(var(--user-theme-primary-300), 1),
     400: rgba(var(--user-theme-primary-400), 1),
-    //FIXME(theme-error): we want ot load color from the config
-    // 500: rgba(var(--user-theme-primary-500), 1),
-    500: rgba(#00796b, 1),
+    500: rgba(var(--user-theme-primary-500), 1),
     600: rgba(var(--user-theme-primary-600), 1),
     700: rgba(var(--user-theme-primary-700), 1),
     800: rgba(var(--user-theme-primary-800), 1),
@@ -112,19 +90,45 @@ $perun-theme: mat.define-light-theme(
   @include mat.all-component-colors($user-theme);
 }
 
+/*************************************
+************** General ***************
+*************************************/
+.app-min-width {
+  min-width: 400px;
+}
+
+.align-elements {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/*************************************
+************** Buttons ***************
+*************************************/
 button {
   border-radius: var(--bs-border-radius) !important;
 }
 
-button:focus {
-  outline: none !important;
+.mdc-button {
+  border-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
 }
 
-.page-subtitle {
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
+.action-button::after {
+  content: '\2026';
+}
+/*************************************
+*************** Dialogs **************
+*************************************/
+.noBorderDialog .mat-mdc-dialog-container {
+  background-color: black;
 }
 
+/*************************************
+*************** Titles ***************
+*************************************/
 .page-title {
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -135,27 +139,125 @@ button:focus {
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
 }
-
-.dark-hover-list-item {
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
+/*************************************
+*************** Icons ****************
+*************************************/
+mat-icon {
+  overflow: inherit !important;
 }
 
+.mat-mdc-outlined-button > .mat-icon,
+.mat-mdc-unelevated-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
+}
+
+/*************************************
+*************** Tables ***************
+*************************************/
 th,
 td.mat-mdc-cell {
   padding: 0.25rem !important;
 }
 
-.app-min-width {
-  min-width: 400px;
+.mdc-data-table__cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
+// sticky table headers
+.mat-mdc-header-cell {
+  position: sticky !important;
+  top: 0;
+  z-index: 100;
+  font-weight: bold !important;
+}
+
+/*************************************
+************* Tooltip ****************
+*************************************/
 .mat-mdc-tooltip {
   font-size: 14px !important;
   word-wrap: break-word !important;
 }
 
+/*************************************
+**************** Tab *****************
+*************************************/
+.mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #e8e4e4;
+}
+
+/*************************************
+************* Form field *************
+*************************************/
+.mdc-text-field {
+  background-color: transparent !important;
+  margin-top: 5px !important;
+}
+label:not(.mdc-floating-label--float-above) {
+  padding-top: 16px !important;
+  width: 100%;
+}
+.mat-form-field-appearance-outline {
+  label:not(.mdc-floating-label--float-above) {
+    padding-top: 0 !important;
+  }
+}
+.mdc-floating-label--float-above {
+  width: 133.33% !important;
+}
+mat-form-field mat-icon {
+  padding: 0 !important;
+}
+
+// Custom MDC outlined form field in table - for attributes
+table .mdc-notched-outline__leading,
+table .mdc-notched-outline__trailing {
+  border: 0 !important;
+}
+table .mdc-text-field--outlined {
+  padding-left: 0 !important;
+}
+
+// Custom MDC form filed in mat-list
+mat-list-item .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+}
+mat-list-item .mat-mdc-form-field-subscript-wrapper {
+  height: 0 !important;
+}
+
+/*************************************
+************** Checkbox **************
+*************************************/
+.mat-mdc-checkbox label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Radio *****************
+*************************************/
+.mat-mdc-radio-button label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Toggle *****************
+*************************************/
+.mat-mdc-slide-toggle label {
+  padding-top: 0 !important;
+}
+
+/*************************************
+************** Loading ***************
+*************************************/
 .spinner-container {
   position: absolute;
   top: 0;
@@ -240,108 +342,4 @@ td.mat-mdc-cell {
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
-
-.action-button::after {
-  content: '\2026';
-}
-
-.noBorderDialog .mat-mdc-dialog-container {
-  background-color: black;
-}
-
-mat-icon {
-  overflow: inherit !important;
-}
-
-/*************************************
-******** Customization of MDC ********
-*************************************/
-
-// Custom MDC form field
-.mdc-text-field {
-  background-color: transparent !important;
-  margin-top: 5px !important;
-}
-label:not(.mdc-floating-label--float-above) {
-  padding-top: 16px !important;
-  width: 100%;
-}
-.mat-form-field-appearance-outline {
-  label:not(.mdc-floating-label--float-above) {
-    padding-top: 0 !important;
-  }
-}
-.mdc-floating-label--float-above {
-  width: 133.33% !important;
-}
-mat-form-field mat-icon {
-  padding: 0 !important;
-}
-
-// Custom MDC outlined form field in table - for attributes
-table .mdc-notched-outline__leading,
-table .mdc-notched-outline__trailing {
-  border: 0 !important;
-}
-table .mdc-text-field--outlined {
-  padding-left: 0 !important;
-}
-
-// Custom MDC form filed in mat-list
-mat-list-item .mat-mdc-text-field-wrapper {
-  height: 40px !important;
-}
-mat-list-item .mat-mdc-form-field-subscript-wrapper {
-  height: 0 !important;
-}
-
-// angular 15 button fixes
-
-.mdc-button {
-  border-radius: var(--bs-border-radius) !important;
-  white-space: nowrap !important;
-  letter-spacing: normal;
-}
-
-.align-elements {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.mat-mdc-checkbox label,
-.mat-mdc-radio-button label,
-.mat-mdc-slide-toggle label {
-  padding-top: 0 !important;
-}
-
-// Proper mat icon inside button
-.mat-mdc-outlined-button > .mat-icon,
-.mat-mdc-unelevated-button > .mat-icon {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  height: 1.5rem !important;
-  width: 1.5rem !important;
-  font-size: 1.5rem !important;
-}
-
-.mat-mdc-tab-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-}
-
-.mat-mdc-tab.mdc-tab--active {
-  background-color: #e8e4e4;
-}
-
-.mdc-data-table__cell {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-}
-
-// sticky table headers
-.mat-mdc-header-cell {
-  position: sticky !important;
-  top: 0;
-  z-index: 100;
-  font-weight: bold !important;
 }

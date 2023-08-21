@@ -6,11 +6,10 @@
 <ng-template [ngIf]="!isLoginScreenShow && !isServiceAccess && isLoggedIn() && !isMfaWindowOpen">
   <perun-web-apps-header
     (sidenavToggle)="sidenav.toggle()"
-    [ngStyle]="{'top': getNavMenuTop(), 'background': navBackgroundColor}"
+    [ngStyle]="{'top': getNavMenuTop()}"
     [otherApp]="otherApp"
     [showNotifications]="true"
-    id="nav-menu"
-    class="mat-elevation-z3"></perun-web-apps-header>
+    class="nav-menu mat-elevation-z3"></perun-web-apps-header>
   <mat-sidenav-container
     autosize="true"
     [ngStyle]="{'margin-top': getSideNavMarginTop(),'min-height': getSideNavMinHeight()}">
@@ -19,16 +18,14 @@
       [fixedInViewport]="true"
       [mode]="sidebarMode"
       [fixedTopGap]="getTopGap()"
-      [ngStyle]="{'border-color': sideBarBorderColor, 'background': sideMenubackgroundColor}"
-      [opened]="!isMobile()">
+      [opened]="!isMobile()"
+      class="side-nav">
       <ng-scrollbar>
         <app-side-menu [sideNav]="sidenav"></app-side-menu>
       </ng-scrollbar>
     </mat-sidenav>
 
-    <mat-sidenav-content
-      [ngStyle]="{'background-color': contentBackgroundColor}"
-      id="content-inner">
+    <mat-sidenav-content class="side-nav-content">
       <div [ngStyle]="{'min-height' : contentInnerMinHeight}" id="content-wrap">
         <router-outlet></router-outlet>
       </div>

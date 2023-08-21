@@ -8,18 +8,21 @@
 const fs = require('fs/promises');
 const tinycolor = require('tinycolor2');
 
-// Crawls apps directory
-const getConfigs = async () => {
+/**
+ * Crawl apps directory and load themes by merging default and instance config
+ * @returns {Promise<*[]>} Array of themes for each app
+ */
+const getThemes = async (local) => {
   // Open apps directory
   let dir = null;
   try {
     dir = await fs.opendir('./apps');
   } catch (error) {
-    console.log("Error opening apps directory");
+    console.log('Error opening apps directory');
     return;
   }
 
-  const configs = [];
+  const themes = [];
   // Read directory
   let dirent = null;
   while ((dirent = await dir.read()) !== null) {
@@ -27,152 +30,119 @@ const getConfigs = async () => {
     if (dirent.name === '.gitkeep') continue;
     if (dirent.name.includes('e2e')) continue;
 
-    const config = {
-      name: dirent.name,
-      path: `./apps/${dirent.name}`,
-      colors: {}
-    }
+    const theme = {
+      pathToUpdatedStyles: `./apps/${dirent.name}/src/styles.scss`,
+      pathToStyles: `./apps/${dirent.name}/src/_styles.scss`,
+      colors: {},
+    };
     try {
-      const file = await fs.readFile(`./apps/${dirent.name}/src/assets/config/defaultConfig.json`, 'utf-8');
-      const obj = JSON.parse(file);
-      config.colors = obj["theme"];
-      // Update configs with instanceConfig.json
-      const file2 = await fs.readFile(`./apps/${dirent.name}/src/assets/config/instanceConfig.json`, 'utf-8');
-      const obj2 = JSON.parse(file2);
-      // Update missing colors
-      for (let color in obj2["theme"]) {
-        // Update colors with colors from instanceConfig
-        if (config.colors[color] != null) {
-          config.colors[color] = obj2["theme"][color];
-        }
+      // Load default config and set default theme
+      const dc_file = await fs.readFile(
+        `./apps/${dirent.name}/src/assets/config/defaultConfig.json`,
+        'utf-8'
+      );
+      const dc = JSON.parse(dc_file);
+      theme.colors = dc['theme'];
+
+      // Load instance config and override theme
+      let pathToIC = `/var/www/perun-web-apps/${dirent.name}/assets/config/instanceConfig.json`;
+      if (local) {
+        pathToIC = `./apps/${dirent.name}/src/assets/config/instanceConfig.json`
+      }
+      const ic_file = await fs.readFile(
+        pathToIC,
+        'utf-8'
+      );
+      const ic = JSON.parse(ic_file);
+      // Override colors
+      for (let color in ic['theme']) {
+        theme.colors[color] = ic['theme'][color];
       }
     } catch (error) {
-      //console.log("Error reading a config file", error);
+      // console.log("Error reading a config file", error);
     } finally {
-      for (let color in config.colors) {
-        if (color.includes('_')) {
-          // Update keys to have - instead of _
-          let newColor = color.replaceAll('_', '-');
-          // Remove '-color' from each color name
-          newColor = newColor.substring(0, newColor.indexOf('-color'));
-          config.colors[newColor] = config.colors[color];
-          delete config.colors[color];
-        }
+      for (let color in theme.colors) {
+        // Update keys to represent css variable names (e.g. --vo-color)
+        let newColor = '--' + color.replaceAll('_', '-');
+        theme.colors[newColor] = theme.colors[color];
+        delete theme.colors[color];
       }
-      configs.push(config);
+      themes.push(theme);
     }
   }
-  dir.close();
-  return configs;
-}
+  void dir.close();
+  return themes;
+};
 
-// https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
-const computeLuminance = (color) => {
-  const rgb = tinycolor(color).toRgb();
-  let r = rgb.r / 255;
-  let g = rgb.g / 255;
-  let b = rgb.b / 255;
-  if (r <= 0.03928) {
-    r = r / 12.92;
-  } else {
-    r = Math.pow((r + 0.055) / 1.055, 2.4);
-  }
-  if (g <= 0.03928) {
-    g = g / 12.92;
-  }
-  else {
-    g = Math.pow((g + 0.055) / 1.055, 2.4);
-  }
-  if (b <= 0.03928) {
-    b = b / 12.92;
-  }
-  else {
-    b = Math.pow((b + 0.055) / 1.055, 2.4);
-  }
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-// Via: https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
-const computeContrast = (color1, color2) => {
-  const l1 = computeLuminance(color1);
-  const l2 = computeLuminance(color2);
-  if (l1 > l2) {
-    return (l1 + 0.05) / (l2 + 0.05);
-  } else {
-    return (l2 + 0.05) / (l1 + 0.05);
-  }
-}
-
-const generatePallette = (color) => {
+const generatePalette = (color) => {
+  // FIXME this simple way of palette creation is not very robust
+  // for lighter colors it goes to white on the lower end (for dark to black on higher end)
   const colors = {
-    "50": tinycolor(color).lighten(52).toHexString(), // light
-    "100": tinycolor(color).lighten(37).toHexString(), // light
-    "200": tinycolor(color).lighten(26).toHexString(),
-    "300": tinycolor(color).lighten(12).toHexString(),
-    "400": tinycolor(color).lighten(6).toHexString(),
-    "500": tinycolor(color).toHexString(),
-    "600": tinycolor(color).darken(6).toHexString(),
-    "700": tinycolor(color).darken(12).toHexString(),
-    "800": tinycolor(color).darken(18).toHexString(),
-    "900": tinycolor(color).darken(24).toHexString(),
-    "A100": tinycolor(color).lighten(50).saturate(30).toHexString(), // light
-    "A200": tinycolor(color).lighten(30).saturate(30).toHexString(),
-    "A400": tinycolor(color).lighten(10).saturate(15).toHexString(),
-    "A700": tinycolor(color).lighten(5).saturate(5).toHexString(),
+    '50': tinycolor(color).lighten(52).toHexString(),
+    '100': tinycolor(color).lighten(37).toHexString(),
+    '200': tinycolor(color).lighten(26).toHexString(),
+    '300': tinycolor(color).lighten(12).toHexString(),
+    '400': tinycolor(color).lighten(6).toHexString(),
+    '500': tinycolor(color).toHexString(),
+    '600': tinycolor(color).darken(6).toHexString(),
+    '700': tinycolor(color).darken(12).toHexString(),
+    '800': tinycolor(color).darken(18).toHexString(),
+    '900': tinycolor(color).darken(24).toHexString(),
+    'A100': tinycolor(color).lighten(50).saturate(30).toHexString(),
+    'A200': tinycolor(color).lighten(30).saturate(30).toHexString(),
+    'A400': tinycolor(color).lighten(10).saturate(15).toHexString(),
+    'A700': tinycolor(color).lighten(5).saturate(5).toHexString(),
+  };
+  for (let hue in colors) {
+    colors[`contrast-${hue}`] = tinycolor.mostReadable(colors[hue], ['#ffffff', '#000000']).toHexString();
   }
-  const contrast = {};
-  for (let key in colors) {
-    // Compute contrast ratio w.r.t. white
-    const ratioWhite = computeContrast(colors[key], "#ffffff");
-    // Compute contrast ratio w.r.t. 1e1e1e
-    const ratioBlack = computeContrast(colors[key], "#1e1e1e");
-    // Pick the higher ratio
-    contrast[key] = ratioWhite > ratioBlack ? "#ffffff" : "#1e1e1e";
+  return colors;
+};
+
+const getEntity = (colorVar) => {
+  const entities = ['vo', 'facility', 'resource', 'group', 'member', 'admin', 'user', 'service'];
+  for (let entity of entities) {
+    if (colorVar.includes(entity)) {
+      return entity;
+    }
   }
-  return { colors, contrast };
+  return null;
 }
 
-const updateTemplates = async (configs) => {
-  // Open styles file and replace colors from config
-  for (let config of configs) {
-    let _style = await fs.readFile(`${config.path}/src/_styles.scss`, 'utf-8');
+/**
+ * Replaces all variable colors defined in theme with real hex values.
+ * Creates new file 'styles.scss' with colors replaced.
+ *
+ * @param themes Array of themes for each application
+ * @returns {Promise<void>}
+ */
+const updateStyles = async (themes) => {
+  for (let theme of themes) {
+    let styles = await fs.readFile(theme.pathToStyles, 'utf-8');
 
-    const regex = new RegExp(/.(.*)-theme \{\n ((.|\n)*)-theme\);\n\}/g);
-    const matches = _style.match(regex);
-    if (matches == null) {
-      continue;
-    }
-    let string = matches[0];
-    for (let color in config.colors) {
-      // Regex to match all instances of color-theme
-      // var(--{entity}-theme-primary-50)
-      const regex = new RegExp(`var\\(--${color}-theme-primary-(.*\\d{2,3}\\))`, 'g');
-      const m = _style.match(regex);
-      const pallette = generatePallette(config.colors[color]);
-
-      // Special case for entities
-      if (m != null) {
-        for (const match of m) {
-          const key = match.substring(match.lastIndexOf('-') + 1, match.indexOf(')'));
-
-          if (match.includes('contrast')) {
-            string = string.replaceAll(match, pallette.contrast[key]);
-            continue;
-          }
-          // Replace colors in pallette
-          string = string.replaceAll(match, pallette.colors[key]);
+    for (let color in theme.colors) {
+      // Replace all variable colors
+      styles = styles.replaceAll(`var(${color})`, theme.colors[color]);
+      // Create palette for entity theme
+      const entity = getEntity(color);
+      if (entity) {
+        const palette = generatePalette(theme.colors[color])
+        for (let hue in palette) {
+          styles = styles.replaceAll(`var(--${entity}-theme-primary-${hue})`, palette[hue]);
         }
       }
     }
-    // Save cahnges to styles.scss
-    _style = _style.replaceAll(regex, string);
-    await fs.writeFile(`${config.path}/src/styles.scss`, _style);
+    await fs.writeFile(theme.pathToUpdatedStyles, styles);
   }
-}
+};
 
 // Async closure
 (async () => {
-  const configs = await getConfigs();
-  await updateTemplates(configs);
-  console.log("Style files are loaded from themes!")
+  let local = false;
+  if (process.argv.length > 2) {
+    local = Boolean(process.argv[2]);
+  }
+  const themes = await getThemes(local);
+  await updateStyles(themes);
+  console.log('Style files are loaded from themes!');
 })();

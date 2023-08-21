@@ -39,8 +39,9 @@ $password-reset-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($password-reset-theme);
 
-/* You can add global styles to this file, and also import other style files */
-
+/*************************************
+************** User theme ************
+*************************************/
 .user-theme {
   $user-dynamic-colors: (
     50: rgba(var(--user-theme-primary-50), 1),
@@ -90,10 +91,26 @@ $password-reset-theme: mat.define-light-theme(
   @include mat.all-component-colors($user-theme);
 }
 
+/*************************************
+************** Buttons ***************
+*************************************/
+button {
+  border-radius: var(--bs-border-radius) !important;
+}
+
 .mat-mdc-unelevated-button {
   border-radius: var(--bs-border-radius) !important;
 }
 
+.mdc-button {
+  border-radius: var(--bs-border-radius) !important;
+  white-space: nowrap !important;
+  letter-spacing: normal;
+}
+
+/*************************************
+*************** Dialogs **************
+*************************************/
 .dialog-container {
   display: flex;
   flex-direction: column;
@@ -103,32 +120,51 @@ $password-reset-theme: mat.define-light-theme(
   width: 100%;
 }
 
-.mat-mdc-tooltip {
-  font-size: 13px !important;
-}
-
+/*************************************
+*************** Icons ****************
+*************************************/
 mat-icon {
   overflow: inherit !important;
 }
 
-.spinner-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// Proper mat icon inside button
+.mat-mdc-outlined-button > .mat-icon,
+.mat-mdc-unelevated-button > .mat-icon {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  font-size: 1.5rem !important;
 }
 
 /*************************************
-******** Customization of MDC ********
+*************** Tables ***************
 *************************************/
+.mdc-data-table__cell {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
 
-// Custom MDC form field
+/*************************************
+************* Tooltip ****************
+*************************************/
+.mat-mdc-tooltip {
+  font-size: 13px !important;
+}
+
+/*************************************
+**************** Tab *****************
+*************************************/
+.mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-mdc-tab.mdc-tab--active {
+  background-color: #e8e4e4;
+}
+
+/*************************************
+************* Form field *************
+*************************************/
 .mdc-text-field {
   background-color: transparent !important;
   margin-top: 5px !important;
@@ -149,32 +185,18 @@ mat-form-field mat-icon {
   padding: 0 !important;
 }
 
-// angular 15 button fixes
-
-.mdc-button {
-  border-radius: var(--bs-border-radius) !important;
-  white-space: nowrap !important;
-  letter-spacing: normal;
-}
-
-// Proper mat icon inside button
-.mat-mdc-outlined-button > .mat-icon,
-.mat-mdc-unelevated-button > .mat-icon {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  height: 1.5rem !important;
-  width: 1.5rem !important;
-  font-size: 1.5rem !important;
-}
-
-.mat-mdc-tab-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
-}
-
-.mat-mdc-tab.mdc-tab--active {
-  background-color: #e8e4e4;
-}
-
-.mdc-data-table__cell {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+/*************************************
+************** Loading ***************
+*************************************/
+.spinner-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
