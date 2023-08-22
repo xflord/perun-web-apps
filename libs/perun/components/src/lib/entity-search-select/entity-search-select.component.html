@@ -1,5 +1,5 @@
 <div class="d-flex flex-row align-items-center gap-4">
-  <mat-form-field class="w-100 pb-0">
+  <mat-form-field class="w-100 pb-0" subscriptSizing="dynamic">
     <mat-label>{{selectPlaceholder}}</mat-label>
     <mat-select
       [required]="required"
@@ -50,6 +50,7 @@
         </mat-option>
       </cdk-virtual-scroll-viewport>
     </mat-select>
+    <mat-hint *ngIf="warning?.length !== 0" class="warning">{{warning}}</mat-hint>
   </mat-form-field>
 
   <perun-web-apps-deselect-button

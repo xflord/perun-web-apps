@@ -67,7 +67,8 @@
                 <perun-web-apps-selection-item-search-select
                   [attributes]="sourceAttributes"
                   [selectedAttribute]="applicationFormItem.perunSourceAttribute"
-                  (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value"
+                  (itemSelected)="applicationFormItem.perunSourceAttribute = $event.value; loadWarning(itemType.SOURCE)"
+                  [warning]="displayWarningForSourceAttr ? warningMessage : ''"
                   [asGroup]="!!data.group"
                   [type]="itemType.SOURCE">
                 </perun-web-apps-selection-item-search-select>
@@ -81,7 +82,8 @@
                 <perun-web-apps-selection-item-search-select
                   [attributes]="destinationAttributes"
                   [selectedAttribute]="applicationFormItem.perunDestinationAttribute"
-                  (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value"
+                  (itemSelected)="applicationFormItem.perunDestinationAttribute = $event.value; loadWarning(itemType.DESTINATION)"
+                  [warning]="displayWarningForDestinationAttr ? warningMessage : ''"
                   [asGroup]="!!data.group"
                   [type]="itemType.DESTINATION">
                 </perun-web-apps-selection-item-search-select>

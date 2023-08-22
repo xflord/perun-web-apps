@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+export interface DeleteApplicationFormItemDialogData {
+  errorMessage: string;
+}
 
 @Component({
   selector: 'app-delete-application-form-item-dialog',
@@ -7,7 +11,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./delete-application-form-item-dialog.component.scss'],
 })
 export class DeleteApplicationFormItemDialogComponent {
-  constructor(private dialogRef: MatDialogRef<DeleteApplicationFormItemDialogComponent>) {}
+  deletionDisabled: boolean;
+
+  constructor(
+    private dialogRef: MatDialogRef<DeleteApplicationFormItemDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormItemDialogData
+  ) {
+    this.deletionDisabled = this.data.errorMessage?.length !== 0;
+  }
 
   onCancel(): void {
     this.dialogRef.close(false);

@@ -1378,6 +1378,8 @@
       "SOURCE_ATTRIBUTE_DESCRIPTION": "Select attribute, which will be used to pre-fill form value. You can select also organization attributes.",
       "DESTINATION_ATTRIBUTE": "Destination attribute",
       "DESTINATION_ATTRIBUTE_DESCRIPTION": "Select attribute, where will be submitted value stored after accepting user`s application.",
+      "DEPENDENCY_WARNING_MESSAGE": "Be careful when changing this attribute - this item is a {{dependency}} dependency for item {{shortname}}",
+      "DEPENDENCY_ERROR_MESSAGE": "You can't delete this item because it is a {{dependency}} dependency for item {{shortname}}",
       "FEDERATION_ATTRIBUTE": "Federation attribute",
       "FEDERATION_ATTRIBUTE_DESCRIPTION": "Select federation attribute to get pre-filed value from.",
       "REQUIRED": "Required",

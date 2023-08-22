@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import {
   ApplicationFormItem,
   AppType,
@@ -13,7 +12,11 @@ import { createNewApplicationFormItem } from '@perun-web-apps/perun/utils';
 import DisabledEnum = ApplicationFormItem.DisabledEnum;
 import HiddenEnum = ApplicationFormItem.HiddenEnum;
 import { ItemType, NO_FORM_ITEM, SelectionItem } from '@perun-web-apps/perun/components';
-import { HtmlEscapeService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  HtmlEscapeService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { FormControl, FormGroup } from '@angular/forms';
 
 export interface EditApplicationFormItemDialogComponentData {
@@ -69,6 +72,9 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   hiddenDependencyItem: ApplicationFormItem = null;
   disabledDependencyItem: ApplicationFormItem = null;
+  warningMessage = '';
+  displayWarningForSourceAttr = false;
+  displayWarningForDestinationAttr = false;
   languages = ['en'];
   private dependencyTypes: Type[] = [
     'PASSWORD',
@@ -86,7 +92,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<EditApplicationFormItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditApplicationFormItemDialogComponentData,
     private attributesManager: AttributesManagerService,
-    private translateService: TranslateService,
+    private translate: PerunTranslateService,
     private store: StoreService,
     private cd: ChangeDetectorRef,
     private escapeService: HtmlEscapeService
@@ -143,6 +149,36 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       this.applicationFormItem.perunSourceAttribute = '';
     }
     this.getOptions();
+  }
+
+  loadWarning(itemType: ItemType): void {
+    this.warningMessage = '';
+    const hiddenDependencyForItem = this.data.allItems.find(
+      (item) => item.hiddenDependencyItemId === this.data.applicationFormItem.id
+    );
+    const disabledDependencyForItem = this.data.allItems.find(
+      (item) => item.disabledDependencyItemId === this.data.applicationFormItem.id
+    );
+    if (hiddenDependencyForItem || disabledDependencyForItem) {
+      if (itemType === ItemType.SOURCE) {
+        this.displayWarningForSourceAttr = true;
+      } else {
+        this.displayWarningForDestinationAttr = true;
+      }
+      this.warningMessage = this.translate.instant(
+        'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DEPENDENCY_WARNING_MESSAGE',
+        hiddenDependencyForItem
+          ? {
+              dependency: 'hidden',
+              shortname: hiddenDependencyForItem.shortname,
+            }
+          : {
+              dependency: 'disabled',
+              shortname: disabledDependencyForItem.shortname,
+            }
+      );
+      this.cd.detectChanges();
+    }
   }
 
   cancel(): void {

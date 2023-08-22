@@ -18,3 +18,8 @@
 .black {
   color: black;
 }
+
+.warning {
+  color: darkorange;
+  font-weight: bold;
+}

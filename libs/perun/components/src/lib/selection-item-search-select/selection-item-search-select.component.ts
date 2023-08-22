@@ -28,6 +28,7 @@ export class SelectionItemSearchSelectComponent implements OnInit {
   @Input() selectedAttribute: string;
   @Input() type: ItemType;
   @Input() asGroup = false;
+  @Input() warning: string;
   @Output() itemSelected = new EventEmitter<SelectionItem>();
 
   items: SelectionItem[] = [];

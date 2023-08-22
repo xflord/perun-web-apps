@@ -11,8 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DeleteApplicationFormItemDialogComponent } from '../../../shared/components/dialogs/delete-application-form-item-dialog/delete-application-form-item-dialog.component';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { EditApplicationFormItemDialogComponent } from '../../../shared/components/dialogs/edit-application-form-item-dialog/edit-application-form-item-dialog.component';
 import { ApplicationForm, ApplicationFormItem } from '@perun-web-apps/perun/openapi';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -67,37 +66,37 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private router: Router,
-    private translate: TranslateService
+    private translate: PerunTranslateService
   ) {}
 
   ngOnInit(): void {
     // labels for hidden and disabled icons
     this.ifEmpty = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_EMPTY'
-    ) as string;
+    );
     this.ifPrefilled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_PREFILLED'
-    ) as string;
+    );
 
     // tooltips for hidden and disabled icons
     this.alwaysDisabled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED_HINT'
-    ) as string;
+    );
     this.alwaysHidden = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN_HINT'
-    ) as string;
+    );
     this.isDisabledIf = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.DISABLED_IF_HINT'
-    ) as string;
+    );
     this.isHiddenIf = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.HIDDEN_IF_HINT'
-    ) as string;
+    );
     this.isEmpty = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_EMPTY_HINT'
-    ) as string;
+    );
     this.isPrefilled = this.translate.instant(
       'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_PREFILLED_HINT'
-    ) as string;
+    );
   }
 
   ngOnChanges(): void {
@@ -188,8 +187,33 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   }
 
   delete(applicationFormItem: ApplicationFormItem): void {
+    let errorMessage = '';
+    const hiddenDependencyForItem = this.applicationFormItems.find(
+      (item) => item.hiddenDependencyItemId === applicationFormItem.id
+    );
+    const disabledDependencyForItem = this.applicationFormItems.find(
+      (item) => item.disabledDependencyItemId === applicationFormItem.id
+    );
+    if (hiddenDependencyForItem || disabledDependencyForItem) {
+      errorMessage = this.translate.instant(
+        'DIALOGS.APPLICATION_FORM_EDIT_ITEM.DEPENDENCY_ERROR_MESSAGE',
+        hiddenDependencyForItem
+          ? {
+              dependency: 'hidden',
+              shortname: hiddenDependencyForItem.shortname,
+            }
+          : {
+              dependency: 'disabled',
+              shortname: disabledDependencyForItem.shortname,
+            }
+      );
+    }
+
     const config = getDefaultDialogConfig();
     config.width = '500px';
+    config.data = {
+      errorMessage: errorMessage,
+    };
 
     const dialog = this.dialog.open(DeleteApplicationFormItemDialogComponent, config);
     dialog.afterClosed().subscribe((deleteItem) => {
