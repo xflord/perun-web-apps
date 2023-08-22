@@ -19,13 +19,17 @@
   </button>
 
   <button (click)="changeEmailFooter()" class="me-2 action-button" mat-stroked-button>
-    <i class="material-icons">email</i>
-    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
+    <i class="material-icons align-middle">email</i>
+    <span class="align-middle">
+      {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.EMAIL_FOOTER' | translate}}
+    </span>
   </button>
 
   <button (click)="copy()" *ngIf="copyAuth" class="action-button" mat-stroked-button>
-    <i class="material-icons">file_copy</i>
-    {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
+    <i class="material-icons align-middle">file_copy</i>
+    <span class="align-middle">
+      {{'VO_DETAIL.SETTINGS.NOTIFICATIONS.COPY_FROM_VO' | translate}}
+    </span>
   </button>
 </div>
 
