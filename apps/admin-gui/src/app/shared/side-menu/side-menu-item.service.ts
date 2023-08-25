@@ -133,7 +133,7 @@ export class SideMenuItemService {
         {
           label: 'MENU_ITEMS.USER.SETTINGS',
           url: [`/myProfile/settings`],
-          activatedRegex: `^/myProfile/settings$`,
+          activatedRegex: `^/myProfile/settings$`, // this route is never activated (expandable submenu)
           children: [
             {
               label: 'MENU_ITEMS.USER.PASSWORD_RESET',
@@ -609,7 +609,7 @@ export class SideMenuItemService {
       links.push({
         label: 'MENU_ITEMS.VO.SETTINGS',
         url: [`/organizations/${vo.id}/settings`],
-        activatedRegex: '/organizations/\\d+/settings$',
+        activatedRegex: '/organizations/\\d+/settings$', // this route is never activated (expandable submenu)
         children: children,
         showChildren: 'settings',
       });
@@ -900,7 +900,7 @@ export class SideMenuItemService {
       links.push({
         label: 'MENU_ITEMS.FACILITY.SETTINGS',
         url: ['/facilities', facility.id.toString(), 'settings'],
-        activatedRegex: '/facilities/\\d+/settings$',
+        activatedRegex: '/facilities/\\d+/settings$', // this route is never activated (expandable submenu)
         children: children,
         showChildren: 'settings',
       });
@@ -1062,7 +1062,7 @@ export class SideMenuItemService {
       links.push({
         label: 'MENU_ITEMS.GROUP.SETTINGS',
         url: [`/organizations/${group.voId}/groups/${group.id}/settings`],
-        activatedRegex: '/organizations/\\d+/groups/\\d+/settings$',
+        activatedRegex: '/organizations/\\d+/groups/\\d+/settings$', // this route is never activated (expandable submenu)
         children: settingsChildrenLinks,
         showChildren: 'settings',
       });
@@ -1144,7 +1144,7 @@ export class SideMenuItemService {
       links.push({
         label: 'MENU_ITEMS.RESOURCE.SETTINGS',
         url: [baseUrl, `settings`],
-        activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`,
+        activatedRegex: `${regexStart}/\\d+/resources/\\d+/settings$`, // this route is never activated (expandable submenu)
         children: children,
         showChildren: `settings`,
       });

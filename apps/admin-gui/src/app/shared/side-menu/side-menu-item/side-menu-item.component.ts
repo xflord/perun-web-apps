@@ -43,12 +43,18 @@ export class SideMenuItemComponent {
     });
   }
 
-  linkClicked(link: SideMenuLink): void {
-    // Navigate or expand children based on item
-    if (!link.children) {
-      void this.router.navigate(link.url);
-    } else {
-      this.expandedTilesStore.setItem(link.showChildren);
+  /**
+   * Navigate or expand children based on item if ctrl (metaKey) is not pressed
+   * @param link SideMenuLink with url and list of children
+   * @param event mouse event used for detect ctrlKey (support for Windows/Linux keyboards) or metaKey (support for Mac keyboards)
+   */
+  navigateOrExpandSideMenu(link: SideMenuLink, event: MouseEvent): void {
+    if (!event.ctrlKey && !event.metaKey) {
+      if (!link.children) {
+        void this.router.navigate(link.url);
+      } else {
+        this.expandedTilesStore.setItem(link.showChildren);
+      }
     }
   }
 }

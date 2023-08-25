@@ -3,7 +3,7 @@
   color: grey;
 }
 
-mat-list-item:hover {
+mat-nav-list a:hover {
   background: var(--side-hover) !important;
   color: var(--side-text-hover) !important;
   cursor: pointer;

@@ -1,14 +1,17 @@
 <div class="w-100">
   <div
-    [routerLink]="item.baseLink"
-    [perunWebAppsMiddleClickRouterLink]="item.baseLink"
     [ngStyle]="{'background': item.backgroundColorCss, 'border-top': !root ? dividerStyle: ''}"
     [matRippleColor]="rippleColor"
     [class.header-activated]="(currentUrl | activeSideMenuItem: item.baseColorClassRegex) && root"
     class="side-menu-item"
     matRipple>
     <div class="{{item.labelClass}}" matRipple>
-      <a [ngStyle]="{'color': item.textColorCss}" class="side-menu-item-label clickable">
+      <a
+        class="side-menu-item-label clickable"
+        [ngStyle]="{'color': item.textColorCss}"
+        (auxclick)="$event.preventDefault()"
+        [routerLink]="item.baseLink"
+        [perunWebAppsMiddleClickRouterLink]="item.baseLink">
         <mat-icon
           [ngStyle]="{'color': 'currentColor'}"
           [svgIcon]="item.icon"
@@ -26,8 +29,9 @@
       @rollInOut>
       <div *ngFor="let link of item.links">
         <a
-          (click)="linkClicked(link)"
-          [perunWebAppsMiddleClickRouterLink]="link.url"
+          (click)="navigateOrExpandSideMenu(link, $event)"
+          (auxclick)="$event.preventDefault()"
+          [perunWebAppsMiddleClickRouterLink]="link.children ? null : link.url"
           [ngClass]="(currentUrl | activeSideMenuItem: link.activatedRegex) && item.activatedClass"
           [ngStyle]="{'color': linkTextColor}"
           class="clickable d-flex"
@@ -42,6 +46,7 @@
         <div *ngIf="expandSections.get(link.showChildren)" @rollInOut class="overflow-hidden">
           <a
             *ngFor="let child of link?.children"
+            (auxclick)="$event.preventDefault()"
             [routerLink]="child.url"
             [perunWebAppsMiddleClickRouterLink]="child.url"
             [matRippleColor]="rippleColor"
