@@ -6,7 +6,7 @@
         {{'MEMBER_DETAIL.ENTITY' | translate}}
       </ng-template>
       <ng-template matTabContent>
-        <app-one-entity-attribute-page [entityId]="this.memberId" [entity]="'member'">
+        <app-one-entity-attribute-page [entityId]="member.id" [entity]="'member'">
         </app-one-entity-attribute-page>
       </ng-template>
     </mat-tab>
@@ -19,7 +19,7 @@
       <ng-template matTabContent>
         <app-two-entity-attribute-page
           [firstEntity]="'member'"
-          [firstEntityId]="memberId"
+          [firstEntityId]="member.id"
           [secondEntity]="'group'"></app-two-entity-attribute-page>
       </ng-template>
     </mat-tab>
@@ -32,7 +32,7 @@
       <ng-template matTabContent>
         <app-two-entity-attribute-page
           [firstEntity]="'member'"
-          [firstEntityId]="memberId"
+          [firstEntityId]="member.id"
           [secondEntity]="'resource'"></app-two-entity-attribute-page>
       </ng-template>
     </mat-tab>

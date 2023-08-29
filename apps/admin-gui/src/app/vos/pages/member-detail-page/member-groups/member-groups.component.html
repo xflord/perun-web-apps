@@ -57,7 +57,7 @@
       *perunWebAppsLoader="loading; indicator: spinner"
       (refreshTable)="refreshTable()"
       [displayedColumns]="['select', 'id', 'name', 'description', 'expiration', 'groupStatus']"
-      [memberId]="memberId"
+      [memberId]="member.id"
       [disableRouting]="!routeAuth"
       [groups]="groups"
       [filter]="filterValue"
