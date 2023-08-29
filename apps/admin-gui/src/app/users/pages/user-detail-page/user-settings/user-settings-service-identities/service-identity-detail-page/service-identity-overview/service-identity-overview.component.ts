@@ -10,6 +10,7 @@ import { User } from '@perun-web-apps/perun/openapi';
 })
 export class ServiceIdentityOverviewComponent implements OnInit {
   navItems: MenuItem[] = [];
+  authenticationItems: MenuItem[] = [];
   serviceAccount: User;
 
   constructor(private entityStorageService: EntityStorageService) {}
@@ -39,10 +40,25 @@ export class ServiceIdentityOverviewComponent implements OnInit {
         label: 'MENU_ITEMS.USER.DATA_QUOTAS',
         style: 'user-btn',
       },
+    ];
+
+    this.authenticationItems = [
       {
-        cssIcon: 'perun-authentication',
-        url: `/myProfile/service-identities/${this.serviceAccount.id}/authentication`,
-        label: 'MENU_ITEMS.USER.AUTHENTICATION',
+        cssIcon: 'perun-logins',
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/authentication/logins`,
+        label: 'MENU_ITEMS.USER.LOGINS',
+        style: 'user-btn',
+      },
+      {
+        cssIcon: 'perun-certificates',
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/authentication/certificates`,
+        label: 'MENU_ITEMS.USER.CERTIFICATES',
+        style: 'user-btn',
+      },
+      {
+        cssIcon: 'perun-key',
+        url: `/myProfile/service-identities/${this.serviceAccount.id}/authentication/ssh-keys`,
+        label: 'MENU_ITEMS.USER.SSH_KEYS',
         style: 'user-btn',
       },
     ];

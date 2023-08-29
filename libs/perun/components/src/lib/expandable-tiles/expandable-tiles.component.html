@@ -1,4 +1,4 @@
-<div *ngIf="{expanded: expanded | async} as ex" class="mt-4">
+<div *ngIf="items.length !== 0 && {expanded: expanded | async} as ex" class="mt-4">
   <button mat-button (click)="toggle()">
     <div class="d-flex align-items-center justify-content-start">
       <span class="fs-5">{{title | translate}}</span>
