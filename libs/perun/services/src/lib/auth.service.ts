@@ -33,7 +33,21 @@ export class AuthService {
         this.filterShortname = String(params['idpFilter']);
       }
     });
+
+    // The storage event of the Window interface fires when a storage area (localStorage) has been modified in the context of another document.
+    window.addEventListener('storage', this.closeSessionDialogsForOtherTabs);
   }
+
+  closeSessionDialogsForOtherTabs = (event: StorageEvent): void => {
+    // Check if user authenticated in other tab and if so close the session expiration dialog
+    if (event.key === 'access_token' && this.oauthService.hasValidAccessToken()) {
+      this.dialog.openDialogs.forEach((dialog) => {
+        if (dialog.id === 'SessionExpirationDialog') {
+          dialog.close();
+        }
+      });
+    }
+  };
 
   loadOidcConfigData(): void {
     this.oauthService.configure(this.getClientConfig());

@@ -56,20 +56,23 @@ export class ApiInterceptor implements HttpInterceptor {
     ) {
       const config = getDefaultDialogConfig();
       config.width = '450px';
+      config.id = 'SessionExpirationDialog';
 
       // Skip if the dialog is already open
-      if (this.dialogRefSessionExpiration == null) {
+      if (!this.dialogRefSessionExpiration) {
         this.dialogRefSessionExpiration = this.dialog.open(
           SessionExpirationDialogComponent,
           config
         );
-        this.dialogRefSessionExpiration.afterClosed().subscribe(() => {
-          finalize(() => (this.dialogRefSessionExpiration = undefined));
-          sessionStorage.setItem('auth:redirect', location.pathname);
-          sessionStorage.setItem('auth:queryParams', location.search.substring(1));
-          this.dialog.closeAll();
-          this.oauthService.logOut(true);
-          this.reauthenticate();
+        this.dialogRefSessionExpiration.afterClosed().subscribe((manuallyClosed: boolean) => {
+          finalize(() => (this.dialogRefSessionExpiration = null));
+          // Only for the case when user closed the dialog manually to authenticate
+          // it can be automatically closed in other tabs once user refreshes session
+          if (manuallyClosed) {
+            this.dialog.closeAll();
+            this.oauthService.logOut(true);
+            this.reauthenticate();
+          }
         });
       }
     }
