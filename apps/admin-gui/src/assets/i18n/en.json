@@ -365,7 +365,8 @@
       "FILTER_STATUS": "Filter by Status",
       "INVITE": "Invite",
       "INVITE_ONE": "Invite member",
-      "INVITE_BULK": "Invite multiple members"
+      "INVITE_BULK": "Invite multiple members",
+      "INVITE_DISABLED": "Application form is not setup correctly or invitation notification does not exist."
     },
     "OVERVIEW": {
       "INVITE_MEMBER": "Invite member",
@@ -690,6 +691,7 @@
       "INVITE": "Invite",
       "INVITE_ONE": "Invite member",
       "INVITE_BULK": "Invite multiple members",
+      "INVITE_DISABLED": "Application form is not setup correctly or invitation notification does not exist.",
       "SYNCHRONIZED": "Action is disabled on this group, group is filled with members from external source.",
       "FILTER_STATUS": "Filter by organizations status",
       "FILTER_GROUP_STATUS": "Filter by group status",

@@ -14,6 +14,7 @@ import {
   AttributesManagerService,
   GroupsManagerService,
   MemberGroupStatus,
+  RegistrarManagerService,
   RichGroup,
   RichMember,
   VoMemberStatuses,
@@ -57,6 +58,7 @@ export class GroupMembersComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
   inviteAuth: boolean;
+  inviteDisabled = true;
   copyAuth: boolean;
   copyDisabled = false;
   blockManualMemberAdding: boolean;
@@ -89,6 +91,7 @@ export class GroupMembersComponent implements OnInit {
 
   constructor(
     private groupService: GroupsManagerService,
+    private registrarService: RegistrarManagerService,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
     private storeService: StoreService,
@@ -107,6 +110,13 @@ export class GroupMembersComponent implements OnInit {
     this.memberAttrNames = this.memberAttrNames.concat(this.storeService.getLoginAttributeNames());
     this.group = this.entityStorageService.getEntity();
     this.setAuthRights();
+    if (this.inviteAuth) {
+      this.registrarService
+        .isInvitationEnabled(this.group.voId, this.group.id)
+        .subscribe((enabled) => {
+          this.inviteDisabled = !enabled;
+        });
+    }
     void this.isManualAddingBlocked(this.group.voId).then(() => this.loadPage(this.group.id));
     this.isCopyMembersDisabled();
   }

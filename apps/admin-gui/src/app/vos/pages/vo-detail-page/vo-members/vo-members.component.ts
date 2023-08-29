@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RemoveMembersDialogComponent } from '../../../../shared/components/dialogs/remove-members-dialog/remove-members-dialog.component';
 import {
   AttributesManagerService,
+  RegistrarManagerService,
   RichMember,
   Vo,
   VoMemberStatuses,
@@ -56,10 +57,12 @@ export class VoMembersComponent implements OnInit {
   addAuth: boolean;
   removeAuth: boolean;
   inviteAuth: boolean;
+  inviteDisabled = true;
   routeAuth: boolean;
   blockManualMemberAdding: boolean;
 
   constructor(
+    private registrarService: RegistrarManagerService,
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private authzService: GuiAuthResolver,
@@ -77,6 +80,11 @@ export class VoMembersComponent implements OnInit {
 
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
+    if (this.inviteAuth) {
+      this.registrarService.isInvitationEnabled(this.vo.id, null).subscribe((enabled) => {
+        this.inviteDisabled = !enabled;
+      });
+    }
 
     void this.isManualAddingBlocked(this.vo.id);
   }

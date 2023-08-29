@@ -20,12 +20,12 @@
     </button>
   </span>
   <span
-    [matTooltipDisabled]="!(group | groupMembersActionButtonDisabled)"
+    [matTooltipDisabled]="!((group | groupMembersActionButtonDisabled) || inviteDisabled)"
     [matTooltipPosition]="'above'"
-    matTooltip="{{group | groupMembersActionButtonDisabledTooltip | translate}}">
+    matTooltip="{{inviteDisabled ? ('GROUP_DETAIL.MEMBERS.INVITE_DISABLED' | translate) : (group | groupMembersActionButtonDisabledTooltip | translate)}}">
     <button
       *ngIf="inviteAuth"
-      [disabled]="(group | groupMembersActionButtonDisabled)"
+      [disabled]="(group | groupMembersActionButtonDisabled) || inviteDisabled"
       [matMenuTriggerFor]="menu"
       class="me-2 dropdown-toggle"
       color="accent"

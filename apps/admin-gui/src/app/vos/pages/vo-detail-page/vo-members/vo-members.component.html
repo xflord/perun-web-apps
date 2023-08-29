@@ -16,23 +16,28 @@
         {{'VO_DETAIL.MEMBERS.ADD_MEMBER' | translate}}
       </button>
     </div>
-    <button
-      *ngIf="inviteAuth"
-      [disabled]="blockManualMemberAdding"
-      [matMenuTriggerFor]="menu"
-      class="me-2 dropdown-toggle"
-      color="accent"
-      mat-flat-button>
-      {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
-    </button>
-    <mat-menu #menu="matMenu">
-      <button *ngIf="inviteAuth" (click)="onInviteMember()" class="action-button" mat-menu-item>
-        {{'VO_DETAIL.MEMBERS.INVITE_ONE' | translate}}
+    <span
+      [matTooltipDisabled]="!inviteDisabled"
+      [matTooltipPosition]="'above'"
+      matTooltip="{{'VO_DETAIL.MEMBERS.INVITE_DISABLED' | translate}}">
+      <button
+        *ngIf="inviteAuth"
+        [disabled]="blockManualMemberAdding || inviteDisabled"
+        [matMenuTriggerFor]="menu"
+        class="me-2 dropdown-toggle"
+        color="accent"
+        mat-flat-button>
+        {{'VO_DETAIL.MEMBERS.INVITE' | translate}}
       </button>
-      <button *ngIf="inviteAuth" (click)="onBulkInvite()" class="action-button" mat-menu-item>
-        {{'VO_DETAIL.MEMBERS.INVITE_BULK' | translate}}
-      </button>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button *ngIf="inviteAuth" (click)="onInviteMember()" class="action-button" mat-menu-item>
+          {{'VO_DETAIL.MEMBERS.INVITE_ONE' | translate}}
+        </button>
+        <button *ngIf="inviteAuth" (click)="onBulkInvite()" class="action-button" mat-menu-item>
+          {{'VO_DETAIL.MEMBERS.INVITE_BULK' | translate}}
+        </button>
+      </mat-menu>
+    </span>
     <button
       *ngIf="removeAuth"
       (click)="onRemoveMembers()"
