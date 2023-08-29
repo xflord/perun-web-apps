@@ -49,7 +49,7 @@
       class="me-2 action-button"
       color="accent"
       mat-flat-button>
-      {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
+      {{'ATTRIBUTE_PAGE.CREATE' | translate}}
     </button>
 
     <button
@@ -58,7 +58,7 @@
       color="accent"
       [disabled]="selection.selected.length === 0"
       mat-flat-button>
-      {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
+      {{'ATTRIBUTE_PAGE.SAVE' | translate}}
     </button>
 
     <button
@@ -67,11 +67,16 @@
       [disabled]="selection.selected.length === 0"
       class="me-2"
       mat-flat-button>
-      {{'MEMBER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
+      {{'ATTRIBUTE_PAGE.DELETE' | translate}}
     </button>
     <perun-web-apps-debounce-filter
       (filter)="applyFilter($event)"
-      [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-debounce-filter>
+      [placeholder]="'ATTRIBUTE_PAGE.FILTER'"
+      class="me-2">
+    </perun-web-apps-debounce-filter>
+    <mat-slide-toggle [(ngModel)]="filterEmpty" labelPosition="before">
+      {{'ATTRIBUTE_PAGE.FILTER_EMPTY' | translate}}
+    </mat-slide-toggle>
     <ng-template #spinner>
       <perun-web-apps-loading-table></perun-web-apps-loading-table>
     </ng-template>
@@ -81,6 +86,7 @@
         *perunWebAppsLoader="innerLoading; indicator: spinner"
         [attributes]="attributes"
         [filterValue]="filterValue"
+        [filterEmpty]="filterEmpty"
         [selection]="selection">
       </perun-web-apps-attributes-list>
     </div>

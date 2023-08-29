@@ -5,18 +5,16 @@
   color="accent"
   data-cy="add-attributes"
   mat-flat-button>
-  {{'USER_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
+  {{'ATTRIBUTE_PAGE.CREATE' | translate}}
 </button>
-
 <button
   (click)="onSave()"
   class="me-2"
   color="accent"
   [disabled]="selection.selected.length === 0"
   mat-flat-button>
-  {{'USER_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
+  {{'ATTRIBUTE_PAGE.SAVE' | translate}}
 </button>
-
 <button
   (click)="onDelete()"
   [disabled]="selection.selected.length === 0"
@@ -24,21 +22,27 @@
   color="warn"
   data-cy="remove-attributes"
   mat-flat-button>
-  {{'USER_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
+  {{'ATTRIBUTE_PAGE.DELETE' | translate}}
 </button>
 <perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
-  [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTES_LIST.FILTER'"></perun-web-apps-debounce-filter>
+  [placeholder]="'ATTRIBUTE_PAGE.FILTER'"
+  class="me-2">
+</perun-web-apps-debounce-filter>
+<mat-slide-toggle [(ngModel)]="filterEmpty" labelPosition="before">
+  {{'ATTRIBUTE_PAGE.FILTER_EMPTY' | translate}}
+</mat-slide-toggle>
 
 <ng-template #spinner>
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>
 <div class="position-relative">
   <perun-web-apps-attributes-list
+    #list
     *perunWebAppsLoader="loading; indicator: spinner"
     [attributes]="attributes"
-    #list
     [filterValue]="filterValue"
+    [filterEmpty]="filterEmpty"
     [selection]="selection"
     [tableId]="tableId">
   </perun-web-apps-attributes-list>

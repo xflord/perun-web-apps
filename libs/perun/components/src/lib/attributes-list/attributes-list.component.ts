@@ -35,8 +35,8 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   @Input() attributes: Attribute[] = [];
   @Input() selection = new SelectionModel<Attribute>(true, []);
   @Input() displayedColumns: string[] = ['select', 'id', 'displayName', 'value', 'description'];
-  @Input() inDialog = false;
   @Input() filterValue = '';
+  @Input() filterEmpty = false;
   @Input() tableId: string;
   @Input() readonly = false;
   @Input() hiddenColumns: string[] = [];
@@ -82,15 +82,17 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       this.displayedColumns = this.displayedColumns.filter((column) => column !== 'id');
     }
 
-    const attributesWithoutEmptyObjects = this.attributes.filter((attribute) => {
-      if (typeof attribute.value === 'object') {
-        return Object.keys((attribute.value ?? '') as object).length > 0;
-      }
-      return true;
-    });
+    let filteredAttributes = this.attributes;
+    if (this.filterEmpty) {
+      filteredAttributes = filteredAttributes.filter((attribute) => {
+        if (typeof attribute.value === 'object') {
+          return Object.keys((attribute.value ?? '') as object).length > 0;
+        }
+        return true;
+      });
+    }
 
-    const filteredAttributes = filterCoreAttributes(attributesWithoutEmptyObjects);
-
+    filteredAttributes = filterCoreAttributes(filteredAttributes);
     this.dataSource = new MatTableDataSource<Attribute>(filteredAttributes);
     this.setDataSource();
   }

@@ -28,14 +28,10 @@ import { GroupWithStatus, ResourceWithStatus } from '@perun-web-apps/perun/model
   styleUrls: ['./two-entity-attribute-page.component.scss'],
 })
 export class TwoEntityAttributePageComponent implements OnInit {
-  @ViewChild('list')
-  list: AttributesListComponent;
-  @Input()
-  firstEntityId: number;
-  @Input()
-  firstEntity: string;
-  @Input()
-  secondEntity: string;
+  @ViewChild('list') list: AttributesListComponent;
+  @Input() firstEntityId: number;
+  @Input() firstEntity: string;
+  @Input() secondEntity: string;
   entityValues: Resource[] | Facility[] | Group[] | RichMember[] | User[] = [];
   attributes: Attribute[] = [];
   selection = new SelectionModel<Attribute>(true, []);
@@ -44,6 +40,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
   loading = false;
   innerLoading = false;
   filterValue = '';
+  filterEmpty = true;
   noEntityMessage: string;
 
   constructor(

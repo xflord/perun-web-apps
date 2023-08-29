@@ -2696,6 +2696,13 @@
       "FILTER": "Filter by name, id or description"
     }
   },
+  "ATTRIBUTE_PAGE": {
+    "CREATE": "Create",
+    "SAVE": "Save",
+    "DELETE": "Delete",
+    "FILTER": "Filter attributes by Id, name, value or description",
+    "FILTER_EMPTY": "Filter empty attributes"
+  },
   "SHARED": {
     "COMPONENTS": {
       "RESOURCES_TAGS_LIST": {

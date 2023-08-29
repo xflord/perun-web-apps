@@ -15,15 +15,13 @@ import { TABLE_ATTRIBUTES_SETTINGS } from '@perun-web-apps/config/table-config';
   styleUrls: ['./one-entity-attribute-page.component.css'],
 })
 export class OneEntityAttributePageComponent implements OnInit {
-  @Input()
-  entity: string;
-  @Input()
-  entityId: number;
-  @ViewChild('list')
-  list: AttributesListComponent;
+  @Input() entity: string;
+  @Input() entityId: number;
+  @ViewChild('list') list: AttributesListComponent;
   attributes: Attribute[] = [];
   selection = new SelectionModel<Attribute>(true, []);
   filterValue = '';
+  filterEmpty = true;
   tableId = TABLE_ATTRIBUTES_SETTINGS;
   loading = false;
 
