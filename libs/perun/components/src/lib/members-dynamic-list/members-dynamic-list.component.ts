@@ -99,6 +99,8 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     switch (column) {
       case 'id':
         return data.id.toString();
+      case 'type':
+        return data.membershipType;
       case 'fullName':
         if (data.user) {
           return parseFullName(data.user);
@@ -272,7 +274,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   viewMemberGroupTree(event: Event, member: RichMember): void {
     event.stopPropagation();
     const config = getDefaultDialogConfig();
-    config.width = '800px';
+    config.width = '1000px';
     config.data = { member: member, groupId: this.groupId };
 
     this.dialog.open(MemberTreeViewDialogComponent, config);

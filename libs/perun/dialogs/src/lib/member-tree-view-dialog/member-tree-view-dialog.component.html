@@ -7,7 +7,7 @@
       {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.TITLE' | translate:{ 'name': userName} }}
     </h1>
     <div *ngIf="dataSource" mat-dialog-content class="me-0">
-      <p>{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INFO' | translate}}</p>
+      <p class="ms-2">{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INFO' | translate}}</p>
 
       <mat-form-field class="filter-field ms-2">
         <mat-label>
@@ -15,44 +15,50 @@
         </mat-label>
         <input matInput [formControl]="formControl" />
       </mat-form-field>
-      <perun-web-apps-alert
-        *ngIf="!dataSource.data.length"
-        >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.NO_PATHS'|translate}}</perun-web-apps-alert
-      >
+
+      <perun-web-apps-alert *ngIf="!dataSource.data.length">
+        {{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.NO_PATHS'|translate}}
+      </perun-web-apps-alert>
+
       <mat-tree
         *ngIf="dataSource.data.length"
         [dataSource]="dataSource"
         [treeControl]="treeControl"
-        class="example-tree">
+        class="example-tree ms-2 bordered-tree description-text">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-          <li class="mat-tree-node">
+          <li class="mat-tree-node node ps-2">
             <div
               class="row flex-nowrap"
               [class.cursor-pointer]="node.direct || node.include"
               [class.act-disabled]="!node.direct && !node.include"
               (click)="navigate(node.id, node.include)">
-              <div [ngStyle]="{'min-width': getMinWidth(node.level)}" class="mt-auto mb-auto">
+              <div
+                [ngStyle]="{'min-width': getMinWidth(node.level)}"
+                class="mt-auto mb-auto ms-3 d-flex">
                 <span>{{node.name | parseGroupName}}</span>
                 <span
                   *ngIf="node.direct"
                   class="text-muted ms-2"
-                  >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.DIRECT' | translate}}</span
-                >
+                  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.DIRECT' | translate}}">
+                  <mat-icon>person_pin_circle</mat-icon>
+                </span>
                 <span
                   *ngIf="node.include"
                   class="text-muted ms-2"
-                  >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INCLUDE' | translate}}</span
-                >
+                  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INCLUDE' | translate}}">
+                  <mat-icon>mediation</mat-icon>
+                </span>
+                <span class="text-muted ms-5 w-50">{{node.description}}</span>
               </div>
-              <span class="text-muted ms-3">{{node.description}}</span>
             </div>
           </li>
         </mat-tree-node>
+
         <!-- This is the tree node template for expandable nodes -->
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <li>
-            <div class="mat-tree-node">
+            <div class="mat-tree-node ps-2">
               <button
                 mat-icon-button
                 matTreeNodeToggle
@@ -66,8 +72,10 @@
                 [class.cursor-pointer]="node.direct || node.include"
                 [class.act-disabled]="!node.direct && !node.include"
                 (click)="navigate(node.id, node.include)"
-                class="row flex-nowrap">
-                <div [ngStyle]="{'min-width': getMinWidth(node.level)}" class="mt-auto mb-auto">
+                class="row">
+                <div
+                  [ngStyle]="{'min-width': getMinWidth(node.level)}"
+                  class="mt-auto mb-auto d-flex">
                   <span>{{node.name | parseGroupName}}</span>
                   <span
                     *ngIf="node.direct"
@@ -79,8 +87,8 @@
                     class="text-muted ms-2"
                     >{{'SHARED_LIB.PERUN.COMPONENTS.MEMBER_TREEVIEW_DIALOG.INCLUDE' | translate}}</span
                   >
+                  <span class="text-muted ms-5">{{node.description}}</span>
                 </div>
-                <span class="text-muted ms-3">{{node.description}}</span>
               </div>
             </div>
             <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
@@ -90,6 +98,7 @@
         </mat-nested-tree-node>
       </mat-tree>
     </div>
+
     <div mat-dialog-actions>
       <div class="ms-auto">
         <button (click)="onCancel()" mat-stroked-button>

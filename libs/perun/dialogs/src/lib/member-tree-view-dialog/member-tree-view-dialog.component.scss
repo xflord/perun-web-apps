@@ -7,6 +7,10 @@
   margin-top: 0;
   margin-bottom: 0;
   list-style-type: none;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
 
 .act-disabled {
@@ -21,4 +25,15 @@
   max-width: 350px !important;
   width: 100% !important;
   min-width: initial !important;
+}
+
+.bordered-tree {
+  border: 1px solid var(--bs-border-color-translucent);
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.description-text {
+  text-overflow: ellipsis;
+  overflow: auto;
+  white-space: nowrap;
 }

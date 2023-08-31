@@ -12,6 +12,8 @@ import { GetResourceRoutePipe } from './get-resource-route.pipe';
 import { ServiceStateBlockedToStringPipe } from './service-state-blocked-to-string.pipe';
 import { MemberStatusIconColorPipe } from './member-status-icon-color.pipe';
 import { MemberStatusIconPipe } from './member-status-icon.pipe';
+import { MemberTypeIconPipe } from './member-type-icon.pipe';
+import { MemberTypeTooltipPipe } from './member-type-tooltip.pipe';
 import { MemberStatusTooltipPipe } from './member-status-tooltip.pipe';
 import { MemberEmailPipe } from './member-email.pipe';
 import { MemberLoginsPipe } from './member-logins.pipe';
@@ -79,6 +81,8 @@ import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
     ServiceStateBlockedToStringPipe,
     MemberStatusIconColorPipe,
     MemberStatusIconPipe,
+    MemberTypeIconPipe,
+    MemberTypeTooltipPipe,
     MemberStatusTooltipPipe,
     MemberEmailPipe,
     MemberLoginsPipe,
@@ -145,6 +149,8 @@ import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
     ServiceStateBlockedToStringPipe,
     MemberStatusIconColorPipe,
     MemberStatusIconPipe,
+    MemberTypeIconPipe,
+    MemberTypeTooltipPipe,
     MemberStatusTooltipPipe,
     MemberEmailPipe,
     MemberLoginsPipe,

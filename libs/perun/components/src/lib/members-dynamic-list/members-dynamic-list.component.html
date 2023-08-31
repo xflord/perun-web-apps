@@ -44,14 +44,18 @@
         <td *matCellDef="let member" class="static-column-size" mat-cell>{{member.id}}</td>
       </ng-container>
       <ng-container matColumnDef="type">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          {{'MEMBERS_LIST.TYPE' | translate}}
+        </th>
         <td *matCellDef="let member" mat-cell>
-          <mat-icon
-            (click)="viewMemberGroupTree($event, member)"
-            *ngIf="member.membershipType !== 'DIRECT'"
-            [matTooltip]="'MEMBERS_LIST.INDIRECT_MEMBER' | translate"
-            >transfer_within_a_station</mat-icon
-          >
+          <span [matTooltip]="member.membershipType | memberTypeTooltip">
+            <button
+              (click)="viewMemberGroupTree($event, member)"
+              [disabled]="member.membershipType === 'DIRECT'"
+              mat-icon-button>
+              <mat-icon>{{member.membershipType | memberTypeIcon}}</mat-icon>
+            </button>
+          </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="fullName">
