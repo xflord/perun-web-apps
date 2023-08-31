@@ -28,7 +28,7 @@
     "urn:perun:user:attribute-def:def:login-namespace:egi-ui",
     "urn:perun:user:attribute-def:def:login-namespace:sitola"
   ],
-  "consolidator_base_url": "https://perun-dev.cesnet.cz/",
+  "consolidator_url": "https://perun-dev.cesnet.cz/cert-ic/ic/",
   "registrar_base_url": "https://perun-dev.cesnet.cz/fed/registrar/",
   "use_localhost_linker_url": false,
   "password_help": {

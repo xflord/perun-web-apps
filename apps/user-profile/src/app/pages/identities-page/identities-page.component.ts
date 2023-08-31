@@ -143,11 +143,8 @@ export class IdentitiesPageComponent implements OnInit {
       });
     } else {
       this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
-        const type = this.storage.getPerunPrincipal().extSourceType;
-        const consolidatorBaseUrl = this.storage.getProperty('consolidator_base_url');
-        window.location.href = `${consolidatorBaseUrl}${
-          type?.endsWith('X509') ? 'cert' : 'fed'
-        }-ic/ic/?target_url=${window.location.href}&token=${token}`;
+        const consolidatorUrl = this.storage.getProperty('consolidator_url');
+        window.location.href = `${consolidatorUrl}?target_url=${window.location.href}&token=${token}`;
       });
     }
   }
