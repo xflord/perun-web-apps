@@ -267,7 +267,7 @@ export function getRecentlyVisitedItems(key: string): RecentItem[] {
  * @param key of localStorage
  * @param item entity that was visited
  */
-export function addRecentlyVisited(key: string, item: Vo | Facility | Group): void {
+export function addRecentlyVisited(key: string, item: Vo | Facility | Group | Resource): void {
   if (localStorage.getItem(key) === null) {
     // if user not have any in local storage
     const recent: number[] = [];

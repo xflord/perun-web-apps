@@ -16,7 +16,7 @@ export class ExpandedTilesStoreService {
   // Right now there is no check if all sections are initialized and needs to be kept manually updated
   private sections: ExpandableSectionId[] = [
     'settings',
-    'resources',
+    'resourcesExpandable',
     'visualizer',
     'authentication',
   ];

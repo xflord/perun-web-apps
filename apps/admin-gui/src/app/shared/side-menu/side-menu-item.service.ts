@@ -524,7 +524,7 @@ export class SideMenuItemService {
         url: [`/organizations/${vo.id}/resources`],
         activatedRegex: '/organizations/\\d+/resources$',
         children: children,
-        showChildren: 'resources',
+        showChildren: 'resourcesExpandable',
       });
     }
 
