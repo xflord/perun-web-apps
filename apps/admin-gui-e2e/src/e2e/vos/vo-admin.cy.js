@@ -212,12 +212,9 @@ describe('VO management with role VO admin', () => {
         .type(dbVoName, {force: true})
         .get(`[data-cy=${dbVoName}]`)
         .click()
-        .get('[data-cy=advanced-settings]')
-        .click()
     })
 
-    // TODO fix - randomly failing due to a bug with privileges
-    it.skip('test create vo application form item', () => {
+    it('test create vo application form item', () => {
       cy.intercept('**/registrarManager/updateFormItems/**')
         .as('addFormItem')
         .get('[data-cy=application-form]')
@@ -244,8 +241,7 @@ describe('VO management with role VO admin', () => {
         .should('exist');
     });
 
-    // TODO fix - randomly failing due to a bug with privileges
-    it.skip('test delete vo application form item', () => {
+    it('test delete vo application form item', () => {
       cy.intercept('**/registrarManager/updateFormItems/**')
         .as('deleteFormItem')
         .intercept('**/registrarManager/getFormItems/vo**')

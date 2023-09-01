@@ -176,63 +176,62 @@ describe('Facility management with role Facility admin', () => {
       .should('not.exist');
   });
 
-  it('test add facility manager', () => {
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
-      .as('getEnrichedFacilities')
-      .intercept('**/usersManager/findRichUsersWithAttributes?**')
-      .as('findRichUsers')
-      // .wait('@getEnrichedFacilities')
-      .get('[data-cy=filter-input]')
-      .type(dbFacilityName2, {force: true})
-      .get(`[data-cy=${dbFacilityName2}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get('[data-cy=add-manager-button]')
-      .click()
-      .get('[data-cy=search-manager-input]')
-      .type(addManagerUser, {force: true})
-      .get('[data-cy=search-manager-button]')
-      .click()
-      .wait('@findRichUsers')
-      .get(`[data-cy=${addManagerUser}-checkbox]`)
-      .click()
-      .get('[data-cy=add-manager-button-dialog]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins?**')
-      .as('getRichAdmins')
-      .wait('@getRichAdmins')
-      // assert that manager was added
-      .get(`[data-cy=${addManagerUser}-checkbox]`)
-      .should('exist');
-  });
+  context('Advanced settings', () => {
 
-  it('test remove facility manager', () => {
-    cy.intercept('**/facilitiesManager/getEnrichedFacilities')
-      .as('getEnrichedFacilities')
-      // .wait('@getEnrichedFacilities')
-      .get('[data-cy=filter-input]')
-      .type(dbFacilityName2, {force: true})
-      .get(`[data-cy=${dbFacilityName2}]`)
-      .click()
-      .get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${removeManagerUser}-checkbox]`)
-      .click()
-      .get('[data-cy=remove-manager-button]')
-      .should('have.attr', 'color', 'warn') // check if the button is enabled (due to the force click below)
-      .click({ force: true })
-      .get('[data-cy=remove-manager-button-dialog]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins?**')
-      .as('getRichAdmins')
-      .wait('@getRichAdmins')
-      // assert that manager doesn't exist
-      .get(`[data-cy=${removeManagerUser}-checkbox]`)
-      .should('not.exist');
+    it('test add facility manager', () => {
+      cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+        .as('getEnrichedFacilities')
+        .intercept('**/usersManager/findRichUsersWithAttributes?**')
+        .as('findRichUsers')
+        // .wait('@getEnrichedFacilities')
+        .get('[data-cy=filter-input]')
+        .type(dbFacilityName2, {force: true})
+        .get(`[data-cy=${dbFacilityName2}]`)
+        .click()
+        .get('[data-cy=managers]')
+        .click()
+        .get('[data-cy=add-manager-button]')
+        .click()
+        .get('[data-cy=search-manager-input]')
+        .type(addManagerUser, {force: true})
+        .get('[data-cy=search-manager-button]')
+        .click()
+        .wait('@findRichUsers')
+        .get(`[data-cy=${addManagerUser}-checkbox]`)
+        .click()
+        .get('[data-cy=add-manager-button-dialog]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins?**')
+        .as('getRichAdmins')
+        .wait('@getRichAdmins')
+        // assert that manager was added
+        .get(`[data-cy=${addManagerUser}-checkbox]`)
+        .should('exist');
+    });
+
+    it('test remove facility manager', () => {
+      cy.intercept('**/facilitiesManager/getEnrichedFacilities')
+        .as('getEnrichedFacilities')
+        // .wait('@getEnrichedFacilities')
+        .get('[data-cy=filter-input]')
+        .type(dbFacilityName2, {force: true})
+        .get(`[data-cy=${dbFacilityName2}]`)
+        .click()
+        .get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${removeManagerUser}-checkbox]`)
+        .click()
+        .get('[data-cy=remove-manager-button]')
+        .should('have.attr', 'color', 'warn') // check if the button is enabled (due to the force click below)
+        .click({ force: true })
+        .get('[data-cy=remove-manager-button-dialog]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins?**')
+        .as('getRichAdmins')
+        .wait('@getRichAdmins')
+        // assert that manager doesn't exist
+        .get(`[data-cy=${removeManagerUser}-checkbox]`)
+        .should('not.exist');
+    });
   });
 });

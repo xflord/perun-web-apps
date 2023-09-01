@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('VO management with role VO admin', () => {
+describe('VO management with role Perun admin', () => {
   const dbVoName = 'test-e2e-vo-to-delete';
 
   before(() => {

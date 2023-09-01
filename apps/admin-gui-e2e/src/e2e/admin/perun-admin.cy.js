@@ -188,7 +188,7 @@ describe('Perun admin management with role Perun admin', () => {
         .get(`[data-cy=${dbServiceName2.toLowerCase()}-name-td]`)
         .click()
         .get('[data-cy=service-edit-button]')
-        .click()
+        .click({force: true})
         .get('[data-cy=service-name-input]')
         .clear()
         .type(dbServiceName2 + 'edit', {force: true})

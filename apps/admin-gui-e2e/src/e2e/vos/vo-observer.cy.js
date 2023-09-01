@@ -67,10 +67,6 @@ describe('VO management with role VO observer', () => {
   })
 
   context('Advanced settings', () => {
-    beforeEach(() => {
-      cy.get('[data-cy=advanced-settings]')
-        .click()
-    })
 
     it('view vo managers', () => {
       cy.intercept('**/authzResolver/getRichAdmins**').as('getRichAdmins')

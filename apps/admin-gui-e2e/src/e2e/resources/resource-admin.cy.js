@@ -25,8 +25,6 @@ describe('Resource management with role Resource admin', () => {
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get(`[data-cy=resources]`)
-      .click()
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=filter-input]')
@@ -75,50 +73,6 @@ describe('Resource management with role Resource admin', () => {
       .should('not.exist');
   });
 
-  it('test add resource manager', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get('[data-cy=add-manager-button]')
-      .click()
-      .get('[data-cy=search-manager-input]')
-      .type(`${dbAddManager}`, {force: true})
-      .get('[data-cy=search-manager-button]')
-      .click()
-      .get(`[data-cy=${dbAddManager}-checkbox]`)
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .get('[data-cy=add-manager-button-dialog]')
-      .click()
-      .wait('@getRichAdmins')
-
-      // assert that manager was added
-      .get(`[data-cy=${dbAddManager}-checkbox]`)
-      .should('exist');
-  });
-
-  it('test remove resource manager', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${dbRemoveManager}-checkbox]`)
-      .click()
-      .get('[data-cy=remove-manager-button]')
-      .click()
-      .intercept('**/authzResolver/getRichAdmins**')
-      .as('getRichAdmins')
-      .get('[data-cy=remove-manager-button-dialog]')
-      .click()
-      .wait('@getRichAdmins')
-
-      // assert that manager was removed
-      .get(`[data-cy=${dbRemoveManager}-checkbox]`)
-      .should('not.exist');
-  });
-
   it('test assign group to resource', () => {
     cy.get('[data-cy=assigned-groups]')
       .click()
@@ -159,5 +113,48 @@ describe('Resource management with role Resource admin', () => {
       //  assert that group was removed
       .get(`[data-cy=${dbGroupToRemove}-checkbox]`)
       .should('not.exist');
+  });
+
+  context('Advanced settings', () => {
+
+    it('test add resource manager', () => {
+      cy.get('[data-cy=managers]')
+        .click()
+        .get('[data-cy=add-manager-button]')
+        .click()
+        .get('[data-cy=search-manager-input]')
+        .type(`${dbAddManager}`, {force: true})
+        .get('[data-cy=search-manager-button]')
+        .click()
+        .get(`[data-cy=${dbAddManager}-checkbox]`)
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .get('[data-cy=add-manager-button-dialog]')
+        .click()
+        .wait('@getRichAdmins')
+
+        // assert that manager was added
+        .get(`[data-cy=${dbAddManager}-checkbox]`)
+        .should('exist');
+    });
+
+    it('test remove resource manager', () => {
+      cy.get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${dbRemoveManager}-checkbox]`)
+        .click()
+        .get('[data-cy=remove-manager-button]')
+        .click()
+        .intercept('**/authzResolver/getRichAdmins**')
+        .as('getRichAdmins')
+        .get('[data-cy=remove-manager-button-dialog]')
+        .click()
+        .wait('@getRichAdmins')
+
+        // assert that manager was removed
+        .get(`[data-cy=${dbRemoveManager}-checkbox]`)
+        .should('not.exist');
+    });
   });
 });

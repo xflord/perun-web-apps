@@ -36,8 +36,7 @@ describe('Facility management with role Facility observer', () => {
       .should('exist')
   });
 
-  //FIXME: same problem as in the test below
-  it.skip('test list assigned users', () => {
+  it('test list assigned users', () => {
     cy.get('[data-cy=assigned-users]')
       .click()
       .get('[data-cy=filter-input]')
@@ -49,12 +48,7 @@ describe('Facility management with role Facility observer', () => {
       .should('exist')
   });
 
-  //FIXME: this test often fails when it is executed from command line (but NOT from UI)
-  // There is problem with policies - test sometimes fails with error "You are not
-  // authorized to perform this action", but according to getPerunPrincipal() method
-  // there should be the privilege for given facility and called method (getAllowedGroups).
-  // For the correct run in CI this test was skipped for this moment
-  it.skip('test list allowed groups', () => {
+  it('test list allowed groups', () => {
     cy.get('[data-cy=allowed-groups]')
       .click()
       .reload()
@@ -103,23 +97,22 @@ describe('Facility management with role Facility observer', () => {
       .should('exist')
   });
 
-  it('test list owners', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=owners]')
-      .click()
-      .get('[data-cy=filter-input]')
-      .type(dbOwnerName, {force: true})
-      .get(`[data-cy=${dbOwnerName}]`)
-      .should('exist')
-  });
+  context('Advanced settings', () => {
 
-  it('test list managers', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${dbManagerFirstName}-firstName-td]`)
-      .should('exist')
+    it('test list owners', () => {
+      cy.get('[data-cy=owners]')
+        .click()
+        .get('[data-cy=filter-input]')
+        .type(dbOwnerName, {force: true})
+        .get(`[data-cy=${dbOwnerName}]`)
+        .should('exist')
+    });
+
+    it('test list managers', () => {
+      cy.get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${dbManagerFirstName}-firstName-td]`)
+        .should('exist')
+    });
   });
 });

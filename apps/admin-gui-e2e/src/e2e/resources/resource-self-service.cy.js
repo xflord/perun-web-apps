@@ -22,8 +22,6 @@ describe('Resource management with role Resource self service', () => {
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get(`[data-cy=resources]`)
-      .click()
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=filter-input]')

@@ -18,3 +18,7 @@ import './commands';
 import failOnConsoleError from 'cypress-fail-on-console-error';
 // eslint-disable-next-line
 failOnConsoleError();
+
+// by default open Advanced settings and Resources in side menu/expandable tiles
+window.localStorage.setItem('settings', 'true');
+window.localStorage.setItem('resourcesExpandable', 'true');

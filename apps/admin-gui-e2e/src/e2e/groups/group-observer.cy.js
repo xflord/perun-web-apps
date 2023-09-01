@@ -42,32 +42,9 @@ describe('Group management with role Group observer', () => {
       .should('exist')
   });
 
-  it('test list managers', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
-      .click()
-      .get(`[data-cy=${dbGroupAdmin}-firstName-td]`)
-      .should('exist')
-  });
-
-  it('test list extsources', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=external-sources]')
-      .click()
-      .get('[data-cy=filter-input]')
-      .type(dbExtsource, {force: true})
-      .get(`[data-cy=${dbExtsource}-name-td]`)
-      .should('exist')
-  });
-
   it('test list vo members', () => {
     cy.get('[data-cy=vo-link]')
       .click({force: true})
-      //FIXME: this is just a quick fix to reload the page cause there is a problem with policies otherwise
-      // this problem occurs only during the test not in real usage of admin-gui application
-      .reload()
       .get('[data-cy=members]')
       .click()
       .get('[data-cy=filter-input]')
@@ -76,15 +53,6 @@ describe('Group management with role Group observer', () => {
       .as('getMembers')
       .wait('@getMembers')
       .get(`[data-cy=${dbGroupMember}-firstName-td]`)
-      .should('exist')
-  });
-
-  it('test get application form', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=application-form]')
-      .click()
-      .get(`[data-cy=${dbApplicationItemTextFieldName}-shortname-td]`)
       .should('exist')
   });
 
@@ -97,4 +65,29 @@ describe('Group management with role Group observer', () => {
       .should('exist')
   });
 
+  context('Advanced settings', () => {
+
+    it('test list managers', () => {
+      cy.get('[data-cy=managers]')
+        .click()
+        .get(`[data-cy=${dbGroupAdmin}-firstName-td]`)
+        .should('exist')
+    });
+
+    it('test list extsources', () => {
+      cy.get('[data-cy=external-sources]')
+        .click()
+        .get('[data-cy=filter-input]')
+        .type(dbExtsource, {force: true})
+        .get(`[data-cy=${dbExtsource}-name-td]`)
+        .should('exist')
+    });
+
+    it('test get application form', () => {
+      cy.get('[data-cy=application-form]')
+        .click()
+        .get(`[data-cy=${dbApplicationItemTextFieldName}-shortname-td]`)
+        .should('exist')
+    });
+  });
 });

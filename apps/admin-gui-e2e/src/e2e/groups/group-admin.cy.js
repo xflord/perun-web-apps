@@ -82,7 +82,8 @@ describe('Group management with role Group admin', () => {
       .get('[data-cy=attributes]')
       .click()
       .get('[data-cy=add-attributes]')
-      .click()
+      .should('be.enabled')
+      .click({force: true})
       .get('.mat-mdc-dialog-container')
       .find('[data-cy=filter-input]') // finds the data-cy attribute inside the dialog container
       .type('footer', {force: true})
@@ -176,13 +177,8 @@ describe('Group management with role Group admin', () => {
   });
 
   context('Advanced settings', () => {
-    beforeEach(() => {
-      cy.get('[data-cy=advanced-settings]')
-        .click();
-    });
 
-    // TODO fix - randomly failing due to a bug with privileges
-    it.skip('test create group application form item', () => {
+    it('test create group application form item', () => {
       cy.intercept('**/registrarManager/updateFormItems/**')
         .as('addFormItem')
         .get('[data-cy=application-form]')
@@ -209,8 +205,7 @@ describe('Group management with role Group admin', () => {
         .should('exist');
     });
 
-    // TODO fix - randomly failing due to a bug with privileges
-    it.skip('test delete group application form item', () => {
+    it('test delete group application form item', () => {
       cy.intercept('**/registrarManager/updateFormItems/**')
         .as('deleteFormItem')
         .get('[data-cy=application-form]')

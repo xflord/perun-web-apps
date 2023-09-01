@@ -119,9 +119,7 @@ describe('Resource management with role Trusted facility admin', () => {
 
   context('Advanced settings - Managers', () => {
     beforeEach(() => {
-      cy.get('[data-cy=advanced-settings]')
-        .click()
-        .get('[data-cy=managers]')
+      cy.get('[data-cy=managers]')
         .click()
     })
     it('test add resource manager', () => {

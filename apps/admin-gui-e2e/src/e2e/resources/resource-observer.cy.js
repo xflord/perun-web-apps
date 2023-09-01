@@ -22,8 +22,6 @@ describe('Resource management with role Resource observer', () => {
       .type(dbVoName, {force: true})
       .get(`[data-cy=${dbVoName}]`)
       .click()
-      .get(`[data-cy=resources]`)
-      .click()
       .get(`[data-cy=resource-list]`)
       .click()
       .get('[data-cy=filter-input]')
@@ -34,7 +32,7 @@ describe('Resource management with role Resource observer', () => {
 
   it('view vo groups', () => {
     cy.get(`[data-cy=${dbVoName}]`)
-      .click()
+      .click({force: true})
       .get("[data-cy=groups]")
       .click()
 
@@ -57,9 +55,7 @@ describe('Resource management with role Resource observer', () => {
   })
 
   it('view admins on resource', () => {
-    cy.get('[data-cy=advanced-settings]')
-      .click()
-      .get('[data-cy=managers]')
+    cy.get('[data-cy=managers]')
       .click()
 
       // resource admin should be visible
