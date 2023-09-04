@@ -20,8 +20,6 @@ import { VoAttributesComponent } from './pages/vo-detail-page/vo-attributes/vo-a
 import { VoSettingsOverviewComponent } from './pages/vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import { VoSettingsExpirationComponent } from './pages/vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 import { ApplicationsListComponent } from './components/applications-list/applications-list.component';
-import { ApplicationsDynamicListComponent } from './components/applications-dynamic-list/applications-dynamic-list.component';
-import { ApplicationTypeIconComponent } from './components/application-type-icon/application-type-icon.component';
 import { GroupApplicationsComponent } from './pages/group-detail-page/group-applications/group-applications.component';
 import { VoSettingsManagersComponent } from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
 import { ApplicationDetailComponent } from './components/application-detail/application-detail.component';
@@ -73,6 +71,8 @@ import { VoSettingsBansComponent } from './pages/vo-detail-page/vo-settings/vo-s
 import { MemberBansComponent } from './pages/member-detail-page/member-bans/member-bans.component';
 import { VoSettingsManageEmbeddedGroupsComponent } from './pages/vo-detail-page/vo-settings/vo-settings-manage-embedded-groups/vo-settings-manage-embedded-groups.component';
 import { GroupSettingsManageEmbeddedGroupsComponent } from './pages/group-detail-page/group-settings/group-settings-manage-embedded-groups/group-settings-manage-embedded-groups.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -84,8 +84,10 @@ import { GroupSettingsManageEmbeddedGroupsComponent } from './pages/group-detail
     PerunSharedComponentsModule,
     PerunPipesModule,
     PerunUtilsModule,
+    MatCheckboxModule,
+    MatSortModule,
   ],
-  exports: [],
+  exports: [ApplicationsListComponent],
   declarations: [
     VoSelectPageComponent,
     VoDetailPageComponent,
@@ -105,8 +107,6 @@ import { GroupSettingsManageEmbeddedGroupsComponent } from './pages/group-detail
     VoSettingsOverviewComponent,
     VoSettingsExpirationComponent,
     ApplicationsListComponent,
-    ApplicationsDynamicListComponent,
-    ApplicationTypeIconComponent,
     GroupApplicationsComponent,
     VoSettingsManagersComponent,
     ApplicationDetailComponent,

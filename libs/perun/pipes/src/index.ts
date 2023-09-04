@@ -45,3 +45,4 @@ export * from './lib/global-namespace.pipe';
 export * from './lib/last-successful-propagation.pipe';
 export * from './lib/member-type-icon.pipe';
 export * from './lib/member-type-tooltip.pipe';
+export * from './lib/application-state.pipe';

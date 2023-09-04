@@ -38,7 +38,6 @@ import { CreateGroupDialogComponent } from './components/dialogs/create-group-di
 import { InviteMemberDialogComponent } from './components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import { DeleteGroupDialogComponent } from './components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { SettingsToggleItemComponent } from './components/settings-toggle-item/settings-toggle-item.component';
-import { ApplicationStatePipe } from './pipes/application-state.pipe';
 import { AttributeTypeCleanPipe } from './pipes/attribute-type-clean.pipe';
 import { NameSpaceToDefPipe } from './pipes/name-space-to-def.pipe';
 import { ApplicationReSendNotificationDialogComponent } from './components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
@@ -74,9 +73,7 @@ import { TagBarComponent } from './components/dialogs/add-edit-notification-dial
 import { NotificationsCopyMailsDialogComponent } from './components/dialogs/notifications-copy-mails-dialog/notifications-copy-mails-dialog.component';
 import { AnimatedRouterOutletComponent } from './components/animated-router-outlet/animated-router-outlet.component';
 import { ResourcesTagsListComponent } from './components/resources-tags-list/resources-tags-list.component';
-// eslint-disable-next-line max-len
 import { DeleteAttributeDefinitionDialogComponent } from './components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
-// eslint-disable-next-line max-len
 import { CreateAttributeDefinitionDialogComponent } from './components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { UiAlertsModule } from '@perun-web-apps/ui/alerts';
 import { UiLoadersModule } from '@perun-web-apps/ui/loaders';
@@ -193,6 +190,8 @@ import { UnblockLoginsDialogComponent } from './components/dialogs/unblock-login
 import { BlockLoginsDialogComponent } from './components/dialogs/block-logins-dialog/block-logins-dialog.component';
 import { AddGroupToVoRegistrationComponent } from './components/dialogs/add-group-to-vo-registration/add-group-to-vo-registration.component';
 import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-group-to-group-registration/add-group-to-group-registration.component';
+import { ApplicationActionsComponent } from './components/application-actions/application-actions.component';
+import { ApplicationsBulkOperationDialogComponent } from './components/dialogs/applications-bulk-operation-dialog/applications-bulk-operation-dialog.component';
 
 @NgModule({
   imports: [
@@ -278,7 +277,6 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     MatStepperModule,
     SettingsToggleItemComponent,
     MatRippleModule,
-    ApplicationStatePipe,
     MatPaginatorModule,
     AttributeTypeCleanPipe,
     NameSpaceToDefPipe,
@@ -324,6 +322,8 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     ConsentHubsListComponent,
     RolesPageComponent,
     AddVoBanDialogComponent,
+    ApplicationActionsComponent,
+    ApplicationsBulkOperationDialogComponent,
   ],
   declarations: [
     SideMenuComponent,
@@ -332,7 +332,6 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     InviteMemberDialogComponent,
     DeleteGroupDialogComponent,
     SettingsToggleItemComponent,
-    ApplicationStatePipe,
     AttributeTypeCleanPipe,
     NameSpaceToDefPipe,
     ApplicationReSendNotificationDialogComponent,
@@ -475,6 +474,8 @@ import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-g
     BlockLoginsDialogComponent,
     AddGroupToVoRegistrationComponent,
     AddGroupToGroupRegistrationComponent,
+    ApplicationActionsComponent,
+    ApplicationsBulkOperationDialogComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

@@ -65,6 +65,7 @@ import { SelectedSponsorPipe } from './selected-sponsor.pipe';
 import { GlobalNamespacePipe } from './global-namespace.pipe';
 import { LastSuccessfulPropagationPipe } from './last-successful-propagation.pipe';
 import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
+import { ApplicationStatePipe } from './application-state.pipe';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
     GlobalNamespacePipe,
     LastSuccessfulPropagationPipe,
     ActiveSideMenuItemPipe,
+    ApplicationStatePipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -202,6 +204,7 @@ import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
     GlobalNamespacePipe,
     LastSuccessfulPropagationPipe,
     ActiveSideMenuItemPipe,
+    ApplicationStatePipe,
   ],
   imports: [CommonModule],
 })

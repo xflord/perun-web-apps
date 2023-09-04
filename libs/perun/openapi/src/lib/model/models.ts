@@ -134,6 +134,7 @@ export * from './inputRemoveRichDestinations';
 export * from './inputReservePasswordForLogin';
 export * from './inputReservePasswordForUser';
 export * from './inputSendMessage';
+export * from './inputSendMessages';
 export * from './inputSetBan';
 export * from './inputSetBanForUserOnFacility';
 export * from './inputSetFacilityAttribute';

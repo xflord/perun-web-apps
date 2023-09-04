@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
 import {
-  AppState,
+  Attribute,
   AttributeDefinition,
   AttributesManagerService,
   RegistrarManagerService,
@@ -10,14 +10,16 @@ import {
   TABLE_VO_APPLICATIONS_DETAILED,
   TABLE_VO_APPLICATIONS_NORMAL,
 } from '@perun-web-apps/config/table-config';
-import { FormControl } from '@angular/forms';
-import { formatDate } from '@angular/common';
-import { EntityStorageService } from '@perun-web-apps/perun/services';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import {
+  EntityStorageService,
+  GuiAuthResolver,
+  PerunTranslateService,
+} from '@perun-web-apps/perun/services';
 import { MatDialog } from '@angular/material/dialog';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 import { ApplicationsListColumnsChangeDialogComponent } from '../../../../shared/components/dialogs/applications-list-columns-change-dialog/applications-list-columns-change-dialog.component';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AppAction } from '../../../../shared/components/application-actions/application-actions.component';
 
 @Component({
   selector: 'app-vo-applications',
@@ -26,124 +28,49 @@ import { Observable, of } from 'rxjs';
 })
 export class VoApplicationsComponent implements OnInit {
   static id = 'VoApplicationsComponent';
-
   @HostBinding('class.router-component') true;
-  currentStates: AppState[] = ['NEW', 'VERIFIED'];
+
   vo: Vo;
-  simplePrependColumns = ['id'];
-  groupPrependColumns = ['id', 'groupId', 'groupName'];
-  simpleColumns: string[] = ['createdAt', 'type', 'state', 'createdBy', 'modifiedBy'];
-  detailedColumns: string[] = [
-    'createdAt',
-    'type',
-    'state',
-    'extSourceName',
-    'extSourceType',
-    'user',
-    'createdBy',
-    'modifiedBy',
-    'modifiedAt',
-    'fedInfo',
-  ];
-  configuredColumns: string[] = [];
-  configuredFedColumns: string[] = [];
-  currentColumns: string[] = [];
-  columnsAuth = false;
-  filterValue = '';
-  showAllDetails = false;
-  detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
+
+  authRights: AppAction = {
+    approve: false,
+    reject: false,
+    delete: false,
+    resend: false,
+    columnSettings: false,
+  };
+
   tableId = TABLE_VO_APPLICATIONS_NORMAL;
-  startDate: FormControl<Date | string>;
-  endDate: FormControl<Date | string>;
-  showGroupApps = false;
-  refresh = false;
-  loading$: Observable<boolean>;
+  detailTableId = TABLE_VO_APPLICATIONS_DETAILED;
+
   fedAttrs: AttributeDefinition[] = [];
+  viewPreferences$: Observable<Attribute>;
 
   constructor(
     private registrarManager: RegistrarManagerService,
     private entityStorageService: EntityStorageService,
-    private attributeManager: AttributesManagerService,
+    private attributeService: AttributesManagerService,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private translate: PerunTranslateService,
+    private authResolver: GuiAuthResolver
   ) {}
 
   ngOnInit(): void {
-    this.loading$ = of(true);
     this.vo = this.entityStorageService.getEntity();
-    this.startDate = new FormControl<Date | string>(
-      formatDate(this.yearAgo(), 'yyyy-MM-dd', 'en-GB')
-    );
-    this.endDate = new FormControl<Date | string>(formatDate(new Date(), 'yyyy-MM-dd', 'en-GB'));
-    this.attributeManager
+    this.setAuthRights();
+    this.attributeService
       .getIdpAttributeDefinitions()
       .subscribe((attrDefs: AttributeDefinition[]) => {
         attrDefs.forEach((attr) => {
           if (!this.fedAttrs.includes(attr)) {
             this.fedAttrs.push(attr);
           }
-        });
-      });
-    this.loadViewConfiguration();
-  }
-
-  yearAgo(): Date {
-    const newDate = new Date();
-    newDate.setDate(newDate.getDate() - 365);
-    return newDate;
-  }
-
-  showGroupApplications(event: MatCheckboxChange): void {
-    this.showGroupApps = event.checked;
-    this.currentColumns = this.refreshColumns();
-  }
-
-  showDetails(value: boolean): void {
-    this.showAllDetails = value;
-    this.loadViewConfiguration();
-  }
-
-  applyFilter(filterValue: string): void {
-    this.filterValue = filterValue;
-  }
-
-  refreshColumns(): string[] {
-    this.cd.detectChanges();
-    if (this.showAllDetails) {
-      return this.showGroupApps
-        ? this.groupPrependColumns.concat(this.detailedColumns)
-        : this.simplePrependColumns.concat(this.detailedColumns);
-    }
-    if (this.configuredColumns.length > 0) {
-      return this.showGroupApps
-        ? this.groupPrependColumns.concat(this.configuredColumns)
-        : this.simplePrependColumns.concat(this.configuredColumns);
-    }
-    return this.showGroupApps
-      ? this.groupPrependColumns.concat(this.simpleColumns)
-      : this.simplePrependColumns.concat(this.simpleColumns);
-  }
-
-  loadViewConfiguration(): void {
-    this.cd.detectChanges();
-    this.attributeManager
-      .getVoAttributeByName(this.vo.id, 'urn:perun:vo:attribute-def:def:applicationViewPreferences')
-      .subscribe((attribute) => {
-        if (
-          attribute?.value !== undefined &&
-          attribute?.value !== null &&
-          (attribute?.value as Array<string>).length > 0
-        ) {
-          this.configuredColumns = attribute.value as Array<string>;
-          this.configuredFedColumns = this.configuredColumns.filter((column) =>
-            this.fedAttrs.some((attr) => attr.friendlyName === column)
+          this.viewPreferences$ = this.attributeService.getVoAttributeByName(
+            this.vo.id,
+            'urn:perun:vo:attribute-def:def:applicationViewPreferences'
           );
-        } else {
-          this.configuredColumns = [];
-          this.configuredFedColumns = [];
-        }
-        this.columnsAuth = attribute.writable;
-        this.currentColumns = this.refreshColumns();
+        });
       });
   }
 
@@ -155,13 +82,32 @@ export class VoApplicationsComponent implements OnInit {
     const dialogRef = this.dialog.open(ApplicationsListColumnsChangeDialogComponent, config);
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
-        this.loadViewConfiguration();
+        // Reset reference to Observable, this makes the async pipe automatically unsubscribe from the old one
+        // and subscribe to the new one
+        this.viewPreferences$ = this.attributeService.getVoAttributeByName(
+          this.vo.id,
+          'urn:perun:vo:attribute-def:def:applicationViewPreferences'
+        );
       }
     });
   }
 
-  refreshTable(): void {
-    this.refresh = !this.refresh;
-    this.cd.detectChanges();
+  setAuthRights(): void {
+    this.authRights.approve = this.authResolver.isAuthorized(
+      'vo-approveApplicationInternal_int_policy',
+      [this.vo]
+    );
+    this.authRights.reject = this.authResolver.isAuthorized(
+      'vo-rejectApplication_int_String_policy',
+      [this.vo]
+    );
+    this.authRights.delete = this.authResolver.isAuthorized(
+      'vo-deleteApplication_Application_policy',
+      [this.vo]
+    );
+    this.authRights.resend = this.authResolver.isAuthorized(
+      'vo-sendMessage_Application_MailType_String_policy',
+      [this.vo]
+    );
   }
 }

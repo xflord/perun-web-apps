@@ -163,6 +163,7 @@ model/inputRemoveRichDestinations.ts
 model/inputReservePasswordForLogin.ts
 model/inputReservePasswordForUser.ts
 model/inputSendMessage.ts
+model/inputSendMessages.ts
 model/inputSetBan.ts
 model/inputSetBanForUserOnFacility.ts
 model/inputSetFacilityAttribute.ts

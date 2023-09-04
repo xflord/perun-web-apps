@@ -14,7 +14,6 @@ import {
   ApplicationsOrderColumn,
   AppState,
   AttributeDefinition,
-  AttributesManagerService,
   Group,
   Member,
   RichApplication,
@@ -40,9 +39,10 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ExportDataDialogComponent } from '@perun-web-apps/perun/dialogs';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'app-applications-dynamic-list',
+  selector: 'perun-web-apps-applications-dynamic-list',
   templateUrl: './applications-dynamic-list.component.html',
   styleUrls: ['./applications-dynamic-list.component.css'],
 })
@@ -66,24 +66,23 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
   @Input() fedAttrNames: string[] = [];
   @Input() refreshTable = false;
   @Output() loading$: EventEmitter<Observable<boolean>> = new EventEmitter<Observable<boolean>>();
+  @Output() selectedApplications = new EventEmitter<Application[]>();
 
   parsedColumns: string[] = [];
   dataSource: DynamicDataSource<Application>;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
-
+  selection = new SelectionModel<Application>(true, []);
   fedColumnsDisplay = [];
 
   constructor(
     private authResolver: GuiAuthResolver,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
-    private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog
   ) {}
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.child.paginator.pageIndex = 0));
-
     merge(this.sort.sortChange, this.child.paginator.page)
       .pipe(tap(() => this.loadApplicationsPage()))
       .subscribe();
@@ -128,6 +127,10 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
         this.parseColumns(data.formData);
       }
     });
+
+    this.selection.changed.subscribe((change) => {
+      this.selectedApplications.emit(change.source.selected);
+    });
   }
 
   ngOnChanges(): void {
@@ -142,6 +145,19 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadApplicationsPage();
+    }
+    this.selection.clear();
+  }
+
+  isAllSelected(): boolean {
+    return this.selection.selected.length === this.dataSource.getData().length;
+  }
+
+  masterToggle(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.dataSource.getData().forEach((row) => this.selection.select(row));
     }
   }
 

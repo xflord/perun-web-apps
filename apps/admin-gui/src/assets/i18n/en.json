@@ -617,9 +617,64 @@
         "NEW": "Waiting for mail verification",
         "VERIFIED": "Submitted"
       },
+      "TOOLTIPS": {
+        "MULTIPLE_STATUSES_SELECTED": "You have applications with different states selected.",
+        "NO_APPLICATION_SELECTED": "You have selected no applications.",
+        "APPROVE": {
+          "APPROVED": "The selected applications are already approved.",
+          "REJECTED": "You cannot approve applications with the REJECTED state.",
+          "NEW": "Approve",
+          "VERIFIED": "Approve"
+        },
+        "REJECT": {
+          "APPROVED": "You cannot reject applications with the APPROVED state.",
+          "REJECTED": "The selected applications are already rejected.",
+          "NEW": "Reject",
+          "VERIFIED": "Reject"
+        },
+        "DELETE": {
+          "APPROVED": "You cannot delete applications with the APPROVED state.",
+          "VERIFIED": "You cannot delete applications with the SUBMITTED state.",
+          "NEW": "Delete",
+          "REJECTED": "Delete"
+        },
+        "SEND_NOTIFICATION": {
+          "APPROVED": "Send mail verification",
+          "VERIFIED": "Send mail verification",
+          "NEW": "Send mail verification",
+          "REJECTED": "Send mail verification"
+        }
+      },
       "DATE": {
         "LABEL": "Enter a date range"
       },
+      "DIALOG": {
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "APPROVE": {
+          "TITLE": "Approve applications",
+          "DESCRIPTION": "You are about to approve {{count}} selected application(s). Make sure you have confirmed identities of the applicant(s)."
+        },
+        "REJECT": {
+          "TITLE": "Reject applications",
+          "DESCRIPTION": "You are about to reject {{count}} selected application(s). Make sure you have confirmed identities of the applicant(s)."
+        },
+        "DELETE": {
+          "TITLE": "Delete applications",
+          "DESCRIPTION": "You are about to delete {{count}} selected application(s). Make sure you have confirmed identities of the applicant(s)."
+        },
+        "RESEND": {
+          "TITLE": "Re-send notifications",
+          "DESCRIPTION": "You are about to re-send notifications for {{count}} selected application(s). Make sure you have confirmed identities of the applicant(s)."
+        }
+      },
+      "SUCCESS": {
+        "APPROVE": "Applications were successfully approved.",
+        "REJECT": "Applications were successfully rejected.",
+        "DELETE": "Applications were successfully deleted.",
+        "RESEND": "Notifications for applications were re-send."
+      },
+
       "APPLICATION_DETAIL": {
         "TITLE": "Application detail",
         "APPROVE": "Approve",

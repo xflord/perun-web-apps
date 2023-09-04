@@ -122,6 +122,8 @@ import { BlockedLoginsDynamicListComponent } from './blocked-logins-dynamic-list
 import { NamespaceSearchSelectComponent } from './namespace-search-select/namespace-search-select.component';
 import { MembershipStatusSettingsComponent } from './membership-status-settings/membership-status-settings.component';
 import { ExpandableTilesComponent } from './expandable-tiles/expandable-tiles.component';
+import { ApplicationsDynamicListComponent } from './applications-dynamic-list/applications-dynamic-list.component';
+import { ApplicationTypeIconComponent } from './application-type-icon/application-type-icon.component';
 
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
@@ -276,6 +278,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     NamespaceSearchSelectComponent,
     MembershipStatusSettingsComponent,
     ExpandableTilesComponent,
+    ApplicationsDynamicListComponent,
+    ApplicationTypeIconComponent,
   ],
   exports: [
     VosListComponent,
@@ -355,6 +359,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     BlockedLoginsDynamicListComponent,
     NamespaceSearchSelectComponent,
     ExpandableTilesComponent,
+    ApplicationsDynamicListComponent,
+    ApplicationTypeIconComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },

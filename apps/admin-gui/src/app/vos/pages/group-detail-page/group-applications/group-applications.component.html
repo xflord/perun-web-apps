@@ -1,47 +1,10 @@
-<h1 class="page-subtitle">{{'VO_DETAIL.APPLICATION.TITLE' | translate}}</h1>
-<div>
-  <perun-web-apps-refresh-button (refresh)="refreshTable()"></perun-web-apps-refresh-button>
-  <button (click)="this.showDetails(true)" *ngIf="!showAllDetails" class="me-2" mat-stroked-button>
-    {{'VO_DETAIL.APPLICATION.SHOW_ALL_DETAILS' | translate}}
-  </button>
-  <button (click)="this.showDetails(false)" *ngIf="showAllDetails" class="me-2" mat-stroked-button>
-    {{'VO_DETAIL.APPLICATION.SHOW_LESS_DETAILS' | translate}}
-  </button>
-  <perun-web-apps-application-state-selector (stateChanged)="currentStates = $event">
-  </perun-web-apps-application-state-selector>
-  <perun-web-apps-debounce-filter
-    (filter)="applyFilter($event)"
-    [placeholder]="'VO_DETAIL.APPLICATION.FILTER'"></perun-web-apps-debounce-filter>
-  <perun-web-apps-date-range [endDate]="endDate" [startDate]="startDate" class="me-2">
-  </perun-web-apps-date-range>
-  <span
-    matTooltip="{{showAllDetails ? ('VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP' | translate) : ('VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS' | translate)}}"
-    matTooltipPosition="above">
-    <button
-      mat-stroked-button
-      *ngIf="columnsAuth"
-      [disabled]="showAllDetails"
-      (click)="this.setColumns()">
-      <mat-icon>settings</mat-icon>
-    </button>
-  </span>
-</div>
-<ng-template #spinner>
-  <perun-web-apps-loading-table></perun-web-apps-loading-table>
-</ng-template>
-<div class="position-relative">
-  <app-applications-dynamic-list
-    *perunWebAppsLoader="loading$ | async; indicator: spinner"
-    (loading$)="loading$ = $event"
-    [tableId]="showAllDetails ? detailTableId : tableId"
-    [searchString]="filterValue"
-    [displayedColumns]="currentColumns"
-    [fedColumnsFriendly]="showAllDetails ? [] : configuredFedColumns"
-    [fedAttrs]="fedAttrs"
-    [states]="currentStates"
-    [dateFrom]="startDate.value"
-    [dateTo]="endDate.value"
-    [refreshTable]="refresh"
-    [group]="group">
-  </app-applications-dynamic-list>
-</div>
+<app-application-actions
+  [theme]="'group-theme'"
+  [group]="group"
+  [authRights]="authRights"
+  [tableId]="tableId"
+  [detailTableId]="detailTableId"
+  [fedAttrs]="fedAttrs"
+  [viewPreferences]="viewPreferences$ | async"
+  (changeView)="setColumns()">
+</app-application-actions>

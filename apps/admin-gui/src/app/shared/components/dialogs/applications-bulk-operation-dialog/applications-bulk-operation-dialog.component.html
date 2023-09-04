@@ -1,0 +1,186 @@
+<div class="{{data.theme}}">
+  <h1 mat-dialog-title>{{ data.title | translate }}</h1>
+  <div mat-dialog-content>
+    <div *ngIf="data.action==='RESEND'">
+      {{'DIALOGS.RE_SEND_NOTIFICATION.SELECT' | translate}}:
+      <mat-form-field class="w-100">
+        <mat-select [(value)]="mailType" disableOptionCentering>
+          <mat-option value="APP_CREATED_USER">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_USER' | translate}}
+          </mat-option>
+          <mat-option *ngIf="data.allowGroupMailType" value="APPROVABLE_GROUP_APP_USER">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APPROVABLE_GROUP_APP_USER' | translate}}
+          </mat-option>
+          <mat-option value="APP_CREATED_VO_ADMIN">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_CREATED_VO_ADMIN' | translate}}
+          </mat-option>
+          <mat-option value="MAIL_VALIDATION">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.MAIL_VALIDATION' | translate}}
+          </mat-option>
+          <mat-option value="APP_APPROVED_USER">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_APPROVED_USER' | translate}}
+          </mat-option>
+          <mat-option value="APP_REJECTED_USER">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_REJECTED_USER' | translate}}
+          </mat-option>
+          <mat-option value="APP_ERROR_VO_ADMIN">
+            {{'DIALOGS.RE_SEND_NOTIFICATION.NOTIFICATION_TYPE.APP_ERROR_VO_ADMIN' | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="mailType === 'APP_REJECTED_USER'">
+        {{'DIALOGS.RE_SEND_NOTIFICATION.REASON' | translate}}:
+        <mat-form-field class="w-100">
+          <textarea [(ngModel)]="reason" matInput></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <perun-web-apps-alert alert_type="warn">
+      {{ data.description | translate: {count: dataSource.data.length} }}
+    </perun-web-apps-alert>
+
+    <perun-web-apps-table-wrapper [dataLength]="dataSource.data.length">
+      <table
+        [dataSource]="dataSource"
+        class="w-100"
+        mat-table
+        matSort
+        matSortActive="createdAt"
+        matSortDirection="desc"
+        matSortDisableClear>
+        <ng-container matColumnDef="id">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.ID' | translate}}
+          </th>
+          <td
+            *matCellDef="let application"
+            mat-cell
+            attr.data-cy="{{application.group ? application.group.name : 'no-group' | multiWordDataCy}}-id-td">
+            {{application.id}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.CREATED_DATE' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>{{application.createdAt | date: 'd.M.y'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="voId">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.VO_ID' | translate}}</th>
+          <td *matCellDef="let application" mat-cell>{{application['vo'].id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="voName">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.VO_NAME' | translate}}</th>
+          <td *matCellDef="let application" mat-cell>{{application['vo'].name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="groupId">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.GROUP_ID' | translate}}</th>
+          <td *matCellDef="let application" mat-cell>
+            {{application.group ? application.group.id : '' }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="groupName">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.GROUP_NAME' | translate}}</th>
+          <td
+            *matCellDef="let application"
+            mat-cell
+            attr.data-cy="{{application.group ? application.group.name : 'no-group' | multiWordDataCy}}-groupname-td">
+            {{application.group ? application.group.name : '' }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.TYPE' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>
+            <perun-web-apps-application-type-icon [applicationType]="application.type">
+            </perun-web-apps-application-type-icon>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="state">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.STATE' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>
+            <span [outerHTML]="application.state | applicationState"></span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="extSourceName">
+          <th *matHeaderCellDef mat-header-cell>
+            {{'APPLICATIONS_LIST.EXTSOURCENAME' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>{{application.extSourceName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="extSourceType">
+          <th *matHeaderCellDef mat-header-cell>
+            {{'APPLICATIONS_LIST.EXTSOURCETYPE' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>{{application.extSourceType}}</td>
+        </ng-container>
+        <ng-container matColumnDef="user">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.USER' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>
+            <div *ngIf="application.user === null; else name">
+              {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
+            </div>
+            <ng-template #name>
+              {{application.user | userFullName}}
+            </ng-template>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdBy">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.CREATED_BY' | translate}}</th>
+          <td
+            *matCellDef="let application"
+            attr.data-cy="{{application.createdBy}}-createdBy"
+            mat-cell>
+            {{application.createdBy.slice(application.createdBy.lastIndexOf('=') + 1, application.createdBy.length)}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="modifiedBy">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{'APPLICATIONS_LIST.MODIFIED_BY' | translate}}
+          </th>
+          <td *matCellDef="let application" mat-cell>
+            {{getFriendlyName(application.modifiedBy)}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="modifiedAt">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.MODIFIED_AT' | translate}}</th>
+          <td *matCellDef="let application" mat-cell>{{application.modifiedAt | date: 'd.M.y'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fedInfo">
+          <th *matHeaderCellDef mat-header-cell>{{'APPLICATIONS_LIST.FEDINFO' | translate}}</th>
+          <td *matCellDef="let application" mat-cell>{{application.fedInfo}}</td>
+        </ng-container>
+
+        <ng-container
+          *ngFor="let i = index; let col of data.fedColumnsFriendly;"
+          matColumnDef="{{col}}">
+          <th *matHeaderCellDef mat-header-cell>{{data.fedColumnsDisplay[i]}}</th>
+          <td *matCellDef="let application" mat-cell>
+            {{getFedValue(application.fedInfo, col)}}
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="data.displayedColumns" mat-header-row></tr>
+        <tr
+          *matRowDef="let application; columns: data.displayedColumns;"
+          class="dark-hover-list-item"
+          mat-row></tr>
+      </table>
+    </perun-web-apps-table-wrapper>
+  </div>
+  <div mat-dialog-actions>
+    <button class="ms-auto me-2" mat-stroked-button (click)="onCancel()">
+      {{'VO_DETAIL.APPLICATION.DIALOG.CANCEL' | translate}}
+    </button>
+    <button color="accent" class="me-2" mat-flat-button (click)="onConfirm()">
+      {{data.confirmButtonLabel | translate}}
+    </button>
+  </div>
+</div>
