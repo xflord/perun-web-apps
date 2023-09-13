@@ -187,6 +187,7 @@ export interface PerunConfig {
   // Required
   displayed_tabs: string[];
   consolidator_url: string;
+  consolidator_url_cert: string;
   registrar_base_url: string;
   mfa: ProfileMFA;
   preferred_unix_group_names: string[];

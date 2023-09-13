@@ -125,7 +125,7 @@ export class IdentitiesPageComponent implements OnInit {
     });
   }
 
-  addIdentity(): void {
+  addIdentity(cert: boolean): void {
     if (this.storage.getProperty('use_new_consolidator')) {
       this.openLinkerService.openLinkerWindow((result: LinkerResult) => {
         if (result === 'TOKEN_EXPIRED') {
@@ -143,7 +143,10 @@ export class IdentitiesPageComponent implements OnInit {
       });
     } else {
       this.registrarManagerService.getConsolidatorToken().subscribe((token) => {
-        const consolidatorUrl = this.storage.getProperty('consolidator_url');
+        let consolidatorUrl = this.storage.getProperty('consolidator_url');
+        if (cert) {
+          consolidatorUrl = this.storage.getProperty('consolidator_url_cert');
+        }
         window.location.href = `${consolidatorUrl}?target_url=${window.location.href}&token=${token}`;
       });
     }

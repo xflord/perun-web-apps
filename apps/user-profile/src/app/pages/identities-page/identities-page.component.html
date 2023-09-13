@@ -1,6 +1,6 @@
 <div class="user-theme">
   <h1 class="page-title">{{'IDENTITIES.IDP' | customTranslate | translate}}</h1>
-  <button mat-flat-button color="accent" (click)="addIdentity()" [disabled]="loading">
+  <button mat-flat-button color="accent" (click)="addIdentity(false)" [disabled]="loading">
     {{'IDENTITIES.ADD' | customTranslate | translate}}
   </button>
   <button
@@ -23,7 +23,7 @@
 
   <div *ngIf="displayCertificates">
     <h1 class="page-title mt-5">{{'IDENTITIES.CERT' | customTranslate | translate}}</h1>
-    <button mat-flat-button color="accent" (click)="addIdentity()" [disabled]="loading">
+    <button mat-flat-button color="accent" (click)="addIdentity(true)" [disabled]="loading">
       {{'IDENTITIES.ADD' | customTranslate | translate}}
     </button>
     <button
