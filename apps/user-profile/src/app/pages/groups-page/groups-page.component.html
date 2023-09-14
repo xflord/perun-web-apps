@@ -23,21 +23,29 @@
   <mat-spinner *ngIf="initialLoading" class="me-auto ms-auto"></mat-spinner>
 
   <h4 class="page-subtitle">{{'GROUPS.MEMBER_GROUPS' | customTranslate | translate}}</h4>
+  <perun-web-apps-debounce-filter
+    [placeholder]="'ORGANIZATIONS.FILTER'"
+    (filter)="applyFilter($event)"></perun-web-apps-debounce-filter>
   <div class="position-relative">
     <perun-web-apps-membership-list
       *perunWebAppsLoader="loading; indicator: spinner"
       [members]="userMemberships"
       [selection]="selection"
+      [filterValue]="filterValue"
       [noMembershipFoundAlert]="'GROUPS.NO_GROUPS'"
       [displayedColumns]="['name', 'description', 'expirationAttribute', 'extend']"
       (extendMembership)="extendMembership($event)"></perun-web-apps-membership-list>
   </div>
 
   <h4 class="page-subtitle mt-5">{{'GROUPS.ADMINS_GROUPS' | customTranslate | translate}}</h4>
+  <perun-web-apps-debounce-filter
+    [placeholder]="'ORGANIZATIONS.FILTER'"
+    (filter)="applyAdminFilter($event)"></perun-web-apps-debounce-filter>
   <div class="position-relative">
     <perun-web-apps-membership-list
       *perunWebAppsLoader="loading; indicator: spinner"
       [members]="adminMemberships"
+      [filterValue]="adminFilterValue"
       [noMembershipFoundAlert]="'GROUPS.NO_GROUPS'"
       [displayedColumns]="['name', 'description']"></perun-web-apps-membership-list>
   </div>

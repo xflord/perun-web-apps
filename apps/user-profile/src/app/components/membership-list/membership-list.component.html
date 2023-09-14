@@ -27,7 +27,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
           {{'MEMBERSHIP_LIST.NAME' | customTranslate | translate}}
         </th>
         <td *matCellDef="let member" class="static-column-size" mat-cell>{{member.entity.name}}</td>
@@ -43,7 +43,7 @@
           {{'MEMBERSHIP_LIST.EXPIRATION' | customTranslate | translate}}
         </th>
         <td *matCellDef="let membership" mat-cell>
-          {{membership.expirationAttribute | validateExpiration}}
+          {{membership.expirationAttribute | validateExpiration | customTranslate |  translate}}
         </td>
       </ng-container>
       <ng-container matColumnDef="extend">
@@ -51,7 +51,7 @@
         <td *matCellDef="let membership" mat-cell>
           <button
             (click)="extend(membership)"
-            [disabled]="(membership.expirationAttribute | validateExpiration) === 'never'"
+            [disabled]="(membership.expirationAttribute | validateExpiration) === 'MEMBERSHIP_LIST.NEVER'"
             color="accent"
             mat-flat-button>
             {{'MEMBERSHIP_LIST.EXTEND' | customTranslate | translate}}
