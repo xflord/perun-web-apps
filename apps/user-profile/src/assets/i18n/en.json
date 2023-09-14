@@ -92,6 +92,7 @@
   },
   "MEMBERSHIP_LIST": {
     "NAME": "Name",
+    "NEVER": "never",
     "DESCRIPTION": "Description",
     "EXPIRATION": "Expiration",
     "EXTEND": "Extend"

@@ -90,6 +90,7 @@
   },
   "MEMBERSHIP_LIST": {
     "NAME": "Jméno",
+    "NEVER": "nikdy",
     "DESCRIPTION": "Popis",
     "EXPIRATION": "Expirace členství",
     "EXTEND": "Prodloužit členství"

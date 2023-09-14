@@ -6,7 +6,6 @@ import {
   MembersManagerService,
   UsersManagerService,
   Vo,
-  VosManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { StoreService } from '@perun-web-apps/perun/services';
 import { UntypedFormControl } from '@angular/forms';
@@ -36,13 +35,14 @@ export class GroupsPageComponent implements OnInit {
   adminMemberships: Membership[] = [];
   userMembershipsTemp: Membership[] = [];
   adminMembershipsTemp: Membership[] = [];
+  filterValue = '';
+  adminFilterValue = '';
 
   constructor(
     private usersService: UsersManagerService,
     private memberService: MembersManagerService,
     private groupService: GroupsManagerService,
     private store: StoreService,
-    private vosManagerService: VosManagerService,
     private attributesManagerService: AttributesManagerService
   ) {}
 
@@ -171,9 +171,18 @@ export class GroupsPageComponent implements OnInit {
     window.location.href = `${registrarUrl}?vo=${voShortname}&group=${membership.entity.shortName}`;
   }
 
+  applyFilter(filterValue: string): void {
+    this.filterValue = filterValue;
+  }
+
+  applyAdminFilter(filterValue: string): void {
+    this.adminFilterValue = filterValue;
+  }
+
   private _filter(value: string | Vo): Vo[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
-    return this.vos.filter((option) => option.name.toLowerCase().includes(filterValue));
+    const voFilterValue =
+      typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
+    return this.vos.filter((option) => option.name.toLowerCase().includes(voFilterValue));
   }
 
   private addToLists(): void {
