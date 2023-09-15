@@ -42,11 +42,13 @@ export class UsersListComponent implements OnChanges {
   noUsersFoundLabel: string;
   @Input()
   disableSelf = false;
+  @Input() directAdmins: number[] = null;
 
   svgIcon = 'perun-service-identity-black';
   dataSource: MatTableDataSource<RichUser>;
   principalId: number;
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
+  disabledRouting = false;
   private sort: MatSort;
 
   constructor(
@@ -103,6 +105,9 @@ export class UsersListComponent implements OnChanges {
     }
   }
 
+  canBeSelected = (row: RichUser): boolean =>
+    this.directAdmins === null || this.directAdmins.includes(row.id);
+
   exportAllData(format: string): void {
     downloadData(
       getDataForExport(
@@ -157,7 +162,11 @@ export class UsersListComponent implements OnChanges {
   }
 
   isAllSelected(): boolean {
-    return this.tableCheckbox.isAllSelected(this.selection.selected.length, this.dataSource);
+    return this.tableCheckbox.isAllSelected(
+      this.selection.selected.length,
+      this.dataSource,
+      this.canBeSelected
+    );
   }
 
   masterToggle(): void {
@@ -169,7 +178,8 @@ export class UsersListComponent implements OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      true,
+      this.canBeSelected
     );
   }
 }

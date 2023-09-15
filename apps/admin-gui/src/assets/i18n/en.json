@@ -2451,7 +2451,8 @@
     "EMAIL": "Email",
     "LOGINS": "Logins",
     "PERSON": "Person",
-    "SERVICE": "Service"
+    "SERVICE": "Service",
+    "INDIRECT_DISABLED_TOOLTIP": "Indirect manager cannot be deleted"
   },
   "AUDIT_MESSAGES_LIST": {
     "ID": "Id",
@@ -2722,6 +2723,7 @@
         "REMOVE": "Remove",
         "SELECT_MODE": "Select mode",
         "SELECT_ROLE": "Select role",
+        "SHOW_INDIRECT_ADMINS": "Show also indirect managers",
         "USER": "Users",
         "GROUP": "Groups",
         "NO_MANAGERS": "This role has no managers.",

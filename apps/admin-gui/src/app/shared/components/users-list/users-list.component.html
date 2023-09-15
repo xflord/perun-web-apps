@@ -17,7 +17,7 @@
       matSortDisableClear>
       <ng-container
         matColumnDef="select"
-        *ngIf="{all: dataSource | isAllSelected: selection.selected.length} as selected">
+        *ngIf="{all: dataSource | isAllSelected: selection.selected.length :canBeSelected} as selected">
         <th *matHeaderCellDef class="align-checkbox" mat-header-cell>
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
@@ -28,16 +28,27 @@
             color="primary">
           </mat-checkbox>
         </th>
-        <td *matCellDef="let row" class="static-column-size align-checkbox" mat-cell>
-          <mat-checkbox
-            (change)="$event ? selection.toggle(row) : null"
-            (click)="$event.stopPropagation()"
-            [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row | userFullName}"
-            [checked]="selection.isSelected(row)"
-            [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin()"
-            attr.data-cy="{{row.firstName | lowercase}}-checkbox"
-            color="primary">
-          </mat-checkbox>
+        <td
+          *matCellDef="let row"
+          class="static-column-size align-checkbox"
+          mat-cell
+          (mouseenter)="disabledRouting = true"
+          (mouseleave)="disabledRouting = disableRouting"
+          [class.cursor-default]="!canBeSelected(row)">
+          <span
+            matTooltip="{{'MANAGERS_LIST.INDIRECT_DISABLED_TOOLTIP' | translate}}"
+            [matTooltipPosition]="'above'"
+            [matTooltipDisabled]="canBeSelected(row)">
+            <mat-checkbox
+              (change)="$event ? selection.toggle(row) : null"
+              (click)="$event.stopPropagation()"
+              [aria-label]="selection.isSelected(row) | checkboxLabel | translate: {name: row | userFullName}"
+              [checked]="selection.isSelected(row)"
+              [disabled]="disableSelf && row.id === principalId && !authResolver.isPerunAdmin() || !canBeSelected(row)"
+              attr.data-cy="{{row.firstName | lowercase}}-checkbox"
+              color="primary">
+            </mat-checkbox>
+          </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="user">
@@ -99,8 +110,8 @@
       <tr
         *matRowDef="let user; columns: displayedColumns;"
         [class.cursor-pointer]="!disableRouting"
-        [routerLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
-        [perunWebAppsMiddleClickRouterLink]="disableRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
+        [routerLink]="disableRouting || disabledRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
+        [perunWebAppsMiddleClickRouterLink]="disableRouting || disabledRouting ? null : (routeToAdmin ? ['/admin/users', user.id] : ['/myProfile/service-identities', user.id])"
         class="dark-hover-list-item"
         mat-row></tr>
     </table>

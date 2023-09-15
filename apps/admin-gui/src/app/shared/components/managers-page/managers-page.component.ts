@@ -22,6 +22,8 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReloadEntityDetailService } from '../../../core/services/common/reload-entity-detail.service';
 import { AuthPrivilege } from '@perun-web-apps/perun/models';
+import { Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-managers-page',
@@ -42,10 +44,13 @@ export class ManagersPageComponent implements OnInit {
 
   groups: Group[] = [];
   managers: RichUser[] = null;
+  managers$: Observable<Array<RichUser>> = null;
   selectionUsers = new SelectionModel<RichUser>(true, []);
   selectionGroups = new SelectionModel<Group>(true, []);
   selectedMode = '';
   selectedRole: string;
+  showIndirectAdmins = false;
+  directAdminsIds: number[] = null;
   loading = false;
   tableId = TABLE_GROUP_MANAGERS_PAGE;
   routeAuth: boolean;
@@ -124,13 +129,39 @@ export class ManagersPageComponent implements OnInit {
     }
   }
 
-  refreshUsers(): void {
+  refreshUsers(refreshDirectAdmins = false): void {
     this.loading = true;
     this.changeRolePrivileges();
 
     let attributes = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL];
     attributes = attributes.concat(this.storeService.getLoginAttributeNames());
-    this.authzService
+
+    if (this.showIndirectAdmins) {
+      if (refreshDirectAdmins) {
+        this.managers$ = this.getDirectAdmins(attributes).pipe(
+          mergeMap(() => this.getIndirectAdmins(attributes))
+        );
+      } else {
+        this.managers$ = this.getIndirectAdmins(attributes);
+      }
+    } else {
+      this.managers$ = this.getDirectAdmins(attributes);
+    }
+
+    this.managers$.subscribe({
+      next: (managers) => {
+        this.managers = managers;
+        this.selectionUsers.clear();
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
+  }
+
+  getDirectAdmins(attributes: string[]): Observable<Array<RichUser>> {
+    return this.authzService
       .getAuthzRichAdmins(
         this.selectedRole,
         this.complementaryObject.id,
@@ -139,16 +170,19 @@ export class ManagersPageComponent implements OnInit {
         false,
         true
       )
-      .subscribe({
-        next: (managers) => {
-          this.managers = managers;
-          this.selectionUsers.clear();
-          this.loading = false;
-        },
-        error: () => {
-          this.loading = false;
-        },
-      });
+      .pipe(tap((managers) => (this.directAdminsIds = managers.map((manager) => manager.id))));
+  }
+
+  getIndirectAdmins(attributes: string[]): Observable<Array<RichUser>> {
+    this.loading = true;
+    return this.authzService.getAuthzRichAdmins(
+      this.selectedRole,
+      this.complementaryObject.id,
+      this.complementaryObjectType,
+      attributes,
+      false,
+      false
+    );
   }
 
   refreshGroups(): void {
@@ -187,7 +221,7 @@ export class ManagersPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.refreshUsers();
+        this.refreshUsers(true);
       }
     });
   }
