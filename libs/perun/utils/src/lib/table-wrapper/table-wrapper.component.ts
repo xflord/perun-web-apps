@@ -18,7 +18,7 @@ import { TableConfigService } from '@perun-web-apps/config/table-config';
 @Component({
   selector: 'perun-web-apps-table-wrapper',
   templateUrl: './table-wrapper.component.html',
-  styleUrls: ['./table-wrapper.component.css'],
+  styleUrls: ['./table-wrapper.component.scss'],
   providers: [
     { provide: MAT_PAGINATOR_DEFAULT_OPTIONS, useValue: { formFieldAppearance: 'fill' } },
   ],
@@ -61,5 +61,34 @@ export class TableWrapperComponent implements OnInit {
         behavior: 'smooth',
       }); // scroll to top of table on page changes
     }
+  }
+
+  changePage(event: FocusEvent): void {
+    const input = event.target as HTMLInputElement;
+    let selectedPage = parseInt(input.value);
+
+    if (!selectedPage || selectedPage < 1) {
+      selectedPage = this.paginator.pageIndex + 1; // stay at current page
+    }
+    if (selectedPage > this.paginator.getNumberOfPages()) {
+      selectedPage = this.paginator.getNumberOfPages();
+    }
+
+    this.paginator.pageIndex = selectedPage - 1;
+    const changePageEvent: PageEvent = {
+      length: this.paginator.length,
+      pageSize: this.paginator.pageSize,
+      pageIndex: this.paginator.pageIndex,
+    };
+    this.paginator.page.next(changePageEvent);
+
+    input.value = selectedPage.toString();
+  }
+
+  onlyValidKeys(event: KeyboardEvent): boolean {
+    const charCode = event.key.charCodeAt(0);
+    return (
+      charCode === 65 || charCode === 66 || charCode === 68 || (charCode >= 48 && charCode <= 57)
+    ); // Accept only digits 0-9, arrows, backspace or delete
   }
 }

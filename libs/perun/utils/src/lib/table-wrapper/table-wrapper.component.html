@@ -6,6 +6,22 @@
       [pageSizeOptions]="pageSizeOptions"
       [pageSize]="pageSize">
     </mat-paginator>
+
+    <div class="page-index-padding">
+      <mat-form-field class="table-index-form d-flex">
+        <input
+          class="overflow-ellipsis text-muted"
+          type="number"
+          matInput
+          [min]="1"
+          [max]="paginator.getNumberOfPages()"
+          [value]="paginator.pageIndex + 1"
+          (keydown)="onlyValidKeys($event)"
+          (keyup.enter)="changePage($event)"
+          (focusout)="changePage($event)" />
+      </mat-form-field>
+    </div>
+
     <perun-web-apps-table-options
       (exportDisplayedData)="exportDisplayedData.emit($event)"
       (exportAllData)="exportAllData.emit($event)"

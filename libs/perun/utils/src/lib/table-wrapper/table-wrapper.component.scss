@@ -1,0 +1,15 @@
+.table-height {
+  max-height: 70vh;
+}
+
+.table-index-form {
+  max-width: 110px;
+  max-height: 75px;
+  @media (max-width: 420px) {
+    max-width: 70px;
+  }
+}
+
+.page-index-padding {
+  padding-top: 1em;
+}
