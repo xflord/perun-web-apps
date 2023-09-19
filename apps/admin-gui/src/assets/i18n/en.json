@@ -396,7 +396,7 @@
         "EDIT": "Edit",
         "MANAGE_GROUPS": "Manage groups",
         "DELETE": "Delete",
-        "MODULE_NAME": "Module name",
+        "MODULE_NAMES": "Module names",
         "APPLICATION_TYPE": "Approval style",
         "MANUAL": "Manual",
         "AUTOMATIC": "Automatic",
@@ -790,7 +790,7 @@
       },
       "APPLICATION_FORM": {
         "TITLE": "Application form",
-        "MODULE_NAME": "Module name",
+        "MODULE_NAMES": "Module names",
         "APPLICATION_TYPE": "Approval style",
         "AUTOMATIC": "Automatic",
         "MANUAL": "Manual",
@@ -1367,7 +1367,10 @@
       "MANUAL": "Manual",
       "AUTOMATIC": "Automatic",
       "SUBMIT_BUTTON": "Submit",
-      "CANCEL_BUTTON": "Cancel"
+      "CANCEL_BUTTON": "Cancel",
+      "REMOVE_MODULE_TOOLTIP": "Remove module name",
+      "ADD_MODULE_TOOLTIP": "Add module name",
+      "COMMA_ERROR": "Commas are not allowed."
     },
     "DELETE_APPLICATION_FORM_ITEM": {
       "TITLE": "Delete confirm",

@@ -5,10 +5,36 @@
   <div *perunWebAppsLoader="loading; indicator: spinner">
     <h1 mat-dialog-title>{{'DIALOGS.UPDATE_APPLICATION_FORM.TITLE' | translate}}</h1>
     <div class="dialog-container" mat-dialog-content>
-      <mat-form-field>
-        <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.MODULE_NAME' | translate}}</mat-label>
-        <input matInput [(ngModel)]="moduleName" />
-      </mat-form-field>
+      <div
+        *ngFor="let control of formArray.controls; let i = index; trackBy: trackByIndex"
+        class="d-flex flex-row align-items-center">
+        <mat-form-field class="w-100 mb-n2">
+          <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.MODULE_NAME' | translate}}</mat-label>
+          <input [formControl]="control" matInput />
+          <mat-error
+            *ngIf="control.hasError('pattern')"
+            >{{'DIALOGS.UPDATE_APPLICATION_FORM.COMMA_ERROR' | translate}}</mat-error
+          >
+        </mat-form-field>
+        <button
+          *ngIf="formArray.length > 1"
+          color="warn"
+          (click)="removeModule(i)"
+          [matTooltip]="'DIALOGS.UPDATE_APPLICATION_FORM.REMOVE_MODULE_TOOLTIP' | translate"
+          mat-icon-button>
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-center mb-3">
+        <button
+          color="accent"
+          (click)="addModule()"
+          [matTooltip]="'DIALOGS.UPDATE_APPLICATION_FORM.ADD_MODULE_TOOLTIP' | translate"
+          mat-icon-button>
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
 
       <mat-form-field class="w-100">
         <mat-label>{{'DIALOGS.UPDATE_APPLICATION_FORM.INITIAL' | translate}}:</mat-label>
@@ -58,7 +84,12 @@
       <button (click)="onCancel()" class="ms-auto" mat-stroked-button>
         {{'DIALOGS.UPDATE_APPLICATION_FORM.CANCEL_BUTTON' | translate}}
       </button>
-      <button (click)="submit()" [disabled]="loading" class="ms-2" color="accent" mat-flat-button>
+      <button
+        (click)="submit()"
+        [disabled]="formArray.invalid"
+        class="ms-2"
+        color="accent"
+        mat-flat-button>
         {{'DIALOGS.UPDATE_APPLICATION_FORM.SUBMIT_BUTTON' | translate}}
       </button>
     </div>
