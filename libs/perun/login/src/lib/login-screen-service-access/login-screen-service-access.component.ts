@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { AuthService, InitAuthService } from '@perun-web-apps/perun/services';
   templateUrl: './login-screen-service-access.component.html',
   styleUrls: ['./login-screen-service-access.component.css'],
 })
-export class LoginScreenServiceAccessComponent implements OnInit {
+export class LoginScreenServiceAccessComponent implements OnInit, AfterViewInit {
   usernameCtrl = new FormControl<string>(null, [Validators.required]);
   passwordCtrl = new FormControl<string>(null, [Validators.required]);
   wrongUsernameOrPassword = false;
@@ -51,7 +51,12 @@ export class LoginScreenServiceAccessComponent implements OnInit {
 
     if (sessionStorage.getItem('baAfterLogout')) {
       this.afterLogout = true;
-      sessionStorage.setItem('baAfterLogout', 'false');
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (!sessionStorage.getItem('baLogout')) {
+      sessionStorage.removeItem('baAfterLogout');
     }
   }
 }
