@@ -42,10 +42,11 @@
           >
         </div>
 
-        <perun-web-apps-attribute-unique-toggle [attDef]="attDef">
-        </perun-web-apps-attribute-unique-toggle>
+        <perun-web-apps-attribute-unique-checkbox [attDef]="attDef">
+        </perun-web-apps-attribute-unique-checkbox>
 
-        <perun-web-apps-attribute-critical-operations-toggles
+        <perun-web-apps-attribute-critical-operations-checkboxes
+          [attDef]="attDef"
           [readOperation]="initReadOperations"
           [readGlobal]="initReadGlobal"
           [writeOperation]="initWriteOperations"
@@ -54,7 +55,7 @@
           (readGlobalChanged)="finalReadGlobal=$event"
           (writeOperationChanged)="finalWriteOperations=$event"
           (writeGlobalChanged)="finalWriteGlobal=$event">
-        </perun-web-apps-attribute-critical-operations-toggles>
+        </perun-web-apps-attribute-critical-operations-checkboxes>
 
         <perun-web-apps-attribute-rights-tab-group
           [attDef]="attDef"

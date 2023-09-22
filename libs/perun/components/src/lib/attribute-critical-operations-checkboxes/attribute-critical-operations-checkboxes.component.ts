@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AttributeDefinition } from '@perun-web-apps/perun/openapi';
 
 @Component({
-  selector: 'perun-web-apps-attribute-critical-operations-toggles',
-  templateUrl: './attribute-critical-operations-toggles.component.html',
-  styleUrls: ['./attribute-critical-operations-toggles.component.scss'],
+  selector: 'perun-web-apps-attribute-critical-operations-checkboxes',
+  templateUrl: './attribute-critical-operations-checkboxes.component.html',
+  styleUrls: ['./attribute-critical-operations-checkboxes.component.scss'],
 })
-export class AttributeCriticalOperationsTogglesComponent {
+export class AttributeCriticalOperationsCheckboxesComponent {
+  @Input() attDef: AttributeDefinition;
   @Input() readOperation = false;
   @Input() readGlobal = false;
   @Input() writeOperation = true;
@@ -16,18 +18,18 @@ export class AttributeCriticalOperationsTogglesComponent {
   @Output() writeGlobalChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   changeReadOperation(): void {
-    this.readOperationChanged.emit(!this.readOperation);
+    this.readOperationChanged.emit(this.readOperation);
     // if the operation is changing from true to false, then we want to change also global criticality to false
-    if (this.readOperation) {
+    if (!this.readOperation) {
       this.readGlobal = false;
       this.readGlobalChanged.emit(this.readGlobal);
     }
   }
 
   changeWriteOperation(): void {
-    this.writeOperationChanged.emit(!this.writeOperation);
+    this.writeOperationChanged.emit(this.writeOperation);
     // if the operation is changing from true to false, then we want to change also global criticality to false
-    if (this.writeOperation) {
+    if (!this.writeOperation) {
       this.writeGlobal = false;
       this.writeGlobalChanged.emit(this.writeGlobal);
     }

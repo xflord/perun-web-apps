@@ -3421,15 +3421,19 @@
           "ADD_COLLECTION": "Add collection",
           "INFO": "Create collections of multiple rules. Each rule must be fulfilled for the collection to be valid. User needs to suffice at least one collection to be eligible for given action."
         },
-        "ATTRIBUTE_UNIQUE_TOGGLE": {
+        "ATTRIBUTE_UNIQUE_CHECKBOX": {
           "UNIQUE": "Unique",
-          "TOOLTIP": "Entityless, virtual or core attributes can NOT be UNIQUE"
+          "DISABLED_TOOLTIP": "Entityless, virtual or core attributes can NOT be UNIQUE",
+          "TOOLTIP": "The attribute value has to be UNIQUE"
         },
-        "ATTRIBUTE_CRITICAL_OPERATIONS_TOGGLE": {
+        "ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX": {
           "READ": "READ operations critical",
           "WRITE": "WRITE operations critical",
           "GLOBAL": "Critical for all objects",
-          "INFO": "All operations of the selected type (READ/WRITE) for this attribute will require multi-factor authentication for objects that are marked as critical."
+          "READ_TOOLTIP": "All READ operations for this attribute will require multi-factor authentication for objects that are marked as critical.",
+          "GLOBAL_READ_TOOLTIP": "All READ operations for this attribute will require multi-factor authentication",
+          "WRITE_TOOLTIP": "All WRITE operations for this attribute will require multi-factor authentication for objects that are marked as critical.",
+          "GLOBAL_WRITE_TOOLTIP": "All WRITE operations for this attribute will require multi-factor authentication"
         },
         "DATA_QUOTAS": {
           "TITLE": "Data quotas",

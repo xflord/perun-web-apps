@@ -94,8 +94,8 @@ import { AttributeRightsTabComponent } from './attribute-rights-tab/attribute-ri
 import { AttributeRightsCollectionComponent } from './attribute-rights-collection/attribute-rights-collection.component';
 import { AttributeRightsItemComponent } from './attribute-rights-item/attribute-rights-item.component';
 import { AttributeRightsTabGroupComponent } from './attribute-rights-tab-group/attribute-rights-tab-group.component';
-import { AttributeUniqueToggleComponent } from './attribute-unique-toggle/attribute-unique-toggle.component';
-import { AttributeCriticalOperationsTogglesComponent } from './attribute-critical-operations-toggles/attribute-critical-operations-toggles.component';
+import { AttributeUniqueCheckboxComponent } from './attribute-unique-checkbox/attribute-unique-checkbox.component';
+import { AttributeCriticalOperationsCheckboxesComponent } from './attribute-critical-operations-checkboxes/attribute-critical-operations-checkboxes.component';
 import { MailingListsComponent } from './settings-mailing-lists/mailing-lists.component';
 import { DataQuotasComponent } from './settings-data-quotas/data-quotas.component';
 import { LoaderDirective } from '@perun-web-apps/perun/directives';
@@ -252,8 +252,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     AttributeRightsCollectionComponent,
     AttributeRightsItemComponent,
     AttributeRightsTabGroupComponent,
-    AttributeUniqueToggleComponent,
-    AttributeCriticalOperationsTogglesComponent,
+    AttributeUniqueCheckboxComponent,
+    AttributeCriticalOperationsCheckboxesComponent,
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,
@@ -333,8 +333,8 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     ConsentsListComponent,
     AttributeSearchSelectComponent,
     AttributeRightsTabGroupComponent,
-    AttributeUniqueToggleComponent,
-    AttributeCriticalOperationsTogglesComponent,
+    AttributeUniqueCheckboxComponent,
+    AttributeCriticalOperationsCheckboxesComponent,
     MailingListsComponent,
     DataQuotasComponent,
     SettingsSSHKeysComponent,

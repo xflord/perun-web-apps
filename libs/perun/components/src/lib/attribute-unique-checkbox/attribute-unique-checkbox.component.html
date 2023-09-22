@@ -1,0 +1,18 @@
+<div
+  *ngIf="{disable: attDef | disableUniqueAttribute} as disabled"
+  class="unique-checkbox-container"
+  [matTooltipDisabled]="!disabled.disable"
+  matTooltipPosition="after"
+  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_UNIQUE_CHECKBOX.DISABLED_TOOLTIP'| translate}}">
+  <mat-checkbox
+    class="checkbox-main"
+    labelPosition="after"
+    [(ngModel)]="attDef.unique"
+    [disabled]="disabled.disable"
+    [matTooltipDisabled]="disabled.disable"
+    matTooltipPosition="after"
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_UNIQUE_CHECKBOX.TOOLTIP'| translate}}"
+    matTooltipClass="tooltip">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_UNIQUE_CHECKBOX.UNIQUE' | translate}}
+  </mat-checkbox>
+</div>

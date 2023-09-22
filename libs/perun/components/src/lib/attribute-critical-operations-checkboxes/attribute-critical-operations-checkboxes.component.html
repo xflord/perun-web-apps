@@ -1,0 +1,42 @@
+<mat-checkbox
+  class="checkbox-main"
+  labelPosition="after"
+  [(ngModel)]="readOperation"
+  (change)="changeReadOperation()"
+  matTooltipPosition="after"
+  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.READ_TOOLTIP'| translate}}">
+  {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.READ' | translate}}
+</mat-checkbox>
+<div *ngIf="attDef.entity !== 'entityless'">
+  <mat-checkbox
+    [disabled]="!readOperation"
+    [(ngModel)]="readGlobal"
+    (change)="readGlobalChanged.emit(readGlobal)"
+    matTooltipPosition="after"
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL_READ_TOOLTIP'| translate}}"
+    class="ms-4 fst-italic">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL' | translate}}
+  </mat-checkbox>
+</div>
+<br *ngIf="attDef.entity === 'entityless'" />
+<mat-checkbox
+  class="checkbox-main"
+  labelPosition="after"
+  [(ngModel)]="writeOperation"
+  [ngClass]="{'mb-4' : attDef.entity === 'entityless'}"
+  (change)="changeWriteOperation()"
+  matTooltipPosition="after"
+  matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.WRITE_TOOLTIP'| translate}}">
+  {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.WRITE' | translate}}
+</mat-checkbox>
+<div *ngIf="attDef.entity !== 'entityless'">
+  <mat-checkbox
+    [disabled]="!writeOperation"
+    [(ngModel)]="writeGlobal"
+    (change)="writeGlobalChanged.emit(writeGlobal)"
+    matTooltipPosition="after"
+    matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL_WRITE_TOOLTIP'| translate}}"
+    class="ms-4 mb-4 fst-italic">
+    {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL' | translate}}
+  </mat-checkbox>
+</div>

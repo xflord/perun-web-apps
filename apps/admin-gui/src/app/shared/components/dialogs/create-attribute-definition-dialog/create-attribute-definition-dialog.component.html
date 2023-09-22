@@ -77,15 +77,16 @@
         </mat-form-field>
       </form>
 
-      <perun-web-apps-attribute-unique-toggle [attDef]="attDef | async">
-      </perun-web-apps-attribute-unique-toggle>
+      <perun-web-apps-attribute-unique-checkbox [attDef]="attDef | async">
+      </perun-web-apps-attribute-unique-checkbox>
 
-      <perun-web-apps-attribute-critical-operations-toggles
+      <perun-web-apps-attribute-critical-operations-checkboxes
+        [attDef]="attDef"
         (readOperationChanged)="finalReadOperations=$event"
         (readGlobalChanged)="finalReadGlobal=$event"
         (writeOperationChanged)="finalWriteOperations=$event"
         (writeGlobalChanged)="finalWriteGlobal=$event">
-      </perun-web-apps-attribute-critical-operations-toggles>
+      </perun-web-apps-attribute-critical-operations-checkboxes>
 
       <perun-web-apps-attribute-rights-tab-group [collections]="collections">
       </perun-web-apps-attribute-rights-tab-group>
