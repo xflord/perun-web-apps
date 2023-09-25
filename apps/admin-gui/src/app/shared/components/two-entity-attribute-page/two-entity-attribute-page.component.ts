@@ -11,12 +11,18 @@ import {
   ResourcesManagerService,
   RichMember,
   User,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { AttributesListComponent } from '@perun-web-apps/perun/components';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteAttributeDialogComponent } from '../dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
-import { getDefaultDialogConfig, getRecentlyVisitedIds } from '@perun-web-apps/perun/utils';
+import {
+  compareFnName,
+  compareFnUser,
+  getDefaultDialogConfig,
+  getRecentlyVisitedIds,
+} from '@perun-web-apps/perun/utils';
 import { EditAttributeDialogComponent } from '@perun-web-apps/perun/dialogs';
 import { CreateAttributeDialogComponent } from '../dialogs/create-attribute-dialog/create-attribute-dialog.component';
 import { Urns } from '@perun-web-apps/perun/urns';
@@ -32,16 +38,18 @@ export class TwoEntityAttributePageComponent implements OnInit {
   @Input() firstEntityId: number;
   @Input() firstEntity: string;
   @Input() secondEntity: string;
+  @Input() specificSecondEntity: Resource | Facility | Group | RichMember | User = null;
+  @Input() facilityId: number;
   entityValues: Resource[] | Facility[] | Group[] | RichMember[] | User[] = [];
   attributes: Attribute[] = [];
   selection = new SelectionModel<Attribute>(true, []);
-  specificSecondEntity: Resource | Facility | Group | RichMember | User;
   allowedStatuses: string[] = ['INVALID', 'VALID'];
   loading = false;
   innerLoading = false;
   filterValue = '';
   filterEmpty = true;
   noEntityMessage: string;
+  showSelect = true;
 
   constructor(
     private attributesManagerService: AttributesManagerService,
@@ -49,10 +57,12 @@ export class TwoEntityAttributePageComponent implements OnInit {
     private facilitiesManagerService: FacilitiesManagerService,
     private groupsManagerService: GroupsManagerService,
     private membersManager: MembersManagerService,
+    private usersManager: UsersManagerService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.showSelect = this.specificSecondEntity === null;
     this.loadEntityValues();
     this.setMessages(this.secondEntity.toLowerCase());
   }
@@ -113,13 +123,26 @@ export class TwoEntityAttributePageComponent implements OnInit {
         }
         break;
       case 'user':
-        this.facilitiesManagerService
-          .getAssignedFacilitiesByUser(this.firstEntityId)
-          .subscribe((facilities) => {
-            this.entityValues = facilities;
-            this.preselectEntity();
-            this.loading = false;
-          });
+        switch (this.secondEntity) {
+          case 'resource':
+            this.usersManager
+              .getAssociatedResourcesForUser(this.facilityId, this.firstEntityId)
+              .subscribe((resources) => {
+                this.entityValues = resources;
+                this.preselectEntity();
+                this.loading = false;
+              });
+            break;
+          default:
+            this.facilitiesManagerService
+              .getAssignedFacilitiesByUser(this.firstEntityId)
+              .subscribe((facilities) => {
+                this.entityValues = facilities;
+                this.preselectEntity();
+                this.loading = false;
+              });
+            break;
+        }
         break;
       case 'resource':
         switch (this.secondEntity) {
@@ -158,13 +181,18 @@ export class TwoEntityAttributePageComponent implements OnInit {
   }
 
   preselectEntity(): void {
-    if (this.entityValues.length !== 0) {
+    if (this.specificSecondEntity !== null) {
+      this.specifySecondEntity(this.specificSecondEntity);
+    } else if (this.entityValues.length !== 0) {
       this.findInitiallySelectedEntity();
     }
   }
 
   findInitiallySelectedEntity(): void {
-    let initialEntity = this.entityValues[0];
+    let initialEntity =
+      this.secondEntity === 'member' || this.secondEntity === 'user'
+        ? this.entityValues.sort(compareFnUser)[0]
+        : this.entityValues.sort(compareFnName)[0];
     const recentIds = getRecentlyVisitedIds(this.entityKey());
     if (recentIds) {
       for (const entity of this.entityValues) {
@@ -231,12 +259,28 @@ export class TwoEntityAttributePageComponent implements OnInit {
         }
         break;
       case 'user':
-        this.attributesManagerService
-          .getUserFacilityAttributes(this.firstEntityId, entityId)
-          .subscribe((attributes) => {
-            this.attributes = attributes;
-            this.innerLoading = false;
-          });
+        switch (this.secondEntity) {
+          case 'resource':
+            this.membersManager
+              .getMemberByUser((this.specificSecondEntity as Resource).voId, this.firstEntityId)
+              .subscribe((member) => {
+                this.attributesManagerService
+                  .getMemberResourceAttributes(member.id, entityId)
+                  .subscribe((attributes) => {
+                    this.attributes = attributes;
+                    this.innerLoading = false;
+                  });
+              });
+            break;
+          default:
+            this.attributesManagerService
+              .getUserFacilityAttributes(this.firstEntityId, entityId)
+              .subscribe((attributes) => {
+                this.attributes = attributes;
+                this.innerLoading = false;
+              });
+            break;
+        }
         break;
       case 'resource':
         switch (this.secondEntity) {

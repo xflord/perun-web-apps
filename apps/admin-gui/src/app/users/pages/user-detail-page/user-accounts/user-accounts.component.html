@@ -1,90 +1,93 @@
 <h1 class="page-title">{{'USER_DETAIL.ACCOUNTS.TITLE' | translate}}</h1>
-<mat-spinner class="ms-auto me-auto" *ngIf="initLoading"></mat-spinner>
-<div class="d-flex">
-  <perun-web-apps-vo-search-select
-    *ngIf="!(initLoading || vos.length === 0)"
-    class="w-50"
-    [vos]="vos"
-    (voSelected)="loadMember($event)">
-  </perun-web-apps-vo-search-select>
-</div>
-<mat-tab-group *ngIf="!(initLoading || vos.length === 0)" mat-stretch-tabs="false">
-  <mat-tab>
-    <ng-template matTabLabel>
-      {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}
-    </ng-template>
-    <ng-template matTabContent>
-      <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
-      <div *ngIf="!loading">
-        <div class="mt-4 mb-4">
-          <span class="subtitle me-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
-          <a
-            class="member-link"
-            [perunWebAppsMiddleClickRouterLink]="['/organizations', selectedVo.id.toString(), 'members', member.id.toString()]"
-            (auxclick)="$event.preventDefault()"
-            [routerLink]="['/organizations', selectedVo.id, 'members', member.id]"
-            >{{member.id}}
-          </a>
+<ng-template #spinner1>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div *perunWebAppsLoader="initLoading; indicator: spinner1">
+  <div class="d-flex">
+    <perun-web-apps-vo-search-select
+      *ngIf="!(initLoading || vos.length === 0)"
+      class="w-50"
+      [vos]="vos"
+      (voSelected)="loadMember($event)">
+    </perun-web-apps-vo-search-select>
+  </div>
+  <mat-tab-group *ngIf="!(initLoading || vos.length === 0)" mat-stretch-tabs="false">
+    <mat-tab>
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ACCOUNTS.STATUS' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading">
+          <div class="mt-4 mb-4">
+            <span class="subtitle me-2">{{'USER_DETAIL.ACCOUNTS.MEMBER' | translate}}:</span>
+            <a
+              class="member-link"
+              [perunWebAppsMiddleClickRouterLink]="['/organizations', selectedVo.id.toString(), 'members', member.id.toString()]"
+              (auxclick)="$event.preventDefault()"
+              [routerLink]="['/organizations', selectedVo.id, 'members', member.id]"
+              >{{member.id}}
+            </a>
+          </div>
+          <mat-card appearance="outlined" class="mat-elevation-z3 membership-card">
+            <perun-web-apps-member-overview-membership [member]="member" [voId]="selectedVo.id">
+            </perun-web-apps-member-overview-membership>
+          </mat-card>
+          <p class="mt-4 subtitle">{{'USER_DETAIL.ACCOUNTS.GROUPS' | translate}}</p>
+          <perun-web-apps-groups-list
+            [groups]="groups"
+            [memberId]="member?.id"
+            [memberGroupStatus]="member.groupStatus"
+            (refreshTable)="loadMember(selectedVo)"
+            [displayedColumns]="['id', 'recent', 'name', 'description', 'expiration', 'groupStatus']">
+          </perun-web-apps-groups-list>
         </div>
-        <mat-card appearance="outlined" class="mat-elevation-z3 membership-card">
-          <perun-web-apps-member-overview-membership [member]="member" [voId]="selectedVo.id">
-          </perun-web-apps-member-overview-membership>
-        </mat-card>
-        <p class="mt-4 subtitle">{{'USER_DETAIL.ACCOUNTS.GROUPS' | translate}}</p>
-        <perun-web-apps-groups-list
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab *perunWebAppsLoader="loading; indicator: spinner1">
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ACCOUNTS.MEMBER_ATT' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <app-one-entity-attribute-page *ngIf="!loading" [entity]="'member'" [entityId]="member.id">
+        </app-one-entity-attribute-page>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab *perunWebAppsLoader="loading; indicator: spinner1">
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ACCOUNTS.MEMBER_GROUP_ATT' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <app-two-entity-attribute-page
           *ngIf="!loading"
-          [groups]="groups"
-          [memberId]="member?.id"
-          [memberGroupStatus]="member.groupStatus"
-          (refreshTable)="loadMember(selectedVo)"
-          [displayedColumns]="['id', 'recent', 'name', 'description', 'expiration', 'groupStatus']">
-        </perun-web-apps-groups-list>
-      </div>
-    </ng-template>
-  </mat-tab>
+          [firstEntity]="'member'"
+          [firstEntityId]="member.id"
+          [secondEntity]="'group'"></app-two-entity-attribute-page>
+      </ng-template>
+    </mat-tab>
 
-  <mat-tab>
-    <ng-template matTabLabel>
-      {{'USER_DETAIL.ACCOUNTS.MEMBER_ATT' | translate}}
-    </ng-template>
-    <ng-template matTabContent>
-      <mat-spinner *ngIf="loading"></mat-spinner>
-      <app-one-entity-attribute-page *ngIf="!loading" [entity]="'member'" [entityId]="member.id">
-      </app-one-entity-attribute-page>
-    </ng-template>
-  </mat-tab>
+    <mat-tab>
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ACCOUNTS.MEMBER_RESOURCE_ATT' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <app-two-entity-attribute-page
+          *ngIf="!loading"
+          [firstEntity]="'member'"
+          [firstEntityId]="member.id"
+          [secondEntity]="'resource'"></app-two-entity-attribute-page>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 
-  <mat-tab>
-    <ng-template matTabLabel>
-      {{'USER_DETAIL.ACCOUNTS.MEMBER_GROUP_ATT' | translate}}
-    </ng-template>
-    <ng-template matTabContent>
-      <mat-spinner *ngIf="loading"></mat-spinner>
-      <app-two-entity-attribute-page
-        *ngIf="!loading"
-        [firstEntity]="'member'"
-        [firstEntityId]="member.id"
-        [secondEntity]="'group'"></app-two-entity-attribute-page>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template matTabLabel>
-      {{'USER_DETAIL.ACCOUNTS.MEMBER_RESOURCE_ATT' | translate}}
-    </ng-template>
-    <ng-template matTabContent>
-      <mat-spinner *ngIf="loading"></mat-spinner>
-      <app-two-entity-attribute-page
-        *ngIf="!loading"
-        [firstEntity]="'member'"
-        [firstEntityId]="member.id"
-        [secondEntity]="'resource'"></app-two-entity-attribute-page>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
-
-<perun-web-apps-alert
-  alert_type="warn"
-  *ngIf="!initLoading && vos.length === 0"
-  >{{'USER_DETAIL.ACCOUNTS.NO_VOS' | translate}}</perun-web-apps-alert
->
+  <perun-web-apps-alert
+    alert_type="warn"
+    *ngIf="!initLoading && vos.length === 0"
+    >{{'USER_DETAIL.ACCOUNTS.NO_VOS' | translate}}</perun-web-apps-alert
+  >
+</div>

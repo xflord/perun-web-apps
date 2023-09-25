@@ -628,20 +628,6 @@ export class SideMenuItemService {
       activatedRegex: `${regex}$`,
     });
 
-    // Organizations
-    links.push({
-      label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
-      url: [`${path}/organizations`],
-      activatedRegex: `${regex}/organizations`,
-    });
-
-    // Groups
-    links.push({
-      label: 'MENU_ITEMS.ADMIN.GROUPS',
-      url: [`${path}/groups`],
-      activatedRegex: `${regex}/groups`,
-    });
-
     // Accounts
     links.push({
       label: 'MENU_ITEMS.USER.ACCOUNTS',
@@ -649,25 +635,18 @@ export class SideMenuItemService {
       activatedRegex: `${regex}/accounts`,
     });
 
+    // Assignments
+    links.push({
+      label: 'MENU_ITEMS.USER.ASSIGNMENTS',
+      url: [`${path}/assignments`],
+      activatedRegex: `${regex}/assignments`,
+    });
+
     // Identities
     links.push({
       label: 'MENU_ITEMS.USER.IDENTITIES',
       url: [`${path}/identities`],
       activatedRegex: `${regex}/identities`,
-    });
-
-    // Facilities
-    links.push({
-      label: 'MENU_ITEMS.USER.FACILITIES',
-      url: [`${path}/facilities`],
-      activatedRegex: `${regex}/facilities`,
-    });
-
-    // Resources
-    links.push({
-      label: 'MENU_ITEMS.USER.RESOURCES',
-      url: [`${path}/resources`],
-      activatedRegex: `${regex}/resources`,
     });
 
     // Attributes

@@ -1099,6 +1099,7 @@
       "ENTITY": "User",
       "USER_TYPE": "User type",
       "ACCOUNTS": "Accounts",
+      "ASSIGNMENTS": "Assignments",
       "MAILING_LISTS": "Mailing lists opt-out",
       "DATA_QUOTAS": "Data quotas",
       "BANS": "Bans",
@@ -2706,6 +2707,14 @@
       "MEMBER_GROUP_ATT": "Member-Group attributes",
       "MEMBER_RESOURCE_ATT": "Member-Resource attributes",
       "NO_VOS": "User is not member of any organization."
+    },
+    "ASSIGNMENTS": {
+      "TITLE": "Assignments",
+      "OVERVIEW": "Overview",
+      "RESOURCES": "Resources",
+      "USER_FACILITY_ATT": "User-Facility attributes",
+      "MEMBER_RESOURCE_ATT": "Member-Resource attributes",
+      "NO_FACILITIES": "User is not assigned to any facilities."
     },
     "SETTINGS": {
       "ATTRIBUTES": {
