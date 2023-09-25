@@ -1,0 +1,64 @@
+<h1 class="page-title">{{'USER_DETAIL.ASSIGNMENTS.TITLE' | translate}}</h1>
+<ng-template #spinner1>
+  <perun-web-apps-loading-table></perun-web-apps-loading-table>
+</ng-template>
+<div *perunWebAppsLoader="initLoading; indicator: spinner1">
+  <div class="d-flex">
+    <perun-web-apps-facility-search-select
+      *ngIf="!(initLoading || facilities.length === 0)"
+      class="w-50"
+      [facilities]="facilities"
+      (facilitySelected)="loadFacility($event)">
+    </perun-web-apps-facility-search-select>
+  </div>
+  <mat-tab-group *ngIf="!(initLoading || facilities.length === 0)" mat-stretch-tabs="false">
+    <mat-tab>
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ASSIGNMENTS.OVERVIEW' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <p class="mt-4 subtitle">{{'USER_DETAIL.ASSIGNMENTS.RESOURCES' | translate}}</p>
+        <perun-web-apps-resources-list
+          *perunWebAppsLoader="loading; indicator: spinner1"
+          [resources]="resources"
+          [displayedColumns]="['id', 'name', 'vo', 'description']">
+        </perun-web-apps-resources-list>
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ASSIGNMENTS.USER_FACILITY_ATT' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <app-two-entity-attribute-page
+          *ngIf="!loading"
+          [firstEntity]="'user'"
+          [firstEntityId]="userId"
+          [secondEntity]="'facility'"
+          [specificSecondEntity]="selectedFacility"></app-two-entity-attribute-page>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template matTabLabel>
+        {{'USER_DETAIL.ASSIGNMENTS.MEMBER_RESOURCE_ATT' | translate}}
+      </ng-template>
+      <ng-template matTabContent>
+        <mat-spinner class="ms-auto me-auto" *ngIf="loading"></mat-spinner>
+        <app-two-entity-attribute-page
+          *ngIf="!loading"
+          [firstEntity]="'user'"
+          [firstEntityId]="userId"
+          [secondEntity]="'resource'"
+          [facilityId]="selectedFacility.id"></app-two-entity-attribute-page>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+  <perun-web-apps-alert
+    alert_type="warn"
+    *ngIf="!initLoading && facilities.length === 0"
+    >{{'USER_DETAIL.ASSIGNMENTS.NO_FACILITIES' | translate}}</perun-web-apps-alert
+  >
+</div>

@@ -69,6 +69,7 @@ import { ServiceIdentityAuthenticationComponent } from './pages/user-detail-page
 import { ServiceIdentityAuthenticationOverviewComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-authentication-overview/service-identity-authentication-overview.component';
 import { ServiceIdentityCertificatesComponent } from './pages/user-detail-page/user-settings/user-settings-service-identities/service-identity-authentication/service-identity-certificates/service-identity-certificates.component';
 import { UserBansComponent } from './pages/user-detail-page/user-bans/user-bans.component';
+import { UserAssignmentsComponent } from './pages/user-detail-page/user-assignments/user-assignments.component';
 @NgModule({
   declarations: [
     UserDetailPageComponent,
@@ -90,6 +91,7 @@ import { UserBansComponent } from './pages/user-detail-page/user-bans/user-bans.
     DashboardRecentlyViewedButtonFieldComponent,
     UserFacilitiesComponent,
     UserAccountsComponent,
+    UserAssignmentsComponent,
     ServiceIdentityDetailPageComponent,
     ServiceIdentityOverviewComponent,
     UserSettingsDataQuotasComponent,

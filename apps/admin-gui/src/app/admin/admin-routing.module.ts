@@ -11,15 +11,12 @@ import { UserDestinationGraphComponent } from './pages/admin-page/admin-visualiz
 import { AdminUsersComponent } from './pages/admin-page/admin-users/admin-users.component';
 import { AdminUserDetailPageComponent } from './pages/admin-user-detail-page/admin-user-detail-page.component';
 import { UserOverviewComponent } from '../users/pages/user-detail-page/user-overview/user-overview.component';
-import { UserOrganizationsComponent } from '../users/pages/user-detail-page/user-organizations/user-organizations.component';
-import { UserGroupsComponent } from '../users/pages/user-detail-page/user-groups/user-groups.component';
 import { UserAttributesComponent } from '../users/pages/user-detail-page/user-attributes/user-attributes.component';
 import { AdminExtSourcesComponent } from './pages/admin-page/admin-ext-sources/admin-ext-sources.component';
 import { UserRolesComponent } from '../users/pages/user-detail-page/user-settings/user-roles/user-roles.component';
 import { UserSettingsServiceIdentitiesComponent } from '../users/pages/user-detail-page/user-settings/user-settings-service-identities/user-settings-service-identities.component';
 import { UserIdentitiesComponent } from '../users/pages/user-detail-page/user-identities/user-identities.component';
 import { AdminServicesComponent } from './pages/admin-page/admin-services/admin-services.component';
-import { UserResourcesComponent } from '../users/pages/user-detail-page/user-resources/user-resources.component';
 import { IdentityDetailComponent } from '../shared/components/identity-detail/identity-detail.component';
 import { ServiceDetailPageComponent } from './pages/admin-page/admin-services/service-detail-page/service-detail-page.component';
 import { ServiceOverviewComponent } from './pages/admin-page/admin-services/service-detail-page/service-overview/service-overview.component';
@@ -27,7 +24,6 @@ import { ServiceRequiredAttributesComponent } from './pages/admin-page/admin-ser
 import { UserSettingsAssociatedUsersComponent } from '../users/pages/user-detail-page/user-settings/user-settings-associated-users/user-settings-associated-users.component';
 import { ServiceDestinationsComponent } from './pages/admin-page/admin-services/service-detail-page/service-destinations/service-destinations.component';
 import { AdminOwnersComponent } from './pages/admin-page/admin-owners/admin-owners.component';
-import { UserFacilitiesComponent } from '../users/pages/user-detail-page/user-facilities/user-facilities.component';
 import { UserAccountsComponent } from '../users/pages/user-detail-page/user-accounts/user-accounts.component';
 import { AdminAuditLogComponent } from './pages/admin-page/admin-audit-log/admin-audit-log.component';
 import { AdminConsentHubsComponent } from './pages/admin-page/admin-consent-hubs/admin-consent-hubs.component';
@@ -35,6 +31,7 @@ import { AdminSearcherComponent } from './pages/admin-page/admin-searcher/admin-
 import { RouteAuthGuardService } from '../shared/route-auth-guard.service';
 import { UserBansComponent } from '../users/pages/user-detail-page/user-bans/user-bans.component';
 import { AdminBlockedLoginsComponent } from './pages/admin-page/admin-blocked-logins/admin-blocked-logins.component';
+import { UserAssignmentsComponent } from '../users/pages/user-detail-page/user-assignments/user-assignments.component';
 
 const routes: Routes = [
   {
@@ -136,34 +133,19 @@ const routes: Routes = [
         data: { animation: 'UserAccountsPage' },
       },
       {
+        path: 'assignments',
+        component: UserAssignmentsComponent,
+        data: { animation: 'UserAssignmentsPage' },
+      },
+      {
         path: 'attributes',
         component: UserAttributesComponent,
         data: { animation: 'UserAttributesPage' },
       },
       {
-        path: 'organizations',
-        component: UserOrganizationsComponent,
-        data: { animation: 'UserOrganizationsPage', showPrincipal: false },
-      },
-      {
-        path: 'groups',
-        component: UserGroupsComponent,
-        data: { animation: 'UserGroupsPage', showPrincipal: false },
-      },
-      {
         path: 'identities',
         component: UserIdentitiesComponent,
         data: { animation: 'UserIdentitiesPage' },
-      },
-      {
-        path: 'facilities',
-        component: UserFacilitiesComponent,
-        data: { animation: 'UserFacilitiesPage' },
-      },
-      {
-        path: 'resources',
-        component: UserResourcesComponent,
-        data: { animation: 'UserRoles' },
       },
       {
         path: 'identities/:identityId',

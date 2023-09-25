@@ -7,7 +7,7 @@
   >
 
   <div *ngIf="entityValues.length !== 0">
-    <div class="flex-row">
+    <div *ngIf="showSelect" class="flex-row">
       <perun-web-apps-group-search-select
         *ngIf="secondEntity === 'group'"
         (groupSelected)="specifySecondEntity($event)"

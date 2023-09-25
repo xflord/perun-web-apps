@@ -100,20 +100,7 @@ export class UserOverviewComponent implements OnInit {
   }
 
   private setItems(urlStart: string): void {
-    this.items = [
-      {
-        cssIcon: 'perun-vo',
-        url: `${urlStart}/organizations`,
-        label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
-        style: 'user-btn',
-      },
-      {
-        cssIcon: 'perun-group',
-        url: `${urlStart}/groups`,
-        label: 'MENU_ITEMS.ADMIN.GROUPS',
-        style: 'user-btn',
-      },
-    ];
+    this.items = [];
     if (!this.inMyProfile) {
       this.items.push(
         {
@@ -123,21 +110,30 @@ export class UserOverviewComponent implements OnInit {
           style: 'user-btn',
         },
         {
+          cssIcon: 'perun-facility-white',
+          url: `${urlStart}/assignments`,
+          label: 'MENU_ITEMS.USER.ASSIGNMENTS',
+          style: 'user-btn',
+        },
+        {
           cssIcon: 'perun-identity',
           url: `${urlStart}/identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
           style: 'user-btn',
-        },
+        }
+      );
+    } else {
+      this.items.push(
         {
-          cssIcon: 'perun-facility-white',
-          url: `${urlStart}/facilities`,
-          label: 'MENU_ITEMS.USER.FACILITIES',
+          cssIcon: 'perun-vo',
+          url: `${urlStart}/organizations`,
+          label: 'MENU_ITEMS.ADMIN.ORGANIZATIONS',
           style: 'user-btn',
         },
         {
-          cssIcon: 'perun-resource',
-          url: `${urlStart}/resources`,
-          label: 'MENU_ITEMS.USER.RESOURCES',
+          cssIcon: 'perun-group',
+          url: `${urlStart}/groups`,
+          label: 'MENU_ITEMS.ADMIN.GROUPS',
           style: 'user-btn',
         }
       );
