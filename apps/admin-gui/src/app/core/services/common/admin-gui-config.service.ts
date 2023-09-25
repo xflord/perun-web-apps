@@ -4,7 +4,7 @@ import {
   InitAuthService,
   MfaHandlerService,
 } from '@perun-web-apps/perun/services';
-import { AppConfigService } from '@perun-web-apps/config';
+import { AppConfigService, ColorConfig, EntityColorConfig } from '@perun-web-apps/config';
 import { AuthzResolverService } from '@perun-web-apps/perun/openapi';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
@@ -20,6 +20,92 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminGuiConfigService {
+  entityColorConfigs: EntityColorConfig[] = [
+    {
+      entity: 'vo',
+      configValue: 'vo_color',
+      cssVariable: '--vo-color',
+      cssTextVariable: '--vo-color-text',
+    },
+    {
+      entity: 'group',
+      configValue: 'group_color',
+      cssVariable: '--group-color',
+      cssTextVariable: '--group-color-text',
+    },
+    {
+      entity: 'user',
+      configValue: 'user_color',
+      cssVariable: '--user-color',
+      cssTextVariable: '--user-color-text',
+    },
+    {
+      entity: 'member',
+      configValue: 'member_color',
+      cssVariable: '--member-color',
+      cssTextVariable: '--member-color-text',
+    },
+    {
+      entity: 'facility',
+      configValue: 'facility_color',
+      cssVariable: '--facility-color',
+      cssTextVariable: '--facility-color-text',
+    },
+    {
+      entity: 'resource',
+      configValue: 'resource_color',
+      cssVariable: '--resource-color',
+      cssTextVariable: '--resource-color-text',
+    },
+    {
+      entity: 'admin',
+      configValue: 'admin_color',
+      cssVariable: '--admin-color',
+      cssTextVariable: '--admin-color-text',
+    },
+    {
+      entity: 'service',
+      configValue: 'service_color',
+      cssVariable: '--service-color',
+      cssTextVariable: '--service-color-text',
+    },
+  ];
+
+  colorConfigs: ColorConfig[] = [
+    {
+      configValue: 'sidemenu_hover_color',
+      cssVariable: '--sidemenu-hover-color',
+    },
+    {
+      configValue: 'sidemenu_active_color',
+      cssVariable: '--sidemenu-active-color',
+    },
+    {
+      configValue: 'sidemenu_submenu_active_color',
+      cssVariable: '--sidemenu-submenu-active-color',
+    },
+    {
+      configValue: 'sidemenu_submenu_hover_color',
+      cssVariable: '--sidemenu-submenu-hover-color',
+    },
+    {
+      configValue: 'sidemenu_hover_text_color',
+      cssVariable: '--sidemenu-hover-text-color',
+    },
+    {
+      configValue: 'sidemenu_active_text_color',
+      cssVariable: '--sidmenu-active-text-color',
+    },
+    {
+      configValue: 'sidemenu_submenu_active_text_color',
+      cssVariable: '--sidemenu-submenu-active-test-color',
+    },
+    {
+      configValue: 'sidemenu_submenu_hover_text_color',
+      cssVariable: '--sidemenu-submenu-hover-text-color',
+    },
+  ];
+
   constructor(
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
@@ -35,6 +121,9 @@ export class AdminGuiConfigService {
       .loadAppDefaultConfig()
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
+      .then(() =>
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+      )
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {

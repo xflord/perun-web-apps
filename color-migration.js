@@ -12,7 +12,7 @@ const tinycolor = require('tinycolor2');
  * Crawl apps directory and load themes by merging default and instance config
  * @returns {Promise<*[]>} Array of themes for each app
  */
-const getThemes = async (local) => {
+const getThemes = async () => {
   // Open apps directory
   let dir = null;
   try {
@@ -45,10 +45,8 @@ const getThemes = async (local) => {
       theme.colors = dc['theme'];
 
       // Load instance config and override theme
-      let pathToIC = `/var/www/perun-web-apps/${dirent.name}/assets/config/instanceConfig.json`;
-      if (local) {
-        pathToIC = `./apps/${dirent.name}/src/assets/config/instanceConfig.json`
-      }
+      const pathToIC = `./apps/${dirent.name}/src/assets/config/instanceConfig.json`
+
       const ic_file = await fs.readFile(
         pathToIC,
         'utf-8'
@@ -119,10 +117,7 @@ const getEntity = (colorVar) => {
 const updateStyles = async (themes) => {
   for (let theme of themes) {
     let styles = await fs.readFile(theme.pathToStyles, 'utf-8');
-
     for (let color in theme.colors) {
-      // Replace all variable colors
-      styles = styles.replaceAll(`var(${color})`, theme.colors[color]);
       // Create palette for entity theme
       const entity = getEntity(color);
       if (entity) {
@@ -138,11 +133,7 @@ const updateStyles = async (themes) => {
 
 // Async closure
 (async () => {
-  let local = false;
-  if (process.argv.length > 2) {
-    local = Boolean(process.argv[2]);
-  }
-  const themes = await getThemes(local);
+  const themes = await getThemes();
   await updateStyles(themes);
   console.log('Style files are loaded from themes!');
 })();

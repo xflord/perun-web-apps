@@ -94,10 +94,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .vo-btn {
   background: var(--vo-color);
-  color: rgba(var(--vo-theme-primary-contrast-500), 1);
+  color: rgba(var(--vo-color-text), 1);
 
   &:hover {
-    color: rgba(var(--vo-theme-primary-contrast-500), 1);
+    color: rgba(var(--vo-color-text), 1);
   }
 }
 
@@ -106,7 +106,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--vo-theme-primary-contrast-500), 1);
+    color: rgba(var(--vo-color-text), 1);
   }
 }
 
@@ -163,10 +163,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .facility-btn {
   background-color: var(--facility-color);
-  color: rgba(var(--facility-theme-primary-contrast-500), 1);
+  color: rgba(var(--facility-color-text), 1);
 
   &:hover {
-    color: rgba(var(--facility-theme-primary-contrast-500), 1);
+    color: rgba(var(--facility-color-text), 1);
   }
 }
 
@@ -175,7 +175,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--facility-theme-primary-contrast-500), 1);
+    color: rgba(var(--facility-color-text), 1);
   }
 }
 
@@ -232,10 +232,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .resource-btn {
   background-color: var(--resource-color);
-  color: rgba(var(--resource-theme-primary-contrast-500), 1);
+  color: rgba(var(--resource-color-text), 1);
 
   &:hover {
-    color: rgba(var(--resource-theme-primary-contrast-500), 1);
+    color: rgba(var(--resource-color-text), 1);
   }
 }
 
@@ -244,7 +244,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--resource-theme-primary-contrast-500), 1);
+    color: rgba(var(--resource-color-text), 1);
   }
 }
 
@@ -301,10 +301,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .group-btn {
   background: var(--group-color);
-  color: rgba(var(--group-theme-primary-contrast-500), 1);
+  color: rgba(var(--group-color-text), 1);
 
   &:hover {
-    color: rgba(var(--group-theme-primary-contrast-500), 1);
+    color: rgba(var(--group-color-text), 1);
   }
 }
 
@@ -313,7 +313,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--group-theme-primary-contrast-500), 1);
+    color: rgba(var(--group-color-text), 1);
   }
 }
 
@@ -370,10 +370,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .member-btn {
   background-color: var(--member-color);
-  color: rgba(var(--member-theme-primary-contrast-500), 1);
+  color: rgba(var(--member-color-text), 1);
 
   &:hover {
-    color: rgba(var(--member-theme-primary-contrast-500), 1);
+    color: rgba(var(--member-color-text), 1);
   }
 }
 
@@ -382,7 +382,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--member-theme-primary-contrast-500), 1);
+    color: rgba(var(--member-color-text), 1);
   }
 }
 
@@ -439,10 +439,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .admin-btn {
   background-color: var(--admin-color);
-  color: rgba(var(--admin-theme-primary-contrast-500), 1);
+  color: rgba(var(--admin-color-text), 1);
 
   &:hover {
-    color: rgba(var(--admin-theme-primary-contrast-500), 1);
+    color: rgba(var(--admin-color-text), 1);
   }
 }
 
@@ -499,10 +499,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .user-btn {
   background-color: var(--user-color);
-  color: rgba(var(--user-theme-primary-contrast-500), 1);
+  color: rgba(var(--user-color-text), 1);
 
   &:hover {
-    color: rgba(var(--user-theme-primary-contrast-500), 1);
+    color: rgba(var(--user-color-text), 1);
   }
 }
 
@@ -511,7 +511,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--user-theme-primary-contrast-500), 1);
+    color: rgba(var(--user-color-text), 1);
   }
 }
 
@@ -568,10 +568,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .service-btn {
   background-color: var(--service-color);
-  color: rgba(var(--service-theme-primary-contrast-500), 1);
+  color: rgba(var(--service-color-text), 1);
 
   &:hover {
-    color: rgba(var(--service-theme-primary-contrast-500), 1);
+    color: rgba(var(--service-color-text), 1);
   }
 }
 
@@ -580,7 +580,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--service-theme-primary-contrast-500), 1);
+    color: rgba(var(--service-color-text), 1);
   }
 }
 

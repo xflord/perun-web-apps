@@ -41,6 +41,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   isServiceAccess: boolean;
 
   principal: PerunPrincipal;
+  theme = this.store.getProperty('theme');
+  navBackgroundColor = this.theme.nav_bg_color;
+  sideBarBorderColor = this.theme.sidemenu_border_color;
+  contentBackgroundColor = this.theme.content_bg_color;
+  sideMenubackgroundColor = this.theme.sidemenu_bg_color;
 
   displayWarning: boolean = this.store.getProperty('display_warning');
   warningMessage: string = this.store.getProperty('warning_message');
