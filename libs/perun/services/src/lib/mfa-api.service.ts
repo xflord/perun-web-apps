@@ -58,9 +58,10 @@ export class MfaApiService {
       rpsByCategory: new Map(),
     };
     return new Observable<MfaSettings>((res) => {
+      const categoriesKey = this.store.getProperty('mfa').enforce_mfa_attribute.split(':').pop();
       this.attributesManagerService
         .getEntitylessAttributeByName(
-          'categories',
+          categoriesKey,
           'urn:perun:entityless:attribute-def:def:mfaCategories'
         )
         .subscribe({
