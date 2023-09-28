@@ -191,6 +191,7 @@ import { AddGroupToVoRegistrationComponent } from './components/dialogs/add-grou
 import { AddGroupToGroupRegistrationComponent } from './components/dialogs/add-group-to-group-registration/add-group-to-group-registration.component';
 import { ApplicationActionsComponent } from './components/application-actions/application-actions.component';
 import { ApplicationsBulkOperationDialogComponent } from './components/dialogs/applications-bulk-operation-dialog/applications-bulk-operation-dialog.component';
+import { GroupRolesFilterComponent } from './components/group-roles-filter/group-roles-filter.component';
 
 @NgModule({
   imports: [
@@ -323,6 +324,7 @@ import { ApplicationsBulkOperationDialogComponent } from './components/dialogs/a
     AddVoBanDialogComponent,
     ApplicationActionsComponent,
     ApplicationsBulkOperationDialogComponent,
+    GroupRolesFilterComponent,
   ],
   declarations: [
     SideMenuComponent,
@@ -474,6 +476,7 @@ import { ApplicationsBulkOperationDialogComponent } from './components/dialogs/a
     AddGroupToGroupRegistrationComponent,
     ApplicationActionsComponent,
     ApplicationsBulkOperationDialogComponent,
+    GroupRolesFilterComponent,
   ],
   providers: [AnyToStringPipe, ExtSourceTypePipe, ConsentRelatedAttributePipe],
 })

@@ -1,0 +1,29 @@
+<mat-form-field class="me-2">
+  <mat-label>{{'SHARED.COMPONENTS.GROUP_ROLES_FILTER.FILTER_ROLES' | translate}}</mat-label>
+  <mat-select (selectionChange)="changeRoles()" [formControl]="roles" multiple>
+    <mat-select-trigger>
+      {{roles.value | selectedRoleFilterValues : rolesList.length | groupRole}}
+    </mat-select-trigger>
+    <mat-option
+      class="{{theme}}"
+      *ngFor="let role of rolesList"
+      [value]="role"
+      >{{role | groupRole}}</mat-option
+    >
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field class="filter-field me-2">
+  <mat-label>{{'SHARED.COMPONENTS.GROUP_ROLES_FILTER.FILTER_ROLE_TYPES' | translate}}</mat-label>
+  <mat-select (selectionChange)="changeRoleTypes()" [formControl]="roleTypes" multiple>
+    <mat-select-trigger>
+      {{roleTypes.value | selectedRoleFilterValues : roleTypesList.length | groupRoleType}}
+    </mat-select-trigger>
+    <mat-option
+      class="{{theme}}"
+      *ngFor="let type of roleTypesList"
+      [value]="type"
+      >{{type | groupRoleType}}</mat-option
+    >
+  </mat-select>
+</mat-form-field>

@@ -91,6 +91,7 @@ model/genMemberDataNode.ts
 model/graphDTO.ts
 model/graphFileFormat.ts
 model/group.ts
+model/groupAdminRoles.ts
 model/groupMemberData.ts
 model/groupMemberRelation.ts
 model/groupResourceStatus.ts
@@ -263,6 +264,7 @@ model/richMember.ts
 model/richResource.ts
 model/richUser.ts
 model/richUserExtSource.ts
+model/roleAssignmentType.ts
 model/roleManagementRules.ts
 model/roleObject.ts
 model/securityTeam.ts

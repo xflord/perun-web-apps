@@ -9,6 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { RoleAssignmentType } from './roleAssignmentType';
+import { GroupAdminRoles } from './groupAdminRoles';
 import { GroupsOrderColumn } from './groupsOrderColumn';
 import { SortingOrder } from './sortingOrder';
 
@@ -19,4 +21,6 @@ export interface GroupsPageQuery {
   sortColumn: GroupsOrderColumn;
   memberId?: number;
   searchString?: string;
+  roles?: Array<GroupAdminRoles>;
+  types?: Array<RoleAssignmentType>;
 }

@@ -9,15 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Group } from './group';
-import { Vo } from './vo';
 
-export interface ApplicationForm {
-  id?: number;
-  vo?: Vo;
-  group?: Group | null;
-  automaticApproval?: boolean;
-  automaticApprovalExtension?: boolean;
-  automaticApprovalEmbedded?: boolean;
-  moduleClassNames?: Array<string>;
-}
+/**
+ * admin roles for a group
+ */
+export type GroupAdminRoles = 'GROUPOBSERVER' | 'GROUPMEMBERSHIPMANAGER' | 'GROUPADMIN';
+
+export const GroupAdminRoles = {
+  GROUPOBSERVER: 'GROUPOBSERVER' as GroupAdminRoles,
+  GROUPMEMBERSHIPMANAGER: 'GROUPMEMBERSHIPMANAGER' as GroupAdminRoles,
+  GROUPADMIN: 'GROUPADMIN' as GroupAdminRoles,
+};

@@ -25,6 +25,13 @@
       {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
     </button>
   </span>
+
+  <app-group-roles-filter
+    [theme]="'group-theme'"
+    (filterRoles)="applyRoles($event)"
+    (filterRoleTypes)="applyRoleTypes($event)">
+  </app-group-roles-filter>
+
   <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'GROUP_DETAIL.SUBGROUPS.FILTER'">

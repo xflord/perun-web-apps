@@ -27,6 +27,8 @@ import { Observable } from 'rxjs';
 // @ts-ignore
 import { Group } from '../model/group';
 // @ts-ignore
+import { GroupAdminRoles } from '../model/groupAdminRoles';
+// @ts-ignore
 import { InputDeleteGroups } from '../model/inputDeleteGroups';
 // @ts-ignore
 import { InputGetPaginatedGroups } from '../model/inputGetPaginatedGroups';
@@ -44,6 +46,8 @@ import { PerunException } from '../model/perunException';
 import { RichGroup } from '../model/richGroup';
 // @ts-ignore
 import { RichMember } from '../model/richMember';
+// @ts-ignore
+import { RoleAssignmentType } from '../model/roleAssignmentType';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -2729,6 +2733,8 @@ export class GroupsManagerService {
    * Returns full list of all RichGroups containing selected attributes.
    * @param vo id of Vo
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param roles list of roles: GROUPADMIN, GROUPOBSERVER, GROUPMEMBERSHIPMANAGER
+   * @param types list of role types: DIRECT, INDIRECT
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -2736,6 +2742,8 @@ export class GroupsManagerService {
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
@@ -2744,6 +2752,8 @@ export class GroupsManagerService {
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
@@ -2752,6 +2762,8 @@ export class GroupsManagerService {
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
@@ -2760,6 +2772,8 @@ export class GroupsManagerService {
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
@@ -2786,6 +2800,24 @@ export class GroupsManagerService {
           localVarQueryParameters,
           <any>element,
           'attrNames'
+        );
+      });
+    }
+    if (roles) {
+      roles.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'roles[]'
+        );
+      });
+    }
+    if (types) {
+      types.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'types[]'
         );
       });
     }
@@ -2855,6 +2887,8 @@ export class GroupsManagerService {
    * Returns all AllRichSubGroups from parent group containing selected attributes (all level subgroups).
    * @param group id of Group
    * @param attrNames list of attribute names List&lt;String&gt; or null
+   * @param roles list of roles: GROUPADMIN, GROUPOBSERVER, GROUPMEMBERSHIPMANAGER
+   * @param types list of role types: DIRECT, INDIRECT
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -2862,6 +2896,8 @@ export class GroupsManagerService {
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
     attrNames?: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
@@ -2870,6 +2906,8 @@ export class GroupsManagerService {
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
     attrNames?: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
@@ -2878,6 +2916,8 @@ export class GroupsManagerService {
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
     attrNames?: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
@@ -2886,6 +2926,8 @@ export class GroupsManagerService {
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
     attrNames?: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
@@ -2907,6 +2949,24 @@ export class GroupsManagerService {
           localVarQueryParameters,
           <any>element,
           'attrNames[]'
+        );
+      });
+    }
+    if (roles) {
+      roles.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'roles[]'
+        );
+      });
+    }
+    if (types) {
+      types.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'types[]'
         );
       });
     }
@@ -4919,6 +4979,8 @@ export class GroupsManagerService {
    * Returns full list of member\&#39;s RichGroups containing selected attributes. \&#39;members\&#39; group is not included! Supported are attributes from these namespaces: - group - member-group
    * @param member id of Member
    * @param attrNames list of attribute names List&lt;String&gt;
+   * @param roles list of roles: GROUPADMIN, GROUPOBSERVER, GROUPMEMBERSHIPMANAGER
+   * @param types list of role types: DIRECT, INDIRECT
    * @param useNon if set to true sends the request to the backend server as 'non' instead of the usual (oauth, krb...).
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -4926,6 +4988,8 @@ export class GroupsManagerService {
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
@@ -4934,6 +4998,8 @@ export class GroupsManagerService {
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
@@ -4942,6 +5008,8 @@ export class GroupsManagerService {
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
@@ -4950,6 +5018,8 @@ export class GroupsManagerService {
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
     attrNames: Array<string>,
+    roles?: Array<GroupAdminRoles>,
+    types?: Array<RoleAssignmentType>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
@@ -4980,6 +5050,24 @@ export class GroupsManagerService {
           localVarQueryParameters,
           <any>element,
           'attrNames'
+        );
+      });
+    }
+    if (roles) {
+      roles.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'roles[]'
+        );
+      });
+    }
+    if (types) {
+      types.forEach((element) => {
+        localVarQueryParameters = this.addToHttpParams(
+          localVarQueryParameters,
+          <any>element,
+          'types[]'
         );
       });
     }

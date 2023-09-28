@@ -9,15 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Group } from './group';
-import { Vo } from './vo';
 
-export interface ApplicationForm {
-  id?: number;
-  vo?: Vo;
-  group?: Group | null;
-  automaticApproval?: boolean;
-  automaticApprovalExtension?: boolean;
-  automaticApprovalEmbedded?: boolean;
-  moduleClassNames?: Array<string>;
-}
+/**
+ * type of role assignment
+ */
+export type RoleAssignmentType = 'DIRECT' | 'INDIRECT';
+
+export const RoleAssignmentType = {
+  DIRECT: 'DIRECT' as RoleAssignmentType,
+  INDIRECT: 'INDIRECT' as RoleAssignmentType,
+};

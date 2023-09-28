@@ -4,7 +4,12 @@ import { CreateGroupDialogComponent } from '../../../../shared/components/dialog
 import { SelectionModel } from '@angular/cdk/collections';
 import { DeleteGroupDialogComponent } from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { Group, GroupsManagerService } from '@perun-web-apps/perun/openapi';
+import {
+  Group,
+  GroupAdminRoles,
+  GroupsManagerService,
+  RoleAssignmentType,
+} from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_GROUP_SUBGROUPS } from '@perun-web-apps/config/table-config';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -29,6 +34,8 @@ export class GroupSubgroupsComponent implements OnInit {
   group: Group;
   groups: Group[] = [];
   selected = new SelectionModel<Group>(true, []);
+  selectedRoles: GroupAdminRoles[] = [];
+  selectedRoleTypes: RoleAssignmentType[] = [];
   showGroupList = false;
   loading: boolean;
   filtering = false;
@@ -120,15 +127,20 @@ export class GroupSubgroupsComponent implements OnInit {
   refreshTable(): void {
     this.loading = true;
     this.groupService
-      .getAllRichSubGroupsWithGroupAttributesByNames(this.group.id, [
-        Urns.GROUP_DEF_MAIL_FOOTER,
-        Urns.GROUP_SYNC_ENABLED,
-        Urns.GROUP_LAST_SYNC_STATE,
-        Urns.GROUP_LAST_SYNC_TIMESTAMP,
-        Urns.GROUP_STRUCTURE_SYNC_ENABLED,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
-      ])
+      .getAllRichSubGroupsWithGroupAttributesByNames(
+        this.group.id,
+        [
+          Urns.GROUP_DEF_MAIL_FOOTER,
+          Urns.GROUP_SYNC_ENABLED,
+          Urns.GROUP_LAST_SYNC_STATE,
+          Urns.GROUP_LAST_SYNC_TIMESTAMP,
+          Urns.GROUP_STRUCTURE_SYNC_ENABLED,
+          Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
+          Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
+        ],
+        this.selectedRoles,
+        this.selectedRoleTypes
+      )
       .subscribe((groups) => {
         this.groups = groups;
         this.selected.clear();
@@ -140,6 +152,16 @@ export class GroupSubgroupsComponent implements OnInit {
   applyFilter(filterValue: string): void {
     this.filterValue = filterValue;
     this.filtering = filterValue !== '';
+  }
+
+  applyRoles(roles: GroupAdminRoles[]): void {
+    this.selectedRoles = roles;
+    this.refreshTable();
+  }
+
+  applyRoleTypes(types: RoleAssignmentType[]): void {
+    this.selectedRoleTypes = types;
+    this.refreshTable();
   }
 
   onMoveGroup(group: GroupFlatNode | Group): void {

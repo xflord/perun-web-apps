@@ -347,7 +347,7 @@
       "TITLE_SUBGROUPS": "Subgroups",
       "LIST_VIEW": "List view",
       "TREE_VIEW": "Tree view",
-      "FILTER": "Filter",
+      "FILTER": "Search by name, id, description",
       "NO_GROUPS": "No groups found",
       "GROUP_SYNCED": "Synchronized",
       "GROUP_NOT_SYNCED": "Not synchronized",
@@ -893,7 +893,8 @@
       "REMOVE": "Remove",
       "REMOVE_PERMISSION_HINT": "You don't have permission to remove some of the selected groups.",
       "LIST_VIEW": "List view",
-      "TREE_VIEW": "Tree view"
+      "TREE_VIEW": "Tree view",
+      "FILTER": "Search by name, id, description"
     },
     "APPLICATIONS": {
       "TITLE": "Application",
@@ -2908,6 +2909,10 @@
         "LOGIN_SHORT": "Login is too short",
         "LOGIN_DISABLED": "To enter the login, you need to select a namespace first",
         "LOGIN_DISABLED_FOR_NAMESPACE": "Logins in this namespace are generated automatically."
+      },
+      "GROUP_ROLES_FILTER": {
+        "FILTER_ROLES": "Filter by role",
+        "FILTER_ROLE_TYPES": "Filter by role assigment"
       }
     },
     "IDENTITY_DETAIL": {

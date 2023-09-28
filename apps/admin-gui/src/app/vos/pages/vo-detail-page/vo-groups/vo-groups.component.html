@@ -24,6 +24,13 @@
       {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
     </button>
   </span>
+
+  <app-group-roles-filter
+    [theme]="'vo-theme'"
+    (filterRoles)="applyRoles($event)"
+    (filterRoleTypes)="applyRoleTypes($event)">
+  </app-group-roles-filter>
+
   <perun-web-apps-debounce-filter
     (filter)="applyFilter($event)"
     [placeholder]="'VO_DETAIL.GROUPS.FILTER'">

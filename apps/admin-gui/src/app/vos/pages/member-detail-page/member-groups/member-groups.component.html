@@ -21,9 +21,16 @@
     {{'MEMBER_DETAIL.GROUPS.REMOVE' | translate}}
   </button>
 </span>
+
+<app-group-roles-filter
+  [theme]="'member-theme'"
+  (filterRoles)="applyRoles($event)"
+  (filterRoleTypes)="applyRoleTypes($event)">
+</app-group-roles-filter>
+
 <perun-web-apps-debounce-filter
   (filter)="applyFilter($event)"
-  [placeholder]="'SHARED_LIB.PERUN.COMPONENTS.RESOURCES_LIST.TABLE_SEARCH'">
+  [placeholder]="'MEMBER_DETAIL.GROUPS.FILTER'">
 </perun-web-apps-debounce-filter>
 <label class="slide-label" (click)="labelToggle()">
   {{'MEMBER_DETAIL.GROUPS.TREE_VIEW' | translate}}

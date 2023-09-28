@@ -66,6 +66,9 @@ import { GlobalNamespacePipe } from './global-namespace.pipe';
 import { LastSuccessfulPropagationPipe } from './last-successful-propagation.pipe';
 import { ActiveSideMenuItemPipe } from './active-side-menu-item.pipe';
 import { ApplicationStatePipe } from './application-state.pipe';
+import { GroupRolePipe } from './group-role.pipe';
+import { GroupRoleTypePipe } from './group-role-type.pipe';
+import { SelectedRoleFilterValuesPipe } from './selected-role-filter-values.pipe';
 
 @NgModule({
   declarations: [
@@ -136,6 +139,9 @@ import { ApplicationStatePipe } from './application-state.pipe';
     LastSuccessfulPropagationPipe,
     ActiveSideMenuItemPipe,
     ApplicationStatePipe,
+    GroupRolePipe,
+    GroupRoleTypePipe,
+    SelectedRoleFilterValuesPipe,
   ],
   exports: [
     ResourceTagsToStringPipe,
@@ -205,6 +211,9 @@ import { ApplicationStatePipe } from './application-state.pipe';
     LastSuccessfulPropagationPipe,
     ActiveSideMenuItemPipe,
     ApplicationStatePipe,
+    GroupRolePipe,
+    GroupRoleTypePipe,
+    SelectedRoleFilterValuesPipe,
   ],
   imports: [CommonModule],
 })
