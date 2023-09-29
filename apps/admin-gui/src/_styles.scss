@@ -94,10 +94,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .vo-btn {
   background: var(--vo-color);
-  color: rgba(var(--vo-color-text), 1);
+  color: var(--vo-color-text);
 
   &:hover {
-    color: rgba(var(--vo-color-text), 1);
+    color: var(--vo-color-text);
   }
 }
 
@@ -106,7 +106,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--vo-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -163,10 +163,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .facility-btn {
   background-color: var(--facility-color);
-  color: rgba(var(--facility-color-text), 1);
+  color: var(--facility-color-text);
 
   &:hover {
-    color: rgba(var(--facility-color-text), 1);
+    color: var(--facility-color-text);
   }
 }
 
@@ -175,7 +175,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--facility-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -232,10 +232,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .resource-btn {
   background-color: var(--resource-color);
-  color: rgba(var(--resource-color-text), 1);
+  color: var(--resource-color-text);
 
   &:hover {
-    color: rgba(var(--resource-color-text), 1);
+    color: var(--resource-color-text);
   }
 }
 
@@ -244,7 +244,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--resource-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -301,10 +301,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .group-btn {
   background: var(--group-color);
-  color: rgba(var(--group-color-text), 1);
+  color: var(--group-color-text);
 
   &:hover {
-    color: rgba(var(--group-color-text), 1);
+    color: var(--group-color-text);
   }
 }
 
@@ -313,7 +313,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--group-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -370,10 +370,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .member-btn {
   background-color: var(--member-color);
-  color: rgba(var(--member-color-text), 1);
+  color: var(--member-color-text);
 
   &:hover {
-    color: rgba(var(--member-color-text), 1);
+    color: var(--member-color-text);
   }
 }
 
@@ -382,7 +382,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--member-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -439,10 +439,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .admin-btn {
   background-color: var(--admin-color);
-  color: rgba(var(--admin-color-text), 1);
+  color: var(--admin-color-text);
 
   &:hover {
-    color: rgba(var(--admin-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -499,10 +499,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .user-btn {
   background-color: var(--user-color);
-  color: rgba(var(--user-color-text), 1);
+  color: var(--user-color-text);
 
   &:hover {
-    color: rgba(var(--user-color-text), 1);
+    color: var(--user-color-text);
   }
 }
 
@@ -511,7 +511,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--user-color-text), 1);
+    color: #000000;
   }
 }
 
@@ -568,10 +568,10 @@ mat.$theme-ignore-duplication-warnings: true;
 
 .service-btn {
   background-color: var(--service-color);
-  color: rgba(var(--service-color-text), 1);
+  color: var(--service-color-text);
 
   &:hover {
-    color: rgba(var(--service-color-text), 1);
+    color: var(--service-color-text);
   }
 }
 
@@ -580,7 +580,7 @@ mat.$theme-ignore-duplication-warnings: true;
   text-decoration: underline;
 
   &:hover {
-    color: rgba(var(--service-color-text), 1);
+    color: #000000;
   }
 }
 
