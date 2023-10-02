@@ -445,10 +445,10 @@
         },
         "WIDGET_DESCRIPTION": {
           "HEADING": "Item is used to display customizable heading of the form. Can have any HTML content.",
-          "SUBMIT_BUTTON": "Button used to submit the form with a custom label. All other form items are checked on valid input before submission. If it fails, form is not sent.",
+          "SUBMIT_BUTTON": "Button used to submit the form with a custom label. All other form items are checked on valid input before submission. If it fails, form will not be sent.",
           "HTML_COMMENT": "Item is used to display custom HTML content anywhere on the form. Useful for explanation descriptions, dividing parts of form, etc.",
           "TEXTFIELD": "Editable text field useful to gather short text input, e.g. name, phone.",
-          "VALIDATED_EMAIL": "Special text field to gather and verify user`s email address. Input is checked on email address format. If a user enters a new value, then a validation email is sent. The application then can't be approved unless the provided email address is validated.",
+          "VALIDATED_EMAIL": "Special text field to gather and verify user`s email address. Input is checked on email address format. If a user enters a new value, then a validation email will be sent. The application then can't be approved unless the provided email address is validated.",
           "SELECTIONBOX": "Simple selection box with defined custom values that user can choose.",
           "USERNAME": "Special text field to gather user`s login. It checks login availability on user input.",
           "PASSWORD": "Two password fields to gather the user's new password. Input is never displayed. The user must type the same password in both fields.",
@@ -672,7 +672,7 @@
         "APPROVE": "Applications were successfully approved.",
         "REJECT": "Applications were successfully rejected.",
         "DELETE": "Applications were successfully deleted.",
-        "RESEND": "Notifications for applications were re-send."
+        "RESEND": "Notifications for applications were re-sent."
       },
 
       "APPLICATION_DETAIL": {
@@ -1191,7 +1191,7 @@
       "LANGUAGE_ENGLISH": "English",
       "LANGUAGE_CZECH": "Czech",
       "EMAIL_ERROR": "Fill in an correct email!",
-      "SUCCESS": "Invite was send to given email",
+      "SUCCESS": "Invite was sent to given email",
       "NAME_ERROR": "Name cannot be empty"
     },
     "DELETE_ATTRIBUTES": {
@@ -2215,7 +2215,7 @@
       "TITLE": "Password reset request",
       "LANGUAGE": "Language",
       "NAMESPACE": "Namespace",
-      "EMAIL": "Email, where the request will be send",
+      "EMAIL": "Email, where the request will be sent",
       "LOGIN": "Login:",
       "SEND": "Send",
       "CANCEL": "Cancel",
