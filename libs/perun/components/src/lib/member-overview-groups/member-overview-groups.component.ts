@@ -66,9 +66,10 @@ export class MemberOverviewGroupsComponent implements OnInit {
   groupIsSelected(group: RichGroup): void {
     this.loading = true;
     this.selectedGroup = group;
-    this.editAuth =
-      this.authResolver.isThisVoAdmin(this.voId) ||
-      this.authResolver.isThisGroupAdmin(this.selectedGroup.id);
+    this.editAuth = this.authResolver.isAuthorized(
+      'setMemberGroupStatus_Member_Group_MemberGroupStatus_policy',
+      [this.selectedGroup]
+    );
 
     this.groupsManager
       .getGroupRichMembersByIds(
