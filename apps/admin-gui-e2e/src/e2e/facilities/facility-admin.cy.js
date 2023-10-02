@@ -132,7 +132,7 @@ describe('Facility management with role Facility admin', () => {
       .get('[data-cy=attributes]')
       .click()
       .get('[data-cy=add-attributes]')
-      .click()
+      .click({ force: true })
       .get('.mat-mdc-dialog-container')
       .find('[data-cy=filter-input]') // finds the data-cy attribute inside the dialog container
       .type('Login namespace', {force: true})
@@ -165,7 +165,7 @@ describe('Facility management with role Facility admin', () => {
       .get(`[data-cy=${deleteAttribute}-checkbox]`)
       .click()
       .get('[data-cy=remove-attributes]')
-      .click()
+      .click({ force: true })
       .get('[data-cy=delete-attributes]')
       .click()
       .intercept('**/attributesManager/getAttributes/**')

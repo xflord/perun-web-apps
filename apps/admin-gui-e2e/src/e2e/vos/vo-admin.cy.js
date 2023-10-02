@@ -50,7 +50,7 @@ describe('VO management with role VO admin', () => {
       .get('[data-cy=attributes]')
       .click()
       .get('[data-cy=add-attributes]')
-      .click()
+      .click({ force: true })
       // get attribute Notification default language
       .get(`[data-cy=${addedAttribute}-value]`)
       .type('en', {force: true})
@@ -82,7 +82,7 @@ describe('VO management with role VO admin', () => {
       .get('[data-cy=link-to-aup-checkbox]')
       .click()
       .get('[data-cy=remove-attributes]')
-      .click()
+      .click({ force: true })
       .intercept('**/attributesManager/getAttributes/vo**')
       .as('getAttributes')
       .get('[data-cy=delete-attributes]')

@@ -260,7 +260,7 @@ describe('Group management with role Group admin', () => {
         .get(`[data-cy=${dbGroupManager}-checkbox]`)
         .click()
         .get('[data-cy=remove-manager-button]')
-        .click()
+        .click({ force: true })
         .intercept('**/authzResolver/getRichAdmins**')
         .as('getRichAdmins')
         .get('[data-cy=remove-manager-button-dialog]')
