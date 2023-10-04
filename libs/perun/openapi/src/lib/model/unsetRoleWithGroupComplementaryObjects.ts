@@ -18,7 +18,7 @@ export interface UnsetRoleWithGroupComplementaryObjects {
   role: string;
   authorizedGroup?: number;
   /**
-   * List of complementary objects
+   * List of complementary objects (supported objects: Group | RichGroup | Vo | Resource | Facility | SecurityTeam )
    */
   complementaryObjects?: Array<PerunBean>;
 }

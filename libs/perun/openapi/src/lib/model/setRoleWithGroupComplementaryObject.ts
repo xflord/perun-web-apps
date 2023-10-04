@@ -12,7 +12,7 @@
 import { PerunBean } from './perunBean';
 
 /**
- * input to unsetRoleWithUserComplementaryObject
+ * input to unsetRoleWithUserComplementaryObject (supported objects: Group | RichGroup | Vo | Resource | Facility | SecurityTeam )
  */
 export interface SetRoleWithGroupComplementaryObject {
   role: string;

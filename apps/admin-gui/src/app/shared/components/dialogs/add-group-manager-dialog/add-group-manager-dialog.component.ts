@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService } from '@perun-web-apps/perun/services';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
@@ -9,9 +8,9 @@ import { UntypedFormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {
   AuthzResolverService,
-  Facility,
   Group,
   GroupsManagerService,
+  PerunBean,
   RoleManagementRules,
   Vo,
   VosManagerService,
@@ -21,7 +20,7 @@ import { TABLE_SELECT_GROUP_MANAGER_DIALOG } from '@perun-web-apps/config/table-
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface AddGroupManagerDialogData {
-  complementaryObject: Vo | Group | Facility;
+  complementaryObject: PerunBean;
   availableRoles: RoleManagementRules[];
   theme: string;
   selectedRole: Role;
@@ -60,15 +59,13 @@ export class AddGroupManagerDialogComponent implements OnInit {
     private authzService: AuthzResolverService,
     private voService: VosManagerService,
     private groupService: GroupsManagerService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
     protected router: Router
   ) {
-    translate.get('DIALOGS.ADD_GROUPS.TITLE').subscribe((value: string) => (this.title = value));
-    translate
-      .get('DIALOGS.ADD_GROUPS.SUCCESS')
-      .subscribe((value: string) => (this.successMessage = value));
+    this.title = this.translate.instant('DIALOGS.ADD_GROUPS.TITLE');
+    this.successMessage = this.translate.instant('DIALOGS.ADD_GROUPS.SUCCESS');
   }
 
   displayFn(vo?: Vo): string | undefined {

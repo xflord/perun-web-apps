@@ -1,13 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { GuiAuthResolver, NotificatorService, StoreService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthzResolverService, Facility, Group, RichUser, Vo } from '@perun-web-apps/perun/openapi';
+import {
+  GuiAuthResolver,
+  NotificatorService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
+import { AuthzResolverService, PerunBean, RichUser } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 export interface RemoveManagerDialogData {
-  complementaryObject: Vo | Group | Facility;
+  complementaryObject: PerunBean;
   managers: RichUser[];
   role: Role;
   theme: string;
@@ -29,7 +33,7 @@ export class RemoveManagerDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<RemoveManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveManagerDialogData,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private authzService: AuthzResolverService,
     private store: StoreService,
     private authService: GuiAuthResolver
@@ -55,18 +59,13 @@ export class RemoveManagerDialogComponent implements OnInit {
         users: this.data.managers.map((manager) => manager.id),
         complementaryObject: this.data.complementaryObject,
       })
-      .subscribe(
-        () => {
-          this.translate.get('DIALOGS.REMOVE_MANAGERS.SUCCESS').subscribe(
-            (successMessage: string) => {
-              this.notificator.showSuccess(successMessage);
-              this.loading = false;
-              this.dialogRef.close(true);
-            },
-            () => (this.loading = false)
-          );
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_MANAGERS.SUCCESS'));
+          this.loading = false;
+          this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

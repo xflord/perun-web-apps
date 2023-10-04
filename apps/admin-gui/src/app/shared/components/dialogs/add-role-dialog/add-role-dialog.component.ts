@@ -15,6 +15,7 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { ToEnrichedFacilityPipe } from '@perun-web-apps/perun/pipes';
 import { DebounceFilterComponent } from '@perun-web-apps/perun/components';
+import { combineLatestWith } from 'rxjs/operators';
 
 export interface AddRoleDialogData {
   entityId: number;
@@ -64,6 +65,7 @@ export class AddRoleDialogComponent implements OnInit {
   }
 
   loadObjects(): void {
+    this.loading = true;
     if (this.rules.some((rule) => rule.primaryObject === 'Facility')) {
       // Not callable by SELF, need to check privilege
       this.facilityService.getAllFacilities().subscribe({
@@ -74,12 +76,18 @@ export class AddRoleDialogComponent implements OnInit {
     if (this.rules.some((rule) => rule.primaryObject === 'Vo')) {
       this.voService.getMyVos().subscribe({ next: (vos) => (this.vos = vos) });
     }
+
     this.groupService
       .getAllGroupsFromAllVos()
-      .subscribe({ next: (groups) => (this.groups = groups) });
-    this.resourceService.getAllResources().subscribe({
-      next: (resources) => (this.resources = resources),
-    });
+      .pipe(combineLatestWith(this.resourceService.getAllResources()))
+      .subscribe({
+        next: ([groups, resources]) => {
+          this.groups = groups;
+          this.resources = resources;
+          this.loading = false;
+        },
+        error: () => (this.loading = false),
+      });
   }
 
   cancel(): void {

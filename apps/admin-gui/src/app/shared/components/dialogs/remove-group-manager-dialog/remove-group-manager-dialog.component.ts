@@ -1,13 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { NotificatorService } from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthzResolverService, Facility, Group, Vo } from '@perun-web-apps/perun/openapi';
+import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun/services';
+import { AuthzResolverService, Group, PerunBean } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 
 export interface RemoveGroupDialogData {
-  complementaryObject: Vo | Group | Facility;
+  complementaryObject: PerunBean;
   groups: Group[];
   role: Role;
   theme: string;
@@ -28,7 +27,7 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<RemoveGroupManagerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupDialogData,
     private notificator: NotificatorService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private authzService: AuthzResolverService
   ) {}
 
@@ -49,18 +48,13 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
         authorizedGroups: this.data.groups.map((group) => group.id),
         complementaryObject: this.data.complementaryObject,
       })
-      .subscribe(
-        () => {
-          this.translate.get('DIALOGS.REMOVE_GROUPS.SUCCESS').subscribe(
-            (successMessage: string) => {
-              this.notificator.showSuccess(successMessage);
-              this.loading = false;
-              this.dialogRef.close(true);
-            },
-            () => (this.loading = false)
-          );
+      .subscribe({
+        next: () => {
+          this.notificator.showSuccess(this.translate.instant('DIALOGS.REMOVE_GROUPS.SUCCESS'));
+          this.loading = false;
+          this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

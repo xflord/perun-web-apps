@@ -7,12 +7,10 @@ import { RemoveGroupManagerDialogComponent } from '../dialogs/remove-group-manag
 import { AddGroupManagerDialogComponent } from '../dialogs/add-group-manager-dialog/add-group-manager-dialog.component';
 import {
   AuthzResolverService,
-  Facility,
   Group,
-  Resource,
+  PerunBean,
   RichUser,
   RoleManagementRules,
-  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { Urns } from '@perun-web-apps/perun/urns';
 import { TABLE_GROUP_MANAGERS_PAGE } from '@perun-web-apps/config/table-config';
@@ -32,7 +30,7 @@ import { mergeMap, tap } from 'rxjs/operators';
 })
 export class ManagersPageComponent implements OnInit {
   @HostBinding('class.router-component') true;
-  @Input() complementaryObject: Group | Vo | Facility | Resource;
+  @Input() complementaryObject: PerunBean;
   @Input() availableRoles: RoleManagementRules[];
   @Input() complementaryObjectType: string;
   @Input() theme: string;

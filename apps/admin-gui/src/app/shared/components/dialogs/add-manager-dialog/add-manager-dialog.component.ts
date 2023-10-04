@@ -1,17 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificatorService, StoreService } from '@perun-web-apps/perun/services';
+import {
+  NotificatorService,
+  PerunTranslateService,
+  StoreService,
+} from '@perun-web-apps/perun/services';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   AuthzResolverService,
-  Facility,
-  Group,
+  PerunBean,
   RichUser,
   RoleManagementRules,
   UsersManagerService,
-  Vo,
 } from '@perun-web-apps/perun/openapi';
 import { Role } from '@perun-web-apps/perun/models';
 import { TABLE_ADD_MANAGER } from '@perun-web-apps/config/table-config';
@@ -19,7 +20,7 @@ import { Urns } from '@perun-web-apps/perun/urns';
 import { UntypedFormControl, Validators } from '@angular/forms';
 
 export interface AddManagerDialogData {
-  complementaryObject: Vo | Group | Facility;
+  complementaryObject: PerunBean;
   theme: string;
   availableRoles: RoleManagementRules[];
   selectedRole: Role;
@@ -48,16 +49,14 @@ export class AddManagerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddManagerDialogData,
     private authzService: AuthzResolverService,
     private usersService: UsersManagerService,
-    private translate: TranslateService,
+    private translate: PerunTranslateService,
     private notificator: NotificatorService,
     private storeService: StoreService,
     protected route: ActivatedRoute,
     protected router: Router
   ) {
-    translate.get('DIALOGS.ADD_MANAGERS.TITLE').subscribe((value: string) => (this.title = value));
-    translate
-      .get('DIALOGS.ADD_MANAGERS.SUCCESS')
-      .subscribe((value: string) => (this.successMessage = value));
+    this.title = this.translate.instant('DIALOGS.ADD_MANAGERS.TITLE');
+    this.successMessage = this.translate.instant('DIALOGS.ADD_MANAGERS.SUCCESS');
   }
 
   ngOnInit(): void {
