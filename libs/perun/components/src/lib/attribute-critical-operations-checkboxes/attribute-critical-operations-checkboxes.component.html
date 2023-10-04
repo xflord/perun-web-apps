@@ -1,5 +1,6 @@
 <mat-checkbox
   class="checkbox-main"
+  data-cy="checkbox-read-operation"
   labelPosition="after"
   [(ngModel)]="readOperation"
   (change)="changeReadOperation()"
@@ -14,6 +15,7 @@
     (change)="readGlobalChanged.emit(readGlobal)"
     matTooltipPosition="after"
     matTooltip="{{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL_READ_TOOLTIP'| translate}}"
+    data-cy="checkbox-read-critical"
     class="ms-4 fst-italic">
     {{'SHARED_LIB.PERUN.COMPONENTS.ATTRIBUTE_CRITICAL_OPERATIONS_CHECKBOX.GLOBAL' | translate}}
   </mat-checkbox>
