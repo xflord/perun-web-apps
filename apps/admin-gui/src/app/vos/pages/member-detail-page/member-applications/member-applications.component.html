@@ -16,7 +16,7 @@
   <perun-web-apps-loading-table></perun-web-apps-loading-table>
 </ng-template>
 <div class="position-relative">
-  <app-applications-dynamic-list
+  <perun-web-apps-applications-dynamic-list
     *perunWebAppsLoader="loading$ | async; indicator: spinner"
     (loading$)="loading$ = $event"
     [tableId]="showAllDetails ? detailTableId : tableId"
@@ -26,5 +26,5 @@
     [states]=""
     [dateFrom]="dateFrom"
     [refreshTable]="refresh">
-  </app-applications-dynamic-list>
+  </perun-web-apps-applications-dynamic-list>
 </div>
