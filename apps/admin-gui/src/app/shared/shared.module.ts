@@ -148,7 +148,6 @@ import { StatisticsCardComponent } from './components/statistics-card/statistics
 import { ApplicationFormItemDisabledPipe } from './pipes/application-form-item-disabled.pipe';
 import { ApplicationFormItemHiddenPipe } from './pipes/application-form-item-hidden.pipe';
 import { MatListModule } from '@angular/material/list';
-import { EditApplicationFormItemLineComponent } from './components/dialogs/edit-application-form-item-dialog/edit-application-form-item-line/edit-application-form-item-line.component';
 import { AddGroupToRegistrationComponent } from './components/dialogs/add-group-to-registration/add-group-to-registration.component';
 import { OneEntityAttributePageComponent } from './components/one-entity-attribute-page/one-entity-attribute-page.component';
 import { PerunUtilsModule } from '@perun-web-apps/perun/utils';
@@ -437,7 +436,6 @@ import { ApplicationsBulkOperationDialogComponent } from './components/dialogs/a
     StatisticsCardComponent,
     ApplicationFormItemDisabledPipe,
     ApplicationFormItemHiddenPipe,
-    EditApplicationFormItemLineComponent,
     AddGroupToRegistrationComponent,
     OneEntityAttributePageComponent,
     AddResourceTagToResourceDialogComponent,
