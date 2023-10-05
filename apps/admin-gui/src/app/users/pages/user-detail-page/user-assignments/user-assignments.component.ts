@@ -5,6 +5,8 @@ import {
   Facility,
   Member,
   Resource,
+  ResourcesManagerService,
+  UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
 import { compareFnName } from '@perun-web-apps/perun/utils';
 
@@ -21,7 +23,12 @@ export class UserAssignmentsComponent implements OnInit {
   member: Member = null;
   resources: Resource[] = [];
   userId: number;
-  constructor(private route: ActivatedRoute, private facilityService: FacilitiesManagerService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private facilityService: FacilitiesManagerService,
+    private usersService: UsersManagerService,
+    private resourcesService: ResourcesManagerService
+  ) {}
 
   ngOnInit(): void {
     this.initLoading = true;
@@ -43,12 +50,21 @@ export class UserAssignmentsComponent implements OnInit {
   loadFacility(facility: Facility): void {
     this.loading = true;
     this.selectedFacility = facility;
-    this.facilityService.getAssignedRichResourcesForFacility(facility.id).subscribe({
-      next: (resources) => {
-        this.resources = resources;
-        this.loading = false;
-      },
-      error: () => (this.loading = false),
-    });
+    this.usersService
+      .getAssociatedResourcesForUser(this.selectedFacility.id, this.userId)
+      .subscribe({
+        next: (resources) => {
+          this.resourcesService
+            .getRichResourcesByIds(resources.map((resource) => resource.id))
+            .subscribe({
+              next: (richResources) => {
+                this.resources = richResources;
+                this.loading = false;
+              },
+              error: () => (this.loading = false),
+            });
+        },
+        error: () => (this.loading = false),
+      });
   }
 }
