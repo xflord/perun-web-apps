@@ -52,6 +52,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
           this.vosIds.push(item.id);
           break;
         }
+        case 'RichGroup':
         case 'Group': {
           this.groupsIds.push(item.id);
           break;
@@ -127,6 +128,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
           }
           break;
         }
+        case 'RichGroup':
         case 'Group': {
           const filteredGroup = this.groups.filter((group) => group.id === item.id)[0];
           if (filteredGroup) {

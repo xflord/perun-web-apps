@@ -311,7 +311,7 @@ export function addRecentlyVisitedObject(item: Vo & Facility & Group, voName?: s
   if (localStorage.getItem('recent') === null) {
     // if user not have any in local storage
     let recent;
-    if (item.beanName === 'Group') {
+    if (item.beanName.includes('Group')) {
       recent = [
         {
           id: item.id,
@@ -329,7 +329,7 @@ export function addRecentlyVisitedObject(item: Vo & Facility & Group, voName?: s
   } else {
     const recent: RecentEntity[] = JSON.parse(localStorage.getItem('recent')) as RecentEntity[];
     let object: RecentEntity;
-    if (item.beanName === 'Group') {
+    if (item.beanName.includes('Group')) {
       object = {
         id: item.id,
         name: item.shortName,
