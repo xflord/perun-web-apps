@@ -1,9 +1,9 @@
 <h1 class="page-subtitle">
   {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.TITLE' | translate}}
 </h1>
-<mat-spinner *ngIf="loading" class="ms-auto me-auto"> </mat-spinner>
+<mat-spinner *ngIf="loadingHeader" class="ms-auto me-auto"> </mat-spinner>
 <div *ngIf="!noApplicationForm">
-  <div *ngIf="!loading" class="d-flex w-75">
+  <div *ngIf="!loadingHeader" class="d-flex w-75">
     <div>
       <div class="fw-bold">
         {{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.MODULE_NAMES' | translate}}:
@@ -105,7 +105,7 @@
   </ng-template>
   <div class="position-relative">
     <app-application-form-list
-      *perunWebAppsLoader="loading; indicator: spinner"
+      *perunWebAppsLoader="loadingTable; indicator: spinner"
       (applicationFormItemsChange)="changeItems()"
       [applicationForm]="applicationForm"
       [applicationFormItems]="applicationFormItems"
@@ -115,7 +115,7 @@
     </app-application-form-list>
   </div>
 </div>
-<div *ngIf="!loading && noApplicationForm">
+<div *ngIf="!loadingTable && noApplicationForm">
   <perun-web-apps-alert
     alert_type="warn"
     >{{'GROUP_DETAIL.SETTINGS.APPLICATION_FORM.NO_APPLICATION_FORM' | translate}}</perun-web-apps-alert

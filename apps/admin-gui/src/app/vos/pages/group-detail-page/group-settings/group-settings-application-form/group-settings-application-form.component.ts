@@ -34,7 +34,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   @HostBinding('class.router-component') true;
   @ViewChild('autoRegToggle')
   autoRegToggle: MatSlideToggle;
-  loading = false;
+  loadingHeader = false;
+  loadingTable = false;
   applicationForm: ApplicationForm;
   applicationFormItems: ApplicationFormItem[] = [];
   noApplicationForm = false;
@@ -62,7 +63,8 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loadingHeader = true;
+    this.loadingTable = true;
     this.group = this.entityStorageService.getEntity();
     this.setAuth();
     // FIXME this might not work in case of some race condition (other request finishes sooner)
@@ -80,16 +82,21 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
               )
               .subscribe((attr) => {
                 this.autoRegistrationEnabled = !!attr.value;
-                this.loading = false;
+                this.loadingHeader = false;
+                this.loadingTable = false;
               });
           },
-          () => (this.loading = false)
+          () => {
+            this.loadingHeader = false;
+            this.loadingTable = false;
+          }
         );
       },
       (error: RPCError) => {
         if (error.name === 'FormNotExistsException') {
           this.noApplicationForm = true;
-          this.loading = false;
+          this.loadingHeader = false;
+          this.loadingTable = false;
         } else {
           this.notificator.showRPCError(error);
         }
@@ -195,16 +202,16 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
   }
 
   updateFormItems(): void {
-    this.loading = true;
+    this.loadingTable = true;
     this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForGroup(this.group.id).subscribe({
       next: (formItems) => {
         this.applicationFormItems = formItems;
         this.itemsChanged = false;
         this.refreshApplicationForm = false;
-        this.loading = false;
+        this.loadingTable = false;
       },
-      error: () => (this.loading = false),
+      error: () => (this.loadingTable = false),
     });
   }
 

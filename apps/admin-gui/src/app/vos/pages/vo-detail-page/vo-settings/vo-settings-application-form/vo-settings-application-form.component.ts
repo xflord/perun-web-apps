@@ -28,7 +28,8 @@ import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
 export class VoSettingsApplicationFormComponent implements OnInit {
   static id = 'VoSettingsApplicationFormComponent';
   @HostBinding('class.router-component') true;
-  loading = false;
+  loadingHeader = false;
+  loadingTable = false;
   applicationForm: ApplicationForm;
   applicationFormItems: ApplicationFormItem[] = [];
   itemsChanged = false;
@@ -53,14 +54,16 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loading = true;
+    this.loadingHeader = true;
+    this.loadingTable = true;
     this.vo = this.entityStorageService.getEntity();
     this.setAuthRights();
     this.registrarManager.getVoApplicationForm(this.vo.id).subscribe((form) => {
       this.applicationForm = form;
       this.registrarManager.getFormItemsForVo(this.vo.id).subscribe((formItems) => {
         this.applicationFormItems = formItems;
-        this.loading = false;
+        this.loadingHeader = false;
+        this.loadingTable = false;
       });
     });
   }
@@ -142,14 +145,14 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   updateFormItems(): void {
-    this.loading = true;
+    this.loadingTable = true;
     this.refreshApplicationForm = true;
     this.registrarManager.getFormItemsForVo(this.vo.id).subscribe((formItems) => {
       this.applicationFormItems = formItems;
       this.itemsChanged = false;
       this.setAuthRights();
       this.refreshApplicationForm = false;
-      this.loading = false;
+      this.loadingTable = false;
     });
   }
 
@@ -158,7 +161,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   }
 
   save(): void {
-    this.loading = true;
+    this.loadingTable = true;
     let i = 0;
     for (const item of this.applicationFormItems) {
       item.ordnum = i;
@@ -178,7 +181,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
             });
           this.updateFormItems();
         },
-        error: () => (this.loading = false),
+        error: () => (this.loadingTable = false),
       });
   }
 
