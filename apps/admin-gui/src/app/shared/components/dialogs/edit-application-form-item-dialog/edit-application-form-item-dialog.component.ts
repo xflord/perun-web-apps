@@ -40,7 +40,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   itemType = ItemType;
   options: { [key: string]: [string, string][] };
   theme: string;
-  loading = false;
+  loading = true;
   hiddenValues: HiddenEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   disabledValues: DisabledEnum[] = ['NEVER', 'ALWAYS', 'IF_EMPTY', 'IF_PREFILLED'];
   possibleDependencyItems: ApplicationFormItem[] = [];

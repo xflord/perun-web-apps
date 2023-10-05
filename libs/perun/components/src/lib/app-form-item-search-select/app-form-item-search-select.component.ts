@@ -12,6 +12,8 @@ export const NO_FORM_ITEM: ApplicationFormItem = {};
 export class AppFormItemSearchSelectComponent {
   @Input() items: ApplicationFormItem[];
   @Input() item: ApplicationFormItem = null;
+  @Input() label: string;
+  @Input() hint = '';
   @Output() itemSelected = new EventEmitter<ApplicationFormItem>();
   constructor(private translate: TranslateService) {}
 

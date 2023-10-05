@@ -6,7 +6,8 @@
   [entity]="item"
   (entitySelected)="itemSelected.emit($event)"
   [disableAutoSelect]="true"
-  [selectPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.SELECT_ITEM' | translate"
+  [selectPlaceholder]="label ?? 'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.SELECT_ITEM' | translate"
+  [hint]="hint"
   [findPlaceholder]="'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.FIND_ITEM' | translate"
   [noEntriesText]="'SHARED_LIB.PERUN.COMPONENTS.APP_FORM_ITEM_SEARCH_SELECT.NO_ITEM_FOUND' | translate">
 </perun-web-apps-entity-search-select>
