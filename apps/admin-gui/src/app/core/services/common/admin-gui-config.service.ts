@@ -98,7 +98,7 @@ export class AdminGuiConfigService {
     },
     {
       configValue: 'sidemenu_submenu_active_text_color',
-      cssVariable: '--sidemenu-submenu-active-test-color',
+      cssVariable: '--sidemenu-submenu-active-text-color',
     },
     {
       configValue: 'sidemenu_submenu_hover_text_color',

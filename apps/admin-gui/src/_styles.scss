@@ -442,7 +442,7 @@ mat.$theme-ignore-duplication-warnings: true;
   color: var(--admin-color-text);
 
   &:hover {
-    color: #000000;
+    color: var(--admin-color-text);
   }
 }
 
