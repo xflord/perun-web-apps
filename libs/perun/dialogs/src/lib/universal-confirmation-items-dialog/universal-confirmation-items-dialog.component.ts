@@ -7,7 +7,7 @@ export interface UniversalConfirmationItemsDialogData {
   title: string;
   description: string;
   items: string[];
-  alert: string;
+  alert?: string;
   type: 'remove' | 'confirmation';
   showAsk: boolean;
 }

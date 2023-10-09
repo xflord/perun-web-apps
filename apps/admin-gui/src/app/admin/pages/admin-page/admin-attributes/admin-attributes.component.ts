@@ -1,6 +1,9 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DeleteAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
+import {
+  DeleteAttributeDefinitionDialogComponent,
+  DeleteAttributeDefinitionDialogData,
+} from '../../../../shared/components/dialogs/delete-attribute-definition-dialog/delete-attribute-definition-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateAttributeDefinitionDialogComponent } from '../../../../shared/components/dialogs/create-attribute-definition-dialog/create-attribute-definition-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -36,7 +39,7 @@ export class AdminAttributesComponent implements OnInit {
   }
 
   onCreate(): void {
-    const config = getDefaultDialogConfig();
+    const config = getDefaultDialogConfig<never>();
     config.width = '650px';
 
     const dialogRef = this.dialog.open(CreateAttributeDefinitionDialogComponent, config);
@@ -49,7 +52,7 @@ export class AdminAttributesComponent implements OnInit {
   }
 
   onDelete(): void {
-    const config = getDefaultDialogConfig();
+    const config = getDefaultDialogConfig<DeleteAttributeDefinitionDialogData>();
     config.width = '450px';
     config.data = {
       attributes: this.selected.selected,
@@ -79,7 +82,7 @@ export class AdminAttributesComponent implements OnInit {
   }
 
   onImport(): void {
-    const config = getDefaultDialogConfig();
+    const config = getDefaultDialogConfig<never>();
     config.width = '700px';
 
     const dialogRef = this.dialog.open(AttributeImportDialogComponent, config);

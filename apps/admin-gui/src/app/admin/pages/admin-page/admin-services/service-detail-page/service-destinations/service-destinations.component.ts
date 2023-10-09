@@ -10,7 +10,10 @@ import {
   PerunTranslateService,
 } from '@perun-web-apps/perun/services';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
-import { RemoveDestinationDialogComponent } from '../../../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
+import {
+  RemoveDestinationDialogComponent,
+  RemoveDestinationDialogData,
+} from '../../../../../../shared/components/dialogs/remove-destination-dialog/remove-destination-dialog.component';
 
 @Component({
   selector: 'app-service-destinations',
@@ -63,7 +66,7 @@ export class ServiceDestinationsComponent implements OnInit {
   }
 
   onRemove(): void {
-    const config = getDefaultDialogConfig();
+    const config = getDefaultDialogConfig<RemoveDestinationDialogData>();
     config.width = '500px';
     config.data = {
       destinations: this.selection.selected,

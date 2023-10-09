@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
 import {
   PreventProxyOverloadDialogComponent,
+  PreventProxyOverloadDialogData,
   ServerDownDialogComponent,
 } from '@perun-web-apps/general';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
@@ -159,7 +160,7 @@ export class AdminGuiConfigService {
   }
 
   private handleErr(err: string & HttpErrorResponse): void {
-    const config = getDefaultDialogConfig();
+    const config = getDefaultDialogConfig<PreventProxyOverloadDialogData>();
     // FIXME: during initialization phase, it might happen that the translations are not loaded.
     if (err === 'Invalid path') {
       config.data = {

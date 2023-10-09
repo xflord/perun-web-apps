@@ -600,8 +600,8 @@ export function createNewApplicationMail(langs = ['en', 'cs']): ApplicationMail 
   return mail;
 }
 
-export function getDefaultDialogConfig(): MatDialogConfig {
-  const config = new MatDialogConfig();
+export function getDefaultDialogConfig<T>(): MatDialogConfig<T> {
+  const config = new MatDialogConfig<T>();
   config.disableClose = true;
   config.autoFocus = false;
   return config;
