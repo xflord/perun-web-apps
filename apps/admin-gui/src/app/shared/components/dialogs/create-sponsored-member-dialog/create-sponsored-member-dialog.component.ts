@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  AuthzResolverService,
   GroupsManagerService,
   InputCreateSponsoredMember,
   MembersManagerService,
@@ -18,13 +17,8 @@ import {
   User,
   UsersManagerService,
 } from '@perun-web-apps/perun/openapi';
-import {
-  ApiRequestConfigurationService,
-  GuiAuthResolver,
-  StoreService,
-} from '@perun-web-apps/perun/services';
-import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { ApiRequestConfigurationService, StoreService } from '@perun-web-apps/perun/services';
+import { FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { CustomValidators, emailRegexString, enableFormControl } from '@perun-web-apps/perun/utils';
 import { loginAsyncValidator } from '@perun-web-apps/perun/namespace-password-form';
 import { MatStepper } from '@angular/material/stepper';
@@ -54,8 +48,29 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
 
   namespaceOptions: string[] = [];
   selectedNamespace: string = null;
-  userControl: UntypedFormGroup = null;
-  namespaceControl: UntypedFormGroup = null;
+  userControl = this.formBuilder.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    titleBefore: [''],
+    titleAfter: [''],
+  });
+  namespaceControl = this.formBuilder.group(
+    {
+      namespace: ['', Validators.required],
+      login: ['', [Validators.required]],
+      passwordCtrl: [
+        '',
+        Validators.required,
+        [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)],
+      ],
+      passwordAgainCtrl: [''],
+      passwordReset: [false, []],
+      email: ['', [Validators.required, Validators.pattern(emailRegexString)]],
+    },
+    {
+      validators: CustomValidators.passwordMatchValidator as ValidatorFn,
+    }
+  );
   selectedSponsor: User = null;
   sponsorType = 'self';
   languages = ['en'];
@@ -81,10 +96,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private usersService: UsersManagerService,
     private store: StoreService,
-    private translator: TranslateService,
-    private authzService: AuthzResolverService,
-    private guiAuthResolver: GuiAuthResolver,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private groupsService: GroupsManagerService
   ) {}
@@ -121,11 +133,11 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
     const sponsoredMember: InputCreateSponsoredMember = {
       vo: this.data.voId,
       userData: {
-        firstName: this.userControl.get('firstName').value as string,
-        lastName: this.userControl.get('lastName').value as string,
-        titleAfter: this.userControl.get('titleAfter').value as string,
-        titleBefore: this.userControl.get('titleBefore').value as string,
-        email: this.namespaceControl.get('email').value as string,
+        firstName: this.userControl.value.firstName,
+        lastName: this.userControl.value.lastName,
+        titleAfter: this.userControl.value.titleAfter,
+        titleBefore: this.userControl.value.titleBefore,
+        email: this.namespaceControl.value.email,
       },
       sponsor:
         this.sponsorType === 'other'
@@ -133,29 +145,28 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
           : this.store.getPerunPrincipal().userId,
     };
 
-    const namespace: string = this.namespaceControl.get('namespace').value as string;
+    const namespace: string = this.namespaceControl.value.namespace;
     const rules = this.parsedRules.get(namespace);
     if (namespace !== 'No namespace') {
       sponsoredMember.userData.namespace = namespace;
     }
 
     if (rules.login !== 'disabled') {
-      sponsoredMember.userData.login = this.namespaceControl.get('login').value as string;
+      sponsoredMember.userData.login = this.namespaceControl.value.login;
     }
 
     if (rules.password !== 'disabled') {
-      sponsoredMember.sendActivationLink = this.namespaceControl.get('passwordReset')
-        .value as boolean;
+      sponsoredMember.sendActivationLink = this.namespaceControl.value.passwordReset;
       sponsoredMember.language = this.currentLanguage;
-      sponsoredMember.userData.password = this.namespaceControl.get('passwordCtrl').value as string;
+      sponsoredMember.userData.password = this.namespaceControl.value.passwordCtrl;
     }
 
     if (this.expiration !== 'never') {
       sponsoredMember.validityTo = this.expiration;
     }
 
-    this.membersService.createSponsoredMember(sponsoredMember).subscribe(
-      (richMember) => {
+    this.membersService.createSponsoredMember(sponsoredMember).subscribe({
+      next: (richMember) => {
         this.successfullyCreated = true;
         this.dialogRef.updateSize('600px');
         this.createdMember = richMember;
@@ -179,10 +190,10 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
         }
         this.loading = false;
       },
-      () => {
+      error: () => {
         this.loading = false;
-      }
-    );
+      },
+    });
   }
 
   onCancel(): void {
@@ -232,7 +243,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
   passwordResetChange(): void {
     const password = this.namespaceControl.get('passwordCtrl');
     const passwordAgain = this.namespaceControl.get('passwordAgainCtrl');
-    if (this.namespaceControl.get('passwordReset').value) {
+    if (this.namespaceControl.value.passwordReset) {
       password.disable();
       password.setValue('');
       passwordAgain.disable();
@@ -274,32 +285,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
   ngOnInit(): void {
     this.loading = true;
     this.theme = this.data.theme;
-    this.userControl = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      titleBefore: [''],
-      titleAfter: [''],
-    });
-
     this.languages = this.store.getProperty('supported_languages');
-
-    this.namespaceControl = this.formBuilder.group(
-      {
-        namespace: ['', Validators.required],
-        login: ['', [Validators.required]],
-        passwordCtrl: [
-          '',
-          Validators.required,
-          [loginAsyncValidator(null, this.usersService, this.apiRequestConfiguration)],
-        ],
-        passwordAgainCtrl: [''],
-        passwordReset: [false, []],
-        email: ['', [Validators.required, Validators.pattern(emailRegexString)]],
-      },
-      {
-        validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-      }
-    );
 
     this.membersService.getAllNamespacesRules().subscribe((rules) => {
       if (this.store.getProperty('allow_empty_sponsor_namespace')) {

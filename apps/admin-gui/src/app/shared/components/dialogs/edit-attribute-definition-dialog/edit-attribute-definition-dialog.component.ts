@@ -16,7 +16,7 @@ import { TABLE_ENTITYLESS_ATTRIBUTE_KEYS } from '@perun-web-apps/config/table-co
 import { Clipboard } from '@angular/cdk/clipboard';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 export interface EditAttributeDefinitionDialogData {
   attDef: AttributeDefinition;
@@ -41,7 +41,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   finalReadGlobal: boolean;
   finalWriteOperations: boolean;
   finalWriteGlobal: boolean;
-  attributeControl: UntypedFormGroup = this.formBuilder.group({
+  attributeControl = this.formBuilder.group({
     name: [this.attDef.displayName, Validators.required],
     description: [this.attDef.description, Validators.required],
   });
@@ -59,7 +59,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     private clipboard: Clipboard,
     private attributesManager: AttributesManagerService,
     private serviceService: ServicesManagerService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private attributeRightsService: AttributeRightsService
   ) {}
 
@@ -167,7 +167,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   }
 
   private updateAttribute(): void {
-    this.attDef.displayName = this.attributeControl.get('name').value as string;
-    this.attDef.description = this.attributeControl.get('description').value as string;
+    this.attDef.displayName = this.attributeControl.value.name;
+    this.attDef.description = this.attributeControl.value.description;
   }
 }

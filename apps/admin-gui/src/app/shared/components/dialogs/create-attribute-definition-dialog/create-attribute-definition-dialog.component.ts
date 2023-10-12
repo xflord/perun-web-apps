@@ -6,7 +6,7 @@ import {
   AttributePolicyCollection,
   AttributesManagerService,
 } from '@perun-web-apps/perun/openapi';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, of, zip } from 'rxjs';
 import { AttributeRightsService, NotificatorService } from '@perun-web-apps/perun/services';
@@ -73,7 +73,7 @@ export class CreateAttributeDefinitionDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<CreateAttributeDefinitionDialogComponent>,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private attributeService: AttributesManagerService,
     private attributeRightsService: AttributeRightsService,
     private notificator: NotificatorService,
@@ -120,15 +120,15 @@ export class CreateAttributeDefinitionDialogComponent {
           )
         )
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.notificator.showSuccess(
             this.translate.instant('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS') as string
           );
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 
   cancel(): void {

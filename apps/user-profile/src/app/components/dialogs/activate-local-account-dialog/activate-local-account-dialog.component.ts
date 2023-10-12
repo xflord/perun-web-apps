@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { UntypedFormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { CustomValidators } from '@perun-web-apps/perun/utils';
 import { UsersManagerService } from '@perun-web-apps/perun/openapi';
 import { ApiRequestConfigurationService, NotificatorService } from '@perun-web-apps/perun/services';
@@ -41,7 +41,7 @@ export class ActivateLocalAccountDialogComponent {
     private userManager: UsersManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private apiRequestConfiguration: ApiRequestConfigurationService
   ) {}
 
@@ -51,7 +51,7 @@ export class ActivateLocalAccountDialogComponent {
 
   activate(): void {
     this.loading = true;
-    const pwd: string = this.pwdForm.get('passwordCtrl').value as string;
+    const pwd: string = this.pwdForm.value.passwordCtrl;
     this.userManager
       .reservePasswordForUser({
         user: this.data.userId,
@@ -63,14 +63,14 @@ export class ActivateLocalAccountDialogComponent {
           this.userManager.validatePasswordForUser(this.data.userId, this.data.namespace)
         )
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.notificator.showSuccess(
             this.translate.instant('DIALOGS.ACTIVATE_LOCAL_ACCOUNT.SUCCESS') as string
           );
           this.dialogRef.close();
         },
-        () => (this.loading = false)
-      );
+        error: () => (this.loading = false),
+      });
   }
 }

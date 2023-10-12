@@ -1,26 +1,12 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  AttributesManagerService,
-  GroupsManagerService,
   InputCreateSponsoredMemberFromCSV,
   MembersManagerService,
   NamespaceRules,
 } from '@perun-web-apps/perun/openapi';
-import {
-  GuiAuthResolver,
-  NotificatorService,
-  SponsoredMembersPdfService,
-  StoreService,
-} from '@perun-web-apps/perun/services';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  AbstractControl,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { SponsoredMembersPdfService, StoreService } from '@perun-web-apps/perun/services';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { downloadData, emailRegexString } from '@perun-web-apps/perun/utils';
 import { MatStepper } from '@angular/material/stepper';
@@ -59,7 +45,10 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   functionalityNotSupported = false;
 
   namespaceOptions: string[] = [];
-  usersInfoFormGroup: UntypedFormGroup;
+  usersInfoFormGroup = this.formBuilder.group({
+    namespace: ['', Validators.required],
+    sponsoredMembers: ['', [Validators.required, this.userInputValidator()]],
+  });
   state: 'user-input' | 'results' = 'user-input';
   passwordReset = 'generate';
   expiration = 'never';
@@ -81,12 +70,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: GenerateSponsoredMembersDialogData,
     private store: StoreService,
     private membersService: MembersManagerService,
-    private notificator: NotificatorService,
-    private translate: TranslateService,
-    private guiAuthResolver: GuiAuthResolver,
-    private groupsService: GroupsManagerService,
-    private attributesService: AttributesManagerService,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private sponsoredMembersPDFService: SponsoredMembersPdfService,
     private cd: ChangeDetectorRef
   ) {}
@@ -104,13 +88,9 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     this.loading = true;
     this.theme = this.data.theme;
     this.languages = this.store.getProperty('supported_languages');
-    this.usersInfoFormGroup = this.formBuilder.group({
-      namespace: ['', Validators.required],
-      sponsoredMembers: ['', [Validators.required, this.userInputValidator()]],
-    });
-    this.usersInfoFormGroup.controls['namespace'].valueChanges.subscribe({
+    this.usersInfoFormGroup.controls.namespace.valueChanges.subscribe({
       next: () => {
-        this.usersInfoFormGroup.controls['sponsoredMembers'].updateValueAndValidity();
+        this.usersInfoFormGroup.controls.sponsoredMembers.updateValueAndValidity();
       },
     });
 
@@ -202,9 +182,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
   }
   onGenerate(groupIds: number[]): void {
     this.loading = true;
-    const listOfMembers: string[] = (
-      this.usersInfoFormGroup.get('sponsoredMembers').value as string
-    ).split('\n');
+    const listOfMembers: string[] = this.usersInfoFormGroup.value.sponsoredMembers.split('\n');
     const header = this.getSelectedNamespaceRules().csvGenHeader;
     const generatedMemberNames: string[] = [];
     for (const line of listOfMembers) {
@@ -238,20 +216,19 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     }
 
     if (this.usersInfoFormGroup.get('namespace').value !== 'No namespace') {
-      inputSponsoredMembersFromCSV.namespace = this.usersInfoFormGroup.get('namespace')
-        .value as string;
+      inputSponsoredMembersFromCSV.namespace = this.usersInfoFormGroup.value.namespace;
     }
 
-    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe(
-      (resultData) => {
+    this.membersService.createSponsoredMembersFromCSV(inputSponsoredMembersFromCSV).subscribe({
+      next: (resultData) => {
         this.state = 'results';
         this.finishedWithErrors =
           GenerateSponsoredMembersDialogComponent.didSomeGenerationFailed(resultData);
         this.loading = false;
         this.resultData = resultData as unknown as MemberData[];
       },
-      () => (this.loading = false)
-    );
+      error: () => (this.loading = false),
+    });
   }
 
   private createOutputObjects(data: MemberData[]): OutputSponsoredMember[] {
