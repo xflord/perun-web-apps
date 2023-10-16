@@ -128,20 +128,20 @@ export class AppConfigService {
         .get('/assets/config/instanceConfig.json', {
           headers: this.getNoCacheHeaders(),
         })
-        .subscribe(
-          (config: PerunConfig) => {
-            this.storeService.setInstanceConfig(config);
+        .subscribe({
+          next: (config: PerunConfig) => {
+            this.storeService.mergeConfig(config);
             const branding = document.location.hostname;
             if (config?.['brandings']?.[branding]) {
-              this.storeService.setBanding(branding);
+              this.storeService.mergeConfig(config?.['brandings']?.[branding]);
             }
             resolve();
           },
-          () => {
+          error: () => {
             // console.log('instance config not detected');
             resolve();
-          }
-        );
+          },
+        });
     });
   }
 

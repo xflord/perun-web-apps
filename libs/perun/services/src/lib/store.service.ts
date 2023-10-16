@@ -10,19 +10,13 @@ import { PerunConfig } from '@perun-web-apps/perun/models';
   providedIn: 'root',
 })
 export class StoreService {
-  private instanceConfig: PerunConfig;
-  private defaultConfig: PerunConfig;
+  private config: PerunConfig;
   private appsConfig: PerunAppsConfig;
   private principal: PerunPrincipal;
   private initialPageId: number;
-  private branding = '';
-
-  setInstanceConfig(instanceConfig: PerunConfig): void {
-    this.instanceConfig = instanceConfig;
-  }
 
   setDefaultConfig(defaultConfig: PerunConfig): void {
-    this.defaultConfig = defaultConfig;
+    this.config = defaultConfig;
   }
 
   getAppsConfig(): PerunAppsConfig {
@@ -57,35 +51,35 @@ export class StoreService {
     return this.getProperty('member_profile_attributes_friendly_names');
   }
 
-  setBanding(branding: string): void {
-    this.branding = branding;
-  }
-
   getProperty<T extends keyof PerunConfig>(key: T): PerunConfig[T] {
-    if (!this.instanceConfig || !this.defaultConfig) {
+    if (!this.config) {
       return null;
     }
-
-    const configs: PerunConfig[] = [
-      this.instanceConfig?.brandings?.[this.branding],
-      this.instanceConfig,
-    ];
-
-    const defaultValue: PerunConfig[T] = this.defaultConfig[key];
-    let currentValue: PerunConfig[T] = null;
-    for (const config of configs) {
-      if (config && (currentValue === null || currentValue === undefined)) {
-        currentValue = config[key];
-      }
-    }
-    if (currentValue === null) {
-      return defaultValue;
-    }
-
-    return this.addMissingValuesToProperty(currentValue, defaultValue);
+    return this.config[key];
   }
 
-  addMissingValuesToProperty<T extends object, K extends keyof T>(
+  /*
+  Merges a config into the existing config, substituting values in the existing with values in the configToMerge.
+  Objects are merged per property, not as a whole (see `addMissingValuesToProperty`)
+  Be careful of order of merging (make sure default config is set before merging another config)
+   */
+  mergeConfig<T extends object, K extends keyof T>(configToMerge: PerunConfig): void {
+    for (const key of Object.keys(configToMerge)) {
+      if (key === 'brandings') continue;
+      this.config[key] = this.addMissingValuesToProperty(
+        configToMerge[key] as T[K],
+        this.config[key] as T[K]
+      );
+    }
+  }
+
+  /*
+  For an object property, merge properties from the `defaultValue` with properties from `value`.
+  Properties defined in `value` are overwritten with their value, remaining properties are kept from `defaultValue`
+  Returns `value` if a simple type is passed.
+  Works recursively
+   */
+  private addMissingValuesToProperty<T extends object, K extends keyof T>(
     value: T[K],
     defaultValue: T[K]
   ): T[K] {
