@@ -30,7 +30,7 @@ export class VoOverviewComponent implements OnInit, DoCheck {
     protected router: Router,
     protected authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngDoCheck(): void {
@@ -235,7 +235,7 @@ export class VoOverviewComponent implements OnInit, DoCheck {
     if (
       this.routePolicyService.canNavigate(
         'organizations-settings-hierarchicalInclusion',
-        this.vo
+        this.vo,
       ) &&
       this.memberOrganization
     ) {

@@ -21,7 +21,7 @@ export class UpdateRankDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Category,
     private notificator: NotificatorService,
     private cabinetManagerService: CabinetManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.UPDATE_RANK.SUCCESS')

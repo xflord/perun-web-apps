@@ -77,7 +77,7 @@ export class MembersManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -108,7 +108,7 @@ export class MembersManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -122,8 +122,8 @@ export class MembersManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -146,32 +146,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addMemberCandidates(
     InputAddMemberCandidates: InputAddMemberCandidates,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addMemberCandidates(
     InputAddMemberCandidates: InputAddMemberCandidates,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addMemberCandidates(
     InputAddMemberCandidates: InputAddMemberCandidates,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAddMemberCandidates === null || InputAddMemberCandidates === undefined) {
       throw new Error(
-        'Required parameter InputAddMemberCandidates was null or undefined when calling addMemberCandidates.'
+        'Required parameter InputAddMemberCandidates was null or undefined when calling addMemberCandidates.',
       );
     }
 
@@ -255,32 +255,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public canExtendMembership(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public canExtendMembership(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public canExtendMembership(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling canExtendMembership.'
+        'Required parameter member was null or undefined when calling canExtendMembership.',
       );
     }
 
@@ -289,7 +289,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -374,7 +374,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copySponsoredMembers(
     members: Array<number>,
@@ -385,7 +385,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copySponsoredMembers(
     members: Array<number>,
@@ -396,7 +396,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copySponsoredMembers(
     members: Array<number>,
@@ -407,26 +407,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (members === null || members === undefined) {
       throw new Error(
-        'Required parameter members was null or undefined when calling copySponsoredMembers.'
+        'Required parameter members was null or undefined when calling copySponsoredMembers.',
       );
     }
     if (copyFrom === null || copyFrom === undefined) {
       throw new Error(
-        'Required parameter copyFrom was null or undefined when calling copySponsoredMembers.'
+        'Required parameter copyFrom was null or undefined when calling copySponsoredMembers.',
       );
     }
     if (copyTo === null || copyTo === undefined) {
       throw new Error(
-        'Required parameter copyTo was null or undefined when calling copySponsoredMembers.'
+        'Required parameter copyTo was null or undefined when calling copySponsoredMembers.',
       );
     }
     if (copyValidity === null || copyValidity === undefined) {
       throw new Error(
-        'Required parameter copyValidity was null or undefined when calling copySponsoredMembers.'
+        'Required parameter copyValidity was null or undefined when calling copySponsoredMembers.',
       );
     }
 
@@ -436,7 +436,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -444,28 +444,28 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>copyFrom,
-        'copyFrom'
+        'copyFrom',
       );
     }
     if (copyTo !== undefined && copyTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>copyTo,
-        'copyTo'
+        'copyTo',
       );
     }
     if (copyValidity !== undefined && copyValidity !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>copyValidity,
-        'copyValidity'
+        'copyValidity',
       );
     }
     if (validityTo !== undefined && validityTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>validityTo,
-        'validityTo'
+        'validityTo',
       );
     }
 
@@ -542,32 +542,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public createMemberForCandidate(
     InputCreateMemberForCandidate: InputCreateMemberForCandidate,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public createMemberForCandidate(
     InputCreateMemberForCandidate: InputCreateMemberForCandidate,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public createMemberForCandidate(
     InputCreateMemberForCandidate: InputCreateMemberForCandidate,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateMemberForCandidate === null || InputCreateMemberForCandidate === undefined) {
       throw new Error(
-        'Required parameter InputCreateMemberForCandidate was null or undefined when calling createMemberForCandidate.'
+        'Required parameter InputCreateMemberForCandidate was null or undefined when calling createMemberForCandidate.',
       );
     }
 
@@ -651,32 +651,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public createMemberForUser(
     InputCreateMemberForUser: InputCreateMemberForUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public createMemberForUser(
     InputCreateMemberForUser: InputCreateMemberForUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public createMemberForUser(
     InputCreateMemberForUser: InputCreateMemberForUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateMemberForUser === null || InputCreateMemberForUser === undefined) {
       throw new Error(
-        'Required parameter InputCreateMemberForUser was null or undefined when calling createMemberForUser.'
+        'Required parameter InputCreateMemberForUser was null or undefined when calling createMemberForUser.',
       );
     }
 
@@ -760,32 +760,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public createMemberFromExtSource(
     InputCreateMemberFromExtSource: InputCreateMemberFromExtSource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public createMemberFromExtSource(
     InputCreateMemberFromExtSource: InputCreateMemberFromExtSource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public createMemberFromExtSource(
     InputCreateMemberFromExtSource: InputCreateMemberFromExtSource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateMemberFromExtSource === null || InputCreateMemberFromExtSource === undefined) {
       throw new Error(
-        'Required parameter InputCreateMemberFromExtSource was null or undefined when calling createMemberFromExtSource.'
+        'Required parameter InputCreateMemberFromExtSource was null or undefined when calling createMemberFromExtSource.',
       );
     }
 
@@ -869,32 +869,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public createSpecificMember(
     InputSpecificMember: InputSpecificMember,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public createSpecificMember(
     InputSpecificMember: InputSpecificMember,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public createSpecificMember(
     InputSpecificMember: InputSpecificMember,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSpecificMember === null || InputSpecificMember === undefined) {
       throw new Error(
-        'Required parameter InputSpecificMember was null or undefined when calling createSpecificMember.'
+        'Required parameter InputSpecificMember was null or undefined when calling createSpecificMember.',
       );
     }
 
@@ -978,32 +978,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public createSponsoredMember(
     InputCreateSponsoredMember: InputCreateSponsoredMember,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public createSponsoredMember(
     InputCreateSponsoredMember: InputCreateSponsoredMember,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public createSponsoredMember(
     InputCreateSponsoredMember: InputCreateSponsoredMember,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateSponsoredMember === null || InputCreateSponsoredMember === undefined) {
       throw new Error(
-        'Required parameter InputCreateSponsoredMember was null or undefined when calling createSponsoredMember.'
+        'Required parameter InputCreateSponsoredMember was null or undefined when calling createSponsoredMember.',
       );
     }
 
@@ -1087,32 +1087,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<{ [key: string]: string }>>;
   public createSponsoredMembers(
     InputCreateSponsoredMembers: InputCreateSponsoredMembers,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<{ [key: string]: string }>>>;
   public createSponsoredMembers(
     InputCreateSponsoredMembers: InputCreateSponsoredMembers,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<{ [key: string]: string }>>>;
   public createSponsoredMembers(
     InputCreateSponsoredMembers: InputCreateSponsoredMembers,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateSponsoredMembers === null || InputCreateSponsoredMembers === undefined) {
       throw new Error(
-        'Required parameter InputCreateSponsoredMembers was null or undefined when calling createSponsoredMembers.'
+        'Required parameter InputCreateSponsoredMembers was null or undefined when calling createSponsoredMembers.',
       );
     }
 
@@ -1184,7 +1184,7 @@ export class MembersManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -1200,35 +1200,35 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<{ [key: string]: string }>>;
   public createSponsoredMembersFromCSV(
     InputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<{ [key: string]: string }>>>;
   public createSponsoredMembersFromCSV(
     InputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<{ [key: string]: string }>>>;
   public createSponsoredMembersFromCSV(
     InputCreateSponsoredMemberFromCSV: InputCreateSponsoredMemberFromCSV,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputCreateSponsoredMemberFromCSV === null ||
       InputCreateSponsoredMemberFromCSV === undefined
     ) {
       throw new Error(
-        'Required parameter InputCreateSponsoredMemberFromCSV was null or undefined when calling createSponsoredMembersFromCSV.'
+        'Required parameter InputCreateSponsoredMemberFromCSV was null or undefined when calling createSponsoredMembersFromCSV.',
       );
     }
 
@@ -1300,7 +1300,7 @@ export class MembersManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -1316,28 +1316,28 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error('Required parameter member was null or undefined when calling deleteMember.');
@@ -1348,7 +1348,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -1425,32 +1425,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteMembers(
     members: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteMembers(
     members: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteMembers(
     members: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (members === null || members === undefined) {
       throw new Error(
-        'Required parameter members was null or undefined when calling deleteMembers.'
+        'Required parameter members was null or undefined when calling deleteMembers.',
       );
     }
 
@@ -1460,7 +1460,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -1538,32 +1538,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public extendMembership(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public extendMembership(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public extendMembership(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling extendMembership.'
+        'Required parameter member was null or undefined when calling extendMembership.',
       );
     }
 
@@ -1572,7 +1572,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -1653,7 +1653,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public findCompleteRichMembersByAttributes(
     attrsNames: Array<string>,
@@ -1662,7 +1662,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public findCompleteRichMembersByAttributes(
     attrsNames: Array<string>,
@@ -1671,7 +1671,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public findCompleteRichMembersByAttributes(
     attrsNames: Array<string>,
@@ -1680,16 +1680,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attrsNames === null || attrsNames === undefined) {
       throw new Error(
-        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersByAttributes.'
+        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersByAttributes.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findCompleteRichMembersByAttributes.'
+        'Required parameter searchString was null or undefined when calling findCompleteRichMembersByAttributes.',
       );
     }
 
@@ -1699,7 +1699,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -1707,7 +1707,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
     if (allowedStatuses) {
@@ -1715,7 +1715,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -1803,7 +1803,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public findCompleteRichMembersForGroup(
     group: number,
@@ -1815,7 +1815,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public findCompleteRichMembersForGroup(
     group: number,
@@ -1827,7 +1827,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public findCompleteRichMembersForGroup(
     group: number,
@@ -1839,26 +1839,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling findCompleteRichMembersForGroup.'
+        'Required parameter group was null or undefined when calling findCompleteRichMembersForGroup.',
       );
     }
     if (attrsNames === null || attrsNames === undefined) {
       throw new Error(
-        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersForGroup.'
+        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersForGroup.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findCompleteRichMembersForGroup.'
+        'Required parameter searchString was null or undefined when calling findCompleteRichMembersForGroup.',
       );
     }
     if (lookingInParentGroup === null || lookingInParentGroup === undefined) {
       throw new Error(
-        'Required parameter lookingInParentGroup was null or undefined when calling findCompleteRichMembersForGroup.'
+        'Required parameter lookingInParentGroup was null or undefined when calling findCompleteRichMembersForGroup.',
       );
     }
 
@@ -1871,7 +1871,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -1880,7 +1880,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -1889,7 +1889,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedGroupStatuses[]'
+          'allowedGroupStatuses[]',
         );
       });
     }
@@ -1897,14 +1897,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
     if (lookingInParentGroup !== undefined && lookingInParentGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>lookingInParentGroup,
-        'lookingInParentGroup'
+        'lookingInParentGroup',
       );
     }
 
@@ -1987,7 +1987,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public findCompleteRichMembersForVo(
     vo: number,
@@ -1997,7 +1997,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public findCompleteRichMembersForVo(
     vo: number,
@@ -2007,7 +2007,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public findCompleteRichMembersForVo(
     vo: number,
@@ -2017,21 +2017,21 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling findCompleteRichMembersForVo.'
+        'Required parameter vo was null or undefined when calling findCompleteRichMembersForVo.',
       );
     }
     if (attrsNames === null || attrsNames === undefined) {
       throw new Error(
-        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersForVo.'
+        'Required parameter attrsNames was null or undefined when calling findCompleteRichMembersForVo.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findCompleteRichMembersForVo.'
+        'Required parameter searchString was null or undefined when calling findCompleteRichMembersForVo.',
       );
     }
 
@@ -2044,7 +2044,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -2053,7 +2053,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -2061,7 +2061,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -2140,7 +2140,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public findMembersInVo(
     vo: number,
@@ -2148,7 +2148,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public findMembersInVo(
     vo: number,
@@ -2156,7 +2156,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public findMembersInVo(
     vo: number,
@@ -2164,14 +2164,14 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling findMembersInVo.');
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findMembersInVo.'
+        'Required parameter searchString was null or undefined when calling findMembersInVo.',
       );
     }
 
@@ -2183,7 +2183,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -2266,7 +2266,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public findSponsoredCompleteRichMembersForVo(
     vo: number,
@@ -2276,7 +2276,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public findSponsoredCompleteRichMembersForVo(
     vo: number,
@@ -2286,7 +2286,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public findSponsoredCompleteRichMembersForVo(
     vo: number,
@@ -2296,26 +2296,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling findSponsoredCompleteRichMembersForVo.'
+        'Required parameter vo was null or undefined when calling findSponsoredCompleteRichMembersForVo.',
       );
     }
     if (attrsNames === null || attrsNames === undefined) {
       throw new Error(
-        'Required parameter attrsNames was null or undefined when calling findSponsoredCompleteRichMembersForVo.'
+        'Required parameter attrsNames was null or undefined when calling findSponsoredCompleteRichMembersForVo.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findSponsoredCompleteRichMembersForVo.'
+        'Required parameter searchString was null or undefined when calling findSponsoredCompleteRichMembersForVo.',
       );
     }
     if (onlySponsored === null || onlySponsored === undefined) {
       throw new Error(
-        'Required parameter onlySponsored was null or undefined when calling findSponsoredCompleteRichMembersForVo.'
+        'Required parameter onlySponsored was null or undefined when calling findSponsoredCompleteRichMembersForVo.',
       );
     }
 
@@ -2328,7 +2328,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -2336,14 +2336,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
     if (onlySponsored !== undefined && onlySponsored !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlySponsored,
-        'onlySponsored'
+        'onlySponsored',
       );
     }
 
@@ -2418,25 +2418,25 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getAllMembers(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getAllMembers(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getAllMembers(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2508,25 +2508,25 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<NamespaceRules>>;
   public getAllNamespacesRules(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<NamespaceRules>>>;
   public getAllNamespacesRules(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<NamespaceRules>>>;
   public getAllNamespacesRules(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2600,32 +2600,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getAllSponsoredMembers(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getAllSponsoredMembers(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getAllSponsoredMembers(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAllSponsoredMembers.'
+        'Required parameter vo was null or undefined when calling getAllSponsoredMembers.',
       );
     }
 
@@ -2709,7 +2709,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<MemberWithSponsors>>;
   public getAllSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -2717,7 +2717,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<MemberWithSponsors>>>;
   public getAllSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -2725,7 +2725,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<MemberWithSponsors>>>;
   public getAllSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -2733,16 +2733,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAllSponsoredMembersAndTheirSponsors.'
+        'Required parameter vo was null or undefined when calling getAllSponsoredMembersAndTheirSponsors.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getAllSponsoredMembersAndTheirSponsors.'
+        'Required parameter attrNames was null or undefined when calling getAllSponsoredMembersAndTheirSponsors.',
       );
     }
 
@@ -2755,7 +2755,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -2841,7 +2841,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getCompleteRichMembersForGroup(
     group: number,
@@ -2852,7 +2852,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getCompleteRichMembersForGroup(
     group: number,
@@ -2863,7 +2863,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getCompleteRichMembersForGroup(
     group: number,
@@ -2874,16 +2874,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getCompleteRichMembersForGroup.'
+        'Required parameter group was null or undefined when calling getCompleteRichMembersForGroup.',
       );
     }
     if (lookingInParentGroup === null || lookingInParentGroup === undefined) {
       throw new Error(
-        'Required parameter lookingInParentGroup was null or undefined when calling getCompleteRichMembersForGroup.'
+        'Required parameter lookingInParentGroup was null or undefined when calling getCompleteRichMembersForGroup.',
       );
     }
 
@@ -2896,7 +2896,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -2905,7 +2905,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedGroupStatuses[]'
+          'allowedGroupStatuses[]',
         );
       });
     }
@@ -2913,7 +2913,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>lookingInParentGroup,
-        'lookingInParentGroup'
+        'lookingInParentGroup',
       );
     }
     if (attrsNames) {
@@ -2921,7 +2921,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -3005,7 +3005,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getCompleteRichMembersForGroupResource(
     group: number,
@@ -3015,7 +3015,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getCompleteRichMembersForGroupResource(
     group: number,
@@ -3025,7 +3025,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getCompleteRichMembersForGroupResource(
     group: number,
@@ -3035,26 +3035,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getCompleteRichMembersForGroupResource.'
+        'Required parameter group was null or undefined when calling getCompleteRichMembersForGroupResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getCompleteRichMembersForGroupResource.'
+        'Required parameter resource was null or undefined when calling getCompleteRichMembersForGroupResource.',
       );
     }
     if (attrsNames === null || attrsNames === undefined) {
       throw new Error(
-        'Required parameter attrsNames was null or undefined when calling getCompleteRichMembersForGroupResource.'
+        'Required parameter attrsNames was null or undefined when calling getCompleteRichMembersForGroupResource.',
       );
     }
     if (allowedStatuses === null || allowedStatuses === undefined) {
       throw new Error(
-        'Required parameter allowedStatuses was null or undefined when calling getCompleteRichMembersForGroupResource.'
+        'Required parameter allowedStatuses was null or undefined when calling getCompleteRichMembersForGroupResource.',
       );
     }
 
@@ -3066,7 +3066,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attrsNames) {
@@ -3074,7 +3074,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -3083,7 +3083,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -3165,7 +3165,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getCompleteRichMembersForVo(
     vo: number,
@@ -3174,7 +3174,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getCompleteRichMembersForVo(
     vo: number,
@@ -3183,7 +3183,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getCompleteRichMembersForVo(
     vo: number,
@@ -3192,11 +3192,11 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getCompleteRichMembersForVo.'
+        'Required parameter vo was null or undefined when calling getCompleteRichMembersForVo.',
       );
     }
 
@@ -3209,7 +3209,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'allowedStatuses[]'
+          'allowedStatuses[]',
         );
       });
     }
@@ -3218,7 +3218,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -3300,7 +3300,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public getMemberByExtSourceNameAndExtLogin(
     vo: number,
@@ -3309,7 +3309,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public getMemberByExtSourceNameAndExtLogin(
     vo: number,
@@ -3318,7 +3318,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public getMemberByExtSourceNameAndExtLogin(
     vo: number,
@@ -3327,21 +3327,21 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getMemberByExtSourceNameAndExtLogin.'
+        'Required parameter vo was null or undefined when calling getMemberByExtSourceNameAndExtLogin.',
       );
     }
     if (extLogin === null || extLogin === undefined) {
       throw new Error(
-        'Required parameter extLogin was null or undefined when calling getMemberByExtSourceNameAndExtLogin.'
+        'Required parameter extLogin was null or undefined when calling getMemberByExtSourceNameAndExtLogin.',
       );
     }
     if (extSourceName === null || extSourceName === undefined) {
       throw new Error(
-        'Required parameter extSourceName was null or undefined when calling getMemberByExtSourceNameAndExtLogin.'
+        'Required parameter extSourceName was null or undefined when calling getMemberByExtSourceNameAndExtLogin.',
       );
     }
 
@@ -3353,14 +3353,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extLogin,
-        'extLogin'
+        'extLogin',
       );
     }
     if (extSourceName !== undefined && extSourceName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceName,
-        'extSourceName'
+        'extSourceName',
       );
     }
 
@@ -3438,28 +3438,28 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public getMemberById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public getMemberById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public getMemberById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getMemberById.');
@@ -3545,7 +3545,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public getMemberByUser(
     vo: number,
@@ -3553,7 +3553,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public getMemberByUser(
     vo: number,
@@ -3561,7 +3561,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public getMemberByUser(
     vo: number,
@@ -3569,14 +3569,14 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getMemberByUser.');
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getMemberByUser.'
+        'Required parameter user was null or undefined when calling getMemberByUser.',
       );
     }
 
@@ -3663,7 +3663,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getMembers(
     vo: number,
@@ -3671,7 +3671,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getMembers(
     vo: number,
@@ -3679,7 +3679,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getMembers(
     vo: number,
@@ -3687,7 +3687,7 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getMembers.');
@@ -3701,7 +3701,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -3778,28 +3778,28 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getMembersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getMembersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getMembersByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error('Required parameter ids was null or undefined when calling getMembersByIds.');
@@ -3811,7 +3811,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -3889,32 +3889,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getMembersByUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getMembersByUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getMembersByUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getMembersByUser.'
+        'Required parameter user was null or undefined when calling getMembersByUser.',
       );
     }
 
@@ -3996,28 +3996,28 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getMembersCount(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getMembersCount(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getMembersCount(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getMembersCount.');
@@ -4101,32 +4101,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedRichMembers>;
   public getMembersPage(
     InputGetPaginatedMembers: InputGetPaginatedMembers,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedRichMembers>>;
   public getMembersPage(
     InputGetPaginatedMembers: InputGetPaginatedMembers,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedRichMembers>>;
   public getMembersPage(
     InputGetPaginatedMembers: InputGetPaginatedMembers,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedMembers === null || InputGetPaginatedMembers === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedMembers was null or undefined when calling getMembersPage.'
+        'Required parameter InputGetPaginatedMembers was null or undefined when calling getMembersPage.',
       );
     }
 
@@ -4212,7 +4212,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getMembersWithStatusCount(
     vo: number,
@@ -4220,7 +4220,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getMembersWithStatusCount(
     vo: number,
@@ -4228,7 +4228,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getMembersWithStatusCount(
     vo: number,
@@ -4236,16 +4236,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getMembersWithStatusCount.'
+        'Required parameter vo was null or undefined when calling getMembersWithStatusCount.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling getMembersWithStatusCount.'
+        'Required parameter status was null or undefined when calling getMembersWithStatusCount.',
       );
     }
 
@@ -4257,7 +4257,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -4335,28 +4335,28 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public getRichMember(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public getRichMember(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public getRichMember(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getRichMember.');
@@ -4441,32 +4441,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public getRichMemberWithAttributes(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public getRichMemberWithAttributes(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public getRichMemberWithAttributes(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getRichMemberWithAttributes.'
+        'Required parameter id was null or undefined when calling getRichMemberWithAttributes.',
       );
     }
 
@@ -4550,7 +4550,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getRichMembersByIds(
     ids: Array<number>,
@@ -4558,7 +4558,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getRichMembersByIds(
     ids: Array<number>,
@@ -4566,7 +4566,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getRichMembersByIds(
     ids: Array<number>,
@@ -4574,11 +4574,11 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getRichMembersByIds.'
+        'Required parameter ids was null or undefined when calling getRichMembersByIds.',
       );
     }
 
@@ -4588,7 +4588,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -4597,7 +4597,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -4676,32 +4676,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getRichMembersNoUserAttributes(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getRichMembersNoUserAttributes(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getRichMembersNoUserAttributes(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getRichMembersNoUserAttributes.'
+        'Required parameter vo was null or undefined when calling getRichMembersNoUserAttributes.',
       );
     }
 
@@ -4783,32 +4783,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getSponsoredMembers(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getSponsoredMembers(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getSponsoredMembers(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getSponsoredMembers.'
+        'Required parameter vo was null or undefined when calling getSponsoredMembers.',
       );
     }
 
@@ -4892,7 +4892,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<MemberWithSponsors>>;
   public getSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -4900,7 +4900,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<MemberWithSponsors>>>;
   public getSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -4908,7 +4908,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<MemberWithSponsors>>>;
   public getSponsoredMembersAndTheirSponsors(
     vo: number,
@@ -4916,16 +4916,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getSponsoredMembersAndTheirSponsors.'
+        'Required parameter vo was null or undefined when calling getSponsoredMembersAndTheirSponsors.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getSponsoredMembersAndTheirSponsors.'
+        'Required parameter attrNames was null or undefined when calling getSponsoredMembersAndTheirSponsors.',
       );
     }
 
@@ -4938,7 +4938,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -5018,7 +5018,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getSponsorsByMember(
     member: number,
@@ -5026,7 +5026,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getSponsorsByMember(
     member: number,
@@ -5034,7 +5034,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getSponsorsByMember(
     member: number,
@@ -5042,11 +5042,11 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getSponsorsByMember.'
+        'Required parameter member was null or undefined when calling getSponsorsByMember.',
       );
     }
 
@@ -5055,7 +5055,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -5063,7 +5063,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -5147,7 +5147,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getSponsorsByVo(
     vo: number,
@@ -5157,7 +5157,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getSponsorsByVo(
     vo: number,
@@ -5167,7 +5167,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getSponsorsByVo(
     vo: number,
@@ -5177,19 +5177,19 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getSponsorsByVo.');
     }
     if (extSourceName === null || extSourceName === undefined) {
       throw new Error(
-        'Required parameter extSourceName was null or undefined when calling getSponsorsByVo.'
+        'Required parameter extSourceName was null or undefined when calling getSponsorsByVo.',
       );
     }
     if (extLogin === null || extLogin === undefined) {
       throw new Error(
-        'Required parameter extLogin was null or undefined when calling getSponsorsByVo.'
+        'Required parameter extLogin was null or undefined when calling getSponsorsByVo.',
       );
     }
 
@@ -5201,14 +5201,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceName,
-        'extSourceName'
+        'extSourceName',
       );
     }
     if (extLogin !== undefined && extLogin !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extLogin,
-        'extLogin'
+        'extLogin',
       );
     }
     if (attrNames) {
@@ -5216,7 +5216,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -5298,7 +5298,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public moveMembership(
     vo: number,
@@ -5307,7 +5307,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public moveMembership(
     vo: number,
@@ -5316,7 +5316,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public moveMembership(
     vo: number,
@@ -5325,19 +5325,19 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling moveMembership.');
     }
     if (sourceUser === null || sourceUser === undefined) {
       throw new Error(
-        'Required parameter sourceUser was null or undefined when calling moveMembership.'
+        'Required parameter sourceUser was null or undefined when calling moveMembership.',
       );
     }
     if (targetUser === null || targetUser === undefined) {
       throw new Error(
-        'Required parameter targetUser was null or undefined when calling moveMembership.'
+        'Required parameter targetUser was null or undefined when calling moveMembership.',
       );
     }
 
@@ -5349,14 +5349,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sourceUser,
-        'sourceUser'
+        'sourceUser',
       );
     }
     if (targetUser !== undefined && targetUser !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>targetUser,
-        'targetUser'
+        'targetUser',
       );
     }
 
@@ -5435,7 +5435,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSponsor(
     member: number,
@@ -5443,7 +5443,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSponsor(
     member: number,
@@ -5451,7 +5451,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSponsor(
     member: number,
@@ -5459,16 +5459,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeSponsor.'
+        'Required parameter member was null or undefined when calling removeSponsor.',
       );
     }
     if (sponsor === null || sponsor === undefined) {
       throw new Error(
-        'Required parameter sponsor was null or undefined when calling removeSponsor.'
+        'Required parameter sponsor was null or undefined when calling removeSponsor.',
       );
     }
 
@@ -5477,14 +5477,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (sponsor !== undefined && sponsor !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsor,
-        'sponsor'
+        'sponsor',
       );
     }
 
@@ -5563,7 +5563,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSponsors(
     member: number,
@@ -5571,7 +5571,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSponsors(
     member: number,
@@ -5579,7 +5579,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSponsors(
     member: number,
@@ -5587,16 +5587,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeSponsors.'
+        'Required parameter member was null or undefined when calling removeSponsors.',
       );
     }
     if (sponsorIds === null || sponsorIds === undefined) {
       throw new Error(
-        'Required parameter sponsorIds was null or undefined when calling removeSponsors.'
+        'Required parameter sponsorIds was null or undefined when calling removeSponsors.',
       );
     }
 
@@ -5605,7 +5605,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (sponsorIds) {
@@ -5613,7 +5613,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'sponsorIds'
+          'sponsorIds',
         );
       });
     }
@@ -5697,7 +5697,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendAccountActivationLinkEmail(
     member: number,
@@ -5707,7 +5707,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendAccountActivationLinkEmail(
     member: number,
@@ -5717,7 +5717,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendAccountActivationLinkEmail(
     member: number,
@@ -5727,26 +5727,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling sendAccountActivationLinkEmail.'
+        'Required parameter member was null or undefined when calling sendAccountActivationLinkEmail.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling sendAccountActivationLinkEmail.'
+        'Required parameter namespace was null or undefined when calling sendAccountActivationLinkEmail.',
       );
     }
     if (emailAttributeURN === null || emailAttributeURN === undefined) {
       throw new Error(
-        'Required parameter emailAttributeURN was null or undefined when calling sendAccountActivationLinkEmail.'
+        'Required parameter emailAttributeURN was null or undefined when calling sendAccountActivationLinkEmail.',
       );
     }
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling sendAccountActivationLinkEmail.'
+        'Required parameter language was null or undefined when calling sendAccountActivationLinkEmail.',
       );
     }
 
@@ -5755,28 +5755,28 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (namespace !== undefined && namespace !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
     if (emailAttributeURN !== undefined && emailAttributeURN !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>emailAttributeURN,
-        'emailAttributeURN'
+        'emailAttributeURN',
       );
     }
     if (language !== undefined && language !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>language,
-        'language'
+        'language',
       );
     }
 
@@ -5861,7 +5861,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendPasswordResetLinkEmail(
     member: number,
@@ -5872,7 +5872,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendPasswordResetLinkEmail(
     member: number,
@@ -5883,7 +5883,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendPasswordResetLinkEmail(
     member: number,
@@ -5894,26 +5894,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling sendPasswordResetLinkEmail.'
+        'Required parameter member was null or undefined when calling sendPasswordResetLinkEmail.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling sendPasswordResetLinkEmail.'
+        'Required parameter namespace was null or undefined when calling sendPasswordResetLinkEmail.',
       );
     }
     if (emailAttributeURN === null || emailAttributeURN === undefined) {
       throw new Error(
-        'Required parameter emailAttributeURN was null or undefined when calling sendPasswordResetLinkEmail.'
+        'Required parameter emailAttributeURN was null or undefined when calling sendPasswordResetLinkEmail.',
       );
     }
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling sendPasswordResetLinkEmail.'
+        'Required parameter language was null or undefined when calling sendPasswordResetLinkEmail.',
       );
     }
 
@@ -5922,35 +5922,35 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (namespace !== undefined && namespace !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
     if (emailAttributeURN !== undefined && emailAttributeURN !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>emailAttributeURN,
-        'emailAttributeURN'
+        'emailAttributeURN',
       );
     }
     if (language !== undefined && language !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>language,
-        'language'
+        'language',
       );
     }
     if (baseUrl !== undefined && baseUrl !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>baseUrl,
-        'baseUrl'
+        'baseUrl',
       );
     }
 
@@ -6033,7 +6033,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendUsernameReminderEmail(
     member: number,
@@ -6043,7 +6043,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendUsernameReminderEmail(
     member: number,
@@ -6053,7 +6053,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendUsernameReminderEmail(
     member: number,
@@ -6063,26 +6063,26 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling sendUsernameReminderEmail.'
+        'Required parameter member was null or undefined when calling sendUsernameReminderEmail.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling sendUsernameReminderEmail.'
+        'Required parameter namespace was null or undefined when calling sendUsernameReminderEmail.',
       );
     }
     if (emailAttributeURN === null || emailAttributeURN === undefined) {
       throw new Error(
-        'Required parameter emailAttributeURN was null or undefined when calling sendUsernameReminderEmail.'
+        'Required parameter emailAttributeURN was null or undefined when calling sendUsernameReminderEmail.',
       );
     }
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling sendUsernameReminderEmail.'
+        'Required parameter language was null or undefined when calling sendUsernameReminderEmail.',
       );
     }
 
@@ -6091,28 +6091,28 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (namespace !== undefined && namespace !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
     if (emailAttributeURN !== undefined && emailAttributeURN !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>emailAttributeURN,
-        'emailAttributeURN'
+        'emailAttributeURN',
       );
     }
     if (language !== undefined && language !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>language,
-        'language'
+        'language',
       );
     }
 
@@ -6189,32 +6189,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public setSponsoredMember(
     InputSetSponsoredMember: InputSetSponsoredMember,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public setSponsoredMember(
     InputSetSponsoredMember: InputSetSponsoredMember,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public setSponsoredMember(
     InputSetSponsoredMember: InputSetSponsoredMember,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetSponsoredMember === null || InputSetSponsoredMember === undefined) {
       throw new Error(
-        'Required parameter InputSetSponsoredMember was null or undefined when calling setSponsoredMember.'
+        'Required parameter InputSetSponsoredMember was null or undefined when calling setSponsoredMember.',
       );
     }
 
@@ -6302,7 +6302,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public setSponsorshipForMember(
     sponsoredMember: number,
@@ -6311,7 +6311,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public setSponsorshipForMember(
     sponsoredMember: number,
@@ -6320,7 +6320,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public setSponsorshipForMember(
     sponsoredMember: number,
@@ -6329,16 +6329,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (sponsoredMember === null || sponsoredMember === undefined) {
       throw new Error(
-        'Required parameter sponsoredMember was null or undefined when calling setSponsorshipForMember.'
+        'Required parameter sponsoredMember was null or undefined when calling setSponsorshipForMember.',
       );
     }
     if (sponsor === null || sponsor === undefined) {
       throw new Error(
-        'Required parameter sponsor was null or undefined when calling setSponsorshipForMember.'
+        'Required parameter sponsor was null or undefined when calling setSponsorshipForMember.',
       );
     }
 
@@ -6347,21 +6347,21 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsoredMember,
-        'sponsoredMember'
+        'sponsoredMember',
       );
     }
     if (sponsor !== undefined && sponsor !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsor,
-        'sponsor'
+        'sponsor',
       );
     }
     if (validityTo !== undefined && validityTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>validityTo,
-        'validityTo'
+        'validityTo',
       );
     }
 
@@ -6440,7 +6440,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public setStatus(
     member: number,
@@ -6448,7 +6448,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public setStatus(
     member: number,
@@ -6456,7 +6456,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public setStatus(
     member: number,
@@ -6464,7 +6464,7 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error('Required parameter member was null or undefined when calling setStatus.');
@@ -6478,14 +6478,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (status !== undefined && status !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -6566,7 +6566,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichMember>;
   public sponsorMember(
     member: number,
@@ -6575,7 +6575,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichMember>>;
   public sponsorMember(
     member: number,
@@ -6584,7 +6584,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichMember>>;
   public sponsorMember(
     member: number,
@@ -6593,16 +6593,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling sponsorMember.'
+        'Required parameter member was null or undefined when calling sponsorMember.',
       );
     }
     if (sponsor === null || sponsor === undefined) {
       throw new Error(
-        'Required parameter sponsor was null or undefined when calling sponsorMember.'
+        'Required parameter sponsor was null or undefined when calling sponsorMember.',
       );
     }
 
@@ -6611,21 +6611,21 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (sponsor !== undefined && sponsor !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsor,
-        'sponsor'
+        'sponsor',
       );
     }
     if (validityTo !== undefined && validityTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>validityTo,
-        'validityTo'
+        'validityTo',
       );
     }
 
@@ -6706,7 +6706,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sponsorMembers(
     members: Array<number>,
@@ -6715,7 +6715,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sponsorMembers(
     members: Array<number>,
@@ -6724,7 +6724,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sponsorMembers(
     members: Array<number>,
@@ -6733,16 +6733,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (members === null || members === undefined) {
       throw new Error(
-        'Required parameter members was null or undefined when calling sponsorMembers.'
+        'Required parameter members was null or undefined when calling sponsorMembers.',
       );
     }
     if (sponsor === null || sponsor === undefined) {
       throw new Error(
-        'Required parameter sponsor was null or undefined when calling sponsorMembers.'
+        'Required parameter sponsor was null or undefined when calling sponsorMembers.',
       );
     }
 
@@ -6752,7 +6752,7 @@ export class MembersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -6760,14 +6760,14 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsor,
-        'sponsor'
+        'sponsor',
       );
     }
     if (validityTo !== undefined && validityTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>validityTo,
-        'validityTo'
+        'validityTo',
       );
     }
 
@@ -6848,7 +6848,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateSponsorshipValidity(
     member: number,
@@ -6857,7 +6857,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateSponsorshipValidity(
     member: number,
@@ -6866,7 +6866,7 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateSponsorshipValidity(
     member: number,
@@ -6875,16 +6875,16 @@ export class MembersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling updateSponsorshipValidity.'
+        'Required parameter member was null or undefined when calling updateSponsorshipValidity.',
       );
     }
     if (sponsor === null || sponsor === undefined) {
       throw new Error(
-        'Required parameter sponsor was null or undefined when calling updateSponsorshipValidity.'
+        'Required parameter sponsor was null or undefined when calling updateSponsorshipValidity.',
       );
     }
 
@@ -6893,21 +6893,21 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (sponsor !== undefined && sponsor !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sponsor,
-        'sponsor'
+        'sponsor',
       );
     }
     if (validityTo !== undefined && validityTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>validityTo,
-        'validityTo'
+        'validityTo',
       );
     }
 
@@ -6984,32 +6984,32 @@ export class MembersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public validateMemberAsync(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public validateMemberAsync(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public validateMemberAsync(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling validateMemberAsync.'
+        'Required parameter member was null or undefined when calling validateMemberAsync.',
       );
     }
 
@@ -7018,7 +7018,7 @@ export class MembersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 

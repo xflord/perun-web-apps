@@ -35,7 +35,7 @@ export class MemberResourcesComponent implements OnInit {
     private resourceManager: ResourcesManagerService,
     private route: ActivatedRoute,
     private authResolver: GuiAuthResolver,
-    private entityService: EntityStorageService
+    private entityService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

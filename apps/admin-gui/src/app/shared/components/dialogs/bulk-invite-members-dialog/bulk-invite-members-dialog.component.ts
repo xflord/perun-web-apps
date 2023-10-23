@@ -34,7 +34,7 @@ export class BulkInviteMembersDialogComponent {
     public dialogRef: MatDialogRef<BulkInviteMembersDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BulkInviteMembersDialogData,
     private store: StoreService,
-    private registrarManager: RegistrarManagerService
+    private registrarManager: RegistrarManagerService,
   ) {}
 
   private static didSomeInviteFail(resultData: { [p: string]: string }): boolean {

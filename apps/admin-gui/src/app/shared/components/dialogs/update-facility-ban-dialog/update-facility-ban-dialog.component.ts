@@ -17,7 +17,7 @@ export class UpdateFacilityBanDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: UpdateBanData<BanOnFacility>,
     private dialogRef: MatDialogRef<UpdateFacilityBanDialogComponent>,
     private facilityService: FacilitiesManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   update(banForm: BanForm): void {

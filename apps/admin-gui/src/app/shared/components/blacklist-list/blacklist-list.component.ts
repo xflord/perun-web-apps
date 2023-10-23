@@ -34,7 +34,10 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
   dataSource: MatTableDataSource<[BanOnFacility, User]>;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -68,9 +71,9 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        BlacklistListComponent.getDataForColumn
+        BlacklistListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -83,9 +86,9 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        BlacklistListComponent.getDataForColumn
+        BlacklistListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -96,11 +99,11 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          BlacklistListComponent.getDataForColumn
+          BlacklistListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (
         data: [BanOnFacility, User][],
-        sort: MatSort
+        sort: MatSort,
       ): [BanOnFacility, User][] =>
         customDataSourceSort(data, sort, BlacklistListComponent.getDataForColumn);
       this.dataSource.sort = this.sort;
@@ -123,7 +126,7 @@ export class BlacklistListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

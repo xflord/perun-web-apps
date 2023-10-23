@@ -46,17 +46,17 @@ export class AddGroupResourceDialogComponent implements OnInit {
     private translate: TranslateService,
     private resourcesManager: ResourcesManagerService,
     public guiAuthResolver: GuiAuthResolver,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.theme = this.data.theme;
     this.loading = true;
     this.autoAssignHint = this.translate.instant(
-      'DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT'
+      'DIALOGS.ADD_GROUP_RESOURCES.AUTO_SUBGROUPS_OFF_HINT',
     ) as string;
     this.asActiveHint = this.translate.instant(
-      'DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT'
+      'DIALOGS.ADD_GROUP_RESOURCES.ACTIVE_ON_HINT',
     ) as string;
     this.asyncHint = this.translate.instant('DIALOGS.ADD_GROUP_RESOURCES.ASYNC_ON_HINT') as string;
     this.resourcesManager.getRichResources(this.data.group.voId).subscribe({
@@ -69,7 +69,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
                 assignedResources.findIndex((item) => item.id === allResource.id) === -1 &&
                 this.guiAuthResolver.isAuthorized(
                   'assignGroupToResources_Group_List<Resource>_policy',
-                  [this.data.group, allResource]
+                  [this.data.group, allResource],
                 )
               ) {
                 this.resources.push(allResource);
@@ -102,7 +102,7 @@ export class AddGroupResourceDialogComponent implements OnInit {
         resourceIds,
         this.async,
         !this.asActive,
-        this.autoAssignSubgroups
+        this.autoAssignSubgroups,
       )
       .subscribe({
         next: () => {

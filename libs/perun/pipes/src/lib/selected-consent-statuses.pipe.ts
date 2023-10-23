@@ -8,7 +8,7 @@ export class SelectedConsentStatusesPipe implements PipeTransform {
   transform(
     selectedConsentStatuses: string[],
     consentStatusList: string[],
-    consentStatuses: string[]
+    consentStatuses: string[],
   ): string {
     if (!selectedConsentStatuses || selectedConsentStatuses.length === consentStatusList.length) {
       return 'ALL';

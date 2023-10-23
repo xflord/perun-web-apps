@@ -77,7 +77,7 @@ export class SponsoredMembersPdfService {
   private static generateRowForUser(
     name: string,
     login: string,
-    password: string
+    password: string,
   ): MemberDataTableWrapper {
     return {
       table: {

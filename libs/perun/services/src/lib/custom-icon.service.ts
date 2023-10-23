@@ -244,13 +244,16 @@ export class CustomIconService {
     },
   ];
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+  ) {}
 
   registerPerunRefreshIcon(): void {
     this.customIcons.forEach((ci) => {
       this.matIconRegistry.addSvgIcon(
         ci.name,
-        this.domSanitizer.bypassSecurityTrustResourceUrl(ci.url)
+        this.domSanitizer.bypassSecurityTrustResourceUrl(ci.url),
       );
     });
   }

@@ -29,7 +29,7 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<UpdateApplicationFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: UpdateApplicationFormDialogData,
-    private registrarManager: RegistrarManagerService
+    private registrarManager: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +83,7 @@ export class UpdateApplicationFormDialogComponent implements OnInit {
       (updatedForm) => {
         this.dialogRef.close(updatedForm);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

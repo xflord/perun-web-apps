@@ -24,7 +24,7 @@ export class VoStatisticsComponent implements OnInit {
 
   constructor(
     private voService: VosManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class VoStatisticsComponent implements OnInit {
         this.membersCount.set('members', this.allMembersCount);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

@@ -42,7 +42,7 @@ export class GroupResourcesComponent implements OnInit {
     private groupService: GroupsManagerService,
     private dialog: MatDialog,
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class GroupResourcesComponent implements OnInit {
       this.resourcesToDisable = new Set(
         this.resources
           .filter((resource) => resource.sourceGroupId !== null)
-          .map((resource) => resource.id)
+          .map((resource) => resource.id),
       );
       this.setAuthorization();
       this.loading = false;

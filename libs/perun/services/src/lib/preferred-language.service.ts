@@ -6,7 +6,10 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class PreferredLanguageService {
-  constructor(private route: ActivatedRoute, private store: StoreService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: StoreService,
+  ) {}
 
   getPreferredLanguage(userLang: string): string {
     const supportedLang: string[] = this.store.getProperty('supported_languages');

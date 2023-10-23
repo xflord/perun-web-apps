@@ -32,7 +32,7 @@ export class RequestChangeDataQuotaDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RequestChangeDataQuotaDialogData,
     private rtMessagesService: RTMessagesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.REQUEST_DATA_QUOTA_CHANGE.SUCCESS')

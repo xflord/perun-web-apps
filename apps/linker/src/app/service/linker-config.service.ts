@@ -13,7 +13,7 @@ export class LinkerConfigService {
     private appConfigService: AppConfigService,
     private location: Location,
     private linkIdentitiesService: LinkIdentitiesService,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   loadConfigs(): Promise<void> {

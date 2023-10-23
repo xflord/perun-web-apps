@@ -33,7 +33,7 @@ export class ApiInterceptor implements HttpInterceptor {
     private dialog: MatDialog,
     private initAuthService: InitAuthService,
     private mfaHandlerService: MfaHandlerService,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
   ) {}
 
   intercept<T>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<T>> {
@@ -62,7 +62,7 @@ export class ApiInterceptor implements HttpInterceptor {
       if (!this.dialogRefSessionExpiration) {
         this.dialogRefSessionExpiration = this.dialog.open(
           SessionExpirationDialogComponent,
-          config
+          config,
         );
         this.dialogRefSessionExpiration.afterClosed().subscribe((manuallyClosed: boolean) => {
           finalize(() => (this.dialogRefSessionExpiration = null));
@@ -85,7 +85,7 @@ export class ApiInterceptor implements HttpInterceptor {
             btoa(
               sessionStorage.getItem('basicUsername') +
                 ':' +
-                sessionStorage.getItem('basicPassword')
+                sessionStorage.getItem('basicPassword'),
             ),
         },
       });
@@ -144,7 +144,7 @@ export class ApiInterceptor implements HttpInterceptor {
                 return this.handleRequest(this.replaceAuthenticationToken(req), next);
               }
               return throwError(() => e);
-            })
+            }),
           );
         } else {
           // Handle other errors
@@ -158,7 +158,7 @@ export class ApiInterceptor implements HttpInterceptor {
           }
           return throwError(() => errRpc);
         }
-      })
+      }),
     );
   }
 

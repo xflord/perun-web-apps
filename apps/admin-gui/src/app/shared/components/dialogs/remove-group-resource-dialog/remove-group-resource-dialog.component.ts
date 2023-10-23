@@ -26,7 +26,7 @@ export class RemoveGroupResourceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupResourceDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private resourcesManager: ResourcesManagerService
+    private resourcesManager: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class RemoveGroupResourceDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

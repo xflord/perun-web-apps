@@ -19,7 +19,7 @@ export class AdminAuditLogComponent implements OnInit {
 
   constructor(
     private auditMessagesManagerService: AuditMessagesManagerService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {

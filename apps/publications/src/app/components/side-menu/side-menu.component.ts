@@ -18,7 +18,7 @@ export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuItemService: SideMenuItemsService,
     private storeService: StoreService,
-    private router: Router
+    private router: Router,
   ) {
     this.currentUrl = router.url;
 

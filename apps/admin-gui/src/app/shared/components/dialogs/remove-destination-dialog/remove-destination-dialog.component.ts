@@ -26,7 +26,7 @@ export class RemoveDestinationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: RemoveDestinationDialogData,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private serviceManager: ServicesManagerService
+    private serviceManager: ServicesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class RemoveDestinationDialogComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS')
+            this.translate.instant('DIALOGS.REMOVE_DESTINATIONS.SUCCESS'),
           );
           this.dialogRef.close(true);
         },

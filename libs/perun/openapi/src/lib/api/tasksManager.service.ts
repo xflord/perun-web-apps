@@ -61,7 +61,7 @@ export class TasksManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -92,7 +92,7 @@ export class TasksManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -106,8 +106,8 @@ export class TasksManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -128,25 +128,25 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public countTasks(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public countTasks(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public countTasks(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -220,32 +220,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteTask(
     TaskIdObject: TaskIdObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteTask(
     TaskIdObject: TaskIdObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteTask(
     TaskIdObject: TaskIdObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (TaskIdObject === null || TaskIdObject === undefined) {
       throw new Error(
-        'Required parameter TaskIdObject was null or undefined when calling deleteTask.'
+        'Required parameter TaskIdObject was null or undefined when calling deleteTask.',
       );
     }
 
@@ -329,32 +329,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteTaskResultById(
     TaskResultIdObject: TaskResultIdObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteTaskResultById(
     TaskResultIdObject: TaskResultIdObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteTaskResultById(
     TaskResultIdObject: TaskResultIdObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (TaskResultIdObject === null || TaskResultIdObject === undefined) {
       throw new Error(
-        'Required parameter TaskResultIdObject was null or undefined when calling deleteTaskResultById.'
+        'Required parameter TaskResultIdObject was null or undefined when calling deleteTaskResultById.',
       );
     }
 
@@ -438,32 +438,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteTaskResultsByIds(
     taskResultIds: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteTaskResultsByIds(
     taskResultIds: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteTaskResultsByIds(
     taskResultIds: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (taskResultIds === null || taskResultIds === undefined) {
       throw new Error(
-        'Required parameter taskResultIds was null or undefined when calling deleteTaskResultsByIds.'
+        'Required parameter taskResultIds was null or undefined when calling deleteTaskResultsByIds.',
       );
     }
 
@@ -473,7 +473,7 @@ export class TasksManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'taskResultIds'
+          'taskResultIds',
         );
       });
     }
@@ -551,32 +551,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteTaskResultsIds(
     TaskAndDestinationIdObject: TaskAndDestinationIdObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteTaskResultsIds(
     TaskAndDestinationIdObject: TaskAndDestinationIdObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteTaskResultsIds(
     TaskAndDestinationIdObject: TaskAndDestinationIdObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (TaskAndDestinationIdObject === null || TaskAndDestinationIdObject === undefined) {
       throw new Error(
-        'Required parameter TaskAndDestinationIdObject was null or undefined when calling deleteTaskResultsIds.'
+        'Required parameter TaskAndDestinationIdObject was null or undefined when calling deleteTaskResultsIds.',
       );
     }
 
@@ -660,32 +660,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteTaskResultsNames(
     TaskAndDestinationNameObject: TaskAndDestinationNameObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteTaskResultsNames(
     TaskAndDestinationNameObject: TaskAndDestinationNameObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteTaskResultsNames(
     TaskAndDestinationNameObject: TaskAndDestinationNameObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (TaskAndDestinationNameObject === null || TaskAndDestinationNameObject === undefined) {
       throw new Error(
-        'Required parameter TaskAndDestinationNameObject was null or undefined when calling deleteTaskResultsNames.'
+        'Required parameter TaskAndDestinationNameObject was null or undefined when calling deleteTaskResultsNames.',
       );
     }
 
@@ -769,28 +769,28 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<FacilityState>>;
   public getAllFacilitiesStates(
     vo?: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<FacilityState>>>;
   public getAllFacilitiesStates(
     vo?: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<FacilityState>>>;
   public getAllFacilitiesStates(
     vo?: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (vo !== undefined && vo !== null) {
@@ -870,32 +870,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ResourceState>>;
   public getAllResourcesState(
     voId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ResourceState>>>;
   public getAllResourcesState(
     voId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ResourceState>>>;
   public getAllResourcesState(
     voId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (voId === null || voId === undefined) {
       throw new Error(
-        'Required parameter voId was null or undefined when calling getAllResourcesState.'
+        'Required parameter voId was null or undefined when calling getAllResourcesState.',
       );
     }
 
@@ -977,32 +977,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ServiceState>>;
   public getFacilityServicesState(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ServiceState>>>;
   public getFacilityServicesState(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ServiceState>>>;
   public getFacilityServicesState(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityServicesState.'
+        'Required parameter facility was null or undefined when calling getFacilityServicesState.',
       );
     }
 
@@ -1011,7 +1011,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -1088,32 +1088,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<FacilityState>;
   public getFacilityState(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<FacilityState>>;
   public getFacilityState(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<FacilityState>>;
   public getFacilityState(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityState.'
+        'Required parameter facility was null or undefined when calling getFacilityState.',
       );
     }
 
@@ -1122,7 +1122,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -1201,7 +1201,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Task>;
   public getTask(
     service: number,
@@ -1209,7 +1209,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Task>>;
   public getTask(
     service: number,
@@ -1217,7 +1217,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Task>>;
   public getTask(
     service: number,
@@ -1225,7 +1225,7 @@ export class TasksManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error('Required parameter service was null or undefined when calling getTask.');
@@ -1239,14 +1239,14 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -1323,28 +1323,28 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Task>;
   public getTaskById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Task>>;
   public getTaskById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Task>>;
   public getTaskById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getTaskById.');
@@ -1428,32 +1428,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<TaskResult>;
   public getTaskResultById(
     taskResult: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<TaskResult>>;
   public getTaskResultById(
     taskResult: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<TaskResult>>;
   public getTaskResultById(
     taskResult: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (taskResult === null || taskResult === undefined) {
       throw new Error(
-        'Required parameter taskResult was null or undefined when calling getTaskResultById.'
+        'Required parameter taskResult was null or undefined when calling getTaskResultById.',
       );
     }
 
@@ -1462,7 +1462,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>taskResult,
-        'taskResult'
+        'taskResult',
       );
     }
 
@@ -1537,25 +1537,25 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResults(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResults(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResults(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1629,32 +1629,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResultsByTask(
     task: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResultsByTask(
     task: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResultsByTask(
     task: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (task === null || task === undefined) {
       throw new Error(
-        'Required parameter task was null or undefined when calling getTaskResultsByTask.'
+        'Required parameter task was null or undefined when calling getTaskResultsByTask.',
       );
     }
 
@@ -1736,32 +1736,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResultsForDestinations(
     destinations: Array<string>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResultsForDestinations(
     destinations: Array<string>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResultsForDestinations(
     destinations: Array<string>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destinations === null || destinations === undefined) {
       throw new Error(
-        'Required parameter destinations was null or undefined when calling getTaskResultsForDestinations.'
+        'Required parameter destinations was null or undefined when calling getTaskResultsForDestinations.',
       );
     }
 
@@ -1771,7 +1771,7 @@ export class TasksManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'destinations[]'
+          'destinations[]',
         );
       });
     }
@@ -1849,32 +1849,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResultsForGUIByTask(
     task: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResultsForGUIByTask(
     task: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResultsForGUIByTask(
     task: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (task === null || task === undefined) {
       throw new Error(
-        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTask.'
+        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTask.',
       );
     }
 
@@ -1958,7 +1958,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResultsForGUIByTaskAndDestination(
     task: number,
@@ -1966,7 +1966,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResultsForGUIByTaskAndDestination(
     task: number,
@@ -1974,7 +1974,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResultsForGUIByTaskAndDestination(
     task: number,
@@ -1982,16 +1982,16 @@ export class TasksManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (task === null || task === undefined) {
       throw new Error(
-        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTaskAndDestination.'
+        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTaskAndDestination.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling getTaskResultsForGUIByTaskAndDestination.'
+        'Required parameter destination was null or undefined when calling getTaskResultsForGUIByTaskAndDestination.',
       );
     }
 
@@ -2003,7 +2003,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -2080,32 +2080,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<TaskResult>>;
   public getTaskResultsForGUIByTaskOnlyNewest(
     task: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<TaskResult>>>;
   public getTaskResultsForGUIByTaskOnlyNewest(
     task: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<TaskResult>>>;
   public getTaskResultsForGUIByTaskOnlyNewest(
     task: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (task === null || task === undefined) {
       throw new Error(
-        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTaskOnlyNewest.'
+        'Required parameter task was null or undefined when calling getTaskResultsForGUIByTaskOnlyNewest.',
       );
     }
 
@@ -2189,7 +2189,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isThereSuchTask(
     service: number,
@@ -2197,7 +2197,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isThereSuchTask(
     service: number,
@@ -2205,7 +2205,7 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isThereSuchTask(
     service: number,
@@ -2213,16 +2213,16 @@ export class TasksManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling isThereSuchTask.'
+        'Required parameter service was null or undefined when calling isThereSuchTask.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling isThereSuchTask.'
+        'Required parameter facility was null or undefined when calling isThereSuchTask.',
       );
     }
 
@@ -2231,14 +2231,14 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -2313,25 +2313,25 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Task>>;
   public listAllTasks(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Task>>>;
   public listAllTasks(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Task>>>;
   public listAllTasks(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2405,32 +2405,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Task>>;
   public listAllTasksForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Task>>>;
   public listAllTasksForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Task>>>;
   public listAllTasksForFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling listAllTasksForFacility.'
+        'Required parameter facility was null or undefined when calling listAllTasksForFacility.',
       );
     }
 
@@ -2439,7 +2439,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -2516,32 +2516,32 @@ export class TasksManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public suspendTasksPropagation(
     suspend: boolean,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public suspendTasksPropagation(
     suspend: boolean,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public suspendTasksPropagation(
     suspend: boolean,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (suspend === null || suspend === undefined) {
       throw new Error(
-        'Required parameter suspend was null or undefined when calling suspendTasksPropagation.'
+        'Required parameter suspend was null or undefined when calling suspendTasksPropagation.',
       );
     }
 
@@ -2550,7 +2550,7 @@ export class TasksManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>suspend,
-        'suspend'
+        'suspend',
       );
     }
 

@@ -36,7 +36,7 @@ export class RemoveManagerDialogComponent implements OnInit {
     private translate: PerunTranslateService,
     private authzService: AuthzResolverService,
     private store: StoreService,
-    private authService: GuiAuthResolver
+    private authService: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

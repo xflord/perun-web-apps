@@ -34,7 +34,10 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -68,9 +71,9 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        SecurityTeamsListComponent.getDataForColumn
+        SecurityTeamsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -83,9 +86,9 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        SecurityTeamsListComponent.getDataForColumn
+        SecurityTeamsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -96,7 +99,7 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          SecurityTeamsListComponent.getDataForColumn
+          SecurityTeamsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Vo[], sort: MatSort): Vo[] =>
         customDataSourceSort(data, sort, SecurityTeamsListComponent.getDataForColumn);
@@ -120,7 +123,7 @@ export class SecurityTeamsListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

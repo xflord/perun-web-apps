@@ -50,7 +50,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
     private router: Router,
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -140,7 +140,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
       {
         queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
         queryParamsHandling: 'merge',
-      }
+      },
     );
   }
 
@@ -193,7 +193,7 @@ export class VoSettingsApplicationFormComponent implements OnInit {
   private setAuthRights(): void {
     this.editAuth = this.authResolver.isAuthorized(
       'vo-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
-      [this.vo]
+      [this.vo],
     );
     this.displayedColumns = this.editAuth
       ? [

@@ -30,7 +30,7 @@ export class InitAuthService {
     private authzService: AuthzResolverService,
     private dialog: MatDialog,
     private router: Router,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   isLoginScreenShown(): boolean {
@@ -246,7 +246,7 @@ export class InitAuthService {
     if (this.oauthService.hasValidAccessToken()) {
       this.oauthService.events
         .pipe(
-          filter((e: OAuthInfoEvent) => e.type === 'token_expires' && e.info === 'access_token')
+          filter((e: OAuthInfoEvent) => e.type === 'token_expires' && e.info === 'access_token'),
         )
         .subscribe(() => {
           void this.oauthService.refreshToken();

@@ -56,7 +56,7 @@ export class UserDashboardComponent implements OnInit {
     public translateService: TranslateService,
     private dialog: MatDialog,
     private apiRequestConfiguration: ApiRequestConfigurationService,
-    private otherApplicationService: OtherApplicationsService
+    private otherApplicationService: OtherApplicationsService,
   ) {
     translateService
       .get('USER_DETAIL.DASHBOARD.MAIL_CHANGE_SUCCESS')

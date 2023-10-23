@@ -32,7 +32,7 @@ export class RemoveMembersDialogComponent implements OnInit {
     private membersService: MembersManagerService,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -50,16 +50,16 @@ export class RemoveMembersDialogComponent implements OnInit {
       this.groupService
         .removeMembers(
           this.data.groupId,
-          this.data.members.map((m) => m.id)
+          this.data.members.map((m) => m.id),
         )
         .subscribe(
           () => this.onSuccess(),
-          () => this.onError()
+          () => this.onError(),
         );
     } else {
       this.membersService.deleteMembers(this.data.members.map((m) => m.id)).subscribe(
         () => this.onSuccess(),
-        () => this.onError()
+        () => this.onError(),
       );
     }
   }

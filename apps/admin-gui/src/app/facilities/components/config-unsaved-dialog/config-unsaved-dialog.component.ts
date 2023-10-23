@@ -15,7 +15,7 @@ export class ConfigUnsavedDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfigUnsavedDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfigUnsavedDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ConfigUnsavedDialogData,
   ) {}
 
   ngOnInit(): void {

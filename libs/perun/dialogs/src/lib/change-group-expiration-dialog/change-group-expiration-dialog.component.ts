@@ -36,7 +36,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
     private memberManager: MembersManagerService,
     private groupManager: GroupsManagerService,
     private translate: PerunTranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -54,9 +54,9 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
             if (!attr.value) return of(false);
             return this.groupManager.canExtendMembershipInGroup(
               this.data.memberId,
-              this.data.groupId
+              this.data.groupId,
             );
-          })
+          }),
         )
         .subscribe({
           next: (canExtend) => {
@@ -76,7 +76,7 @@ export class ChangeGroupExpirationDialogComponent implements OnInit {
 
     const extend$ = this.groupManager.extendMembershipInGroup(
       this.data.memberId,
-      this.data.groupId
+      this.data.groupId,
     );
     const change$ = this.attributesManagerService.setMemberGroupAttributes({
       member: this.data.memberId,

@@ -28,7 +28,7 @@ export class RemoveStringValueDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<RemoveStringValueDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveStringValueDialogData,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class RemoveStringValueDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 }

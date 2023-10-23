@@ -59,7 +59,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     private authResolver: GuiAuthResolver,
     private storeService: StoreService,
     private attributesManager: AttributesManagerService,
-    private tableCheckbox: TableCheckbox
+    private tableCheckbox: TableCheckbox,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -113,9 +113,9 @@ export class SponsoredMembersListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        SponsoredMembersListComponent.getDataForColumn
+        SponsoredMembersListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -128,9 +128,9 @@ export class SponsoredMembersListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        SponsoredMembersListComponent.getDataForColumn
+        SponsoredMembersListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -144,11 +144,11 @@ export class SponsoredMembersListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          SponsoredMembersListComponent.getDataForColumn
+          SponsoredMembersListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (
         data: MemberWithSponsors[],
-        sort: MatSort
+        sort: MatSort,
       ): MemberWithSponsors[] =>
         customDataSourceSort(data, sort, SponsoredMembersListComponent.getSortDataForColumn);
     }
@@ -185,7 +185,7 @@ export class SponsoredMembersListComponent implements OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 
@@ -200,7 +200,7 @@ export class SponsoredMembersListComponent implements OnChanges {
     this.attributesManager.getLogins(sponsoredMember.member.userId).subscribe(
       (logins) => {
         const filteredLogins = logins.filter((login) =>
-          attUrns.includes(login.friendlyNameParameter)
+          attUrns.includes(login.friendlyNameParameter),
         );
 
         const config = getDefaultDialogConfig();
@@ -217,7 +217,7 @@ export class SponsoredMembersListComponent implements OnChanges {
           this.loading = false;
         });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -229,7 +229,7 @@ export class SponsoredMembersListComponent implements OnChanges {
 
     return this.authResolver.isAuthorized(
       'sendPasswordResetLinkEmail_Member_String_String_String_String_policy',
-      [vo, sponsoredMember.member]
+      [vo, sponsoredMember.member],
     );
   }
 }

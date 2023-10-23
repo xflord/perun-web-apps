@@ -73,7 +73,7 @@ export class ProfilePageComponent implements OnInit {
     private notificator: NotificatorService,
     private storeService: StoreService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
-    private preferredLangService: PreferredLanguageService
+    private preferredLangService: PreferredLanguageService,
   ) {
     translateService
       .get('PROFILE_PAGE.MAIL_CHANGE_SUCCESS')
@@ -118,12 +118,12 @@ export class ProfilePageComponent implements OnInit {
         this.fullName = new UserFullNamePipe().transform(richUser);
 
         const emailAttribute = richUser.userAttributes.find(
-          (att) => att.friendlyName === 'preferredMail'
+          (att) => att.friendlyName === 'preferredMail',
         );
         this.email = (emailAttribute?.value as string) ?? '-';
 
         this.languageAttribute = richUser.userAttributes.find(
-          (att) => att.friendlyName === 'preferredLanguage'
+          (att) => att.friendlyName === 'preferredLanguage',
         );
         const userLang = (this.languageAttribute?.value as string) ?? null;
         const prefLang = this.preferredLangService.getPreferredLanguage(userLang);
@@ -131,7 +131,7 @@ export class ProfilePageComponent implements OnInit {
         this.currentLang = prefLang;
 
         this.timezoneAttribute = richUser.userAttributes.find(
-          (att) => att.friendlyName === 'timezone'
+          (att) => att.friendlyName === 'timezone',
         );
         this.currentTimezone = (this.timezoneAttribute?.value as string) ?? '-';
 
@@ -141,14 +141,14 @@ export class ProfilePageComponent implements OnInit {
         const langs = this.storeService.getProperty('supported_languages');
         additionalAttributesSpecs.forEach((spec) => {
           const attribute = richUser.userAttributes.find(
-            (att) => att.friendlyName === spec.friendly_name
+            (att) => att.friendlyName === spec.friendly_name,
           );
           if (!attribute) {
             this.attributesManagerService
               .getAttributeDefinitionByName(
                 `urn:perun:user:attribute-def:${spec.is_virtual ? 'virt' : 'def'}:${
                   spec.friendly_name
-                }`
+                }`,
               )
               .subscribe((att) => {
                 this.addAttribute(att, spec, langs);

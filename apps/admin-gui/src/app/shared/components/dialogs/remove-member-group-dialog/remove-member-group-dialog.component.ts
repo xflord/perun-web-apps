@@ -27,7 +27,7 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveMemberGroupDialogData,
     private groupManager: GroupsManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -42,11 +42,11 @@ export class RemoveMemberGroupDialogComponent implements OnInit {
     this.groupManager.removeMember(groupIds, this.data.memberId).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS') as string
+          this.translate.instant('DIALOGS.REMOVE_MEMBER_GROUP.SUCCESS') as string,
         );
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

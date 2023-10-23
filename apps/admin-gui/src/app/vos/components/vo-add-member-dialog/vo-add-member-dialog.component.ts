@@ -37,15 +37,15 @@ export class VoAddMemberDialogComponent implements OnInit {
       // emulates loading
       merge(
         of(null as MemberCandidate[]),
-        this.voService.getCompleteCandidatesForVo(this.data.voId, this.attrNames, filter)
-      )
+        this.voService.getCompleteCandidatesForVo(this.data.voId, this.attrNames, filter),
+      ),
     ),
-    startWith(undefined as MemberCandidate[])
+    startWith(undefined as MemberCandidate[]),
   );
   failed: FailedCandidate[] = [];
   selection: SelectionModel<MemberCandidate> = new SelectionModel<MemberCandidate>(true, []);
   attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
-    this.store.getLoginAttributeNames()
+    this.store.getLoginAttributeNames(),
   );
   languages: string[] = this.store.getProperty('supported_languages');
 
@@ -58,7 +58,7 @@ export class VoAddMemberDialogComponent implements OnInit {
     private store: StoreService,
     private requestService: ApiRequestConfigurationService,
     private addMemberService: AddMemberService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {
     this.addMemberService.setDialogRef(this.dialogRef);
     this.addMemberService.setType('vo');

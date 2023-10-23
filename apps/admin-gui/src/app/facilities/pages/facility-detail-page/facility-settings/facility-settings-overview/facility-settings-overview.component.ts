@@ -23,7 +23,7 @@ export class FacilitySettingsOverviewComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngOnInit(): void {

@@ -24,7 +24,7 @@ export class SettingsPreferredShellsComponent implements OnInit {
     private store: StoreService,
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
     translateService
       .get('PREFERRED_SHELLS.REMOVE_DIALOG_DESCRIPTION')

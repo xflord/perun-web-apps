@@ -23,7 +23,7 @@ export class AuthenticationLocalAccountComponent {
     private store: StoreService,
     private appUrlService: OtherApplicationsService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {}
 
   openPwdReset(): void {

@@ -26,7 +26,7 @@ export class GroupSettingsExpirationComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private apiRequest: ApiRequestConfigurationService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('GROUP_DETAIL.SETTINGS.EXPIRATION.SUCCESS_MESSAGE')

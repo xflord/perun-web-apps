@@ -53,7 +53,7 @@ export class VoApplicationsComponent implements OnInit {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private translate: PerunTranslateService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class VoApplicationsComponent implements OnInit {
           }
           this.viewPreferences$ = this.attributeService.getVoAttributeByName(
             this.vo.id,
-            'urn:perun:vo:attribute-def:def:applicationViewPreferences'
+            'urn:perun:vo:attribute-def:def:applicationViewPreferences',
           );
         });
       });
@@ -86,7 +86,7 @@ export class VoApplicationsComponent implements OnInit {
         // and subscribe to the new one
         this.viewPreferences$ = this.attributeService.getVoAttributeByName(
           this.vo.id,
-          'urn:perun:vo:attribute-def:def:applicationViewPreferences'
+          'urn:perun:vo:attribute-def:def:applicationViewPreferences',
         );
       }
     });
@@ -95,19 +95,19 @@ export class VoApplicationsComponent implements OnInit {
   setAuthRights(): void {
     this.authRights.approve = this.authResolver.isAuthorized(
       'vo-approveApplicationInternal_int_policy',
-      [this.vo]
+      [this.vo],
     );
     this.authRights.reject = this.authResolver.isAuthorized(
       'vo-rejectApplication_int_String_policy',
-      [this.vo]
+      [this.vo],
     );
     this.authRights.delete = this.authResolver.isAuthorized(
       'vo-deleteApplication_Application_policy',
-      [this.vo]
+      [this.vo],
     );
     this.authRights.resend = this.authResolver.isAuthorized(
       'vo-sendMessage_Application_MailType_String_policy',
-      [this.vo]
+      [this.vo],
     );
   }
 }

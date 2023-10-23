@@ -37,7 +37,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MemberTreeViewDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MemberTreeViewDialogData,
-    private groupsManagerService: GroupsManagerService
+    private groupsManagerService: GroupsManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
     this.formControl.valueChanges.subscribe((value: string) => {
       const filterValue = value.trim().toLowerCase();
       const filteredPaths = this.paths.filter(
-        (p) => p.filter((g) => g.name.includes(filterValue)).length
+        (p) => p.filter((g) => g.name.includes(filterValue)).length,
       );
       this.createGroupTree(filteredPaths);
       this.dataSource.data = this.groupTree;
@@ -72,7 +72,7 @@ export class MemberTreeViewDialogComponent implements OnInit {
       `/organizations/${this.data.member.voId}/groups/${groupId}${
         isInclude ? '/settings/relations' : ''
       }`,
-      '_blank'
+      '_blank',
     );
   }
 

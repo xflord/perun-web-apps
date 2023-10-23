@@ -27,7 +27,7 @@ export class AddMemberOrganizationDialogComponent implements OnInit {
     private vosService: VosManagerService,
     private entityStorage: EntityStorageService,
     private notificator: NotificatorService,
-    private translator: TranslateService
+    private translator: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -41,10 +41,10 @@ export class AddMemberOrganizationDialogComponent implements OnInit {
             this.vos = vos.filter((vo) => !memberVoIds.includes(vo.id));
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -66,12 +66,12 @@ export class AddMemberOrganizationDialogComponent implements OnInit {
       () => {
         this.notificator.showSuccess(
           this.translator.instant(
-            'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.SUCCESS'
-          ) as string
+            'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.ADD_MEMBER_ORGANIZATION.SUCCESS',
+          ) as string,
         );
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

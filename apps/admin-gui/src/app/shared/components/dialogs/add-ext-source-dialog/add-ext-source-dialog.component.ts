@@ -31,7 +31,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddExtSourceDialogData,
     private extSourceService: ExtSourcesManagerService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -42,21 +42,21 @@ export class AddExtSourceDialogComponent implements OnInit {
       this.extSourceService.getVoExtSources(this.data.voId).subscribe(
         (sources) => {
           this.extSources = sources.filter(
-            (source) => !this.data.extSources.some(({ id }) => id === source.id)
+            (source) => !this.data.extSources.some(({ id }) => id === source.id),
           );
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     } else {
       this.extSourceService.getExtSources().subscribe(
         (sources) => {
           this.extSources = sources.filter(
-            (source) => !this.data.extSources.some(({ id }) => id === source.id)
+            (source) => !this.data.extSources.some(({ id }) => id === source.id),
           );
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     }
   }
@@ -70,7 +70,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     this.extSourceService.addExtSourcesWithVoSource(this.data.voId, extSourceIds).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED'),
         );
         this.dialogRef.close(true);
       },
@@ -84,7 +84,7 @@ export class AddExtSourceDialogComponent implements OnInit {
     this.extSourceService.addExtSourcesWithGroupSource(this.data.groupId, extSourceIds).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED')
+          this.translate.instant('DIALOGS.ADD_EXT_SOURCES.SUCCESS_ADDED'),
         );
         this.dialogRef.close(true);
       },

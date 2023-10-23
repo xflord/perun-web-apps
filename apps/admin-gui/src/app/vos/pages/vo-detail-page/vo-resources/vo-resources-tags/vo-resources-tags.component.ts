@@ -38,7 +38,7 @@ export class VoResourcesTagsComponent implements OnInit {
     private notificator: NotificatorService,
     private translator: TranslateService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

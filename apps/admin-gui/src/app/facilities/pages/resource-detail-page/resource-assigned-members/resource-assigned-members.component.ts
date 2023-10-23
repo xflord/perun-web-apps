@@ -49,7 +49,7 @@ export class ResourceAssignedMembersComponent implements OnInit {
     private entityStorageService: EntityStorageService,
     private storeService: StoreService,
     private consentService: ConsentsManagerService,
-    private consentStatusPipe: ConsentStatusIconPipe
+    private consentStatusPipe: ConsentStatusIconPipe,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class ResourceAssignedMembersComponent implements OnInit {
                 (member) =>
                   !this.selectedConsentStatuses ||
                   this.selectedConsentStatuses.length === 0 ||
-                  this.selectedConsentStatuses.includes(member.consent)
+                  this.selectedConsentStatuses.includes(member.consent),
               );
             });
         } else {

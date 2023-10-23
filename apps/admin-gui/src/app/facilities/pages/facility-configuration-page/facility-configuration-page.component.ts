@@ -77,7 +77,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
     private translate: TranslateService,
     private router: Router,
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('FACILITY_CONFIGURATION.ATT_SAVED')
@@ -142,14 +142,14 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
     const toSelect: Set<number> = this.filterService(
       toToggle,
       selectedPackages.filter(
-        (pack) => this.selectedPackages.findIndex((p) => p.id === pack.id) < 0
-      )
+        (pack) => this.selectedPackages.findIndex((p) => p.id === pack.id) < 0,
+      ),
     );
     const toDeselect: Set<number> = this.filterService(
       toToggle,
       this.selectedPackages.filter(
-        (pack) => selectedPackages.findIndex((p) => p.id === pack.id) < 0
-      )
+        (pack) => selectedPackages.findIndex((p) => p.id === pack.id) < 0,
+      ),
     );
     for (const service of this.services) {
       if (toSelect.has(service.id)) {
@@ -310,7 +310,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
       this.serviceManager.getServicesFromServicesPackage(packages[idx].id).subscribe((services) => {
         this.servicesPerPackage.set(
           packages[idx].id,
-          new Set<number>([...services.map((service) => service.id)])
+          new Set<number>([...services.map((service) => service.id)]),
         );
         this.getServicePackageServices(packages, idx + 1);
       });
@@ -327,7 +327,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
           reqAtts = reqAtts.filter((reqAtt) => this.attributeIds.has(reqAtt.id));
           this.attributesPerService.set(
             services[idx].id,
-            reqAtts.map((att) => att.id)
+            reqAtts.map((att) => att.id),
           );
           this.getServiceRequiredAttributes(services, idx + 1);
         });
@@ -423,7 +423,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
     this.attributesManager
       .getRequiredAttributesFacilityServices(
         this.selection.selected.map((service) => service.id),
-        this.facility.id
+        this.facility.id,
       )
       .subscribe((attributes) => {
         this.attSelection.clear();
@@ -446,7 +446,7 @@ export class FacilityConfigurationPageComponent implements OnInit, AfterViewInit
           () => {
             this.stepper.next();
           },
-          () => this.getRequiredAttributes()
+          () => this.getRequiredAttributes(),
         );
       }
     });

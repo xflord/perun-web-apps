@@ -51,7 +51,7 @@ export class ServiceDetailPageComponent implements OnInit {
     public authResolver: GuiAuthResolver,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -101,10 +101,10 @@ export class ServiceDetailPageComponent implements OnInit {
     this.serviceManager.updateService({ service: this.service }).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('SERVICE_DETAIL.STATUS_CHANGE_SUCCESS') as string
+          this.translate.instant('SERVICE_DETAIL.STATUS_CHANGE_SUCCESS') as string,
         );
       },
-      () => (this.service.enabled = !this.service.enabled)
+      () => (this.service.enabled = !this.service.enabled),
     );
   }
 
@@ -113,10 +113,10 @@ export class ServiceDetailPageComponent implements OnInit {
     this.serviceManager.updateService({ service: this.service }).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('SERVICE_DETAIL.PROPAGATION_CHANGE_SUCCESS') as string
+          this.translate.instant('SERVICE_DETAIL.PROPAGATION_CHANGE_SUCCESS') as string,
         );
       },
-      () => (this.service.useExpiredMembers = !this.service.useExpiredMembers)
+      () => (this.service.useExpiredMembers = !this.service.useExpiredMembers),
     );
   }
 
@@ -140,8 +140,8 @@ export class ServiceDetailPageComponent implements OnInit {
           .evaluateConsentsForService(this.service.id)
           .subscribe(() =>
             this.notificator.showSuccess(
-              this.translate.instant('SERVICE_DETAIL.EVALUATION_FINISH') as string
-            )
+              this.translate.instant('SERVICE_DETAIL.EVALUATION_FINISH') as string,
+            ),
           );
       }
     });
@@ -156,7 +156,7 @@ export class ServiceDetailPageComponent implements OnInit {
         this.sideMenuService.setAdminItems([serviceItems]);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

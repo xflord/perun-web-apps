@@ -22,7 +22,7 @@ export class RemoveAltPasswordDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<RemoveAltPasswordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: RemoveAltPasswordDialogData,
-    private usersManagerService: UsersManagerService
+    private usersManagerService: UsersManagerService,
   ) {}
 
   ngOnInit(): void {

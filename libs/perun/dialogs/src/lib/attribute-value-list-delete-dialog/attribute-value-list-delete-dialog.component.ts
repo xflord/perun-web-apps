@@ -13,7 +13,7 @@ export interface AttributeValueListDeleteDialogData {
 export class AttributeValueListDeleteDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AttributeValueListDeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListDeleteDialogData
+    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListDeleteDialogData,
   ) {}
 
   cancel(): void {

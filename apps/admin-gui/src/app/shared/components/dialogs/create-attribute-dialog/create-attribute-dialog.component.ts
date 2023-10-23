@@ -40,7 +40,7 @@ export class CreateAttributeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CreateAttributeDialogData,
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     this.translate
       .get('DIALOGS.CREATE_ATTRIBUTE.SUCCESS_SAVE')
@@ -124,12 +124,12 @@ export class CreateAttributeDialogComponent implements OnInit {
         resourceId,
         facilityId,
         hostId,
-        uesId
+        uesId,
       )
       .subscribe((attributes) => {
         this.attributes = attributes as Attribute[];
         this.attributes = this.attributes.filter(
-          (attribute) => !unWanted.includes(attribute.id) && this.twoEntityValid(attribute)
+          (attribute) => !unWanted.includes(attribute.id) && this.twoEntityValid(attribute),
         );
         this.loading = false;
       });

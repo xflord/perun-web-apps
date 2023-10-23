@@ -24,7 +24,7 @@ export class ResourceSettingsOverviewComponent implements OnInit {
     private resourceManager: ResourcesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngOnInit(): void {

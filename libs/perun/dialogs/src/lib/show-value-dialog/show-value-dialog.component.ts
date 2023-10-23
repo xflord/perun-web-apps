@@ -17,7 +17,7 @@ export class ShowValueDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ShowValueDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: ShowValueDialogData
+    @Inject(MAT_DIALOG_DATA) private data: ShowValueDialogData,
   ) {}
 
   ngOnInit(): void {

@@ -45,7 +45,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
     private translate: PerunTranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -104,7 +104,7 @@ export class EditMemberSponsorsDialogComponent implements OnInit {
     this.memberService.removeSponsors(this.data.member.id, sponsorIds).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS')
+          this.translate.instant('DIALOGS.EDIT_MEMBER_SPONSORS.SUCCESS'),
         );
         this.loading = false;
         this.dialogRef.close(true);

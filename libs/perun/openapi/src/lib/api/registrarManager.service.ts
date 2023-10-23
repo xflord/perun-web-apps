@@ -95,7 +95,7 @@ export class RegistrarManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -126,7 +126,7 @@ export class RegistrarManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -140,8 +140,8 @@ export class RegistrarManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -164,32 +164,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public addApplicationMailForGroup(
     InputAddApplicationMailForGroup: InputAddApplicationMailForGroup,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public addApplicationMailForGroup(
     InputAddApplicationMailForGroup: InputAddApplicationMailForGroup,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public addApplicationMailForGroup(
     InputAddApplicationMailForGroup: InputAddApplicationMailForGroup,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAddApplicationMailForGroup === null || InputAddApplicationMailForGroup === undefined) {
       throw new Error(
-        'Required parameter InputAddApplicationMailForGroup was null or undefined when calling addApplicationMailForGroup.'
+        'Required parameter InputAddApplicationMailForGroup was null or undefined when calling addApplicationMailForGroup.',
       );
     }
 
@@ -273,32 +273,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public addApplicationMailForVo(
     InputAddApplicationMailForVo: InputAddApplicationMailForVo,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public addApplicationMailForVo(
     InputAddApplicationMailForVo: InputAddApplicationMailForVo,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public addApplicationMailForVo(
     InputAddApplicationMailForVo: InputAddApplicationMailForVo,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAddApplicationMailForVo === null || InputAddApplicationMailForVo === undefined) {
       throw new Error(
-        'Required parameter InputAddApplicationMailForVo was null or undefined when calling addApplicationMailForVo.'
+        'Required parameter InputAddApplicationMailForVo was null or undefined when calling addApplicationMailForVo.',
       );
     }
 
@@ -383,32 +383,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addGroupsToAutoRegistration(
     groups: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addGroupsToAutoRegistration(
     groups: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addGroupsToAutoRegistration(
     groups: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling addGroupsToAutoRegistration.'
+        'Required parameter groups was null or undefined when calling addGroupsToAutoRegistration.',
       );
     }
 
@@ -418,7 +418,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -500,7 +500,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addSubgroupsToAutoRegistration(
     groups: Array<number>,
@@ -509,7 +509,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addSubgroupsToAutoRegistration(
     groups: Array<number>,
@@ -518,7 +518,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addSubgroupsToAutoRegistration(
     groups: Array<number>,
@@ -527,21 +527,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling addSubgroupsToAutoRegistration.'
+        'Required parameter groups was null or undefined when calling addSubgroupsToAutoRegistration.',
       );
     }
     if (registrationGroup === null || registrationGroup === undefined) {
       throw new Error(
-        'Required parameter registrationGroup was null or undefined when calling addSubgroupsToAutoRegistration.'
+        'Required parameter registrationGroup was null or undefined when calling addSubgroupsToAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling addSubgroupsToAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling addSubgroupsToAutoRegistration.',
       );
     }
 
@@ -551,7 +551,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -559,14 +559,14 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>registrationGroup,
-        'registrationGroup'
+        'registrationGroup',
       );
     }
     if (formItem !== undefined && formItem !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -645,7 +645,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addVoGroupsToAutoRegistration(
     groups: Array<number>,
@@ -653,7 +653,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addVoGroupsToAutoRegistration(
     groups: Array<number>,
@@ -661,7 +661,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addVoGroupsToAutoRegistration(
     groups: Array<number>,
@@ -669,16 +669,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling addVoGroupsToAutoRegistration.'
+        'Required parameter groups was null or undefined when calling addVoGroupsToAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling addVoGroupsToAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling addVoGroupsToAutoRegistration.',
       );
     }
 
@@ -688,7 +688,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -696,7 +696,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -774,32 +774,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Application>;
   public approveApplication(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Application>>;
   public approveApplication(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Application>>;
   public approveApplication(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling approveApplication.'
+        'Required parameter id was null or undefined when calling approveApplication.',
       );
     }
 
@@ -882,32 +882,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public approveApplications(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public approveApplications(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public approveApplications(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling approveApplications.'
+        'Required parameter ids was null or undefined when calling approveApplications.',
       );
     }
 
@@ -917,7 +917,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -993,25 +993,25 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedIdentity>>;
   public checkForSimilarRichIdentities(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedIdentity>>>;
   public checkForSimilarRichIdentities(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedIdentity>>>;
   public checkForSimilarRichIdentities(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1083,25 +1083,25 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Identity>>;
   public checkForSimilarUsersWithAuthInfo(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Identity>>>;
   public checkForSimilarUsersWithAuthInfo(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Identity>>>;
   public checkForSimilarUsersWithAuthInfo(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1176,32 +1176,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public consolidate(
     InputConsolidate: InputConsolidate,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public consolidate(
     InputConsolidate: InputConsolidate,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public consolidate(
     InputConsolidate: InputConsolidate,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputConsolidate === null || InputConsolidate === undefined) {
       throw new Error(
-        'Required parameter InputConsolidate was null or undefined when calling consolidate.'
+        'Required parameter InputConsolidate was null or undefined when calling consolidate.',
       );
     }
 
@@ -1285,32 +1285,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<UserExtSource>>;
   public consolidateIdentityUsingToken(
     token: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<UserExtSource>>>;
   public consolidateIdentityUsingToken(
     token: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<UserExtSource>>>;
   public consolidateIdentityUsingToken(
     token: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (token === null || token === undefined) {
       throw new Error(
-        'Required parameter token was null or undefined when calling consolidateIdentityUsingToken.'
+        'Required parameter token was null or undefined when calling consolidateIdentityUsingToken.',
       );
     }
 
@@ -1394,7 +1394,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyFormFromGroupToGroup(
     fromGroup?: number,
@@ -1402,7 +1402,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyFormFromGroupToGroup(
     fromGroup?: number,
@@ -1410,7 +1410,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyFormFromGroupToGroup(
     fromGroup?: number,
@@ -1418,21 +1418,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromGroup !== undefined && fromGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromGroup,
-        'fromGroup'
+        'fromGroup',
       );
     }
     if (toGroup !== undefined && toGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>toGroup,
-        'toGroup'
+        'toGroup',
       );
     }
 
@@ -1511,7 +1511,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyFormFromGroupToVo(
     fromGroup?: number,
@@ -1519,7 +1519,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyFormFromGroupToVo(
     fromGroup?: number,
@@ -1527,7 +1527,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyFormFromGroupToVo(
     fromGroup?: number,
@@ -1535,14 +1535,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromGroup !== undefined && fromGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromGroup,
-        'fromGroup'
+        'fromGroup',
       );
     }
     if (toVo !== undefined && toVo !== null) {
@@ -1624,7 +1624,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyFormFromVoToGroup(
     fromVo?: number,
@@ -1632,7 +1632,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyFormFromVoToGroup(
     fromVo?: number,
@@ -1640,7 +1640,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyFormFromVoToGroup(
     fromVo?: number,
@@ -1648,21 +1648,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromVo !== undefined && fromVo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromVo,
-        'fromVo'
+        'fromVo',
       );
     }
     if (toGroup !== undefined && toGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>toGroup,
-        'toGroup'
+        'toGroup',
       );
     }
 
@@ -1741,7 +1741,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyFormFromVoToVo(
     fromVo?: number,
@@ -1749,7 +1749,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyFormFromVoToVo(
     fromVo?: number,
@@ -1757,7 +1757,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyFormFromVoToVo(
     fromVo?: number,
@@ -1765,14 +1765,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromVo !== undefined && fromVo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromVo,
-        'fromVo'
+        'fromVo',
       );
     }
     if (toVo !== undefined && toVo !== null) {
@@ -1854,7 +1854,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyMailsFromGroupToGroup(
     fromGroup?: number,
@@ -1862,7 +1862,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyMailsFromGroupToGroup(
     fromGroup?: number,
@@ -1870,7 +1870,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyMailsFromGroupToGroup(
     fromGroup?: number,
@@ -1878,21 +1878,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromGroup !== undefined && fromGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromGroup,
-        'fromGroup'
+        'fromGroup',
       );
     }
     if (toGroup !== undefined && toGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>toGroup,
-        'toGroup'
+        'toGroup',
       );
     }
 
@@ -1971,7 +1971,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyMailsFromGroupToVo(
     fromGroup?: number,
@@ -1979,7 +1979,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyMailsFromGroupToVo(
     fromGroup?: number,
@@ -1987,7 +1987,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyMailsFromGroupToVo(
     fromGroup?: number,
@@ -1995,14 +1995,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromGroup !== undefined && fromGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromGroup,
-        'fromGroup'
+        'fromGroup',
       );
     }
     if (toVo !== undefined && toVo !== null) {
@@ -2084,7 +2084,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyMailsFromVoToGroup(
     fromVo?: number,
@@ -2092,7 +2092,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyMailsFromVoToGroup(
     fromVo?: number,
@@ -2100,7 +2100,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyMailsFromVoToGroup(
     fromVo?: number,
@@ -2108,21 +2108,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromVo !== undefined && fromVo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromVo,
-        'fromVo'
+        'fromVo',
       );
     }
     if (toGroup !== undefined && toGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>toGroup,
-        'toGroup'
+        'toGroup',
       );
     }
 
@@ -2201,7 +2201,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyMailsFromVoToVo(
     fromVo?: number,
@@ -2209,7 +2209,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyMailsFromVoToVo(
     fromVo?: number,
@@ -2217,7 +2217,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyMailsFromVoToVo(
     fromVo?: number,
@@ -2225,14 +2225,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (fromVo !== undefined && fromVo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>fromVo,
-        'fromVo'
+        'fromVo',
       );
     }
     if (toVo !== undefined && toVo !== null) {
@@ -2312,32 +2312,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public createApplicationFormInGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public createApplicationFormInGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public createApplicationFormInGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling createApplicationFormInGroup.'
+        'Required parameter group was null or undefined when calling createApplicationFormInGroup.',
       );
     }
 
@@ -2419,32 +2419,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public createApplicationFormInVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public createApplicationFormInVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public createApplicationFormInVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling createApplicationFormInVo.'
+        'Required parameter vo was null or undefined when calling createApplicationFormInVo.',
       );
     }
 
@@ -2526,32 +2526,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteApplication(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteApplication(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteApplication(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling deleteApplication.'
+        'Required parameter id was null or undefined when calling deleteApplication.',
       );
     }
 
@@ -2635,7 +2635,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteApplicationMailForGroup(
     group: number,
@@ -2643,7 +2643,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteApplicationMailForGroup(
     group: number,
@@ -2651,7 +2651,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteApplicationMailForGroup(
     group: number,
@@ -2659,16 +2659,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling deleteApplicationMailForGroup.'
+        'Required parameter group was null or undefined when calling deleteApplicationMailForGroup.',
       );
     }
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling deleteApplicationMailForGroup.'
+        'Required parameter id was null or undefined when calling deleteApplicationMailForGroup.',
       );
     }
 
@@ -2755,7 +2755,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteApplicationMailForVo(
     vo: number,
@@ -2763,7 +2763,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteApplicationMailForVo(
     vo: number,
@@ -2771,7 +2771,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteApplicationMailForVo(
     vo: number,
@@ -2779,16 +2779,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling deleteApplicationMailForVo.'
+        'Required parameter vo was null or undefined when calling deleteApplicationMailForVo.',
       );
     }
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling deleteApplicationMailForVo.'
+        'Required parameter id was null or undefined when calling deleteApplicationMailForVo.',
       );
     }
 
@@ -2874,32 +2874,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteApplications(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteApplications(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteApplications(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling deleteApplications.'
+        'Required parameter ids was null or undefined when calling deleteApplications.',
       );
     }
 
@@ -2909,7 +2909,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -2988,32 +2988,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteGroupsFromAutoRegistration(
     groups: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteGroupsFromAutoRegistration(
     groups: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteGroupsFromAutoRegistration(
     groups: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling deleteGroupsFromAutoRegistration.'
+        'Required parameter groups was null or undefined when calling deleteGroupsFromAutoRegistration.',
       );
     }
 
@@ -3023,7 +3023,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -3105,7 +3105,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteSubgroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3114,7 +3114,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteSubgroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3123,7 +3123,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteSubgroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3132,21 +3132,21 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling deleteSubgroupsFromAutoRegistration.'
+        'Required parameter groups was null or undefined when calling deleteSubgroupsFromAutoRegistration.',
       );
     }
     if (registrationGroup === null || registrationGroup === undefined) {
       throw new Error(
-        'Required parameter registrationGroup was null or undefined when calling deleteSubgroupsFromAutoRegistration.'
+        'Required parameter registrationGroup was null or undefined when calling deleteSubgroupsFromAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling deleteSubgroupsFromAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling deleteSubgroupsFromAutoRegistration.',
       );
     }
 
@@ -3156,7 +3156,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -3164,14 +3164,14 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>registrationGroup,
-        'registrationGroup'
+        'registrationGroup',
       );
     }
     if (formItem !== undefined && formItem !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -3250,7 +3250,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteVoGroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3258,7 +3258,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteVoGroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3266,7 +3266,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteVoGroupsFromAutoRegistration(
     groups: Array<number>,
@@ -3274,16 +3274,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling deleteVoGroupsFromAutoRegistration.'
+        'Required parameter groups was null or undefined when calling deleteVoGroupsFromAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling deleteVoGroupsFromAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling deleteVoGroupsFromAutoRegistration.',
       );
     }
 
@@ -3293,7 +3293,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -3301,7 +3301,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -3378,32 +3378,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Application>;
   public getApplicationById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Application>>;
   public getApplicationById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Application>>;
   public getApplicationById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getApplicationById.'
+        'Required parameter id was null or undefined when calling getApplicationById.',
       );
     }
 
@@ -3485,32 +3485,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationFormItemData>>;
   public getApplicationDataById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationFormItemData>>>;
   public getApplicationDataById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationFormItemData>>>;
   public getApplicationDataById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getApplicationDataById.'
+        'Required parameter id was null or undefined when calling getApplicationDataById.',
       );
     }
 
@@ -3592,32 +3592,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationMail>>;
   public getApplicationMailsForGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationMail>>>;
   public getApplicationMailsForGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationMail>>>;
   public getApplicationMailsForGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getApplicationMailsForGroup.'
+        'Required parameter group was null or undefined when calling getApplicationMailsForGroup.',
       );
     }
 
@@ -3699,32 +3699,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationMail>>;
   public getApplicationMailsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationMail>>>;
   public getApplicationMailsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationMail>>>;
   public getApplicationMailsForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getApplicationMailsForVo.'
+        'Required parameter vo was null or undefined when calling getApplicationMailsForVo.',
       );
     }
 
@@ -3812,7 +3812,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Application>>;
   public getApplicationsForGroup(
     group: number,
@@ -3822,7 +3822,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Application>>>;
   public getApplicationsForGroup(
     group: number,
@@ -3832,7 +3832,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Application>>>;
   public getApplicationsForGroup(
     group: number,
@@ -3842,11 +3842,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getApplicationsForGroup.'
+        'Required parameter group was null or undefined when calling getApplicationsForGroup.',
       );
     }
 
@@ -3859,7 +3859,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'state[]'
+          'state[]',
         );
       });
     }
@@ -3867,14 +3867,14 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>dateFrom,
-        'dateFrom'
+        'dateFrom',
       );
     }
     if (dateTo !== undefined && dateTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>dateTo,
-        'dateTo'
+        'dateTo',
       );
     }
 
@@ -3953,7 +3953,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Application>>;
   public getApplicationsForMember(
     member: number,
@@ -3961,7 +3961,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Application>>>;
   public getApplicationsForMember(
     member: number,
@@ -3969,7 +3969,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Application>>>;
   public getApplicationsForMember(
     member: number,
@@ -3977,11 +3977,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getApplicationsForMember.'
+        'Required parameter member was null or undefined when calling getApplicationsForMember.',
       );
     }
 
@@ -3990,7 +3990,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -4076,7 +4076,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Application>>;
   public getApplicationsForVo(
     vo: number,
@@ -4086,7 +4086,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Application>>>;
   public getApplicationsForVo(
     vo: number,
@@ -4096,7 +4096,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Application>>>;
   public getApplicationsForVo(
     vo: number,
@@ -4106,11 +4106,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getApplicationsForVo.'
+        'Required parameter vo was null or undefined when calling getApplicationsForVo.',
       );
     }
 
@@ -4123,7 +4123,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'state[]'
+          'state[]',
         );
       });
     }
@@ -4131,14 +4131,14 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>dateFrom,
-        'dateFrom'
+        'dateFrom',
       );
     }
     if (dateTo !== undefined && dateTo !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>dateTo,
-        'dateTo'
+        'dateTo',
       );
     }
 
@@ -4215,32 +4215,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedRichApplications>;
   public getApplicationsPage(
     InputGetPaginatedApplications: InputGetPaginatedApplications,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedRichApplications>>;
   public getApplicationsPage(
     InputGetPaginatedApplications: InputGetPaginatedApplications,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedRichApplications>>;
   public getApplicationsPage(
     InputGetPaginatedApplications: InputGetPaginatedApplications,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedApplications === null || InputGetPaginatedApplications === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedApplications was null or undefined when calling getApplicationsPage.'
+        'Required parameter InputGetPaginatedApplications was null or undefined when calling getApplicationsPage.',
       );
     }
 
@@ -4312,7 +4312,7 @@ export class RegistrarManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -4327,25 +4327,25 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<string>;
   public getConsolidatorToken(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<string>>;
   public getConsolidatorToken(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<string>>;
   public getConsolidatorToken(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -4419,32 +4419,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationFormItem>>;
   public getFormItemsForGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationFormItem>>>;
   public getFormItemsForGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationFormItem>>>;
   public getFormItemsForGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getFormItemsForGroup.'
+        'Required parameter group was null or undefined when calling getFormItemsForGroup.',
       );
     }
 
@@ -4528,7 +4528,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationFormItem>>;
   public getFormItemsForGroupWithType(
     group: number,
@@ -4536,7 +4536,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationFormItem>>>;
   public getFormItemsForGroupWithType(
     group: number,
@@ -4544,7 +4544,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationFormItem>>>;
   public getFormItemsForGroupWithType(
     group: number,
@@ -4552,11 +4552,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getFormItemsForGroupWithType.'
+        'Required parameter group was null or undefined when calling getFormItemsForGroupWithType.',
       );
     }
 
@@ -4641,32 +4641,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationFormItem>>;
   public getFormItemsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationFormItem>>>;
   public getFormItemsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationFormItem>>>;
   public getFormItemsForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getFormItemsForVo.'
+        'Required parameter vo was null or undefined when calling getFormItemsForVo.',
       );
     }
 
@@ -4750,7 +4750,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ApplicationFormItem>>;
   public getFormItemsForVoWithType(
     vo: number,
@@ -4758,7 +4758,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ApplicationFormItem>>>;
   public getFormItemsForVoWithType(
     vo: number,
@@ -4766,7 +4766,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ApplicationFormItem>>>;
   public getFormItemsForVoWithType(
     vo: number,
@@ -4774,11 +4774,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getFormItemsForVoWithType.'
+        'Required parameter vo was null or undefined when calling getFormItemsForVoWithType.',
       );
     }
 
@@ -4864,32 +4864,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ApplicationForm>;
   public getGroupApplicationForm(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ApplicationForm>>;
   public getGroupApplicationForm(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ApplicationForm>>;
   public getGroupApplicationForm(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupApplicationForm.'
+        'Required parameter group was null or undefined when calling getGroupApplicationForm.',
       );
     }
 
@@ -4972,32 +4972,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsToAutoRegistration(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsToAutoRegistration(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsToAutoRegistration(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getGroupsToAutoRegistration.'
+        'Required parameter vo was null or undefined when calling getGroupsToAutoRegistration.',
       );
     }
 
@@ -5081,7 +5081,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getSubgroupsToAutoRegistration(
     group: number,
@@ -5089,7 +5089,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getSubgroupsToAutoRegistration(
     group: number,
@@ -5097,7 +5097,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getSubgroupsToAutoRegistration(
     group: number,
@@ -5105,16 +5105,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getSubgroupsToAutoRegistration.'
+        'Required parameter group was null or undefined when calling getSubgroupsToAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling getSubgroupsToAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling getSubgroupsToAutoRegistration.',
       );
     }
 
@@ -5126,7 +5126,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -5204,32 +5204,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ApplicationForm>;
   public getVoApplicationForm(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ApplicationForm>>;
   public getVoApplicationForm(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ApplicationForm>>;
   public getVoApplicationForm(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoApplicationForm.'
+        'Required parameter vo was null or undefined when calling getVoApplicationForm.',
       );
     }
 
@@ -5313,7 +5313,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getVoGroupsToAutoRegistration(
     vo: number,
@@ -5321,7 +5321,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getVoGroupsToAutoRegistration(
     vo: number,
@@ -5329,7 +5329,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getVoGroupsToAutoRegistration(
     vo: number,
@@ -5337,16 +5337,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoGroupsToAutoRegistration.'
+        'Required parameter vo was null or undefined when calling getVoGroupsToAutoRegistration.',
       );
     }
     if (formItem === null || formItem === undefined) {
       throw new Error(
-        'Required parameter formItem was null or undefined when calling getVoGroupsToAutoRegistration.'
+        'Required parameter formItem was null or undefined when calling getVoGroupsToAutoRegistration.',
       );
     }
 
@@ -5358,7 +5358,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>formItem,
-        'formItem'
+        'formItem',
       );
     }
 
@@ -5437,7 +5437,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public invitationFormExists(
     vo: number,
@@ -5445,7 +5445,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public invitationFormExists(
     vo: number,
@@ -5453,7 +5453,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public invitationFormExists(
     vo: number,
@@ -5461,11 +5461,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling invitationFormExists.'
+        'Required parameter vo was null or undefined when calling invitationFormExists.',
       );
     }
 
@@ -5550,32 +5550,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public inviteMemberCandidates(
     InputInviteMemberCandidates: InputInviteMemberCandidates,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public inviteMemberCandidates(
     InputInviteMemberCandidates: InputInviteMemberCandidates,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public inviteMemberCandidates(
     InputInviteMemberCandidates: InputInviteMemberCandidates,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputInviteMemberCandidates === null || InputInviteMemberCandidates === undefined) {
       throw new Error(
-        'Required parameter InputInviteMemberCandidates was null or undefined when calling inviteMemberCandidates.'
+        'Required parameter InputInviteMemberCandidates was null or undefined when calling inviteMemberCandidates.',
       );
     }
 
@@ -5661,7 +5661,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public isInvitationEnabled(
     vo: number,
@@ -5669,7 +5669,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public isInvitationEnabled(
     vo: number,
@@ -5677,7 +5677,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public isInvitationEnabled(
     vo: number,
@@ -5685,11 +5685,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling isInvitationEnabled.'
+        'Required parameter vo was null or undefined when calling isInvitationEnabled.',
       );
     }
 
@@ -5777,7 +5777,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Application>;
   public rejectApplication(
     id: number,
@@ -5785,7 +5785,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Application>>;
   public rejectApplication(
     id: number,
@@ -5793,7 +5793,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Application>>;
   public rejectApplication(
     id: number,
@@ -5801,11 +5801,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling rejectApplication.'
+        'Required parameter id was null or undefined when calling rejectApplication.',
       );
     }
 
@@ -5817,7 +5817,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>reason,
-        'reason'
+        'reason',
       );
     }
 
@@ -5897,7 +5897,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public rejectApplications(
     ids: Array<number>,
@@ -5905,7 +5905,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public rejectApplications(
     ids: Array<number>,
@@ -5913,7 +5913,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public rejectApplications(
     ids: Array<number>,
@@ -5921,11 +5921,11 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling rejectApplications.'
+        'Required parameter ids was null or undefined when calling rejectApplications.',
       );
     }
 
@@ -5935,7 +5935,7 @@ export class RegistrarManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -5943,7 +5943,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>reason,
-        'reason'
+        'reason',
       );
     }
 
@@ -6026,7 +6026,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendInvitation(
     email: string,
@@ -6036,7 +6036,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendInvitation(
     email: string,
@@ -6046,7 +6046,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendInvitation(
     email: string,
@@ -6056,16 +6056,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (email === null || email === undefined) {
       throw new Error(
-        'Required parameter email was null or undefined when calling sendInvitation.'
+        'Required parameter email was null or undefined when calling sendInvitation.',
       );
     }
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling sendInvitation.'
+        'Required parameter language was null or undefined when calling sendInvitation.',
       );
     }
 
@@ -6083,7 +6083,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>language,
-        'language'
+        'language',
       );
     }
 
@@ -6169,7 +6169,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendInvitationForGroup(
     email: string,
@@ -6180,7 +6180,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendInvitationForGroup(
     email: string,
@@ -6191,7 +6191,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendInvitationForGroup(
     email: string,
@@ -6202,16 +6202,16 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (email === null || email === undefined) {
       throw new Error(
-        'Required parameter email was null or undefined when calling sendInvitationForGroup.'
+        'Required parameter email was null or undefined when calling sendInvitationForGroup.',
       );
     }
     if (language === null || language === undefined) {
       throw new Error(
-        'Required parameter language was null or undefined when calling sendInvitationForGroup.'
+        'Required parameter language was null or undefined when calling sendInvitationForGroup.',
       );
     }
 
@@ -6223,7 +6223,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>groupId,
-        'groupId'
+        'groupId',
       );
     }
     if (name !== undefined && name !== null) {
@@ -6236,7 +6236,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>language,
-        'language'
+        'language',
       );
     }
 
@@ -6317,7 +6317,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendInvitationGroupToExistingUser(
     userId?: number,
@@ -6326,7 +6326,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendInvitationGroupToExistingUser(
     userId?: number,
@@ -6335,7 +6335,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendInvitationGroupToExistingUser(
     userId?: number,
@@ -6344,14 +6344,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (userId !== undefined && userId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
     if (voId !== undefined && voId !== null) {
@@ -6361,7 +6361,7 @@ export class RegistrarManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>groupId,
-        'groupId'
+        'groupId',
       );
     }
 
@@ -6440,7 +6440,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendInvitationToExistingUser(
     userId?: number,
@@ -6448,7 +6448,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendInvitationToExistingUser(
     userId?: number,
@@ -6456,7 +6456,7 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendInvitationToExistingUser(
     userId?: number,
@@ -6464,14 +6464,14 @@ export class RegistrarManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (userId !== undefined && userId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
     if (voId !== undefined && voId !== null) {
@@ -6551,32 +6551,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: string }>;
   public sendInvitationsFromCsv(
     InputInvitationsFromCsv: InputInvitationsFromCsv,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: string }>>;
   public sendInvitationsFromCsv(
     InputInvitationsFromCsv: InputInvitationsFromCsv,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: string }>>;
   public sendInvitationsFromCsv(
     InputInvitationsFromCsv: InputInvitationsFromCsv,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputInvitationsFromCsv === null || InputInvitationsFromCsv === undefined) {
       throw new Error(
-        'Required parameter InputInvitationsFromCsv was null or undefined when calling sendInvitationsFromCsv.'
+        'Required parameter InputInvitationsFromCsv was null or undefined when calling sendInvitationsFromCsv.',
       );
     }
 
@@ -6661,32 +6661,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendMessage(
     InputSendMessage: InputSendMessage,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendMessage(
     InputSendMessage: InputSendMessage,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendMessage(
     InputSendMessage: InputSendMessage,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSendMessage === null || InputSendMessage === undefined) {
       throw new Error(
-        'Required parameter InputSendMessage was null or undefined when calling sendMessage.'
+        'Required parameter InputSendMessage was null or undefined when calling sendMessage.',
       );
     }
 
@@ -6771,32 +6771,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public sendMessages(
     InputSendMessages: InputSendMessages,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public sendMessages(
     InputSendMessages: InputSendMessages,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public sendMessages(
     InputSendMessages: InputSendMessages,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSendMessages === null || InputSendMessages === undefined) {
       throw new Error(
-        'Required parameter InputSendMessages was null or undefined when calling sendMessages.'
+        'Required parameter InputSendMessages was null or undefined when calling sendMessages.',
       );
     }
 
@@ -6880,32 +6880,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setSendingEnabled(
     InputSetSendingEnabled: InputSetSendingEnabled,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setSendingEnabled(
     InputSetSendingEnabled: InputSetSendingEnabled,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setSendingEnabled(
     InputSetSendingEnabled: InputSetSendingEnabled,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetSendingEnabled === null || InputSetSendingEnabled === undefined) {
       throw new Error(
-        'Required parameter InputSetSendingEnabled was null or undefined when calling setSendingEnabled.'
+        'Required parameter InputSetSendingEnabled was null or undefined when calling setSendingEnabled.',
       );
     }
 
@@ -6989,32 +6989,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Application>;
   public submitApplication(
     InputSubmitApplication: InputSubmitApplication,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Application>>;
   public submitApplication(
     InputSubmitApplication: InputSubmitApplication,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Application>>;
   public submitApplication(
     InputSubmitApplication: InputSubmitApplication,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSubmitApplication === null || InputSubmitApplication === undefined) {
       throw new Error(
-        'Required parameter InputSubmitApplication was null or undefined when calling submitApplication.'
+        'Required parameter InputSubmitApplication was null or undefined when calling submitApplication.',
       );
     }
 
@@ -7098,32 +7098,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateApplicationMail(
     InputUpdateApplicationMail: InputUpdateApplicationMail,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateApplicationMail(
     InputUpdateApplicationMail: InputUpdateApplicationMail,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateApplicationMail(
     InputUpdateApplicationMail: InputUpdateApplicationMail,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateApplicationMail === null || InputUpdateApplicationMail === undefined) {
       throw new Error(
-        'Required parameter InputUpdateApplicationMail was null or undefined when calling updateApplicationMail.'
+        'Required parameter InputUpdateApplicationMail was null or undefined when calling updateApplicationMail.',
       );
     }
 
@@ -7207,32 +7207,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ApplicationForm>;
   public updateForm(
     InputUpdateForm: InputUpdateForm,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ApplicationForm>>;
   public updateForm(
     InputUpdateForm: InputUpdateForm,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ApplicationForm>>;
   public updateForm(
     InputUpdateForm: InputUpdateForm,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateForm === null || InputUpdateForm === undefined) {
       throw new Error(
-        'Required parameter InputUpdateForm was null or undefined when calling updateForm.'
+        'Required parameter InputUpdateForm was null or undefined when calling updateForm.',
       );
     }
 
@@ -7316,32 +7316,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateFormItemData(
     InputFormItemData: InputFormItemData,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateFormItemData(
     InputFormItemData: InputFormItemData,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateFormItemData(
     InputFormItemData: InputFormItemData,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputFormItemData === null || InputFormItemData === undefined) {
       throw new Error(
-        'Required parameter InputFormItemData was null or undefined when calling updateFormItemData.'
+        'Required parameter InputFormItemData was null or undefined when calling updateFormItemData.',
       );
     }
 
@@ -7425,32 +7425,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateFormItemsData(
     InputFormItemsData: InputFormItemsData,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateFormItemsData(
     InputFormItemsData: InputFormItemsData,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateFormItemsData(
     InputFormItemsData: InputFormItemsData,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputFormItemsData === null || InputFormItemsData === undefined) {
       throw new Error(
-        'Required parameter InputFormItemsData was null or undefined when calling updateFormItemsData.'
+        'Required parameter InputFormItemsData was null or undefined when calling updateFormItemsData.',
       );
     }
 
@@ -7534,32 +7534,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public updateFormItemsForGroup(
     InputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public updateFormItemsForGroup(
     InputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public updateFormItemsForGroup(
     InputUpdateFormItemsForGroup: InputUpdateFormItemsForGroup,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateFormItemsForGroup === null || InputUpdateFormItemsForGroup === undefined) {
       throw new Error(
-        'Required parameter InputUpdateFormItemsForGroup was null or undefined when calling updateFormItemsForGroup.'
+        'Required parameter InputUpdateFormItemsForGroup was null or undefined when calling updateFormItemsForGroup.',
       );
     }
 
@@ -7643,32 +7643,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public updateFormItemsForVo(
     InputUpdateFormItemsForVo: InputUpdateFormItemsForVo,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public updateFormItemsForVo(
     InputUpdateFormItemsForVo: InputUpdateFormItemsForVo,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public updateFormItemsForVo(
     InputUpdateFormItemsForVo: InputUpdateFormItemsForVo,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateFormItemsForVo === null || InputUpdateFormItemsForVo === undefined) {
       throw new Error(
-        'Required parameter InputUpdateFormItemsForVo was null or undefined when calling updateFormItemsForVo.'
+        'Required parameter InputUpdateFormItemsForVo was null or undefined when calling updateFormItemsForVo.',
       );
     }
 
@@ -7752,32 +7752,32 @@ export class RegistrarManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Application>;
   public verifyApplication(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Application>>;
   public verifyApplication(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Application>>;
   public verifyApplication(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling verifyApplication.'
+        'Required parameter id was null or undefined when calling verifyApplication.',
       );
     }
 

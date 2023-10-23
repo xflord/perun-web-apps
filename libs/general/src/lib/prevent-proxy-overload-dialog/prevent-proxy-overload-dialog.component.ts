@@ -16,7 +16,7 @@ export interface PreventProxyOverloadDialogData {
 export class PreventProxyOverloadDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PreventProxyOverloadDialogData,
-    private location: Location
+    private location: Location,
   ) {}
 
   redirect(): void {

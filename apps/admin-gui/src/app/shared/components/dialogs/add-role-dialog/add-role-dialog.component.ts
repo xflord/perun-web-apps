@@ -56,7 +56,7 @@ export class AddRoleDialogComponent implements OnInit {
     private voService: VosManagerService,
     private groupService: GroupsManagerService,
     private facilityService: FacilitiesManagerService,
-    private resourceService: ResourcesManagerService
+    private resourceService: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {

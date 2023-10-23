@@ -44,7 +44,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private groupsService: GroupsManagerService,
     private store: StoreService,
-    private inputEscape: HtmlEscapeService
+    private inputEscape: HtmlEscapeService,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
       this.groupsService.getGroupById(this.data.groupId).subscribe((group) => {
         this.editAuth = this.authResolver.isAuthorized(
           'group-addMail_ApplicationForm_ApplicationMail_policy',
-          [group]
+          [group],
         );
       });
     } else if (this.data.voId) {
@@ -69,7 +69,7 @@ export class AddEditNotificationDialogComponent implements OnInit {
 
       this.editAuth = this.authResolver.isAuthorized(
         'vo-addMail_ApplicationForm_ApplicationMail_policy',
-        [vo]
+        [vo],
       );
     }
 
@@ -78,20 +78,20 @@ export class AddEditNotificationDialogComponent implements OnInit {
       // Plain
       formGroupFields[`${lang}-plain-subject`] = new FormControl(
         this.applicationMail.message[lang].subject,
-        []
+        [],
       );
       formGroupFields[`${lang}-plain-text`] = new FormControl(
         this.applicationMail.message[lang].text,
-        []
+        [],
       );
       // Html
       formGroupFields[`${lang}-html-subject`] = new FormControl(
         this.applicationMail.htmlMessage[lang].subject,
-        [this.inputEscape.htmlContentValidator()]
+        [this.inputEscape.htmlContentValidator()],
       );
       formGroupFields[`${lang}-html-text`] = new FormControl(
         this.applicationMail.htmlMessage[lang].text,
-        [this.inputEscape.htmlContentValidator()]
+        [this.inputEscape.htmlContentValidator()],
       );
       formGroupFields[`${lang}-html-subject`].markAsTouched();
       formGroupFields[`${lang}-html-text`].markAsTouched();
@@ -153,14 +153,14 @@ export class AddEditNotificationDialogComponent implements OnInit {
     textarea: HTMLDivElement,
     language: string,
     tag: string,
-    format: string
+    format: string,
   ): void {
     const place: HTMLInputElement | HTMLTextAreaElement = this.isTextFocused
       ? (textarea.children.item(0) as HTMLTextAreaElement)
       : (input.children.item(0) as HTMLInputElement);
     const position: number = place.selectionStart;
     const form = this.inputFormGroup.get(
-      `${language}-${format}-${this.isTextFocused ? 'text' : 'subject'}`
+      `${language}-${format}-${this.isTextFocused ? 'text' : 'subject'}`,
     );
     const curValue = form.value;
     form.setValue(curValue.substring(0, position) + tag + curValue.substring(position));
@@ -184,17 +184,17 @@ export class AddEditNotificationDialogComponent implements OnInit {
     // Validate notification
     for (const lang of this.languages) {
       let escaped = this.inputEscape.escapeDangerousHtml(
-        this.inputFormGroup.get(`${lang}-html-subject`).value
+        this.inputFormGroup.get(`${lang}-html-subject`).value,
       );
       this.applicationMail.htmlMessage[lang].subject = escaped.escapedHtml;
       escaped = this.inputEscape.escapeDangerousHtml(
-        this.inputFormGroup.get(`${lang}-html-text`).value
+        this.inputFormGroup.get(`${lang}-html-text`).value,
       );
       this.applicationMail.htmlMessage[lang].text = escaped.escapedHtml;
 
       // Update application with content from FormControl
       this.applicationMail.message[lang].subject = this.inputFormGroup.get(
-        `${lang}-plain-subject`
+        `${lang}-plain-subject`,
       ).value;
       this.applicationMail.message[lang].text = this.inputFormGroup.get(`${lang}-plain-text`).value;
     }

@@ -23,7 +23,7 @@ export class AttributeRightsItemComponent implements OnInit {
   ngOnInit(): void {
     this.selectedRole = new BehaviorSubject<Role>(this.policy.role as Role);
     this.objects = this.selectedRole.pipe(
-      switchMap((role: Role) => this.attrRightsService.getObjects(role))
+      switchMap((role: Role) => this.attrRightsService.getObjects(role)),
     );
   }
 

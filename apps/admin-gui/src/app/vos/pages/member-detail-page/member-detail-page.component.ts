@@ -33,7 +33,7 @@ export class MemberDetailPageComponent implements OnInit {
     private voService: VosManagerService,
     private route: ActivatedRoute,
     private authResolver: GuiAuthResolver,
-    private entityService: EntityStorageService
+    private entityService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +61,10 @@ export class MemberDetailPageComponent implements OnInit {
               this.sideMenuService.setAccessMenuItems([voSideMenuItem, memberSideMenuItem]);
               this.loading = false;
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     });
   }

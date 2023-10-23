@@ -37,7 +37,7 @@ export class SettingsSSHKeysComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog,
     private translateService: TranslateService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     translateService
       .get('SHARED_LIB.PERUN.COMPONENTS.SSH_KEYS.REMOVE_DIALOG_DESCRIPTION')

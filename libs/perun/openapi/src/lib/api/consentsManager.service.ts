@@ -51,7 +51,7 @@ export class ConsentsManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -82,7 +82,7 @@ export class ConsentsManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -96,8 +96,8 @@ export class ConsentsManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -122,7 +122,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Consent>;
   public changeConsentStatus(
     consent: number,
@@ -130,7 +130,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Consent>>;
   public changeConsentStatus(
     consent: number,
@@ -138,7 +138,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Consent>>;
   public changeConsentStatus(
     consent: number,
@@ -146,16 +146,16 @@ export class ConsentsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consent === null || consent === undefined) {
       throw new Error(
-        'Required parameter consent was null or undefined when calling changeConsentStatus.'
+        'Required parameter consent was null or undefined when calling changeConsentStatus.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling changeConsentStatus.'
+        'Required parameter status was null or undefined when calling changeConsentStatus.',
       );
     }
 
@@ -164,14 +164,14 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consent,
-        'consent'
+        'consent',
       );
     }
     if (status !== undefined && status !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -248,32 +248,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public evaluateConsentsForConsentHub(
     consentHub: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
-        'Required parameter consentHub was null or undefined when calling evaluateConsentsForConsentHub.'
+        'Required parameter consentHub was null or undefined when calling evaluateConsentsForConsentHub.',
       );
     }
 
@@ -282,7 +282,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentHub,
-        'consentHub'
+        'consentHub',
       );
     }
 
@@ -359,32 +359,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public evaluateConsentsForConsentHubs(
     consentHubs: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public evaluateConsentsForConsentHubs(
     consentHubs: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public evaluateConsentsForConsentHubs(
     consentHubs: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consentHubs === null || consentHubs === undefined) {
       throw new Error(
-        'Required parameter consentHubs was null or undefined when calling evaluateConsentsForConsentHubs.'
+        'Required parameter consentHubs was null or undefined when calling evaluateConsentsForConsentHubs.',
       );
     }
 
@@ -394,7 +394,7 @@ export class ConsentsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'consentHubs[]'
+          'consentHubs[]',
         );
       });
     }
@@ -472,32 +472,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public evaluateConsentsForService(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public evaluateConsentsForService(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public evaluateConsentsForService(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling evaluateConsentsForService.'
+        'Required parameter service was null or undefined when calling evaluateConsentsForService.',
       );
     }
 
@@ -506,7 +506,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -581,25 +581,25 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ConsentHub>>;
   public getAllConsentHubs(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ConsentHub>>>;
   public getAllConsentHubs(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ConsentHub>>>;
   public getAllConsentHubs(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -671,25 +671,25 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getAllConsents(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getAllConsents(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getAllConsents(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -763,28 +763,28 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Consent>;
   public getConsentById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Consent>>;
   public getConsentById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Consent>>;
   public getConsentById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getConsentById.');
@@ -872,7 +872,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Consent>;
   public getConsentForUserAndConsentHub(
     user: number,
@@ -881,7 +881,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Consent>>;
   public getConsentForUserAndConsentHub(
     user: number,
@@ -890,7 +890,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Consent>>;
   public getConsentForUserAndConsentHub(
     user: number,
@@ -899,21 +899,21 @@ export class ConsentsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getConsentForUserAndConsentHub.'
+        'Required parameter user was null or undefined when calling getConsentForUserAndConsentHub.',
       );
     }
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
-        'Required parameter consentHub was null or undefined when calling getConsentForUserAndConsentHub.'
+        'Required parameter consentHub was null or undefined when calling getConsentForUserAndConsentHub.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling getConsentForUserAndConsentHub.'
+        'Required parameter status was null or undefined when calling getConsentForUserAndConsentHub.',
       );
     }
 
@@ -925,14 +925,14 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentHub,
-        'consentHub'
+        'consentHub',
       );
     }
     if (status !== undefined && status !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -1009,32 +1009,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ConsentHub>;
   public getConsentHubByFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubByFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubByFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getConsentHubByFacility.'
+        'Required parameter facility was null or undefined when calling getConsentHubByFacility.',
       );
     }
 
@@ -1043,7 +1043,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -1120,32 +1120,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ConsentHub>;
   public getConsentHubById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getConsentHubById.'
+        'Required parameter id was null or undefined when calling getConsentHubById.',
       );
     }
 
@@ -1227,32 +1227,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ConsentHub>;
   public getConsentHubByName(
     name: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubByName(
     name: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubByName(
     name: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getConsentHubByName.'
+        'Required parameter name was null or undefined when calling getConsentHubByName.',
       );
     }
 
@@ -1334,32 +1334,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ConsentHub>;
   public getConsentHubByResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ConsentHub>>;
   public getConsentHubByResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ConsentHub>>;
   public getConsentHubByResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getConsentHubByResource.'
+        'Required parameter resource was null or undefined when calling getConsentHubByResource.',
       );
     }
 
@@ -1368,7 +1368,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -1445,32 +1445,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForConsentHub(
     consentHub: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForConsentHub(
     consentHub: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForConsentHub(
     consentHub: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
-        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHub.'
+        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHub.',
       );
     }
 
@@ -1479,7 +1479,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentHub,
-        'consentHub'
+        'consentHub',
       );
     }
 
@@ -1556,32 +1556,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForConsentHubByResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForConsentHubByResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForConsentHubByResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getConsentsForConsentHubByResource.'
+        'Required parameter resource was null or undefined when calling getConsentsForConsentHubByResource.',
       );
     }
 
@@ -1590,7 +1590,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -1669,7 +1669,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
@@ -1677,7 +1677,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
@@ -1685,7 +1685,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForConsentHubWithStatus(
     consentHub: number,
@@ -1693,16 +1693,16 @@ export class ConsentsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
-        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHubWithStatus.'
+        'Required parameter consentHub was null or undefined when calling getConsentsForConsentHubWithStatus.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling getConsentsForConsentHubWithStatus.'
+        'Required parameter status was null or undefined when calling getConsentsForConsentHubWithStatus.',
       );
     }
 
@@ -1711,14 +1711,14 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentHub,
-        'consentHub'
+        'consentHub',
       );
     }
     if (status !== undefined && status !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -1795,32 +1795,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getConsentsForUser.'
+        'Required parameter user was null or undefined when calling getConsentsForUser.',
       );
     }
 
@@ -1904,7 +1904,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForUserAndConsentHub(
     user: number,
@@ -1912,7 +1912,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUserAndConsentHub(
     user: number,
@@ -1920,7 +1920,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUserAndConsentHub(
     user: number,
@@ -1928,16 +1928,16 @@ export class ConsentsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getConsentsForUserAndConsentHub.'
+        'Required parameter user was null or undefined when calling getConsentsForUserAndConsentHub.',
       );
     }
     if (consentHub === null || consentHub === undefined) {
       throw new Error(
-        'Required parameter consentHub was null or undefined when calling getConsentsForUserAndConsentHub.'
+        'Required parameter consentHub was null or undefined when calling getConsentsForUserAndConsentHub.',
       );
     }
 
@@ -1949,7 +1949,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentHub,
-        'consentHub'
+        'consentHub',
       );
     }
 
@@ -2028,7 +2028,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Consent>>;
   public getConsentsForUserWithStatus(
     user: number,
@@ -2036,7 +2036,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Consent>>>;
   public getConsentsForUserWithStatus(
     user: number,
@@ -2044,7 +2044,7 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Consent>>>;
   public getConsentsForUserWithStatus(
     user: number,
@@ -2052,16 +2052,16 @@ export class ConsentsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getConsentsForUserWithStatus.'
+        'Required parameter user was null or undefined when calling getConsentsForUserWithStatus.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling getConsentsForUserWithStatus.'
+        'Required parameter status was null or undefined when calling getConsentsForUserWithStatus.',
       );
     }
 
@@ -2073,7 +2073,7 @@ export class ConsentsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -2150,32 +2150,32 @@ export class ConsentsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ConsentHub>;
   public updateConsentHub(
     InputUpdateConsentHub: InputUpdateConsentHub,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ConsentHub>>;
   public updateConsentHub(
     InputUpdateConsentHub: InputUpdateConsentHub,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ConsentHub>>;
   public updateConsentHub(
     InputUpdateConsentHub: InputUpdateConsentHub,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateConsentHub === null || InputUpdateConsentHub === undefined) {
       throw new Error(
-        'Required parameter InputUpdateConsentHub was null or undefined when calling updateConsentHub.'
+        'Required parameter InputUpdateConsentHub was null or undefined when calling updateConsentHub.',
       );
     }
 

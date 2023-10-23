@@ -22,7 +22,7 @@ export class AddAuthTextDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddAuthTextDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddAuthTextDialogData,
     private attributesManagerService: AttributesManagerService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {

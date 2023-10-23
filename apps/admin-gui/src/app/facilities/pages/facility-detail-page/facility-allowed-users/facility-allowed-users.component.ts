@@ -77,7 +77,7 @@ export class FacilityAllowedUsersComponent implements OnInit {
     private entityStorageService: EntityStorageService,
     private consentService: ConsentsManagerService,
     private translate: PerunTranslateService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {

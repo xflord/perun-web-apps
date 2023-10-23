@@ -29,7 +29,7 @@ export class DeleteServiceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: DeleteServiceDialogData,
     private serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {

@@ -17,7 +17,7 @@ export class ApiService implements PerunApiService {
     private http: HttpClient,
     private notificator: NotificatorService,
     private authService: AuthService,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   getApiUrl(): string {
@@ -52,7 +52,7 @@ export class ApiService implements PerunApiService {
     return this.http
       .put(url, payload, { headers: this.getHeaders() })
       .pipe(
-        catchError((err: HttpErrorResponse) => this.formatErrors(err, url, payload, showError))
+        catchError((err: HttpErrorResponse) => this.formatErrors(err, url, payload, showError)),
       );
   }
 
@@ -67,7 +67,7 @@ export class ApiService implements PerunApiService {
     return this.http
       .post(url, payload, { headers: headers })
       .pipe(
-        catchError((err: HttpErrorResponse) => this.formatErrors(err, url, payload, showError))
+        catchError((err: HttpErrorResponse) => this.formatErrors(err, url, payload, showError)),
       );
   }
 
@@ -85,7 +85,7 @@ export class ApiService implements PerunApiService {
     error: HttpErrorResponse,
     url: string,
     payload: string,
-    showError: boolean
+    showError: boolean,
   ): Observable<never> {
     const rpcError = error.error as RPCError;
     rpcError.call = url;

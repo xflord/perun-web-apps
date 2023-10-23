@@ -26,7 +26,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private registrarManager: RegistrarManagerService
+    private registrarManager: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
                 this.dialogRef.close();
               });
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     } else {
       this.registrarManager
@@ -69,7 +69,7 @@ export class ApplicationReSendNotificationDialogComponent implements OnInit {
                 this.dialogRef.close();
               });
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     }
   }

@@ -76,7 +76,7 @@ export class ImportPublicationsPageComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -108,7 +108,7 @@ export class ImportPublicationsPageComponent implements OnInit {
         this.storeService.getPerunPrincipal().user.id,
         this.startYear.value.year(),
         this.endYear.value.year(),
-        this.pubSystemNamespace
+        this.pubSystemNamespace,
       )
       .subscribe({
         next: (publications) => {
@@ -188,7 +188,7 @@ export class ImportPublicationsPageComponent implements OnInit {
   incompletePublication(publicationId: number): void {
     if (this.completePublications.includes(publicationId)) {
       this.completePublications = this.completePublications.filter(
-        (pubId) => pubId !== publicationId
+        (pubId) => pubId !== publicationId,
       );
     }
     this.indexExpanded = -1;
@@ -213,7 +213,7 @@ export class ImportPublicationsPageComponent implements OnInit {
 
   onSubmit(): void {
     this.notificator.showSuccess(
-      this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH') as string
+      this.translate.instant('IMPORT_PUBLICATIONS.SHOW_FINISH') as string,
     );
     void this.router.navigate(['/my-publications'], { queryParamsHandling: 'preserve' });
   }

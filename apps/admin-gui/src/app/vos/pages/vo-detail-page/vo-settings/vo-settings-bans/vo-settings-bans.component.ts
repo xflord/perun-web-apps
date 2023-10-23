@@ -44,7 +44,7 @@ export class VoSettingsBansComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private userName: UserFullNamePipe
+    private userName: UserFullNamePipe,
   ) {}
 
   ngOnInit(): void {

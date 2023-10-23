@@ -26,7 +26,7 @@ export class SideMenuItemComponent {
   constructor(
     private router: Router,
     private store: StoreService,
-    private expandedTilesStore: ExpandedTilesStoreService
+    private expandedTilesStore: ExpandedTilesStoreService,
   ) {
     this.currentUrl = router.url;
 

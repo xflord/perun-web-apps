@@ -69,7 +69,7 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
     },
     {
       validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-    }
+    },
   );
   selectedSponsor: User = null;
   sponsorType = 'self';
@@ -98,13 +98,13 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
     private store: StoreService,
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
-    private groupsService: GroupsManagerService
+    private groupsService: GroupsManagerService,
   ) {}
 
   private static parseAttributes(
     field: { login: string; password: string },
     attributes: string[],
-    type: string
+    type: string,
   ): void {
     for (const att of attributes) {
       switch (att) {
@@ -319,12 +319,12 @@ export class CreateSponsoredMemberDialogComponent implements OnInit, AfterViewIn
       CreateSponsoredMemberDialogComponent.parseAttributes(
         fieldTypes,
         rule.requiredAttributes,
-        'required'
+        'required',
       );
       CreateSponsoredMemberDialogComponent.parseAttributes(
         fieldTypes,
         rule.optionalAttributes,
-        'optional'
+        'optional',
       );
 
       this.parsedRules.set(rule.namespaceName, fieldTypes);

@@ -6,7 +6,10 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
 export class MiddleClickRouterLinkDirective {
   @Input() perunWebAppsMiddleClickRouterLink: string[];
 
-  constructor(private ref: ElementRef, private renderer: Renderer2) {
+  constructor(
+    private ref: ElementRef,
+    private renderer: Renderer2,
+  ) {
     const htmlElement: HTMLElement = this.ref.nativeElement as HTMLElement;
     this.renderer.listen(htmlElement, 'click', (event: MouseEvent) => {
       // ctrl (command) + left mouse click will stop routing and open router link in the new tab

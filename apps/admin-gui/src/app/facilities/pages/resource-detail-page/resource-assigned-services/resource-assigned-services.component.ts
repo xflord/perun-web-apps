@@ -31,7 +31,7 @@ export class ResourceAssignedServicesComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
     public guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -89,11 +89,11 @@ export class ResourceAssignedServicesComponent implements OnInit {
   getDataForAuthorization(): void {
     this.assignServiceAuth = this.guiAuthResolver.isAuthorized(
       'assignServices_Resource_List<Service>_policy',
-      [this.resource]
+      [this.resource],
     );
     this.removeServiceAuth = this.guiAuthResolver.isAuthorized(
       'removeServices_Resource_List<Service>_policy',
-      [this.resource]
+      [this.resource],
     );
     this.displayedColumns = this.removeServiceAuth
       ? ['select', 'id', 'name', 'enabled', 'script', 'description']

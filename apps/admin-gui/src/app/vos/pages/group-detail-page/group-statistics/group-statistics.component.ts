@@ -17,7 +17,7 @@ export class GroupStatisticsComponent implements OnInit {
 
   constructor(
     private groupService: GroupsManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -31,22 +31,22 @@ export class GroupStatisticsComponent implements OnInit {
         this.groupService.getGroupMembersCountsByVoStatus(this.group.id).subscribe(
           (statsVo) => {
             Object.entries(statsVo).forEach(([status, countVo]) =>
-              this.membersCountsByVoStatus.set(status.toLowerCase(), countVo)
+              this.membersCountsByVoStatus.set(status.toLowerCase(), countVo),
             );
             this.groupService.getGroupMembersCountsByGroupStatus(this.group.id).subscribe(
               (statsGroup) => {
                 Object.entries(statsGroup).forEach(([status, countGroup]) =>
-                  this.membersCountsByGroupStatus.set(status.toLowerCase(), countGroup)
+                  this.membersCountsByGroupStatus.set(status.toLowerCase(), countGroup),
                 );
                 this.loading = false;
               },
-              () => (this.loading = false)
+              () => (this.loading = false),
             );
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

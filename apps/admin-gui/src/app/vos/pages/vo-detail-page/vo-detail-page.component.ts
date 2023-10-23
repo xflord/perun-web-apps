@@ -44,7 +44,7 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService,
-    private queryParamsRouter: QueryParamsRouterService
+    private queryParamsRouter: QueryParamsRouterService,
   ) {
     super();
   }
@@ -76,7 +76,7 @@ export class VoDetailPageComponent extends destroyDetailMixin() implements OnIni
 
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     });
   }

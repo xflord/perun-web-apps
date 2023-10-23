@@ -34,7 +34,7 @@ export class FacilityAllowedGroupsComponent implements OnInit {
   constructor(
     private facilityManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

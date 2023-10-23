@@ -36,7 +36,7 @@ export class AdminBlockedLoginsComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private dialog: MatDialog,
     private attributesService: AttributesManagerService,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   refreshTable(): void {
@@ -103,7 +103,7 @@ export class AdminBlockedLoginsComponent implements OnInit {
     this.selectedNamespaces.splice(
       0,
       this.selectedNamespaces.length,
-      ...namespaces.map((namespace) => (namespace === '' ? null : namespace))
+      ...namespaces.map((namespace) => (namespace === '' ? null : namespace)),
     );
   }
 

@@ -64,7 +64,7 @@ export class EntitylessAttributeKeysListComponent implements OnChanges, OnInit, 
     private notificator: NotificatorService,
     private translate: TranslateService,
     private attributesManager: AttributesManagerService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {

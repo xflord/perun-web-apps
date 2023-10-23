@@ -23,7 +23,7 @@ export class VoResourcesOverviewComponent implements OnInit {
     private voService: VosManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngOnInit(): void {

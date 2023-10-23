@@ -673,7 +673,7 @@ export function parseOrganization(richMember: RichMember): string {
 
 export function getGroupExpiration(group: RichGroup): string {
   const attribute = group.attributes.find(
-    (att) => att.baseFriendlyName === 'groupMembershipExpiration'
+    (att) => att.baseFriendlyName === 'groupMembershipExpiration',
   );
 
   return (attribute?.value as string) ?? 'Never';
@@ -690,7 +690,7 @@ const collator = new Intl.Collator('cs', { numeric: true });
 export function customDataSourceSort<T>(
   data: T[],
   sort: MatSort,
-  getDataForColumn: (data: T, column: string) => string
+  getDataForColumn: (data: T, column: string) => string,
 ): T[] {
   const active = sort.active;
   const direction = sort.direction;
@@ -709,7 +709,7 @@ export function customDataSourceFilterPredicate<T>(
   filter: string,
   columns: string[],
   getDataForColumn: (data: T, column: string) => string,
-  filterByUUID?: boolean
+  filterByUUID?: boolean,
 ): boolean {
   filter = filter.toLowerCase();
   let dataStr = '';
@@ -735,7 +735,7 @@ export function findAttribute(attributes: Attribute[], friendlyName: string): st
 export function getDataForExport<T>(
   data: T[],
   columns: string[],
-  getDataForColumn: (data: T, column: string) => string
+  getDataForColumn: (data: T, column: string) => string,
 ): T[] {
   const result: T[] = [];
   const skippedColumns = ['checkbox', 'select', 'edit', 'menu', 'cite', 'extend', 'recent'];
@@ -756,7 +756,7 @@ export function downloadData<T>(data: T[], format = 'csv', filename = 'export'):
       const replacer = (key, value): string => (value === null ? '' : (value as string));
       const header = Object.keys(data[0]);
       const csv = data.map((row) =>
-        header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(',')
+        header.map((fieldName) => JSON.stringify(row[fieldName], replacer)).join(','),
       );
       csv.unshift(header.join(',').split(' ').join('_').split('"').join("''"));
       const csvArray = csv.join('\r\n');
@@ -800,7 +800,7 @@ export function compareFnUser(a: ComparablePerson, b: ComparablePerson): number 
 export function enableFormControl(
   control: AbstractControl,
   validators: ValidatorFn[],
-  asyncValidators: AsyncValidatorFn[] = []
+  asyncValidators: AsyncValidatorFn[] = [],
 ): void {
   control.enable();
   control.clearValidators();
@@ -812,14 +812,14 @@ export function enableFormControl(
 
 export function hasBooleanAttributeEnabled(
   attributes: Attribute[],
-  attributeName: string
+  attributeName: string,
 ): boolean {
   if (attributes) {
     return attributes.some(
       (attribute) =>
         attribute.namespace + ':' + attribute.friendlyName === attributeName &&
         attribute.value !== null &&
-        String(attribute.value) === 'true'
+        String(attribute.value) === 'true',
     );
   }
   return false;

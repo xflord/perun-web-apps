@@ -24,7 +24,7 @@ export class NotificationComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private notificationStorageService: NotificationStorageService
+    private notificationStorageService: NotificationStorageService,
   ) {}
 
   doAction(): void {

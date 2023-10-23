@@ -35,11 +35,11 @@ export class AllPublicationsPageComponent implements OnInit {
     private cabinetService: CabinetManagerService,
     private dialog: MatDialog,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
   ) {
     this.matIconRegistry.addSvgIcon(
       'publications',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/publications-dark.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/publications-dark.svg'),
     );
   }
 
@@ -74,7 +74,7 @@ export class AllPublicationsPageComponent implements OnInit {
         this.filter.category,
         +this.filter.startYear,
         +this.filter.endYear,
-        null
+        null,
       )
       .subscribe((publications) => {
         this.publications = publications;

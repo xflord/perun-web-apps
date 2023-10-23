@@ -31,7 +31,7 @@ export class EditUserDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: EditUserDialogData,
     private userService: UsersManagerService,
     private notificator: NotificatorService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +83,7 @@ export class EditUserDialogComponent implements OnInit {
           this.dialogRef.close(true);
         });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

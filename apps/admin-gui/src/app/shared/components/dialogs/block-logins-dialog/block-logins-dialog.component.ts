@@ -26,7 +26,7 @@ export class BlockLoginsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: BlockLoginsDialogData,
     private store: StoreService,
     private usersService: UsersManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   onCancel(): void {
@@ -38,7 +38,7 @@ export class BlockLoginsDialogComponent {
     this.usersService
       .blockLogins(
         this.blockLogins.value.split('\n').map((login) => login.trim()),
-        this.isGlobal ? null : this.selectedNamespace
+        this.isGlobal ? null : this.selectedNamespace,
       )
       .subscribe({
         next: () => {

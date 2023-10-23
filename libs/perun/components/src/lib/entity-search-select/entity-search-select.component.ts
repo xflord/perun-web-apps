@@ -57,11 +57,11 @@ export class EntitySearchSelectComponent<T extends PerunBean>
   @Input() secondaryTextFunction: (entity: T) => string = (entity) =>
     '#'.concat(
       String(entity.id),
-      entity['description'] ? '  '.concat(entity['description'] as string) : ''
+      entity['description'] ? '  '.concat(entity['description'] as string) : '',
     );
 
   statusTextFunction: (entity: GroupWithStatus | ResourceWithStatus) => GroupResourceStatus = (
-    entity
+    entity,
   ) => entity.status;
 
   ngOnInit(): void {
@@ -195,7 +195,9 @@ export class EntitySearchSelectComponent<T extends PerunBean>
     }
     // filter the banks
     this.filteredEntities.next(
-      this.entities.filter((entity) => this.normalize(this.searchFunction(entity)).includes(search))
+      this.entities.filter((entity) =>
+        this.normalize(this.searchFunction(entity)).includes(search),
+      ),
     );
     this.cd.detectChanges();
   }

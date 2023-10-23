@@ -37,7 +37,7 @@ export class UserOverviewComponent implements OnInit {
     private attributeService: AttributesManagerService,
     private storeService: StoreService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -120,7 +120,7 @@ export class UserOverviewComponent implements OnInit {
           url: `${urlStart}/identities`,
           label: 'MENU_ITEMS.USER.IDENTITIES',
           style: 'user-btn',
-        }
+        },
       );
     } else {
       this.items.push(
@@ -135,7 +135,7 @@ export class UserOverviewComponent implements OnInit {
           url: `${urlStart}/groups`,
           label: 'MENU_ITEMS.ADMIN.GROUPS',
           style: 'user-btn',
-        }
+        },
       );
     }
     this.items.push({
@@ -188,7 +188,7 @@ export class UserOverviewComponent implements OnInit {
           url: '/myProfile/settings/guiConfig',
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn',
-        }
+        },
       );
     }
   }

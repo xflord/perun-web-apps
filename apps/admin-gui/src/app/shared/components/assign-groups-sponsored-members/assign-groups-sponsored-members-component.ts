@@ -50,7 +50,7 @@ export class AssignGroupsSponsoredMembersComponent implements OnInit, OnDestroy 
   constructor(
     private groupsService: GroupsManagerService,
     private guiAuthResolver: GuiAuthResolver,
-    private attributesService: AttributesManagerService
+    private attributesService: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class AssignGroupsSponsoredMembersComponent implements OnInit, OnDestroy 
     this.attributesService.getVoAttributes(this.voId).subscribe((attributes) => {
       this.manualMemberAddingBlocked = hasBooleanAttributeEnabled(
         attributes,
-        Urns.VO_BLOCK_MANUAL_MEMBER_ADDING
+        Urns.VO_BLOCK_MANUAL_MEMBER_ADDING,
       );
       this.groupsService
         .getAllRichGroupsWithAttributesByNames(this.voId, this.groupAttrNames)
@@ -126,7 +126,7 @@ export class AssignGroupsSponsoredMembersComponent implements OnInit, OnDestroy 
         (this.groupAssignment === 'new' &&
           (this.groupToCreate.name.length === 0 || this.groupToCreate.description.length === 0)) ||
         (this.asSubgroup && this.groupToCreate.parentGroupId === null)
-      )
+      ),
     );
   }
 
@@ -138,7 +138,7 @@ export class AssignGroupsSponsoredMembersComponent implements OnInit, OnDestroy 
           .createGroupWithParentGroupNameDescription(
             this.groupToCreate.parentGroupId,
             this.groupToCreate.name,
-            this.groupToCreate.description
+            this.groupToCreate.description,
           )
           .subscribe({
             next: (group) => {
@@ -152,7 +152,7 @@ export class AssignGroupsSponsoredMembersComponent implements OnInit, OnDestroy 
           .createGroupWithVoNameDescription(
             this.voId,
             this.groupToCreate.name,
-            this.groupToCreate.description
+            this.groupToCreate.description,
           )
           .subscribe({
             next: (group) => {

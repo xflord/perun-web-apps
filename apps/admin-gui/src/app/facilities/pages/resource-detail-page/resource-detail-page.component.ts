@@ -55,7 +55,7 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
     public guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private entityStorageService: EntityStorageService,
-    private reloadEntityDetail: ReloadEntityDetailService
+    private reloadEntityDetail: ReloadEntityDetailService,
   ) {
     super();
   }
@@ -89,7 +89,7 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
               this.setMenuItems();
               this.loading = false;
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
         } else {
           this.baseUrl = new GetResourceRoutePipe().transform(resource, true);
@@ -100,7 +100,7 @@ export class ResourceDetailPageComponent extends destroyDetailMixin() implements
               this.setMenuItems();
               this.loading = false;
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
         }
         addRecentlyVisited('resources', this.resource);

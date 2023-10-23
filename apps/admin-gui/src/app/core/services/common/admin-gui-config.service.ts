@@ -114,7 +114,7 @@ export class AdminGuiConfigService {
     private dialog: MatDialog,
     private location: Location,
     private guiAuthResolver: GuiAuthResolver,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   initialize(): Promise<void> {
@@ -123,7 +123,7 @@ export class AdminGuiConfigService {
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
       .then(() =>
-        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs),
       )
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())
@@ -185,7 +185,7 @@ export class AdminGuiConfigService {
 
   private loadPolicies(): Promise<void> {
     return firstValueFrom(this.authzSevice.getAllPolicies()).then((policies) =>
-      this.guiAuthResolver.setPerunPolicies(policies)
+      this.guiAuthResolver.setPerunPolicies(policies),
     );
   }
 }

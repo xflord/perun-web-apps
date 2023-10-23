@@ -34,7 +34,7 @@ export class SponsorThisMemberDialogComponent implements OnInit {
     private store: StoreService,
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {

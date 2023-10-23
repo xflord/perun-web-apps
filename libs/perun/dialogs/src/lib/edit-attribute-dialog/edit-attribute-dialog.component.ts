@@ -28,7 +28,7 @@ export class EditAttributeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: EditAttributeDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private attributesManager: AttributesManagerService
+    private attributesManager: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {

@@ -20,7 +20,7 @@ export class CreateResourceTagDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CreateResourceTagDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: CreateResourceTagDialogDialogData,
-    private resourceManager: ResourcesManagerService
+    private resourceManager: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class CreateResourceTagDialogComponent implements OnInit {
         () => {
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     }
   }

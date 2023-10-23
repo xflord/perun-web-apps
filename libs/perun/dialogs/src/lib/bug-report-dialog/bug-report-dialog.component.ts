@@ -31,7 +31,7 @@ export class BugReportDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private rtMessages: RTMessagesManagerService,
     @Inject(MAT_DIALOG_DATA) public data: BugReportData,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class BugReportDialogComponent implements OnInit {
         this.parseMethod(this.data.error.call),
         ' (',
         this.data.error.errorId,
-        ')'
+        ')',
       );
     }
   }
@@ -56,7 +56,7 @@ export class BugReportDialogComponent implements OnInit {
             const msg: string = ''.concat(
               this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS1') as string,
               rtMessage.ticketNumber.toString(),
-              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2') as string
+              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.BUG_REPORT.SUCCESS2') as string,
             );
             this.notificator.showSuccess(msg);
           });
@@ -67,7 +67,7 @@ export class BugReportDialogComponent implements OnInit {
           this.dialogRef.afterClosed().subscribe(() => {
             //TODO WHEN REPORT BUG FAIL
           });
-        }
+        },
       );
   }
 
@@ -94,7 +94,7 @@ export class BugReportDialogComponent implements OnInit {
       '\n',
       'Request:\n',
       this.data.error.urlWithParams,
-      '\n\n'
+      '\n\n',
     );
 
     if (this.data.error.payload) {
@@ -106,7 +106,7 @@ export class BugReportDialogComponent implements OnInit {
 
     text = text.concat(
       'Sent from new Perun Gui, version: ',
-      require('../../../../../../package.json').version as string
+      require('../../../../../../package.json').version as string,
     );
     return text.split('\n').join('\n '); //add space after each new line
   }

@@ -17,7 +17,7 @@ export class AttributeValueListEditDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AttributeValueListEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListEditDialogData
+    @Inject(MAT_DIALOG_DATA) public data: AttributeValueListEditDialogData,
   ) {}
 
   ngOnInit(): void {

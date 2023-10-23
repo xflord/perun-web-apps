@@ -48,7 +48,7 @@ export class ListOfIdentitiesComponent implements OnInit, OnChanges {
     private userService: UsersManagerService,
     private storeService: StoreService,
     private initService: InitAuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +88,7 @@ export class ListOfIdentitiesComponent implements OnInit, OnChanges {
               linkedIdentities.push(
                 `${sourceIdpName.value as string}${
                   email?.value ? ' (' + (email.value as string) + ')' : ''
-                }`
+                }`,
               );
             }
           }
@@ -121,19 +121,19 @@ export class ListOfIdentitiesComponent implements OnInit, OnChanges {
 
     this.idpProvider = this.getNestedItem(
       userProfile,
-      this.storeService.getProperty('path_to_idp_provider_userinfo')
+      this.storeService.getProperty('path_to_idp_provider_userinfo'),
     );
     this.logo = this.getNestedItem(
       userProfile,
-      this.storeService.getProperty('path_to_idp_logo_userinfo')
+      this.storeService.getProperty('path_to_idp_logo_userinfo'),
     );
     this.width = this.getNestedItem(
       userProfile,
-      this.storeService.getProperty('path_to_idp_logo_width_userinfo')
+      this.storeService.getProperty('path_to_idp_logo_width_userinfo'),
     );
     this.height = this.getNestedItem(
       userProfile,
-      this.storeService.getProperty('path_to_idp_logo_height_userinfo')
+      this.storeService.getProperty('path_to_idp_logo_height_userinfo'),
     );
   }
 
@@ -186,7 +186,7 @@ export class ListOfIdentitiesComponent implements OnInit, OnChanges {
         if (attr.baseFriendlyName === 'sourceIdPName' && account.includes(attr.value as string)) {
           extSourceToDelete.push(ues);
         }
-      })
+      }),
     );
     const config = getDefaultDialogConfig();
     config.width = '450px';

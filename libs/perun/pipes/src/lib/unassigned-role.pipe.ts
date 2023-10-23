@@ -15,10 +15,10 @@ export class UnassignedRolePipe implements PipeTransform {
   transform(
     entities: PerunBean[],
     roles: Map<string, Map<string, Array<number>>>,
-    role: RoleManagementRules
+    role: RoleManagementRules,
   ): PerunBean[] {
     return entities.filter(
-      (e) => !roles.get(role.roleName)?.get(role.primaryObject)?.includes(e.id)
+      (e) => !roles.get(role.roleName)?.get(role.primaryObject)?.includes(e.id),
     );
   }
 }

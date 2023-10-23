@@ -20,7 +20,7 @@ export class AuthService {
     private store: StoreService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
   ) {
     setTimeout(() => {
       this.router = this.injector.get(Router);

@@ -15,10 +15,10 @@ export class MemberStatusTooltipPipe implements PipeTransform {
 
     if (member.memberAttributes) {
       memberExpiration = member.memberAttributes.find(
-        (att) => att.friendlyName === 'membershipExpiration'
+        (att) => att.friendlyName === 'membershipExpiration',
       );
       groupExpiration = member.memberAttributes.find(
-        (att) => att.friendlyName === 'groupMembershipExpiration'
+        (att) => att.friendlyName === 'groupMembershipExpiration',
       );
     }
 

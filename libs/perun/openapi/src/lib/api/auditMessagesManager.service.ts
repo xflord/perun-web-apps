@@ -49,7 +49,7 @@ export class AuditMessagesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -80,7 +80,7 @@ export class AuditMessagesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -94,8 +94,8 @@ export class AuditMessagesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -118,32 +118,32 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public auditMessagesManagerLog(
     msg: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public auditMessagesManagerLog(
     msg: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public auditMessagesManagerLog(
     msg: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (msg === null || msg === undefined) {
       throw new Error(
-        'Required parameter msg was null or undefined when calling auditMessagesManagerLog.'
+        'Required parameter msg was null or undefined when calling auditMessagesManagerLog.',
       );
     }
 
@@ -225,32 +225,32 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public createAuditerConsumer(
     consumerName: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public createAuditerConsumer(
     consumerName: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public createAuditerConsumer(
     consumerName: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
-        'Required parameter consumerName was null or undefined when calling createAuditerConsumer.'
+        'Required parameter consumerName was null or undefined when calling createAuditerConsumer.',
       );
     }
 
@@ -259,7 +259,7 @@ export class AuditMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consumerName,
-        'consumerName'
+        'consumerName',
       );
     }
 
@@ -334,25 +334,25 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public findAllPossibleEvents(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public findAllPossibleEvents(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public findAllPossibleEvents(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -424,25 +424,25 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: number }>;
   public getAllAuditerConsumers(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getAllAuditerConsumers(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -514,25 +514,25 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getAuditerMessagesCount(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getAuditerMessagesCount(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getAuditerMessagesCount(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -604,25 +604,25 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getLastMessageId(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getLastMessageId(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getLastMessageId(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -696,28 +696,28 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AuditMessage>>;
   public getMessages(
     count?: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessages(
     count?: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (count !== undefined && count !== null) {
@@ -797,32 +797,32 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AuditMessage>>;
   public getMessagesByCount(
     count: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessagesByCount(
     count: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (count === null || count === undefined) {
       throw new Error(
-        'Required parameter count was null or undefined when calling getMessagesByCount.'
+        'Required parameter count was null or undefined when calling getMessagesByCount.',
       );
     }
 
@@ -906,7 +906,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AuditMessage>>;
   public getMessagesByIdAndCount(
     id: number,
@@ -914,7 +914,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public getMessagesByIdAndCount(
     id: number,
@@ -922,7 +922,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public getMessagesByIdAndCount(
     id: number,
@@ -930,16 +930,16 @@ export class AuditMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getMessagesByIdAndCount.'
+        'Required parameter id was null or undefined when calling getMessagesByIdAndCount.',
       );
     }
     if (count === null || count === undefined) {
       throw new Error(
-        'Required parameter count was null or undefined when calling getMessagesByIdAndCount.'
+        'Required parameter count was null or undefined when calling getMessagesByIdAndCount.',
       );
     }
 
@@ -1024,32 +1024,32 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedAuditMessages>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedAuditMessages>>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedAuditMessages>>;
   public getMessagesPage(
     InputGetMessagesPage: InputGetMessagesPage,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetMessagesPage === null || InputGetMessagesPage === undefined) {
       throw new Error(
-        'Required parameter InputGetMessagesPage was null or undefined when calling getMessagesPage.'
+        'Required parameter InputGetMessagesPage was null or undefined when calling getMessagesPage.',
       );
     }
 
@@ -1133,32 +1133,32 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AuditMessage>>;
   public pollConsumerMessages(
     consumerName: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AuditMessage>>>;
   public pollConsumerMessages(
     consumerName: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
-        'Required parameter consumerName was null or undefined when calling pollConsumerMessages.'
+        'Required parameter consumerName was null or undefined when calling pollConsumerMessages.',
       );
     }
 
@@ -1167,7 +1167,7 @@ export class AuditMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consumerName,
-        'consumerName'
+        'consumerName',
       );
     }
 
@@ -1246,7 +1246,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setLastProcessedId(
     consumerName: string,
@@ -1254,7 +1254,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setLastProcessedId(
     consumerName: string,
@@ -1262,7 +1262,7 @@ export class AuditMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setLastProcessedId(
     consumerName: string,
@@ -1270,16 +1270,16 @@ export class AuditMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (consumerName === null || consumerName === undefined) {
       throw new Error(
-        'Required parameter consumerName was null or undefined when calling setLastProcessedId.'
+        'Required parameter consumerName was null or undefined when calling setLastProcessedId.',
       );
     }
     if (lastProcessedId === null || lastProcessedId === undefined) {
       throw new Error(
-        'Required parameter lastProcessedId was null or undefined when calling setLastProcessedId.'
+        'Required parameter lastProcessedId was null or undefined when calling setLastProcessedId.',
       );
     }
 
@@ -1288,14 +1288,14 @@ export class AuditMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consumerName,
-        'consumerName'
+        'consumerName',
       );
     }
     if (lastProcessedId !== undefined && lastProcessedId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>lastProcessedId,
-        'lastProcessedId'
+        'lastProcessedId',
       );
     }
 

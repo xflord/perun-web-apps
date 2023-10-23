@@ -28,12 +28,12 @@ export class GroupSettingsManageEmbeddedGroupsComponent implements OnInit {
           acc &&
           this.authResolver.isAuthorized(
             'deleteGroupsFromAutoRegistration_List<Group>_Group_ApplicationFormItem_policy',
-            [this.registrationGroup, grp]
+            [this.registrationGroup, grp],
           ),
-        true
+        true,
       );
     }),
-    startWith(true)
+    startWith(true),
   );
 
   constructor(
@@ -42,7 +42,7 @@ export class GroupSettingsManageEmbeddedGroupsComponent implements OnInit {
     private dialog: MatDialog,
     protected route: ActivatedRoute,
     private entityStorageService: EntityStorageService,
-    private registrarManager: RegistrarManagerService
+    private registrarManager: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class GroupSettingsManageEmbeddedGroupsComponent implements OnInit {
     this.registrarManager.getFormItemsForGroup(this.registrationGroup.id).subscribe({
       next: (formItems) => {
         this.embeddedFormItemId = formItems.filter(
-          (item) => item.type === Type.EMBEDDED_GROUP_APPLICATION
+          (item) => item.type === Type.EMBEDDED_GROUP_APPLICATION,
         )[0].id;
         this.loadGroups();
       },
@@ -69,7 +69,7 @@ export class GroupSettingsManageEmbeddedGroupsComponent implements OnInit {
           // FIXME: is it ok to add just registrationGroup or also some potentially added group?
           this.addAuth = this.authResolver.isAuthorized(
             'addGroupsToAutoRegistration_List<Group>_Group_ApplicationFormItem_policy',
-            [this.registrationGroup]
+            [this.registrationGroup],
           );
           this.selected.clear();
           this.loading = false;
@@ -103,7 +103,7 @@ export class GroupSettingsManageEmbeddedGroupsComponent implements OnInit {
       .deleteSubgroupsFromAutoRegistration(
         this.selected.selected.map((group) => group.id),
         this.registrationGroup.id,
-        this.embeddedFormItemId
+        this.embeddedFormItemId,
       )
       .subscribe({
         next: () => {

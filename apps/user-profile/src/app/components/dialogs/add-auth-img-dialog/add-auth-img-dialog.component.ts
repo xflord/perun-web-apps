@@ -28,7 +28,7 @@ export class AddAuthImgDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddAuthImgDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddAuthImgDialogData,
     private attributesManagerService: AttributesManagerService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -140,7 +140,7 @@ export class AddAuthImgDialogComponent implements OnInit {
       x: number,
       y: number,
       color: number[],
-      context: CanvasRenderingContext2D
+      context: CanvasRenderingContext2D,
     ): void {
       context.beginPath();
       context.rect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);

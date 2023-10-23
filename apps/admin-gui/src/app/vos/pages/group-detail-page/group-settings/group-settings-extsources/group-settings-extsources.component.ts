@@ -36,7 +36,7 @@ export class GroupSettingsExtsourcesComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('GROUP_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED')

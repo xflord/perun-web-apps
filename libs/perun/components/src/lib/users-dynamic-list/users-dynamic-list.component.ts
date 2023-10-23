@@ -87,7 +87,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
     private dynamicPaginatingService: DynamicPaginatingService,
     private dialog: MatDialog,
     private consentPipe: ConsentStatusIconPipe,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   static getExportDataForColumn(data: UserWithConsentStatus, column: string): string {
@@ -129,7 +129,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
 
     this.dataSource = new DynamicDataSource<RichUser>(
       this.dynamicPaginatingService,
-      this.authResolver
+      this.authResolver,
     );
     this.loadConsents();
     this.dataSource.loadUsers(
@@ -145,7 +145,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       this.resourceId,
       this.serviceId,
       this.onlyAllowed,
-      this.consentStatuses
+      this.consentStatuses,
     );
     this.loading$.emit(this.dataSource.loading$);
   }
@@ -188,7 +188,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       this.resourceId,
       this.serviceId,
       this.onlyAllowed,
-      this.consentStatuses
+      this.consentStatuses,
     );
   }
 
@@ -199,7 +199,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
         .subscribe((consentHub) =>
           this.consentService
             .getConsentsForConsentHub(consentHub.id)
-            .subscribe((consents) => (this.consents = consents))
+            .subscribe((consents) => (this.consents = consents)),
         );
     }
   }
@@ -209,9 +209,9 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       getDataForExport(
         this.getConsentsForUsers(this.dataSource.getData()),
         this.displayedColumns,
-        UsersDynamicListComponent.getExportDataForColumn
+        UsersDynamicListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -236,7 +236,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
         this.resourceId,
         this.serviceId,
         this.onlyAllowed,
-        this.consentStatuses
+        this.consentStatuses,
       )
       .subscribe((response) => {
         exportLoading.close();
@@ -244,9 +244,9 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
           getDataForExport(
             this.getConsentsForUsers(response),
             this.displayedColumns,
-            UsersDynamicListComponent.getExportDataForColumn
+            UsersDynamicListComponent.getExportDataForColumn,
           ),
-          format
+          format,
         );
       });
   }
@@ -257,7 +257,7 @@ export class UsersDynamicListComponent implements OnInit, OnChanges, AfterViewIn
       users.forEach((user) => {
         const uwc: UserWithConsentStatus = user;
         uwc.consent = this.translate.instant(
-          'CONSENTS.STATUS_' + this.consentPipe.transform(user.id, this.consents)
+          'CONSENTS.STATUS_' + this.consentPipe.transform(user.id, this.consents),
         ) as string;
         result.push(uwc);
       });

@@ -31,7 +31,7 @@ export class ResourceGroupsComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
     public guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class ResourceGroupsComponent implements OnInit {
         // identify groups with multiple assignments
         const groupsIds = this.assignedGroups.map((group) => group.id);
         const uniqueGroups = this.assignedGroups.filter(
-          (group, i) => groupsIds.indexOf(group.id) === i
+          (group, i) => groupsIds.indexOf(group.id) === i,
         );
         const groupsWithMultiAssignments = this.assignedGroups
           .filter((group, i) => {
@@ -79,7 +79,7 @@ export class ResourceGroupsComponent implements OnInit {
         this.groupsToDisable = new Set(
           this.assignedGroups
             .filter((group) => !!group.sourceGroupId && !group.moreTypesOfAssignment)
-            .map((group) => group.id)
+            .map((group) => group.id),
         );
         this.selected.clear();
         this.loading = false;
@@ -93,7 +93,7 @@ export class ResourceGroupsComponent implements OnInit {
       theme: 'resource-theme',
       resource: this.resource,
       onlyAutoAssignedGroups: this.assignedGroups.filter((group) =>
-        this.groupsToDisable.has(group.id)
+        this.groupsToDisable.has(group.id),
       ),
     };
 

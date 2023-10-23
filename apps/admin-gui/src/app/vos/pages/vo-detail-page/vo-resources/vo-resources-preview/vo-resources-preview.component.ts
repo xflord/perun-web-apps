@@ -30,7 +30,7 @@ export class VoResourcesPreviewComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

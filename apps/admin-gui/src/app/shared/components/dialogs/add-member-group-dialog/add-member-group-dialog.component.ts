@@ -50,7 +50,7 @@ export class AddMemberGroupDialogComponent implements OnInit {
     private memberManager: MembersManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -65,11 +65,11 @@ export class AddMemberGroupDialogComponent implements OnInit {
         .subscribe(
           (groups) => {
             this.groups = groups.filter((grp) =>
-              this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp])
+              this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]),
             );
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     });
   }
@@ -81,11 +81,11 @@ export class AddMemberGroupDialogComponent implements OnInit {
     this.groupManager.addMember(groupIds, this.member.id).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_MEMBER_GROUP.SUCCESS') as string
+          this.translate.instant('DIALOGS.ADD_MEMBER_GROUP.SUCCESS') as string,
         );
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

@@ -66,36 +66,36 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private router: Router,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
     // labels for hidden and disabled icons
     this.ifEmpty = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_EMPTY'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_EMPTY',
     );
     this.ifPrefilled = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_PREFILLED'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IF_PREFILLED',
     );
 
     // tooltips for hidden and disabled icons
     this.alwaysDisabled = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED_HINT',
     );
     this.alwaysHidden = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN_HINT',
     );
     this.isDisabledIf = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.DISABLED_IF_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.DISABLED_IF_HINT',
     );
     this.isHiddenIf = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.HIDDEN_IF_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.HIDDEN_IF_HINT',
     );
     this.isEmpty = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_EMPTY_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_EMPTY_HINT',
     );
     this.isPrefilled = this.translate.instant(
-      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_PREFILLED_HINT'
+      'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED_HIDDEN_ICON.IS_PREFILLED_HINT',
     );
   }
 
@@ -109,7 +109,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   disabledHiddenDependency(
     item: ApplicationFormItem,
     dependency: string,
-    dependencyItemId: number
+    dependencyItemId: number,
   ): string {
     let message = '';
     if (dependency === 'IF_EMPTY' || dependency === 'IF_PREFILLED') {
@@ -189,10 +189,10 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
   delete(applicationFormItem: ApplicationFormItem): void {
     let errorMessage = '';
     const hiddenDependencyForItem = this.applicationFormItems.find(
-      (item) => item.hiddenDependencyItemId === applicationFormItem.id
+      (item) => item.hiddenDependencyItemId === applicationFormItem.id,
     );
     const disabledDependencyForItem = this.applicationFormItems.find(
-      (item) => item.disabledDependencyItemId === applicationFormItem.id
+      (item) => item.disabledDependencyItemId === applicationFormItem.id,
     );
     if (hiddenDependencyForItem || disabledDependencyForItem) {
       errorMessage = this.translate.instant(
@@ -205,7 +205,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
           : {
               dependency: 'disabled',
               shortname: disabledDependencyForItem.shortname,
-            }
+            },
       );
     }
 
@@ -222,7 +222,7 @@ export class ApplicationFormListComponent implements OnInit, OnChanges {
         if (applicationFormItem.id === 0) {
           this.applicationFormItems.splice(
             this.applicationFormItems.indexOf(applicationFormItem),
-            1
+            1,
           );
           this.table.renderRows();
         }

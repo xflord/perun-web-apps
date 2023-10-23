@@ -55,7 +55,7 @@ export class VoGroupsComponent implements OnInit {
           roles: this.selectedRoles,
           types: this.selectedRoleTypes,
         },
-      })
+      }),
     ),
     // 'Tapping' is generally a last resort
     tap((page) => {
@@ -64,7 +64,7 @@ export class VoGroupsComponent implements OnInit {
       this.selected.clear();
       setTimeout(() => this.loadingSubject$.next(false), 200);
     }),
-    startWith({ data: [], totalCount: 0, offset: 0, pageSize: 0 })
+    startWith({ data: [], totalCount: 0, offset: 0, pageSize: 0 }),
   );
 
   showGroupList = false;
@@ -72,7 +72,7 @@ export class VoGroupsComponent implements OnInit {
   loadingSubject$ = new BehaviorSubject(false);
   loading$: Observable<boolean> = merge(
     this.loadingSubject$,
-    this.nextPage.pipe(map((): boolean => true))
+    this.nextPage.pipe(map((): boolean => true)),
   );
   filtering = false;
   filterValue = '';
@@ -87,10 +87,10 @@ export class VoGroupsComponent implements OnInit {
       change.source.selected.reduce(
         (acc, grp) =>
           acc && this.authResolver.isAuthorized('deleteGroup_Group_boolean_policy', [this.vo, grp]),
-        true
-      )
+        true,
+      ),
     ),
-    startWith(true)
+    startWith(true),
   );
 
   private attrNames = [
@@ -107,7 +107,7 @@ export class VoGroupsComponent implements OnInit {
     private groupService: GroupsManagerService,
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private groupUtils: GroupUtilsService
+    private groupUtils: GroupUtilsService,
   ) {}
 
   onCreateGroup(): void {
@@ -197,7 +197,7 @@ export class VoGroupsComponent implements OnInit {
         this.vo.id,
         this.attrNames,
         this.selectedRoles,
-        this.selectedRoleTypes
+        this.selectedRoleTypes,
       )
       .subscribe((groups) => {
         this.groups = groups;
@@ -255,7 +255,7 @@ export class VoGroupsComponent implements OnInit {
         next: (paginatedGroups) => {
           downloadData(
             getDataForExport(paginatedGroups.data, this.displayedColumns, getDataForCol),
-            a.format
+            a.format,
           );
         },
       });

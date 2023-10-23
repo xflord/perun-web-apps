@@ -72,7 +72,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
     private membersService: MembersManagerService,
     private formBuilder: FormBuilder,
     private sponsoredMembersPDFService: SponsoredMembersPdfService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   private static didSomeGenerationFailed(resultData: { [p: string]: string }[]): boolean {
@@ -138,7 +138,7 @@ export class GenerateSponsoredMembersDialogComponent implements OnInit {
 
   getSelectedNamespaceRules(): NamespaceRules {
     return this.namespaceRules.find(
-      (item) => item.namespaceName === this.usersInfoFormGroup.get('namespace').value
+      (item) => item.namespaceName === this.usersInfoFormGroup.get('namespace').value,
     );
   }
 

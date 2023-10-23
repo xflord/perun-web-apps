@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class MailChangeFailedDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<MailChangeFailedDialogComponent>,
-    private router: Router
+    private router: Router,
   ) {}
 
   onClose(): void {

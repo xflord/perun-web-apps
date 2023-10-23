@@ -14,7 +14,7 @@ export class ShowNotificationHistoryDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ShowNotificationHistoryDialogComponent>,
-    notificationStorageService: NotificationStorageService
+    notificationStorageService: NotificationStorageService,
   ) {
     this.notificationStorageService = notificationStorageService;
   }

@@ -31,7 +31,7 @@ export class AdminAttributesComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private attributesManager: AttributesManagerService,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

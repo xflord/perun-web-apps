@@ -42,7 +42,7 @@ export class SetLoginDialogComponent implements OnInit, AfterViewInit {
     },
     {
       validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-    }
+    },
   );
   processing = false;
   userId: number;
@@ -56,7 +56,7 @@ export class SetLoginDialogComponent implements OnInit, AfterViewInit {
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -136,7 +136,7 @@ export class SetLoginDialogComponent implements OnInit, AfterViewInit {
             this.usersManagerService.validatePasswordForUser(this.userId, namespace).subscribe({
               next: () => {
                 this.notificator.showSuccess(
-                  this.translate.instant('DIALOGS.SET_LOGIN.SUCCESS_PASSWORD')
+                  this.translate.instant('DIALOGS.SET_LOGIN.SUCCESS_PASSWORD'),
                 );
                 this.dialogRef.close(true);
               },

@@ -39,7 +39,7 @@ export class MemberOverviewMembershipComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private translate: PerunTranslateService,
     private notificator: NotificatorService,
-    private disablePipe: MemberStatusDisabledPipe
+    private disablePipe: MemberStatusDisabledPipe,
   ) {}
 
   ngOnInit(): void {

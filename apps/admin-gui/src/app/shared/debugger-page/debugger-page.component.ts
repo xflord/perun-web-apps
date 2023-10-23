@@ -10,7 +10,10 @@ import { PerunPrincipal } from '@perun-web-apps/perun/openapi';
 export class DebuggerPageComponent implements OnInit {
   principal: PerunPrincipal;
 
-  constructor(public authResolver: GuiAuthResolver, private store: StoreService) {}
+  constructor(
+    public authResolver: GuiAuthResolver,
+    private store: StoreService,
+  ) {}
 
   ngOnInit(): void {
     this.principal = this.store.getPerunPrincipal();

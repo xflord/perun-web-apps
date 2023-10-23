@@ -19,7 +19,7 @@ export class AttributeRightsService {
 
   constructor(
     private attributesManager: AttributesManagerService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {
     of(this.authResolver.getAllRules())
       .pipe(
@@ -29,12 +29,12 @@ export class AttributeRightsService {
           rules.map((rule) =>
             roleWithObject.set(
               rule.roleName as Role,
-              ['None', ...Object.keys(rule.assignedObjects)] as RoleObject[]
-            )
+              ['None', ...Object.keys(rule.assignedObjects)] as RoleObject[],
+            ),
           );
           // sort the map by key
           return of(new Map<Role, RoleObject[]>([...roleWithObject.entries()].sort()));
-        })
+        }),
       )
       .subscribe(this.roleWithObjects$);
   }
@@ -52,18 +52,18 @@ export class AttributeRightsService {
    */
   filterNullInPolicy() {
     return function (
-      source: Observable<AttributePolicyCollection[]>
+      source: Observable<AttributePolicyCollection[]>,
     ): Observable<AttributePolicyCollection[]> {
       return source.pipe(
         map((collections) => {
           collections.forEach(
             (col) =>
               (col.policies = col.policies.filter(
-                (policy) => policy.role !== null && policy.object !== null
-              ))
+                (policy) => policy.role !== null && policy.object !== null,
+              )),
           );
           return collections;
-        })
+        }),
       );
     };
   }
@@ -74,7 +74,7 @@ export class AttributeRightsService {
     finalGlobal: boolean,
     initGlobal: boolean,
     attrDefId: number,
-    operationType: AttributeAction
+    operationType: AttributeAction,
   ): Observable<void> {
     if (
       (finalOperations !== undefined && finalOperations !== initOperations) ||
@@ -84,7 +84,7 @@ export class AttributeRightsService {
         attrDefId,
         operationType,
         finalOperations === undefined ? initOperations : finalOperations,
-        finalGlobal
+        finalGlobal,
       ) as Observable<void>;
     } else {
       return of(void 0);
@@ -96,13 +96,13 @@ export class AttributeRightsService {
    */
   addAttributeId() {
     return function (
-      source: Observable<[number, AttributePolicyCollection[]]>
+      source: Observable<[number, AttributePolicyCollection[]]>,
     ): Observable<AttributePolicyCollection[]> {
       return source.pipe(
         map(([id, collections]) => {
           collections.forEach((col) => (col.attributeId = id));
           return collections;
-        })
+        }),
       );
     };
   }

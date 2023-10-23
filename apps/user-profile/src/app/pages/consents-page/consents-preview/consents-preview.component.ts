@@ -21,7 +21,7 @@ export class ConsentsPreviewComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private storeService: StoreService,
-    private consentService: ConsentsManagerService
+    private consentService: ConsentsManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class ConsentsPreviewComponent implements OnInit {
         this.signedConsents = consents.filter((item) => item.status !== 'UNSIGNED');
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -40,7 +40,7 @@ export class ConsentsPreviewComponent implements OnInit {
     //call to backend
     this.loading = true;
     this.notificator.showSuccess(
-      this.translate.instant('CONSENTS.GRANT_ALL_NOTIFICATION') as string
+      this.translate.instant('CONSENTS.GRANT_ALL_NOTIFICATION') as string,
     );
     this.loading = false;
   }
@@ -61,7 +61,7 @@ export class ConsentsPreviewComponent implements OnInit {
         this.notificator.showSuccess(translatedNotification + consent.consentHub.name);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -82,11 +82,11 @@ export class ConsentsPreviewComponent implements OnInit {
         this.moveConsent(consent);
         consent.status = 'GRANTED';
         this.notificator.showSuccess(
-          (this.translate.instant('CONSENTS.CONSENT_GRANTED') as string) + consent.consentHub.name
+          (this.translate.instant('CONSENTS.CONSENT_GRANTED') as string) + consent.consentHub.name,
         );
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

@@ -35,7 +35,7 @@ export class DataQuotasComponent implements OnInit {
     private resourcesManagerService: ResourcesManagerService,
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class DataQuotasComponent implements OnInit {
       let quotaAttribute = atts.find((att) => att.friendlyName === 'dataQuotas');
       if (quotaAttribute?.value) {
         const values = Object.entries(quotaAttribute.value as { [s: string]: string }).map(
-          (entry) => String(entry[1])
+          (entry) => String(entry[1]),
         );
         this.currentQuota = values[0];
       } else {
@@ -85,7 +85,7 @@ export class DataQuotasComponent implements OnInit {
       quotaAttribute = atts.find((att) => att.friendlyName === 'defaultDataQuotas');
       if (quotaAttribute?.value) {
         const values = Object.entries(quotaAttribute.value as { [s: string]: string }).map(
-          (entry) => String(entry[1])
+          (entry) => String(entry[1]),
         );
         this.defaultQuota = values[0];
       } else {
@@ -108,7 +108,7 @@ export class DataQuotasComponent implements OnInit {
 
   applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((vo) =>
-      vo.name.toLowerCase().includes(filter.toLowerCase())
+      vo.name.toLowerCase().includes(filter.toLowerCase()),
     );
   }
 

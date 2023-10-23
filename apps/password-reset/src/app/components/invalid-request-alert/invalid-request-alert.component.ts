@@ -14,7 +14,7 @@ export class InvalidRequestAlertComponent implements OnInit {
   ngOnInit(): void {
     this.translate.onLangChange.subscribe(() => {
       this.invalidRequestMessage = this.translate.instant(
-        'PAGES.PWD_RESET_PAGE.INVALID_REQUEST'
+        'PAGES.PWD_RESET_PAGE.INVALID_REQUEST',
       ) as string;
     });
   }

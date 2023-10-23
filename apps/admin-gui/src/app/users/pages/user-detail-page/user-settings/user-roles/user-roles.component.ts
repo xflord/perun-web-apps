@@ -24,7 +24,7 @@ export class UserRolesComponent implements OnInit {
     private authzResolverService: AuthzResolverService,
     private route: ActivatedRoute,
     private store: StoreService,
-    private roleService: RoleService
+    private roleService: RoleService,
   ) {}
 
   ngOnInit(): void {
@@ -61,11 +61,11 @@ export class UserRolesComponent implements OnInit {
             next: (groupBasedRoles) => {
               // prepare group based roles
               const groupBasedRoleNames = Object.keys(groupBasedRoles).map((role) =>
-                role.toUpperCase()
+                role.toUpperCase(),
               );
               this.indirectRoles = this.roleService.prepareRoles(
                 groupBasedRoles,
-                groupBasedRoleNames
+                groupBasedRoleNames,
               );
 
               // get map of roles and complementary objects with authorized groups
@@ -78,7 +78,7 @@ export class UserRolesComponent implements OnInit {
                     this.rolesComplementaryObjectsWithAuthzGroups =
                       this.roleService.prepareComplementaryObjects(
                         Object.keys(obtainedComplementaryObjects),
-                        obtainedComplementaryObjects
+                        obtainedComplementaryObjects,
                       );
                     this.outerLoading = false;
                   },

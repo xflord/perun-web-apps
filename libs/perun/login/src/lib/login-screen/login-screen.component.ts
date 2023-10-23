@@ -13,7 +13,7 @@ export class LoginScreenComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   ngOnInit(): void {

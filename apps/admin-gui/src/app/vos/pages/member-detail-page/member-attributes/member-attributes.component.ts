@@ -19,7 +19,7 @@ export class MemberAttributesComponent implements OnInit {
     private route: ActivatedRoute,
     private authResolver: GuiAuthResolver,
     private memberManager: MembersManagerService,
-    private entityService: EntityStorageService
+    private entityService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class MemberAttributesComponent implements OnInit {
     ]);
     this.memberResourceAttAuth = this.authResolver.isAuthorized(
       'getAssignedResourcesWithStatus_Member_policy',
-      [this.member]
+      [this.member],
     );
     this.userFacilityAttAuth = this.authResolver.isAuthorized('getAssignedFacilities_User_policy', [
       { beanName: 'User', id: this.member.userId },

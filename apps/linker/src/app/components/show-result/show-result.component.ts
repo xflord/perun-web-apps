@@ -18,7 +18,7 @@ export class ShowResultComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
   ) {}
 
   ngOnInit(): void {

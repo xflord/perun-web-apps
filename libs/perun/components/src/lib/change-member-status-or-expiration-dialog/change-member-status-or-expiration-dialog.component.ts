@@ -21,7 +21,7 @@ export class ChangeMemberStatusOrExpirationDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ChangeMemberStatusOrExpirationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ChangeMemberStatusOrExpirationDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ChangeMemberStatusOrExpirationDialogData,
   ) {}
 
   ngOnInit(): void {

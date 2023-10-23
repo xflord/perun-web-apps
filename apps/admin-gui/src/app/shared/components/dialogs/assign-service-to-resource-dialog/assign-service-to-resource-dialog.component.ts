@@ -43,7 +43,7 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private resourceManager: ResourcesManagerService,
-    private servicesManager: ServicesManagerService
+    private servicesManager: ServicesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -122,7 +122,7 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
               }
             });
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 
@@ -140,7 +140,7 @@ export class AssignServiceToResourceDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

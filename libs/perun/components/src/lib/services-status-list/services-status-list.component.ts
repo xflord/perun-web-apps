@@ -49,7 +49,10 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -147,9 +150,9 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ServicesStatusListComponent.getDataForColumn
+        ServicesStatusListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -162,9 +165,9 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ServicesStatusListComponent.getDataForColumn
+        ServicesStatusListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -175,7 +178,7 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          ServicesStatusListComponent.getDataForColumn
+          ServicesStatusListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: ServiceState[], sort: MatSort): ServiceState[] =>
         customDataSourceSort(data, sort, ServicesStatusListComponent.getSortDataForColumn);
@@ -199,7 +202,7 @@ export class ServicesStatusListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

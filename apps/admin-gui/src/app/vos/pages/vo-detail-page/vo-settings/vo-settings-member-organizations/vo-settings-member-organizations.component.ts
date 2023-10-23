@@ -34,7 +34,7 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private reloadDetailService: ReloadEntityDetailService,
     private notificator: NotificatorService,
-    private translator: TranslateService
+    private translator: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
         this.voSelection.clear();
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -75,8 +75,8 @@ export class VoSettingsMemberOrganizationsComponent implements OnInit {
     this.vosService.removeMemberVo(this.voId, this.voSelection.selected[0].id).subscribe(() => {
       this.notificator.showSuccess(
         this.translator.instant(
-          'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE_MEMBER_ORGANIZATION.TITLE'
-        ) as string
+          'VO_DETAIL.SETTINGS.MEMBER_ORGANIZATIONS.REMOVE_MEMBER_ORGANIZATION.TITLE',
+        ) as string,
       );
       this.reloadDetailService.reloadEntityDetail();
       this.refresh();

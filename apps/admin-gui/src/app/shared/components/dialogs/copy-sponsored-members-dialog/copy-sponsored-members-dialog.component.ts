@@ -55,7 +55,7 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private auth: GuiAuthResolver
+    private auth: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
     // if not PERUNADMIN user cannot copy to anyone else than self, so do not allow selecting self as source sponsor
     if (!this.isPerunAdmin) {
       this.voSponsorsSource = this.voSponsorsSource.filter(
-        (voSponsor) => voSponsor.id !== this.store.getPerunPrincipal().user.id
+        (voSponsor) => voSponsor.id !== this.store.getPerunPrincipal().user.id,
       );
     }
     this.theme = this.data.theme;
@@ -83,7 +83,7 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
     this.tableLoading = true;
     this.sourceSponsor = user;
     this.voSponsorsTarget = this.data.voSponsors.filter(
-      (sponsor) => sponsor.id !== this.sourceSponsor.id
+      (sponsor) => sponsor.id !== this.sourceSponsor.id,
     );
     // disable copying to self only if PERUNADMIN (it is not possible to choose self as source sponsor without PERUNADMIN anyway)
     if (this.isPerunAdmin) {
@@ -92,7 +92,7 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
     this.sourceSponsorSelected = true;
     this.selection.clear();
     this.filteredSponsoredMembers = this.sponsoredMembers.filter((member) =>
-      member.sponsors.map((sponsor) => sponsor.user.id).includes(this.sourceSponsor.id)
+      member.sponsors.map((sponsor) => sponsor.user.id).includes(this.sourceSponsor.id),
     );
     this.tableLoading = false;
   }
@@ -109,12 +109,12 @@ export class CopySponsoredMembersDialogComponent implements OnInit {
         this.sourceSponsor.id,
         sponsor.id,
         !this.pickExpiration,
-        this.expiration
+        this.expiration,
       )
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.COPY_SPONSORED_MEMBERS.SUCCESS')
+            this.translate.instant('DIALOGS.COPY_SPONSORED_MEMBERS.SUCCESS'),
           );
           this.loading = false;
           this.dialogRef.close(true);

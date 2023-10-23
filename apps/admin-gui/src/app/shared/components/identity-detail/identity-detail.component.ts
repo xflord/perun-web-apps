@@ -33,7 +33,7 @@ export class IdentityDetailComponent implements OnInit {
     private dialog: MatDialog,
     private attributesManager: AttributesManagerService,
     private userService: UsersManagerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

@@ -25,7 +25,7 @@ export class MainWindowComponent implements OnInit {
     private initService: InitAuthService,
     private registrarService: RegistrarManagerService,
     private router: Router,
-    private openLinkerService: OpenLinkerService
+    private openLinkerService: OpenLinkerService,
   ) {}
 
   ngOnInit(): void {

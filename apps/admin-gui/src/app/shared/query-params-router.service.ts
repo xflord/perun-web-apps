@@ -6,7 +6,10 @@ import { ActivatedRoute, QueryParamsHandling, Router } from '@angular/router';
   providedIn: 'root',
 })
 export class QueryParamsRouterService {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   navigate(url: string[], relativeTo: ActivatedRoute = null): void {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {

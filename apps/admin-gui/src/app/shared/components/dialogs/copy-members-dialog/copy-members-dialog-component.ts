@@ -38,7 +38,7 @@ export class CopyMembersDialogComponent implements OnInit {
     private groupsService: GroupsManagerService,
     private guiAuthResolver: GuiAuthResolver,
     private translate: PerunTranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class CopyMembersDialogComponent implements OnInit {
       .copyMembers(
         this.data.groupId,
         this.selection.selected.map((group) => group.id),
-        memberIds
+        memberIds,
       )
       .subscribe({
         next: () => {
@@ -96,7 +96,7 @@ export class CopyMembersDialogComponent implements OnInit {
         ) &&
         this.guiAuthResolver.isAuthorized(
           'dest-copyMembers_Group_List<Group>_List<Member>_boolean_policy',
-          [grp]
+          [grp],
         )
       ) {
         assignableGroups.push(grp);

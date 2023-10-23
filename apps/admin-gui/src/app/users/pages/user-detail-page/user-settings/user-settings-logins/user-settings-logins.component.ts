@@ -16,7 +16,10 @@ export class UserSettingsLoginsComponent implements OnInit {
   userId: number;
   filteredNamespaces: string[] = [];
 
-  constructor(private dialog: MatDialog, private entityStorageService: EntityStorageService) {}
+  constructor(
+    private dialog: MatDialog,
+    private entityStorageService: EntityStorageService,
+  ) {}
 
   ngOnInit(): void {
     this.userId = this.entityStorageService.getEntity().id;

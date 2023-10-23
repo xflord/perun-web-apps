@@ -77,7 +77,7 @@ export class SelectionItemSearchSelectComponent implements OnInit {
           ' / ' +
           SelectionItemSearchSelectComponent.getDefinition(attribute) +
           ')',
-        attribute.namespace + ':' + attribute.friendlyName
+        attribute.namespace + ':' + attribute.friendlyName,
       );
       if (item.value === this.selectedAttribute) {
         this.item = item;
@@ -123,10 +123,10 @@ export class SelectionItemSearchSelectComponent implements OnInit {
             this.items.push(new SelectionItem('IdP Category', 'md_entityCategory'));
             this.items.push(new SelectionItem('IdP Affiliation', 'affiliation'));
             this.items.push(
-              new SelectionItem('EduPersonScopedAffiliation', 'eduPersonScopedAffiliation')
+              new SelectionItem('EduPersonScopedAffiliation', 'eduPersonScopedAffiliation'),
             );
             this.items.push(
-              new SelectionItem('Forwarded Affiliation from Proxy', 'forwardedScopedAffiliation')
+              new SelectionItem('Forwarded Affiliation from Proxy', 'forwardedScopedAffiliation'),
             );
             this.items.push(new SelectionItem('schacHomeOrganization', 'schacHomeOrganization'));
             this.items.push(new SelectionItem('Login', 'uid'));

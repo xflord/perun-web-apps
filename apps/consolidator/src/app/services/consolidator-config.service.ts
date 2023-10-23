@@ -11,7 +11,7 @@ export class ConsolidatorConfigService {
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
     private location: Location,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   loadConfigs(): Promise<void> {

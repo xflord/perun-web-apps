@@ -26,7 +26,7 @@ export class CategoriesPageComponent implements OnInit {
   constructor(
     private cabinetManagerService: CabinetManagerService,
     private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

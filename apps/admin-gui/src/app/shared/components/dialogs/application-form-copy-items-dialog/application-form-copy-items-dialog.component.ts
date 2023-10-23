@@ -47,7 +47,7 @@ export class ApplicationFormCopyItemsDialogComponent implements OnInit {
     private notificatorService: NotificatorService,
     private apiRequest: ApiRequestConfigurationService,
     private cd: ChangeDetectorRef,
-    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormCopyItemsDialogData,
   ) {
     translateService
       .get('DIALOGS.APPLICATION_FORM_COPY_ITEMS.SUCCESS')

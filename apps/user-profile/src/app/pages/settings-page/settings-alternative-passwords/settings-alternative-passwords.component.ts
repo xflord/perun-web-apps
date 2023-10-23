@@ -32,7 +32,7 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog,
     private translateService: TranslateService,
-    private usersManagerService: UsersManagerService
+    private usersManagerService: UsersManagerService,
   ) {
     translateService
       .get('ALT_PASSWORDS.REMOVE_DIALOG_DESCRIPTION')
@@ -83,7 +83,7 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
     }
     if (
       !retVal.match(
-        '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])).{3,}'
+        '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])).{3,}',
       )
     ) {
       this.generatePassword();
@@ -121,7 +121,7 @@ export class SettingsAlternativePasswordsComponent implements OnInit {
       .subscribe((att) => {
         if (att.value) {
           this.altPasswordsAttributeValue = new Map<string, string>(
-            Object.entries(att.value as { [s: string]: string })
+            Object.entries(att.value as { [s: string]: string }),
           );
           const altPasswordsKeys = this.altPasswordsAttributeValue.keys();
           this.passwordDescriptions = new Set<string>(altPasswordsKeys);

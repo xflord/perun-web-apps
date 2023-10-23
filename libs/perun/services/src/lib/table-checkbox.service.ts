@@ -21,7 +21,7 @@ export class TableCheckbox {
   isAllSelected<T>(
     rowsSelected: number,
     dataSource: MatTableDataSource<T>,
-    canBeSelected: (item: T) => boolean = (): boolean => true
+    canBeSelected: (item: T) => boolean = (): boolean => true,
   ): boolean {
     const pg = dataSource.paginator;
     const pageSize = pg.pageSize ?? 0;
@@ -68,7 +68,7 @@ export class TableCheckbox {
     pageSize: number,
     pageIndex: number,
     someCheckboxDisabled: boolean,
-    canBeSelected?: (T) => boolean
+    canBeSelected?: (T) => boolean,
   ): void {
     selection.clear();
     if (!isAllSelected) {
@@ -107,7 +107,7 @@ export class TableCheckbox {
   isAllSelectedPaginated<T>(
     dataSource: DynamicDataSource<T>,
     selectedCount: number,
-    canBeSelected: (T) => boolean = (): boolean => true
+    canBeSelected: (T) => boolean = (): boolean => true,
   ): boolean {
     return (
       selectedCount ===
@@ -127,7 +127,7 @@ export class TableCheckbox {
     dataSource: DynamicDataSource<T>,
     selection: SelectionModel<T>,
     selectAll: boolean,
-    canBeSelected: (T) => boolean = (): boolean => true
+    canBeSelected: (T) => boolean = (): boolean => true,
   ): void {
     selection.clear();
     if (selectAll) {

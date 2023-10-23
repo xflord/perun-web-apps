@@ -22,7 +22,7 @@ export class AddUnixGroupDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddUnixGroupDialogData>,
     @Inject(MAT_DIALOG_DATA) private data: AddUnixGroupDialogData,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class AddUnixGroupDialogComponent implements OnInit {
     this.attributesManagerService
       .getUserAttributeByName(
         this.data.userId,
-        `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${this.data.namespace}`
+        `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${this.data.namespace}`,
       )
       .subscribe((attribute) => {
         const groups: string[] = (attribute?.value as string[]) ?? [];

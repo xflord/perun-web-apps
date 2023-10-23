@@ -15,7 +15,7 @@ export class OpenLinkerService {
     private otherApplicationsService: OtherApplicationsService,
     private storeService: StoreService,
     private oauthService: OAuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   openLinkerWindow(processTheResult: (result: LinkerResult) => void, idpFilter?: string[]): void {
@@ -41,7 +41,7 @@ export class OpenLinkerService {
     const newWindow = window.open(
       url,
       '_blank',
-      `width=${width},height=${height},top=${top}, left=${left}`
+      `width=${width},height=${height},top=${top}, left=${left}`,
     );
 
     let dialogRef: MatDialogRef<FocusOnLinkerDialogComponent, void>;

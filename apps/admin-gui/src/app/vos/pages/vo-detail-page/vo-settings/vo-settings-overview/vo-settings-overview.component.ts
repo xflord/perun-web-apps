@@ -21,7 +21,7 @@ export class VoSettingsOverviewComponent implements OnInit {
     private voService: VosManagerService,
     protected router: Router,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +97,7 @@ export class VoSettingsOverviewComponent implements OnInit {
     if (
       this.routePolicyService.canNavigate(
         'organizations-settings-hierarchicalInclusion',
-        this.vo
+        this.vo,
       ) &&
       this.isMemberOfSomeOrganization
     ) {

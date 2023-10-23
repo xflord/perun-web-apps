@@ -46,7 +46,7 @@ export class AdminUserDetailPageComponent implements OnInit {
     public authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
     private router: Router,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -115,7 +115,7 @@ export class AdminUserDetailPageComponent implements OnInit {
   }
 
   private openDialog(
-    dialogComponent: ComponentType<AnonymizeUserDialogComponent | DeleteUserDialogComponent>
+    dialogComponent: ComponentType<AnonymizeUserDialogComponent | DeleteUserDialogComponent>,
   ): void {
     const config = getDefaultDialogConfig<
       AnonymizeUserDialogComponentData | DeleteUserDialogComponentData

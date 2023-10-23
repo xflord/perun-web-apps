@@ -40,7 +40,7 @@ export class DashboardRecentlyViewedButtonFieldComponent implements OnInit {
     private vosManager: VosManagerService,
     private groupsManager: GroupsManagerService,
     private authResolver: GuiAuthResolver,
-    private facilitiesManager: FacilitiesManagerService
+    private facilitiesManager: FacilitiesManagerService,
   ) {}
 
   ngOnInit(): void {

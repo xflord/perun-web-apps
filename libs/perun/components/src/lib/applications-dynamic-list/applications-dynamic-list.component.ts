@@ -78,7 +78,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     private authResolver: GuiAuthResolver,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngAfterViewInit(): void {
@@ -95,7 +95,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
 
     this.dataSource = new DynamicDataSource<Application>(
       this.dynamicPaginatingService,
-      this.authResolver
+      this.authResolver,
     );
 
     const dateTo = this.dateTo ?? new Date();
@@ -112,7 +112,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.dateToString(dateTo),
       this.member?.userId ?? null,
       this.group?.id ?? null,
-      this.getVoId()
+      this.getVoId(),
     );
     this.loading$.emit(this.dataSource.loading$);
 
@@ -137,8 +137,8 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     this.fedColumnsDisplay = [];
     this.fedColumnsFriendly.forEach((name) =>
       this.fedColumnsDisplay.push(
-        this.fedAttrs.find((attr) => attr.friendlyName === name)?.displayName || ''
-      )
+        this.fedAttrs.find((attr) => attr.friendlyName === name)?.displayName || '',
+      ),
     );
 
     this.refreshTable = false;
@@ -178,7 +178,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       this.member?.userId ?? null,
       this.group?.id ?? null,
       this.getVoId(),
-      true
+      true,
     );
   }
 
@@ -187,9 +187,9 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string
+        this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string,
       ),
-      format
+      format,
     );
   }
 
@@ -215,7 +215,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
         this.member?.userId ?? null,
         this.group?.id ?? null,
         this.getVoId(),
-        true
+        true,
       )
       .subscribe((response) => {
         exportLoading.close();
@@ -223,9 +223,9 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
           getDataForExport(
             response,
             this.displayedColumns,
-            this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string
+            this.getExportDataForColumn.bind(this) as (data: Application, column: string) => string,
           ),
-          format
+          format,
         );
       });
   }
@@ -336,7 +336,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
             : v == null || v === 'null' || (v as string).length === 0
             ? a
             : ((a[k] = v as string), a),
-        {}
+        {},
       );
 
     let str = JSON.stringify(removeNullUndefined(obj));

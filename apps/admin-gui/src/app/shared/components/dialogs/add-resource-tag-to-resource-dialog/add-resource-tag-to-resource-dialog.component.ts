@@ -32,7 +32,7 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddResourceTagToResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddResourceTagToResourceDialogData,
-    private resourcesManager: ResourcesManagerService
+    private resourcesManager: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class AddResourceTagToResourceDialogComponent implements OnInit {
     this.assignedTags = this.data.assignedTags;
     this.resourcesManager.getAllResourcesTagsForVo(this.voId).subscribe((tags) => {
       this.resourceTags = tags.filter(
-        (tag) => !this.assignedTags.map((assignedTag) => assignedTag.id).includes(tag.id)
+        (tag) => !this.assignedTags.map((assignedTag) => assignedTag.id).includes(tag.id),
       );
       this.loading = false;
     });

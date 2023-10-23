@@ -52,7 +52,7 @@ export class IdentitiesPageComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private registrarManagerService: RegistrarManagerService,
-    private openLinkerService: OpenLinkerService
+    private openLinkerService: OpenLinkerService,
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +91,7 @@ export class IdentitiesPageComponent implements OnInit {
               this.attributesManagerService
                 .getUserExtSourceAttributeByName(
                   ues.userExtSource.id,
-                  Urns.UES_IDP_ORGANIZATION_NAME
+                  Urns.UES_IDP_ORGANIZATION_NAME,
                 )
                 .subscribe((orgName) => {
                   count--;
@@ -132,12 +132,12 @@ export class IdentitiesPageComponent implements OnInit {
           location.reload();
         } else if (result === 'OK') {
           this.notificator.showSuccess(
-            this.translate.instant('IDENTITIES.SUCCESSFULLY_ADDED') as string
+            this.translate.instant('IDENTITIES.SUCCESSFULLY_ADDED') as string,
           );
           this.refreshTables();
         } else if (result === 'MESSAGE_SENT_TO_SUPPORT') {
           this.notificator.showSuccess(
-            this.translate.instant('IDENTITIES.MESSAGE_SENT_TO_SUPPORT') as string
+            this.translate.instant('IDENTITIES.MESSAGE_SENT_TO_SUPPORT') as string,
           );
         }
       });

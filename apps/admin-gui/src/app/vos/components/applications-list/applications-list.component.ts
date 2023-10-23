@@ -130,9 +130,9 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ApplicationsListComponent.getDataForColumn
+        ApplicationsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -145,9 +145,9 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ApplicationsListComponent.getDataForColumn
+        ApplicationsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -163,8 +163,8 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
           this.displayedColumns,
           ApplicationsListComponent.getDataForColumn.bind(this) as (
             data: Application,
-            column: string
-          ) => string
+            column: string,
+          ) => string,
         );
       this.dataSource.sortData = (data: Application[], sort: MatSort): Application[] =>
         customDataSourceSort(
@@ -172,8 +172,8 @@ export class ApplicationsListComponent implements OnChanges, AfterViewInit {
           sort,
           ApplicationsListComponent.getSortDataForColumn.bind(this) as (
             data: Application,
-            column: string
-          ) => string
+            column: string,
+          ) => string,
         );
     }
     this.dataSource.filter = this.filterValue;

@@ -21,7 +21,7 @@ export class ConsentRequestComponent implements OnInit {
     private consentService: ConsentsManagerService,
     private route: ActivatedRoute,
     private apiRequest: ApiRequestConfigurationService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -54,11 +54,11 @@ export class ConsentRequestComponent implements OnInit {
       () => {
         this.notificator.showSuccess(
           (this.translate.instant('CONSENTS.CONSENT_GRANTED') as string) +
-            this.consent.consentHub.name
+            this.consent.consentHub.name,
         );
         void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -68,7 +68,7 @@ export class ConsentRequestComponent implements OnInit {
       next: () => {
         this.notificator.showSuccess(
           (this.translate.instant('CONSENTS.CONSENT_REJECTED') as string) +
-            this.consent.consentHub.name
+            this.consent.consentHub.name,
         );
         void this.router.navigate(['/profile', 'consents'], { queryParamsHandling: 'merge' });
       },

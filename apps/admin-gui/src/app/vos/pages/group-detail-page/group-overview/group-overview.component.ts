@@ -38,7 +38,7 @@ export class GroupOverviewComponent implements OnInit, DoCheck {
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngDoCheck(): void {

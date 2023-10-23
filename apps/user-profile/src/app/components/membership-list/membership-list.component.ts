@@ -83,9 +83,9 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        MembershipListComponent.getDataForColumn
+        MembershipListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -98,9 +98,9 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        MembershipListComponent.getDataForColumn
+        MembershipListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -111,7 +111,7 @@ export class MembershipListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          MembershipListComponent.getDataForColumn
+          MembershipListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Membership[], sort: MatSort): Membership[] =>
         customDataSourceSort(data, sort, MembershipListComponent.getDataForColumn);

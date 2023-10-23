@@ -31,7 +31,7 @@ export class VoSettingsServiceMembersComponent implements OnInit {
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private authzService: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

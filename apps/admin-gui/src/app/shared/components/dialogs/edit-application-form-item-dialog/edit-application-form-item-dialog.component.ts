@@ -95,19 +95,19 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     private translate: PerunTranslateService,
     private store: StoreService,
     private cd: ChangeDetectorRef,
-    private escapeService: HtmlEscapeService
+    private escapeService: HtmlEscapeService,
   ) {}
 
   ngOnInit(): void {
     this.languages = this.store.getProperty('supported_languages');
     this.hiddenDependencyItem = this.data.allItems.find(
-      (item) => item.id === this.data.applicationFormItem.hiddenDependencyItemId
+      (item) => item.id === this.data.applicationFormItem.hiddenDependencyItemId,
     );
     if (!this.hiddenDependencyItem) {
       this.hiddenDependencyItem = NO_FORM_ITEM;
     }
     this.disabledDependencyItem = this.data.allItems.find(
-      (item) => item.id === this.data.applicationFormItem.disabledDependencyItemId
+      (item) => item.id === this.data.applicationFormItem.disabledDependencyItemId,
     );
     if (!this.disabledDependencyItem) {
       this.disabledDependencyItem = NO_FORM_ITEM;
@@ -124,7 +124,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
         const perunSourceAttrDef = this.findAttribute(
           attributeDefinitions,
-          this.applicationFormItem.perunSourceAttribute
+          this.applicationFormItem.perunSourceAttribute,
         );
         this.sourceAttributes = perunSourceAttrDef
           ? filteredAttributes.concat(perunSourceAttrDef)
@@ -132,7 +132,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
         const perunDestinationAttrDef = this.findAttribute(
           attributeDefinitions,
-          this.applicationFormItem.perunDestinationAttribute
+          this.applicationFormItem.perunDestinationAttribute,
         );
         this.destinationAttributes = perunDestinationAttrDef
           ? filteredAttributes.concat(perunDestinationAttrDef)
@@ -154,10 +154,10 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
   loadWarning(itemType: ItemType): void {
     this.warningMessage = '';
     const hiddenDependencyForItem = this.data.allItems.find(
-      (item) => item.hiddenDependencyItemId === this.data.applicationFormItem.id
+      (item) => item.hiddenDependencyItemId === this.data.applicationFormItem.id,
     );
     const disabledDependencyForItem = this.data.allItems.find(
-      (item) => item.disabledDependencyItemId === this.data.applicationFormItem.id
+      (item) => item.disabledDependencyItemId === this.data.applicationFormItem.id,
     );
     if (hiddenDependencyForItem || disabledDependencyForItem) {
       if (itemType === ItemType.SOURCE) {
@@ -175,7 +175,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
           : {
               dependency: 'disabled',
               shortname: disabledDependencyForItem.shortname,
-            }
+            },
       );
       this.cd.detectChanges();
     }
@@ -198,17 +198,17 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
         this.applicationFormItem.type === 'HEADING'
       ) {
         this.applicationFormItem.i18n[lang].label = this.escapeService.escapeDangerousHtml(
-          this.inputFormGroup.get(`${lang}-html-label`).value
+          this.inputFormGroup.get(`${lang}-html-label`).value,
         ).escapedHtml;
       } else {
         this.applicationFormItem.i18n[lang].label = this.inputFormGroup.get(
-          `${lang}-plain-label`
+          `${lang}-plain-label`,
         ).value;
         this.applicationFormItem.i18n[lang].errorMessage = this.inputFormGroup.get(
-          `${lang}-plain-error-message`
+          `${lang}-plain-error-message`,
         ).value;
         this.applicationFormItem.i18n[lang].help = this.inputFormGroup.get(
-          `${lang}-plain-help`
+          `${lang}-plain-help`,
         ).value;
       }
     }
@@ -233,7 +233,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
 
   removeOption(option: [string, string], lang: string): void {
     this.options[lang] = this.options[lang].filter(
-      (opt) => !(opt[0] === option[0] && opt[1] === option[1])
+      (opt) => !(opt[0] === option[0] && opt[1] === option[1]),
     );
   }
 
@@ -309,22 +309,22 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       ) {
         formGroupFields[`${lang}-html-label`] = new FormControl(
           this.applicationFormItem.i18n[lang].label,
-          [this.escapeService.htmlContentValidator()]
+          [this.escapeService.htmlContentValidator()],
         );
         formGroupFields[`${lang}-html-label`].markAsTouched();
       } else {
         // Plain
         formGroupFields[`${lang}-plain-error-message`] = new FormControl(
           this.applicationFormItem.i18n[lang].errorMessage,
-          []
+          [],
         );
         formGroupFields[`${lang}-plain-help`] = new FormControl(
           this.applicationFormItem.i18n[lang].help,
-          []
+          [],
         );
         formGroupFields[`${lang}-plain-label`] = new FormControl(
           this.applicationFormItem.i18n[lang].label,
-          []
+          [],
         );
 
         formGroupFields[`${lang}-plain-label`].markAsTouched();
@@ -353,7 +353,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
     return [NO_FORM_ITEM].concat(
       this.data.allItems
         .filter((item) => this.dependencyTypes.includes(item.type))
-        .filter((item) => item.id !== this.data.applicationFormItem.id)
+        .filter((item) => item.id !== this.data.applicationFormItem.id),
     );
   }
 
@@ -390,7 +390,7 @@ export class EditApplicationFormItemDialogComponent implements OnInit {
       return attributes.filter((att) => att.type.includes('ArrayList'));
     } else {
       return attributes.filter(
-        (att) => !att.type.includes('ArrayList') && !att.type.includes('LinkedHashMap')
+        (att) => !att.type.includes('ArrayList') && !att.type.includes('LinkedHashMap'),
       );
     }
   }

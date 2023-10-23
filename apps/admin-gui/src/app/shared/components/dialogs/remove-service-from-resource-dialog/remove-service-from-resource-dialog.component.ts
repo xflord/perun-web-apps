@@ -27,7 +27,7 @@ export class RemoveServiceFromResourceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: RemoveServiceFromResourceDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private resourcesManager: ResourcesManagerService
+    private resourcesManager: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class RemoveServiceFromResourceDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

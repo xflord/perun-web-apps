@@ -20,7 +20,7 @@ export class VoSettingsManagersComponent implements OnInit {
     private dialog: MatDialog,
     private voService: VosManagerService,
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

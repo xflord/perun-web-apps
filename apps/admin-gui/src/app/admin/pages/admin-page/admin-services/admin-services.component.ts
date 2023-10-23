@@ -25,7 +25,7 @@ export class AdminServicesComponent implements OnInit {
   constructor(
     private serviceManager: ServicesManagerService,
     private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

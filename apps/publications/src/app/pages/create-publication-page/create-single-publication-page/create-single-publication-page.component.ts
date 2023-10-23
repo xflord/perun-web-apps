@@ -88,7 +88,7 @@ export class CreateSinglePublicationPageComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
     private storeService: StoreService,
-    private userService: UsersManagerService
+    private userService: UsersManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -165,16 +165,16 @@ export class CreateSinglePublicationPageComponent implements OnInit {
                     () => {
                       this.createTimeout();
                     },
-                    () => (this.innerLoading = false)
+                    () => (this.innerLoading = false),
                   );
               } else {
                 this.createTimeout();
               }
             },
-            () => (this.innerLoading = false)
+            () => (this.innerLoading = false),
           );
         },
-        () => (this.innerLoading = false)
+        () => (this.innerLoading = false),
       );
   }
 

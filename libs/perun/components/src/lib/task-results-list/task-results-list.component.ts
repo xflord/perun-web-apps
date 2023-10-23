@@ -42,7 +42,10 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
   dataSource: MatTableDataSource<TaskResult>;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -117,9 +120,9 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        TaskResultsListComponent.getDataForColumn
+        TaskResultsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -132,9 +135,9 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        TaskResultsListComponent.getDataForColumn
+        TaskResultsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -148,7 +151,7 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          TaskResultsListComponent.getDataForColumn
+          TaskResultsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: TaskResult[], sort: MatSort): TaskResult[] =>
         customDataSourceSort(data, sort, TaskResultsListComponent.getSortDataForColumn);
@@ -168,7 +171,7 @@ export class TaskResultsListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

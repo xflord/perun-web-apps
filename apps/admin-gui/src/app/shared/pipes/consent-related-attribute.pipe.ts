@@ -25,7 +25,7 @@ export class ConsentRelatedAttributePipe implements PipeTransform {
     // When consent is required mark consent related attributes
     return this.USER_CONSENT_RELATED_ATT_NAMESPACE.reduce(
       (acc: boolean, namespace) => acc || attNamespace.startsWith(namespace),
-      false
+      false,
     );
   }
 }

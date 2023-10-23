@@ -31,7 +31,7 @@ export class SendMessageDialogComponent {
     private authzService: AuthzResolverService,
     private oAuthStorage: OAuthStorage,
     private rtMessages: RTMessagesManagerService,
-    private userFullNamePipe: UserFullNamePipe
+    private userFullNamePipe: UserFullNamePipe,
   ) {}
 
   onCancel(): void {
@@ -50,7 +50,7 @@ export class SendMessageDialogComponent {
         .sentMessageToRTWithQueue(
           'perun',
           'Account linking: The accounts could not be automatically linked.',
-          this.getFullEmailBody(currentUser, formerUser)
+          this.getFullEmailBody(currentUser, formerUser),
         )
         .subscribe({
           next: () => {
@@ -82,7 +82,7 @@ export class SendMessageDialogComponent {
         formerUser.id.toString() +
         '\nName: ' +
         this.userFullNamePipe.transform(formerUser) +
-        '\n\n'
+        '\n\n',
     );
 
     text = text.concat(
@@ -91,14 +91,14 @@ export class SendMessageDialogComponent {
         currentUser.id.toString() +
         '\nName: ' +
         this.userFullNamePipe.transform(currentUser) +
-        '\n\n'
+        '\n\n',
     );
 
     text = text.concat('Perun instance: ' + instance + '\n');
     text = text.concat(
       'Sended from new Consolidator Gui, version: ',
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-      require('../../../../../../package.json').version as string
+      require('../../../../../../package.json').version as string,
     );
     return text.split('\n').join('\n '); //add space after each new line
   }

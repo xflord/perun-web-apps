@@ -13,7 +13,7 @@ export interface NoMfaTokensData {
 export class NoMfaTokensDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: NoMfaTokensData,
-    private dialogRef: MatDialogRef<NoMfaTokensDialogComponent>
+    private dialogRef: MatDialogRef<NoMfaTokensDialogComponent>,
   ) {}
 
   cancel(): void {

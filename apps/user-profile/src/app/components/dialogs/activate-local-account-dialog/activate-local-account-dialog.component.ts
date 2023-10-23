@@ -32,7 +32,7 @@ export class ActivateLocalAccountDialogComponent {
     },
     {
       validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-    }
+    },
   );
 
   constructor(
@@ -42,7 +42,7 @@ export class ActivateLocalAccountDialogComponent {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private formBuilder: FormBuilder,
-    private apiRequestConfiguration: ApiRequestConfigurationService
+    private apiRequestConfiguration: ApiRequestConfigurationService,
   ) {}
 
   cancel(): void {
@@ -60,13 +60,13 @@ export class ActivateLocalAccountDialogComponent {
       })
       .pipe(
         switchMap(() =>
-          this.userManager.validatePasswordForUser(this.data.userId, this.data.namespace)
-        )
+          this.userManager.validatePasswordForUser(this.data.userId, this.data.namespace),
+        ),
       )
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.ACTIVATE_LOCAL_ACCOUNT.SUCCESS') as string
+            this.translate.instant('DIALOGS.ACTIVATE_LOCAL_ACCOUNT.SUCCESS') as string,
           );
           this.dialogRef.close();
         },

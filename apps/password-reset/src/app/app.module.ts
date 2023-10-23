@@ -105,7 +105,10 @@ const loadConfigs = (appConfig: PasswordResetConfigService) => (): Promise<void>
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
+  constructor(
+    private customIconService: CustomIconService,
+    private translate: TranslateService,
+  ) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

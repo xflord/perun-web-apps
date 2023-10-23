@@ -30,7 +30,7 @@ export class DeleteFacilityDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: DeleteFacilityDialogData,
     public facilitiesManager: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class DeleteFacilityDialogComponent implements OnInit {
     this.facility = this.data.facility;
     this.dataSource = new MatTableDataSource<Facility>([this.facility]);
     this.relations.push(
-      this.translate.instant('DIALOGS.DELETE_FACILITY.RESOURCE_RELATION') as string
+      this.translate.instant('DIALOGS.DELETE_FACILITY.RESOURCE_RELATION') as string,
     );
   }
 
@@ -47,11 +47,11 @@ export class DeleteFacilityDialogComponent implements OnInit {
     this.facilitiesManager.deleteFacility(this.facility.id, this.force).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.DELETE_FACILITY.SUCCESS') as string
+          this.translate.instant('DIALOGS.DELETE_FACILITY.SUCCESS') as string,
         );
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

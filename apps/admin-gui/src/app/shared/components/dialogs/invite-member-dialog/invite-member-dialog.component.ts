@@ -30,7 +30,7 @@ export class InviteMemberDialogComponent implements OnInit {
     private registrarManager: RegistrarManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class InviteMemberDialogComponent implements OnInit {
           this.currentLanguage,
           this.data.voId,
           this.data.groupId,
-          this.name.value
+          this.name.value,
         )
         .subscribe({
           next: () => {

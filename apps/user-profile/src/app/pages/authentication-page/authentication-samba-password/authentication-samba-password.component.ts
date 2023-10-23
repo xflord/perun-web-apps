@@ -28,7 +28,7 @@ export class AuthenticationSambaPasswordComponent implements OnInit {
     private store: StoreService,
     private usersManagerService: UsersManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('SAMBA_PASSWORD.SUCCESS_MESSAGE')
@@ -45,7 +45,7 @@ export class AuthenticationSambaPasswordComponent implements OnInit {
     this.userId = this.store.getPerunPrincipal().userId;
     this.sambaControl = new UntypedFormControl('', [
       Validators.pattern(
-        '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])).{3,}'
+        '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])|(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&/=?_.,:;\\-])).{3,}',
       ),
     ]);
     this.getSambaAttribute();

@@ -35,7 +35,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit, OnDestroy
     private router: Router,
     private userManager: UsersManagerService,
     public authResolver: GuiAuthResolver,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnDestroy(): void {
@@ -71,7 +71,7 @@ export class UserSettingsServiceIdentitiesComponent implements OnInit, OnDestroy
     this.addIdentity = this.authResolver.isPerunAdmin();
     this.removeIdentity = this.authResolver.isAuthorized(
       'removeSpecificUserOwner_User_User_policy',
-      [{ id: this.userId, beanName: 'User' }]
+      [{ id: this.userId, beanName: 'User' }],
     );
   }
 

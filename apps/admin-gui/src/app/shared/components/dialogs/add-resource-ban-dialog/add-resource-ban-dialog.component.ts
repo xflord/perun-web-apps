@@ -25,7 +25,7 @@ export class AddResourceBanDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddResourceBanDialogComponent>,
     private store: StoreService,
     private resourceService: ResourcesManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {

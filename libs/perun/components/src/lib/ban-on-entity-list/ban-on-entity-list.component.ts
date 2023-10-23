@@ -73,7 +73,7 @@ export class BanOnEntityListComponent {
   constructor(
     private tableCheckbox: TableCheckbox,
     private authResolver: GuiAuthResolver,
-    private userName: UserFullNamePipe
+    private userName: UserFullNamePipe,
   ) {}
 
   @Input() set bans(bans: EnrichedBan[]) {
@@ -131,7 +131,7 @@ export class BanOnEntityListComponent {
   exportAllData(format: string): void {
     downloadData(
       getDataForExport(this.dataSource.filteredData, this.columns, this.getDataForColumn),
-      format
+      format,
     );
   }
 
@@ -144,9 +144,9 @@ export class BanOnEntityListComponent {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.columns,
-        this.getDataForColumn
+        this.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -163,7 +163,7 @@ export class BanOnEntityListComponent {
       this.dataSource.sort,
       this.dataSource.paginator.pageSize,
       this.dataSource.paginator.pageIndex,
-      false
+      false,
     );
   }
 

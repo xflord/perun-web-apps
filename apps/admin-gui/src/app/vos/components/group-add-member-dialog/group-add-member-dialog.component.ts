@@ -43,15 +43,15 @@ export class GroupAddMemberDialogComponent implements OnInit {
       // emulates loading
       merge(
         of(null as MemberCandidate[]),
-        this.voService.getCompleteCandidatesForGroup(this.data.group.id, this.attrNames, filter)
-      )
+        this.voService.getCompleteCandidatesForGroup(this.data.group.id, this.attrNames, filter),
+      ),
     ),
-    startWith(undefined as MemberCandidate[])
+    startWith(undefined as MemberCandidate[]),
   );
   failed: FailedCandidate[] = [];
   selection: SelectionModel<MemberCandidate> = new SelectionModel<MemberCandidate>(true, []);
   attrNames: string[] = [Urns.USER_DEF_ORGANIZATION, Urns.USER_DEF_PREFERRED_MAIL].concat(
-    this.store.getLoginAttributeNames()
+    this.store.getLoginAttributeNames(),
   );
   languages: string[] = this.store.getProperty('supported_languages');
 
@@ -66,7 +66,7 @@ export class GroupAddMemberDialogComponent implements OnInit {
     private guiAuthResolver: GuiAuthResolver,
     private requestService: ApiRequestConfigurationService,
     private addMemberService: AddMemberService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {
     this.addMemberService.setDialogRef(this.dialogRef);
     this.addMemberService.setType('group');
@@ -75,7 +75,7 @@ export class GroupAddMemberDialogComponent implements OnInit {
   ngOnInit(): void {
     this.inviteAuth = this.guiAuthResolver.isAuthorized(
       'group-sendInvitation_Vo_Group_User_policy',
-      [this.data.group]
+      [this.data.group],
     );
 
     this.selection.changed.subscribe((value) => {

@@ -53,10 +53,10 @@ export class MemberGroupsComponent implements OnInit {
       change.source.selected.reduce(
         (acc, grp) =>
           acc && this.authResolver.isAuthorized('removeMember_Member_List<Group>_policy', [grp]),
-        true
-      )
+        true,
+      ),
     ),
-    startWith(true)
+    startWith(true),
   );
 
   constructor(
@@ -65,7 +65,7 @@ export class MemberGroupsComponent implements OnInit {
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private memberService: MembersManagerService,
-    private entityService: EntityStorageService
+    private entityService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class MemberGroupsComponent implements OnInit {
       this.allGroups = allGroups;
       this.addAuth = this.allGroups.reduce(
         (acc, grp) => acc || this.authResolver.isAuthorized('addMember_Group_Member_policy', [grp]),
-        false
+        false,
       );
 
       this.refreshTable();
@@ -104,7 +104,7 @@ export class MemberGroupsComponent implements OnInit {
           Urns.MEMBER_GROUP_STATUS_INDIRECT,
         ],
         this.selectedRoles,
-        this.selectedRoleTypes
+        this.selectedRoleTypes,
       )
       .subscribe({
         next: (groups) => {

@@ -10,7 +10,10 @@ import { StoreService } from '@perun-web-apps/perun/services';
 export class BackButtonComponent implements OnInit {
   backButtonColor: string;
 
-  constructor(private location: Location, private storeService: StoreService) {}
+  constructor(
+    private location: Location,
+    private storeService: StoreService,
+  ) {}
 
   ngOnInit(): void {
     this.backButtonColor = this.storeService.getProperty('theme').back_button_color;

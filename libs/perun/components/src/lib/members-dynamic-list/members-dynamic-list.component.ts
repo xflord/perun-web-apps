@@ -92,7 +92,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     private tableCheckbox: TableCheckbox,
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
-    private entityStorage: EntityStorageService
+    private entityStorage: EntityStorageService,
   ) {}
 
   static getExportDataForColumn(data: RichMember, column: string): string {
@@ -132,7 +132,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
   ngOnInit(): void {
     this.expireGroupAuth = this.authResolver.isAuthorized(
       'setMemberGroupStatus_Member_Group_MemberGroupStatus_policy',
-      [this.entityStorage.getEntity()]
+      [this.entityStorage.getEntity()],
     );
     this.expireVoAuth = this.authResolver.isAuthorized('setStatus_Member_Status_policy', [
       this.entityStorage.getEntity(),
@@ -142,7 +142,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
     }
     this.dataSource = new DynamicDataSource<RichMember>(
       this.dynamicPaginatingService,
-      this.authResolver
+      this.authResolver,
     );
     this.dataSource.loadMembers(
       this.voId,
@@ -154,7 +154,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       this.selectedStatuses,
       this.searchString,
       this.groupId,
-      this.selectedGroupStatuses
+      this.selectedGroupStatuses,
     );
     this.loading$.emit(this.dataSource.loading$);
   }
@@ -223,7 +223,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       this.selectedStatuses,
       this.searchString,
       this.groupId,
-      this.selectedGroupStatuses
+      this.selectedGroupStatuses,
     );
   }
 
@@ -232,9 +232,9 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns,
-        MembersDynamicListComponent.getExportDataForColumn
+        MembersDynamicListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -256,7 +256,7 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
         this.selectedStatuses,
         this.searchString,
         this.groupId,
-        this.selectedGroupStatuses
+        this.selectedGroupStatuses,
       )
       .subscribe((response) => {
         exportLoading.close();
@@ -264,9 +264,9 @@ export class MembersDynamicListComponent implements AfterViewInit, OnInit, OnCha
           getDataForExport(
             response,
             this.displayedColumns,
-            MembersDynamicListComponent.getExportDataForColumn
+            MembersDynamicListComponent.getExportDataForColumn,
           ),
-          format
+          format,
         );
       });
   }

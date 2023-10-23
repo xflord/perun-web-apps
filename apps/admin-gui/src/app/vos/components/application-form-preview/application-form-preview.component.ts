@@ -22,14 +22,14 @@ export class ApplicationFormPreviewComponent implements OnInit {
   constructor(
     protected route: ActivatedRoute,
     private translate: TranslateService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
     this.languages = this.store.getProperty('supported_languages');
     this.route.queryParamMap.subscribe((params) => {
       this.applicationFormItems = JSON.parse(
-        params.get('applicationFormItems')
+        params.get('applicationFormItems'),
       ) as ApplicationFormItem[];
       this.loading = false;
     });
@@ -79,11 +79,11 @@ export class ApplicationFormPreviewComponent implements OnInit {
     switch (item.disabled) {
       case 'ALWAYS':
         return this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_DISABLED',
         ) as string;
       case 'IF_PREFILLED':
         messStart = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN',
         ) as string;
         dep =
           item.hiddenDependencyItemId === null
@@ -91,12 +91,12 @@ export class ApplicationFormPreviewComponent implements OnInit {
             : this.applicationFormItems.find((i) => i.id === item.disabledDependencyItemId)
                 .shortname;
         messEnd = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED',
         ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
         messStart = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.DISABLED_WHEN',
         ) as string;
         dep =
           item.hiddenDependencyItemId === null
@@ -104,7 +104,7 @@ export class ApplicationFormPreviewComponent implements OnInit {
             : this.applicationFormItems.find((i) => i.id === item.disabledDependencyItemId)
                 .shortname;
         messEnd = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY',
         ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       default:
@@ -119,30 +119,30 @@ export class ApplicationFormPreviewComponent implements OnInit {
     switch (item.hidden) {
       case 'ALWAYS':
         return this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.ALWAYS_HIDDEN',
         ) as string;
       case 'IF_PREFILLED':
         messStart = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN',
         ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
             : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
         messEnd = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_PREFILLED',
         ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       case 'IF_EMPTY':
         messStart = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.HIDDEN_WHEN',
         ) as string;
         dep =
           item.hiddenDependencyItemId === null
             ? ''
             : this.applicationFormItems.find((i) => i.id === item.hiddenDependencyItemId).shortname;
         messEnd = this.translate.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY'
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.PREVIEW_PAGE.DISABLED_HIDDEN_ICON.IS_EMPTY',
         ) as string;
         return `${messStart} ${dep} ${messEnd}`;
       default:

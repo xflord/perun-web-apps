@@ -23,7 +23,7 @@ export class ServiceIdentityCertificatesComponent implements OnInit {
   constructor(
     private entityStorageService: EntityStorageService,
     private attributesManagerService: AttributesManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

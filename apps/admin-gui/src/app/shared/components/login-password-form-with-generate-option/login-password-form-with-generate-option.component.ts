@@ -21,7 +21,7 @@ export class LoginPasswordFormWithGenerateOptionComponent {
   constructor(
     private membersManagerService: MembersManagerService,
     private usersManagerService: UsersManagerService,
-    private apiRequestConfiguration: ApiRequestConfigurationService
+    private apiRequestConfiguration: ApiRequestConfigurationService,
   ) {}
 
   parsedRulesFunction(rules: Map<string, { login: string }>): void {
@@ -65,9 +65,9 @@ export class LoginPasswordFormWithGenerateOptionComponent {
           loginAsyncValidator(
             this.selectedNamespace,
             this.usersManagerService,
-            this.apiRequestConfiguration
+            this.apiRequestConfiguration,
           ),
-        ]
+        ],
       );
       enableFormControl(passwordAgain, []);
     }

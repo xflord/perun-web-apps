@@ -51,7 +51,7 @@ export class VoSettingsNotificationsComponent implements OnInit {
     private authResolver: GuiAuthResolver,
     private voService: VosManagerService,
     private store: StoreService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -74,11 +74,11 @@ export class VoSettingsNotificationsComponent implements OnInit {
   setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'vo-addMail_ApplicationForm_ApplicationMail_policy',
-      [this.vo]
+      [this.vo],
     );
     this.removeAuth = this.authResolver.isAuthorized(
       'vo-deleteMailById_ApplicationForm_Integer_policy',
-      [this.vo]
+      [this.vo],
     );
     this.copyAuth = this.authResolver.isAuthorized('destination-copyMailsFromVoToVo_Vo_Vo_policy', [
       this.vo,

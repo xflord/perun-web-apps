@@ -37,7 +37,7 @@ export class PasswordResetRequestDialogComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private store: StoreService,
     private translate: TranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {
     translate
       .get('DIALOGS.PASSWORD_RESET_REQUEST.SUCCESS')
@@ -67,7 +67,7 @@ export class PasswordResetRequestDialogComponent implements OnInit {
         namespace,
         this.pwdMails.get(this.selectedMail),
         this.selectedLang,
-        domain
+        domain,
       )
       .subscribe(
         () => {
@@ -75,7 +75,7 @@ export class PasswordResetRequestDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close();
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 

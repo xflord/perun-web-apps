@@ -28,7 +28,7 @@ export class ChangePasswordDialogComponent implements OnInit {
           loginAsyncValidator(
             this.data.namespace,
             this.usersManagerService,
-            this.apiRequestConfiguration
+            this.apiRequestConfiguration,
           ),
         ],
       ],
@@ -36,7 +36,7 @@ export class ChangePasswordDialogComponent implements OnInit {
     },
     {
       validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-    }
+    },
   );
   oldPwd: AbstractControl;
   showOldPassword = false;
@@ -52,7 +52,7 @@ export class ChangePasswordDialogComponent implements OnInit {
     private usersManagerService: UsersManagerService,
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('SHARED_LIB.PERUN.COMPONENTS.CHANGE_PASSWORD_DIALOG.SUCCESS')

@@ -31,7 +31,7 @@ export class AddAuthorsComponent implements OnInit {
     private cabinetService: CabinetManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AddAuthorsComponent implements OnInit {
     this.loading = true;
     this.cabinetService.findAuthorsByPublicationId(this.publication.id).subscribe((authors) => {
       this.yourselfAsAnAuthor.emit(
-        authors.some((author) => author.id === this.storeService.getPerunPrincipal().userId)
+        authors.some((author) => author.id === this.storeService.getPerunPrincipal().userId),
       );
       this.publication.authors = authors;
       this.selection.clear();
@@ -78,7 +78,7 @@ export class AddAuthorsComponent implements OnInit {
             author.firstName ? author.firstName : ''
           }  ${author.lastName ? author.lastName : ''} ${
             author.titleAfter ? author.titleAfter : ''
-          }`
+          }`,
       ),
       title: 'DIALOGS.REMOVE_AUTHORS.TITLE',
       description: 'DIALOGS.REMOVE_AUTHORS.DESCRIPTION',
@@ -104,11 +104,11 @@ export class AddAuthorsComponent implements OnInit {
         () => {
           this.removeAuthors(authorsToRemove);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     } else {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE') as string
+        this.translate.instant('DIALOGS.REMOVE_AUTHORS.SUCCESS_MESSAGE') as string,
       );
       this.selection.clear();
       this.refresh();

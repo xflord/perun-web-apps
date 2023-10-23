@@ -51,7 +51,7 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
     private storeService: StoreService,
     private authzResolver: AuthzResolverService,
     private entityStorageService: EntityStorageService,
-    private findSponsors: FindSponsorsService
+    private findSponsors: FindSponsorsService,
   ) {}
 
   ngOnInit(): void {
@@ -74,15 +74,15 @@ export class VoSettingsSponsoredMembersComponent implements OnInit {
   setAuthRights(): void {
     this.createAuth = this.authResolver.isAuthorized(
       'createSponsoredMember_Vo_String_Map<String_String>_String_User_LocalDate_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]
+      [this.vo, this.storeService.getPerunPrincipal().user],
     );
     this.generateAuth = this.authResolver.isAuthorized(
       'createSponsoredMembers_Vo_String_List<String>_User_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]
+      [this.vo, this.storeService.getPerunPrincipal().user],
     );
     this.setSponsorshipAuth = this.authResolver.isAuthorized(
       'setSponsorshipForMember_Member_User_LocalDate_policy',
-      [this.vo, this.storeService.getPerunPrincipal().user]
+      [this.vo, this.storeService.getPerunPrincipal().user],
     );
     if (this.members !== null && this.members.length !== 0) {
       this.routeAuth = this.authResolver.isAuthorized('getMemberById_int_policy', [

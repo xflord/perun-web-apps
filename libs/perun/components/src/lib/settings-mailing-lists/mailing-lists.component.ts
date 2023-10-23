@@ -48,7 +48,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnDestroy(): void {
@@ -93,7 +93,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
           // clear the query params when navigating away
           this.location.replaceState(
             location.pathname,
-            this.clearParamsFromCurrUrl(['vo', 'resource'])
+            this.clearParamsFromCurrUrl(['vo', 'resource']),
           );
         }
       });
@@ -155,12 +155,12 @@ export class MailingListsComponent implements OnInit, OnDestroy {
                 this.attributesManagerService
                   .getResourceAttributeByName(
                     resource.id,
-                    'urn:perun:resource:attribute-def:def:disableMailingListOptOut'
+                    'urn:perun:resource:attribute-def:def:disableMailingListOptOut',
                   )
                   .subscribe((disableOptOut) => {
                     count--;
                     const attribute = resAtts.find(
-                      (att) => att.friendlyName === 'optOutMailingList'
+                      (att) => att.friendlyName === 'optOutMailingList',
                     );
                     if (attribute && !((disableOptOut?.value as string) === 'true')) {
                       this.optOuts.push({
@@ -196,15 +196,15 @@ export class MailingListsComponent implements OnInit, OnDestroy {
       () => {
         this.notificator.showSuccess(
           (this.translate.instant(
-            'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.UNSUBSCRIBED'
+            'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.UNSUBSCRIBED',
           ) as string) +
             this.selectedResource +
-            '.'
+            '.',
         );
       },
       () => {
         this.optOuts[this.index].attribute.value = originalState;
-      }
+      },
     );
   }
   subscribe(): void {
@@ -214,15 +214,15 @@ export class MailingListsComponent implements OnInit, OnDestroy {
       () => {
         this.notificator.showSuccess(
           (this.translate.instant(
-            'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.SUBSCRIBED'
+            'SHARED_LIB.PERUN.COMPONENTS.OPT_OUT_MAILING_LISTS.SUBSCRIBED',
           ) as string) +
             this.selectedResource +
-            '.'
+            '.',
         );
       },
       () => {
         this.optOuts[this.index].attribute.value = originalState;
-      }
+      },
     );
   }
 
@@ -236,7 +236,7 @@ export class MailingListsComponent implements OnInit, OnDestroy {
 
   applyFilter(mailingListsFilter: string): void {
     this.filteredVos = this.vos.filter((vo) =>
-      vo.name.toLowerCase().includes(mailingListsFilter.toLowerCase())
+      vo.name.toLowerCase().includes(mailingListsFilter.toLowerCase()),
     );
   }
 

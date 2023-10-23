@@ -34,7 +34,7 @@ export class DebounceFilterComponent implements OnInit {
           return target.value;
         }),
         debounceTime(500),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe((text: string) => {
         if (!this.control.invalid) {

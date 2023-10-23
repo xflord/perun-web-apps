@@ -41,7 +41,7 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   constructor(
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
-    private lastSuccessPipe: LastSuccessfulPropagationPipe
+    private lastSuccessPipe: LastSuccessfulPropagationPipe,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -84,9 +84,9 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
   exportAllData(format: string): void {
     downloadData(
       getDataForExport(this.dataSource.filteredData, this.displayedColumns, (data, column) =>
-        this.getDataForColumn(data, column)
+        this.getDataForColumn(data, column),
       ),
-      format
+      format,
     );
   }
 
@@ -99,9 +99,9 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        (data, column) => this.getDataForColumn(data, column)
+        (data, column) => this.getDataForColumn(data, column),
       ),
-      format
+      format,
     );
   }
 
@@ -113,11 +113,11 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          (destination, column) => this.getDataForColumn(destination, column)
+          (destination, column) => this.getDataForColumn(destination, column),
         );
       this.dataSource.sortData = (data: Vo[], sort: MatSort): Vo[] =>
         customDataSourceSort(data, sort, (destination, column) =>
-          this.getDataForColumn(destination, column)
+          this.getDataForColumn(destination, column),
         );
       this.dataSource.paginator = this.child.paginator;
     }
@@ -138,7 +138,7 @@ export class DestinationListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

@@ -42,7 +42,10 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
   userId: number;
   private sort: MatSort;
 
-  constructor(private route: ActivatedRoute, private authResolver: GuiAuthResolver) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authResolver: GuiAuthResolver,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -90,9 +93,9 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        UserExtSourcesListComponent.getDataForColumn
+        UserExtSourcesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -105,9 +108,9 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        UserExtSourcesListComponent.getDataForColumn
+        UserExtSourcesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -118,7 +121,7 @@ export class UserExtSourcesListComponent implements OnInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          UserExtSourcesListComponent.getDataForColumn
+          UserExtSourcesListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: RichUserExtSource[], sort: MatSort): RichUserExtSource[] =>
         customDataSourceSort(data, sort, UserExtSourcesListComponent.getDataForColumn);

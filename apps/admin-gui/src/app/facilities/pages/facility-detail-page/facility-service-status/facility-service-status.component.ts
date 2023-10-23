@@ -57,7 +57,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private resourcesManager: ResourcesManagerService,
     private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.servicesManager.forceServicePropagationBulk(serviceIds, this.facility.id).subscribe({
       next: () => {
         this.notificator.showInstantSuccess(
-          'FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION'
+          'FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_FORCE_PROPAGATION',
         );
         this.loading = false;
       },
@@ -129,7 +129,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.facilityManager
       .getAssignedResourcesByAssignedServiceForFacility(
         this.selected.selected[0].facility.id,
-        this.selected.selected[0].service.id
+        this.selected.selected[0].service.id,
       )
       .subscribe({
         next: (resources) => {
@@ -191,15 +191,15 @@ export class FacilityServiceStatusComponent implements OnInit {
   setAuthRights(): void {
     this.propagationAuth = this.authResolver.isAuthorized(
       'forceServicePropagation_Facility_Service_policy',
-      [this.facility]
+      [this.facility],
     );
     this.blockAuth = this.authResolver.isAuthorized(
       'blockServiceOnFacility_Service_Facility_policy',
-      [this.facility]
+      [this.facility],
     );
     this.allowAuth = this.authResolver.isAuthorized(
       'unblockServiceOnFacility_Service_Facility_policy',
-      [this.facility]
+      [this.facility],
     );
     this.deleteAuth = this.authResolver.isAuthorized('deleteTask_Task_policy', [this.facility]);
     this.routeAuth = this.authResolver.isAuthorized('getTaskResultsByTask_int_policy', [

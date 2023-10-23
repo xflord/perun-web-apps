@@ -32,7 +32,7 @@ export class AddThanksComponent implements OnInit {
     private dialog: MatDialog,
     private cabinetService: CabinetManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {

@@ -43,7 +43,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private store: StoreService,
     private attributesManagerService: AttributesManagerService,
     private changeDetector: ChangeDetectorRef,
-    private initAuth: InitAuthService
+    private initAuth: InitAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         },
         () => {
           this.validToken = false;
-        }
+        },
       );
     } else if (!this.isServiceAccess && !this.showLoginScreen) {
       this.authWithoutToken = true;
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         .getLogins(this.store.getPerunPrincipal().userId)
         .subscribe((logins) => {
           const selectedLogin = logins.find(
-            (login) => login.friendlyNameParameter === this.namespace
+            (login) => login.friendlyNameParameter === this.namespace,
           );
           this.login = selectedLogin ? String(selectedLogin.value) : '';
         });

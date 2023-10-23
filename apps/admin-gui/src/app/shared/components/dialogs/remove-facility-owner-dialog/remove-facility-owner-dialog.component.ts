@@ -27,7 +27,7 @@ export class RemoveFacilityOwnerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: RemoveFacilityOwnerDialogData,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private facilitiesManagerService: FacilitiesManagerService
+    private facilitiesManagerService: FacilitiesManagerService,
   ) {}
 
   ngOnInit(): void {

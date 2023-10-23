@@ -23,7 +23,7 @@ export class AddGroupRoleDialogComponent {
     private authResolver: GuiAuthResolver,
     private authzService: AuthzResolverService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   addRole(formValue: AddRoleForm): void {
@@ -63,7 +63,7 @@ export class AddGroupRoleDialogComponent {
     this.notificator.showSuccess(
       this.translate.instant('DIALOGS.ADD_ROLE.SUCCESS', {
         role: role,
-      })
+      }),
     );
   }
 }

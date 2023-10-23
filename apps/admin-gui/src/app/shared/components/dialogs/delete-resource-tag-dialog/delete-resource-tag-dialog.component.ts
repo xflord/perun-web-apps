@@ -23,7 +23,7 @@ export class DeleteResourceTagDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DeleteResourceTagDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: DeleteResourceTagDialogDialogData,
-    private resourceManager: ResourcesManagerService
+    private resourceManager: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class DeleteResourceTagDialogComponent implements OnInit {
         () => {
           this.dialogRef.close(true);
         },
-        () => this.dialogRef.close(true)
+        () => this.dialogRef.close(true),
       );
     }
   }

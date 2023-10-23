@@ -79,7 +79,7 @@ export class CabinetManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -110,7 +110,7 @@ export class CabinetManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -124,8 +124,8 @@ export class CabinetManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -148,32 +148,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Authorship>;
   public createAutorship(
     InputCreateAuthorship: InputCreateAuthorship,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Authorship>>;
   public createAutorship(
     InputCreateAuthorship: InputCreateAuthorship,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Authorship>>;
   public createAutorship(
     InputCreateAuthorship: InputCreateAuthorship,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateAuthorship === null || InputCreateAuthorship === undefined) {
       throw new Error(
-        'Required parameter InputCreateAuthorship was null or undefined when calling createAutorship.'
+        'Required parameter InputCreateAuthorship was null or undefined when calling createAutorship.',
       );
     }
 
@@ -257,32 +257,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Category>;
   public createCategoryCat(
     InputCreateCategory: InputCreateCategory,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Category>>;
   public createCategoryCat(
     InputCreateCategory: InputCreateCategory,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Category>>;
   public createCategoryCat(
     InputCreateCategory: InputCreateCategory,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateCategory === null || InputCreateCategory === undefined) {
       throw new Error(
-        'Required parameter InputCreateCategory was null or undefined when calling createCategoryCat.'
+        'Required parameter InputCreateCategory was null or undefined when calling createCategoryCat.',
       );
     }
 
@@ -366,32 +366,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Category>;
   public createCategoryNR(
     InputCreateCategoryNR: InputCreateCategoryNR,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Category>>;
   public createCategoryNR(
     InputCreateCategoryNR: InputCreateCategoryNR,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Category>>;
   public createCategoryNR(
     InputCreateCategoryNR: InputCreateCategoryNR,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateCategoryNR === null || InputCreateCategoryNR === undefined) {
       throw new Error(
-        'Required parameter InputCreateCategoryNR was null or undefined when calling createCategoryNR.'
+        'Required parameter InputCreateCategoryNR was null or undefined when calling createCategoryNR.',
       );
     }
 
@@ -475,32 +475,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Publication>;
   public createPublication(
     InputCreatePublication: InputCreatePublication,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Publication>>;
   public createPublication(
     InputCreatePublication: InputCreatePublication,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Publication>>;
   public createPublication(
     InputCreatePublication: InputCreatePublication,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreatePublication === null || InputCreatePublication === undefined) {
       throw new Error(
-        'Required parameter InputCreatePublication was null or undefined when calling createPublication.'
+        'Required parameter InputCreatePublication was null or undefined when calling createPublication.',
       );
     }
 
@@ -584,32 +584,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PublicationSystem>;
   public createPublicationSystem(
     InputCreatePublicationSystem: InputCreatePublicationSystem,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PublicationSystem>>;
   public createPublicationSystem(
     InputCreatePublicationSystem: InputCreatePublicationSystem,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PublicationSystem>>;
   public createPublicationSystem(
     InputCreatePublicationSystem: InputCreatePublicationSystem,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreatePublicationSystem === null || InputCreatePublicationSystem === undefined) {
       throw new Error(
-        'Required parameter InputCreatePublicationSystem was null or undefined when calling createPublicationSystem.'
+        'Required parameter InputCreatePublicationSystem was null or undefined when calling createPublicationSystem.',
       );
     }
 
@@ -693,32 +693,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Thanks>;
   public createThanks(
     InputCreateThanks: InputCreateThanks,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Thanks>>;
   public createThanks(
     InputCreateThanks: InputCreateThanks,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Thanks>>;
   public createThanks(
     InputCreateThanks: InputCreateThanks,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateThanks === null || InputCreateThanks === undefined) {
       throw new Error(
-        'Required parameter InputCreateThanks was null or undefined when calling createThanks.'
+        'Required parameter InputCreateThanks was null or undefined when calling createThanks.',
       );
     }
 
@@ -804,7 +804,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAuthorship(
     publicationId: number,
@@ -812,7 +812,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAuthorship(
     publicationId: number,
@@ -820,7 +820,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAuthorship(
     publicationId: number,
@@ -828,16 +828,16 @@ export class CabinetManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (publicationId === null || publicationId === undefined) {
       throw new Error(
-        'Required parameter publicationId was null or undefined when calling deleteAuthorship.'
+        'Required parameter publicationId was null or undefined when calling deleteAuthorship.',
       );
     }
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling deleteAuthorship.'
+        'Required parameter userId was null or undefined when calling deleteAuthorship.',
       );
     }
 
@@ -846,14 +846,14 @@ export class CabinetManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>publicationId,
-        'publicationId'
+        'publicationId',
       );
     }
     if (userId !== undefined && userId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -930,28 +930,28 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteCategory(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteCategory(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteCategory(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling deleteCategory.');
@@ -1035,32 +1035,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deletePublication(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deletePublication(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deletePublication(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling deletePublication.'
+        'Required parameter id was null or undefined when calling deletePublication.',
       );
     }
 
@@ -1142,32 +1142,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deletePublicationSystem(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deletePublicationSystem(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deletePublicationSystem(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling deletePublicationSystem.'
+        'Required parameter id was null or undefined when calling deletePublicationSystem.',
       );
     }
 
@@ -1249,28 +1249,28 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteThanks(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteThanks(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteThanks(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling deleteThanks.');
@@ -1352,25 +1352,25 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Author>>;
   public findAllAuthors(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Author>>>;
   public findAllAuthors(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Author>>>;
   public findAllAuthors(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1444,32 +1444,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Author>>;
   public findAuthorsByPublicationId(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Author>>>;
   public findAuthorsByPublicationId(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Author>>>;
   public findAuthorsByPublicationId(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling findAuthorsByPublicationId.'
+        'Required parameter id was null or undefined when calling findAuthorsByPublicationId.',
       );
     }
 
@@ -1557,7 +1557,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Publication>>;
   public findExternalPublications(
     user: number,
@@ -1567,7 +1567,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Publication>>>;
   public findExternalPublications(
     user: number,
@@ -1577,7 +1577,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Publication>>>;
   public findExternalPublications(
     user: number,
@@ -1587,26 +1587,26 @@ export class CabinetManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling findExternalPublications.'
+        'Required parameter user was null or undefined when calling findExternalPublications.',
       );
     }
     if (yearSince === null || yearSince === undefined) {
       throw new Error(
-        'Required parameter yearSince was null or undefined when calling findExternalPublications.'
+        'Required parameter yearSince was null or undefined when calling findExternalPublications.',
       );
     }
     if (yearTill === null || yearTill === undefined) {
       throw new Error(
-        'Required parameter yearTill was null or undefined when calling findExternalPublications.'
+        'Required parameter yearTill was null or undefined when calling findExternalPublications.',
       );
     }
     if (pubSysNamespace === null || pubSysNamespace === undefined) {
       throw new Error(
-        'Required parameter pubSysNamespace was null or undefined when calling findExternalPublications.'
+        'Required parameter pubSysNamespace was null or undefined when calling findExternalPublications.',
       );
     }
 
@@ -1618,21 +1618,21 @@ export class CabinetManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearSince,
-        'yearSince'
+        'yearSince',
       );
     }
     if (yearTill !== undefined && yearTill !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearTill,
-        'yearTill'
+        'yearTill',
       );
     }
     if (pubSysNamespace !== undefined && pubSysNamespace !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>pubSysNamespace,
-        'pubSysNamespace'
+        'pubSysNamespace',
       );
     }
 
@@ -1709,32 +1709,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Author>>;
   public findNewAuthors(
     searchString: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Author>>>;
   public findNewAuthors(
     searchString: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Author>>>;
   public findNewAuthors(
     searchString: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findNewAuthors.'
+        'Required parameter searchString was null or undefined when calling findNewAuthors.',
       );
     }
 
@@ -1743,7 +1743,7 @@ export class CabinetManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -1820,32 +1820,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PublicationForGUI>;
   public findPublicationById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PublicationForGUI>>;
   public findPublicationById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PublicationForGUI>>;
   public findPublicationById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling findPublicationById.'
+        'Required parameter id was null or undefined when calling findPublicationById.',
       );
     }
 
@@ -1931,7 +1931,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Publication>>;
   public findPublicationsByFilter(
     userId: number,
@@ -1940,7 +1940,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Publication>>>;
   public findPublicationsByFilter(
     userId: number,
@@ -1949,7 +1949,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Publication>>>;
   public findPublicationsByFilter(
     userId: number,
@@ -1958,11 +1958,11 @@ export class CabinetManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling findPublicationsByFilter.'
+        'Required parameter userId was null or undefined when calling findPublicationsByFilter.',
       );
     }
 
@@ -1971,21 +1971,21 @@ export class CabinetManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearSince,
-        'yearSince'
+        'yearSince',
       );
     }
     if (yearTill !== undefined && yearTill !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearTill,
-        'yearTill'
+        'yearTill',
       );
     }
     if (userId !== undefined && userId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -2078,7 +2078,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<PublicationForGUI>>;
   public findPublicationsByGUIFilter(
     title?: string,
@@ -2093,7 +2093,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<PublicationForGUI>>>;
   public findPublicationsByGUIFilter(
     title?: string,
@@ -2108,7 +2108,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<PublicationForGUI>>>;
   public findPublicationsByGUIFilter(
     title?: string,
@@ -2123,7 +2123,7 @@ export class CabinetManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (title !== undefined && title !== null) {
@@ -2145,28 +2145,28 @@ export class CabinetManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>category,
-        'category'
+        'category',
       );
     }
     if (yearSince !== undefined && yearSince !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearSince,
-        'yearSince'
+        'yearSince',
       );
     }
     if (yearTill !== undefined && yearTill !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>yearTill,
-        'yearTill'
+        'yearTill',
       );
     }
     if (userId !== undefined && userId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -2247,7 +2247,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<PublicationForGUI>>;
   public findSimilarPublications(
     title?: string,
@@ -2256,7 +2256,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<PublicationForGUI>>>;
   public findSimilarPublications(
     title?: string,
@@ -2265,7 +2265,7 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<PublicationForGUI>>>;
   public findSimilarPublications(
     title?: string,
@@ -2274,7 +2274,7 @@ export class CabinetManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (title !== undefined && title !== null) {
@@ -2358,25 +2358,25 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Category>>;
   public getCategories(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Category>>>;
   public getCategories(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Category>>>;
   public getCategories(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2448,25 +2448,25 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<PublicationSystem>>;
   public getPublicationSystems(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<PublicationSystem>>>;
   public getPublicationSystems(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<PublicationSystem>>>;
   public getPublicationSystems(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2540,28 +2540,28 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getRank(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getRank(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getRank(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling getRank.');
@@ -2645,32 +2645,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ThanksForGUI>>;
   public getRichThanksByPublicationId(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ThanksForGUI>>>;
   public getRichThanksByPublicationId(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ThanksForGUI>>>;
   public getRichThanksByPublicationId(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getRichThanksByPublicationId.'
+        'Required parameter id was null or undefined when calling getRichThanksByPublicationId.',
       );
     }
 
@@ -2752,32 +2752,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public lockPublications(
     InputLockPublications: InputLockPublications,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public lockPublications(
     InputLockPublications: InputLockPublications,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public lockPublications(
     InputLockPublications: InputLockPublications,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputLockPublications === null || InputLockPublications === undefined) {
       throw new Error(
-        'Required parameter InputLockPublications was null or undefined when calling lockPublications.'
+        'Required parameter InputLockPublications was null or undefined when calling lockPublications.',
       );
     }
 
@@ -2861,32 +2861,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Category>;
   public updateCategory(
     InputUpdateCategory: InputUpdateCategory,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Category>>;
   public updateCategory(
     InputUpdateCategory: InputUpdateCategory,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Category>>;
   public updateCategory(
     InputUpdateCategory: InputUpdateCategory,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateCategory === null || InputUpdateCategory === undefined) {
       throw new Error(
-        'Required parameter InputUpdateCategory was null or undefined when calling updateCategory.'
+        'Required parameter InputUpdateCategory was null or undefined when calling updateCategory.',
       );
     }
 
@@ -2970,32 +2970,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Publication>;
   public updatePublication(
     InputUpdatePublication: InputUpdatePublication,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Publication>>;
   public updatePublication(
     InputUpdatePublication: InputUpdatePublication,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Publication>>;
   public updatePublication(
     InputUpdatePublication: InputUpdatePublication,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdatePublication === null || InputUpdatePublication === undefined) {
       throw new Error(
-        'Required parameter InputUpdatePublication was null or undefined when calling updatePublication.'
+        'Required parameter InputUpdatePublication was null or undefined when calling updatePublication.',
       );
     }
 
@@ -3079,32 +3079,32 @@ export class CabinetManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PublicationSystem>;
   public updatePublicationSystem(
     InputUpdatePublicationSystem: InputUpdatePublicationSystem,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PublicationSystem>>;
   public updatePublicationSystem(
     InputUpdatePublicationSystem: InputUpdatePublicationSystem,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PublicationSystem>>;
   public updatePublicationSystem(
     InputUpdatePublicationSystem: InputUpdatePublicationSystem,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdatePublicationSystem === null || InputUpdatePublicationSystem === undefined) {
       throw new Error(
-        'Required parameter InputUpdatePublicationSystem was null or undefined when calling updatePublicationSystem.'
+        'Required parameter InputUpdatePublicationSystem was null or undefined when calling updatePublicationSystem.',
       );
     }
 

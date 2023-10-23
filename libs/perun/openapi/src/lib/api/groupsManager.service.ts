@@ -65,7 +65,7 @@ export class GroupsManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -96,7 +96,7 @@ export class GroupsManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -110,8 +110,8 @@ export class GroupsManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -136,7 +136,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addMember(
     groups: Array<number>,
@@ -144,7 +144,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addMember(
     groups: Array<number>,
@@ -152,7 +152,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addMember(
     groups: Array<number>,
@@ -160,7 +160,7 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error('Required parameter groups was null or undefined when calling addMember.');
@@ -175,7 +175,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -183,7 +183,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -262,7 +262,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addMembers(
     group: number,
@@ -270,7 +270,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addMembers(
     group: number,
@@ -278,7 +278,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addMembers(
     group: number,
@@ -286,7 +286,7 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error('Required parameter group was null or undefined when calling addMembers.');
@@ -304,7 +304,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -384,7 +384,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public allowGroupToHierarchicalVo(
     group: number,
@@ -392,7 +392,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public allowGroupToHierarchicalVo(
     group: number,
@@ -400,7 +400,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public allowGroupToHierarchicalVo(
     group: number,
@@ -408,16 +408,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling allowGroupToHierarchicalVo.'
+        'Required parameter group was null or undefined when calling allowGroupToHierarchicalVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling allowGroupToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling allowGroupToHierarchicalVo.',
       );
     }
 
@@ -504,7 +504,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public allowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -512,7 +512,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public allowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -520,7 +520,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public allowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -528,16 +528,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling allowGroupsToHierarchicalVo.'
+        'Required parameter groups was null or undefined when calling allowGroupsToHierarchicalVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling allowGroupsToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling allowGroupsToHierarchicalVo.',
       );
     }
 
@@ -547,7 +547,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -630,7 +630,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public canExtendMembershipInGroup(
     member: number,
@@ -638,7 +638,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public canExtendMembershipInGroup(
     member: number,
@@ -646,7 +646,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public canExtendMembershipInGroup(
     member: number,
@@ -654,16 +654,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling canExtendMembershipInGroup.'
+        'Required parameter member was null or undefined when calling canExtendMembershipInGroup.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling canExtendMembershipInGroup.'
+        'Required parameter group was null or undefined when calling canExtendMembershipInGroup.',
       );
     }
 
@@ -672,7 +672,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -756,7 +756,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyMembers(
     sourceGroup: number,
@@ -765,7 +765,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyMembers(
     sourceGroup: number,
@@ -774,7 +774,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyMembers(
     sourceGroup: number,
@@ -783,16 +783,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (sourceGroup === null || sourceGroup === undefined) {
       throw new Error(
-        'Required parameter sourceGroup was null or undefined when calling copyMembers.'
+        'Required parameter sourceGroup was null or undefined when calling copyMembers.',
       );
     }
     if (destinationGroups === null || destinationGroups === undefined) {
       throw new Error(
-        'Required parameter destinationGroups was null or undefined when calling copyMembers.'
+        'Required parameter destinationGroups was null or undefined when calling copyMembers.',
       );
     }
 
@@ -801,7 +801,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>sourceGroup,
-        'sourceGroup'
+        'sourceGroup',
       );
     }
     if (destinationGroups) {
@@ -809,7 +809,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'destinationGroups'
+          'destinationGroups',
         );
       });
     }
@@ -818,7 +818,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members'
+          'members',
         );
       });
     }
@@ -898,7 +898,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public createGroupUnion(
     resultGroup: number,
@@ -906,7 +906,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public createGroupUnion(
     resultGroup: number,
@@ -914,7 +914,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public createGroupUnion(
     resultGroup: number,
@@ -922,16 +922,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resultGroup === null || resultGroup === undefined) {
       throw new Error(
-        'Required parameter resultGroup was null or undefined when calling createGroupUnion.'
+        'Required parameter resultGroup was null or undefined when calling createGroupUnion.',
       );
     }
     if (operandGroup === null || operandGroup === undefined) {
       throw new Error(
-        'Required parameter operandGroup was null or undefined when calling createGroupUnion.'
+        'Required parameter operandGroup was null or undefined when calling createGroupUnion.',
       );
     }
 
@@ -940,14 +940,14 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resultGroup,
-        'resultGroup'
+        'resultGroup',
       );
     }
     if (operandGroup !== undefined && operandGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>operandGroup,
-        'operandGroup'
+        'operandGroup',
       );
     }
 
@@ -1028,7 +1028,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public createGroupWithParentGroupNameDescription(
     parentGroup: number,
@@ -1037,7 +1037,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public createGroupWithParentGroupNameDescription(
     parentGroup: number,
@@ -1046,7 +1046,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public createGroupWithParentGroupNameDescription(
     parentGroup: number,
@@ -1055,21 +1055,21 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (parentGroup === null || parentGroup === undefined) {
       throw new Error(
-        'Required parameter parentGroup was null or undefined when calling createGroupWithParentGroupNameDescription.'
+        'Required parameter parentGroup was null or undefined when calling createGroupWithParentGroupNameDescription.',
       );
     }
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling createGroupWithParentGroupNameDescription.'
+        'Required parameter name was null or undefined when calling createGroupWithParentGroupNameDescription.',
       );
     }
     if (description === null || description === undefined) {
       throw new Error(
-        'Required parameter description was null or undefined when calling createGroupWithParentGroupNameDescription.'
+        'Required parameter description was null or undefined when calling createGroupWithParentGroupNameDescription.',
       );
     }
 
@@ -1078,7 +1078,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>parentGroup,
-        'parentGroup'
+        'parentGroup',
       );
     }
     if (name !== undefined && name !== null) {
@@ -1088,7 +1088,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
 
@@ -1169,7 +1169,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public createGroupWithVoNameDescription(
     vo: number,
@@ -1178,7 +1178,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public createGroupWithVoNameDescription(
     vo: number,
@@ -1187,7 +1187,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public createGroupWithVoNameDescription(
     vo: number,
@@ -1196,21 +1196,21 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling createGroupWithVoNameDescription.'
+        'Required parameter vo was null or undefined when calling createGroupWithVoNameDescription.',
       );
     }
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling createGroupWithVoNameDescription.'
+        'Required parameter name was null or undefined when calling createGroupWithVoNameDescription.',
       );
     }
     if (description === null || description === undefined) {
       throw new Error(
-        'Required parameter description was null or undefined when calling createGroupWithVoNameDescription.'
+        'Required parameter description was null or undefined when calling createGroupWithVoNameDescription.',
       );
     }
 
@@ -1225,7 +1225,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
 
@@ -1304,7 +1304,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteGroup(
     group: number,
@@ -1312,7 +1312,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteGroup(
     group: number,
@@ -1320,7 +1320,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteGroup(
     group: number,
@@ -1328,7 +1328,7 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error('Required parameter group was null or undefined when calling deleteGroup.');
@@ -1415,32 +1415,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteGroups(
     InputDeleteGroups: InputDeleteGroups,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteGroups(
     InputDeleteGroups: InputDeleteGroups,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteGroups(
     InputDeleteGroups: InputDeleteGroups,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputDeleteGroups === null || InputDeleteGroups === undefined) {
       throw new Error(
-        'Required parameter InputDeleteGroups was null or undefined when calling deleteGroups.'
+        'Required parameter InputDeleteGroups was null or undefined when calling deleteGroups.',
       );
     }
 
@@ -1526,7 +1526,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public disallowGroupToHierarchicalVo(
     group: number,
@@ -1534,7 +1534,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public disallowGroupToHierarchicalVo(
     group: number,
@@ -1542,7 +1542,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public disallowGroupToHierarchicalVo(
     group: number,
@@ -1550,16 +1550,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling disallowGroupToHierarchicalVo.'
+        'Required parameter group was null or undefined when calling disallowGroupToHierarchicalVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling disallowGroupToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling disallowGroupToHierarchicalVo.',
       );
     }
 
@@ -1646,7 +1646,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public disallowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -1654,7 +1654,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public disallowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -1662,7 +1662,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public disallowGroupsToHierarchicalVo(
     groups: Array<number>,
@@ -1670,16 +1670,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling disallowGroupsToHierarchicalVo.'
+        'Required parameter groups was null or undefined when calling disallowGroupsToHierarchicalVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling disallowGroupsToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling disallowGroupsToHierarchicalVo.',
       );
     }
 
@@ -1689,7 +1689,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -1772,7 +1772,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public extendMembershipInGroup(
     member: number,
@@ -1780,7 +1780,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public extendMembershipInGroup(
     member: number,
@@ -1788,7 +1788,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public extendMembershipInGroup(
     member: number,
@@ -1796,16 +1796,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling extendMembershipInGroup.'
+        'Required parameter member was null or undefined when calling extendMembershipInGroup.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling extendMembershipInGroup.'
+        'Required parameter group was null or undefined when calling extendMembershipInGroup.',
       );
     }
 
@@ -1814,7 +1814,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -1894,32 +1894,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public forceAllSubGroupsSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public forceAllSubGroupsSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public forceAllSubGroupsSynchronization(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling forceAllSubGroupsSynchronization.'
+        'Required parameter group was null or undefined when calling forceAllSubGroupsSynchronization.',
       );
     }
 
@@ -2001,32 +2001,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public forceGroupStructureSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public forceGroupStructureSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public forceGroupStructureSynchronization(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling forceGroupStructureSynchronization.'
+        'Required parameter group was null or undefined when calling forceGroupStructureSynchronization.',
       );
     }
 
@@ -2108,32 +2108,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public forceGroupSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public forceGroupSynchronization(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public forceGroupSynchronization(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling forceGroupSynchronization.'
+        'Required parameter group was null or undefined when calling forceGroupSynchronization.',
       );
     }
 
@@ -2215,32 +2215,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllAllowedGroupsToHierarchicalVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllAllowedGroupsToHierarchicalVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllAllowedGroupsToHierarchicalVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAllAllowedGroupsToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling getAllAllowedGroupsToHierarchicalVo.',
       );
     }
 
@@ -2322,28 +2322,28 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllGroups(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllGroups(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllGroups(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getAllGroups.');
@@ -2425,25 +2425,25 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllGroupsFromAllVos(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllGroupsFromAllVos(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllGroupsFromAllVos(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2517,32 +2517,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllMemberGroups(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllMemberGroups(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllMemberGroups(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAllMemberGroups.'
+        'Required parameter member was null or undefined when calling getAllMemberGroups.',
       );
     }
 
@@ -2551,7 +2551,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -2628,32 +2628,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getAllRichGroups(
     attrNames: Array<string>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getAllRichGroups(
     attrNames: Array<string>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getAllRichGroups(
     attrNames: Array<string>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getAllRichGroups.'
+        'Required parameter attrNames was null or undefined when calling getAllRichGroups.',
       );
     }
 
@@ -2663,7 +2663,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -2747,7 +2747,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
@@ -2757,7 +2757,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
@@ -2767,7 +2767,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getAllRichGroupsWithAttributesByNames(
     vo: number,
@@ -2777,16 +2777,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAllRichGroupsWithAttributesByNames.'
+        'Required parameter vo was null or undefined when calling getAllRichGroupsWithAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getAllRichGroupsWithAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getAllRichGroupsWithAttributesByNames.',
       );
     }
 
@@ -2799,7 +2799,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -2808,7 +2808,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -2817,7 +2817,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'types[]'
+          'types[]',
         );
       });
     }
@@ -2901,7 +2901,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
@@ -2911,7 +2911,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
@@ -2921,7 +2921,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getAllRichSubGroupsWithGroupAttributesByNames(
     group: number,
@@ -2931,11 +2931,11 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getAllRichSubGroupsWithGroupAttributesByNames.'
+        'Required parameter group was null or undefined when calling getAllRichSubGroupsWithGroupAttributesByNames.',
       );
     }
 
@@ -2948,7 +2948,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -2957,7 +2957,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -2966,7 +2966,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'types[]'
+          'types[]',
         );
       });
     }
@@ -3044,32 +3044,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllSubGroups(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllSubGroups(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllSubGroups(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getAllSubGroups.'
+        'Required parameter group was null or undefined when calling getAllSubGroups.',
       );
     }
 
@@ -3152,28 +3152,28 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public getGroupById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public getGroupById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public getGroupById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getGroupById.');
@@ -3259,7 +3259,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public getGroupByName(
     vo: number,
@@ -3267,7 +3267,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public getGroupByName(
     vo: number,
@@ -3275,7 +3275,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public getGroupByName(
     vo: number,
@@ -3283,7 +3283,7 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getGroupByName.');
@@ -3373,32 +3373,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getGroupDirectMembersCount(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getGroupDirectMembersCount(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getGroupDirectMembersCount(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupDirectMembersCount.'
+        'Required parameter group was null or undefined when calling getGroupDirectMembersCount.',
       );
     }
 
@@ -3482,7 +3482,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public getGroupMemberById(
     group: number,
@@ -3490,7 +3490,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public getGroupMemberById(
     group: number,
@@ -3498,7 +3498,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public getGroupMemberById(
     group: number,
@@ -3506,16 +3506,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupMemberById.'
+        'Required parameter group was null or undefined when calling getGroupMemberById.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getGroupMemberById.'
+        'Required parameter member was null or undefined when calling getGroupMemberById.',
       );
     }
 
@@ -3527,7 +3527,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -3604,32 +3604,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getGroupMembers(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getGroupMembers(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getGroupMembers(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupMembers.'
+        'Required parameter group was null or undefined when calling getGroupMembers.',
       );
     }
 
@@ -3711,32 +3711,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getGroupMembersCount(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getGroupMembersCount(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getGroupMembersCount(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupMembersCount.'
+        'Required parameter group was null or undefined when calling getGroupMembersCount.',
       );
     }
 
@@ -3818,32 +3818,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: number }>;
   public getGroupMembersCountsByGroupStatus(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getGroupMembersCountsByGroupStatus(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getGroupMembersCountsByGroupStatus(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupMembersCountsByGroupStatus.'
+        'Required parameter group was null or undefined when calling getGroupMembersCountsByGroupStatus.',
       );
     }
 
@@ -3925,32 +3925,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: number }>;
   public getGroupMembersCountsByVoStatus(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getGroupMembersCountsByVoStatus(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getGroupMembersCountsByVoStatus(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupMembersCountsByVoStatus.'
+        'Required parameter group was null or undefined when calling getGroupMembersCountsByVoStatus.',
       );
     }
 
@@ -4036,7 +4036,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getGroupRichMembersByIds(
     group: number,
@@ -4045,7 +4045,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getGroupRichMembersByIds(
     group: number,
@@ -4054,7 +4054,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getGroupRichMembersByIds(
     group: number,
@@ -4063,21 +4063,21 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupRichMembersByIds.'
+        'Required parameter group was null or undefined when calling getGroupRichMembersByIds.',
       );
     }
     if (members === null || members === undefined) {
       throw new Error(
-        'Required parameter members was null or undefined when calling getGroupRichMembersByIds.'
+        'Required parameter members was null or undefined when calling getGroupRichMembersByIds.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getGroupRichMembersByIds.'
+        'Required parameter attrNames was null or undefined when calling getGroupRichMembersByIds.',
       );
     }
 
@@ -4090,7 +4090,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -4099,7 +4099,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -4179,7 +4179,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupUnions(
     group: number,
@@ -4187,7 +4187,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupUnions(
     group: number,
@@ -4195,7 +4195,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupUnions(
     group: number,
@@ -4203,16 +4203,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupUnions.'
+        'Required parameter group was null or undefined when calling getGroupUnions.',
       );
     }
     if (reverseDirection === null || reverseDirection === undefined) {
       throw new Error(
-        'Required parameter reverseDirection was null or undefined when calling getGroupUnions.'
+        'Required parameter reverseDirection was null or undefined when calling getGroupUnions.',
       );
     }
 
@@ -4224,7 +4224,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>reverseDirection,
-        'reverseDirection'
+        'reverseDirection',
       );
     }
 
@@ -4301,28 +4301,28 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error('Required parameter ids was null or undefined when calling getGroupsByIds.');
@@ -4334,7 +4334,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -4412,32 +4412,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedRichGroups>;
   public getGroupsPage(
     InputGetPaginatedGroups: InputGetPaginatedGroups,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedRichGroups>>;
   public getGroupsPage(
     InputGetPaginatedGroups: InputGetPaginatedGroups,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedRichGroups>>;
   public getGroupsPage(
     InputGetPaginatedGroups: InputGetPaginatedGroups,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedGroups === null || InputGetPaginatedGroups === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedGroups was null or undefined when calling getGroupsPage.'
+        'Required parameter InputGetPaginatedGroups was null or undefined when calling getGroupsPage.',
       );
     }
 
@@ -4521,32 +4521,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsWhereMemberIsActive(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsWhereMemberIsActive(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsWhereMemberIsActive(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getGroupsWhereMemberIsActive.'
+        'Required parameter member was null or undefined when calling getGroupsWhereMemberIsActive.',
       );
     }
 
@@ -4555,7 +4555,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4634,7 +4634,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsWhereUserIsActiveMember(
     user: number,
@@ -4642,7 +4642,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsWhereUserIsActiveMember(
     user: number,
@@ -4650,7 +4650,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsWhereUserIsActiveMember(
     user: number,
@@ -4658,16 +4658,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getGroupsWhereUserIsActiveMember.'
+        'Required parameter user was null or undefined when calling getGroupsWhereUserIsActiveMember.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getGroupsWhereUserIsActiveMember.'
+        'Required parameter vo was null or undefined when calling getGroupsWhereUserIsActiveMember.',
       );
     }
 
@@ -4754,7 +4754,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Array<Group>>>;
   public getIndirectMembershipPaths(
     member: number,
@@ -4762,7 +4762,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Array<Group>>>>;
   public getIndirectMembershipPaths(
     member: number,
@@ -4770,7 +4770,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Array<Group>>>>;
   public getIndirectMembershipPaths(
     member: number,
@@ -4778,16 +4778,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getIndirectMembershipPaths.'
+        'Required parameter member was null or undefined when calling getIndirectMembershipPaths.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getIndirectMembershipPaths.'
+        'Required parameter group was null or undefined when calling getIndirectMembershipPaths.',
       );
     }
 
@@ -4796,7 +4796,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -4876,32 +4876,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getMemberGroups(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getMemberGroups(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getMemberGroups(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroups.'
+        'Required parameter member was null or undefined when calling getMemberGroups.',
       );
     }
 
@@ -4910,7 +4910,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4993,7 +4993,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
@@ -5003,7 +5003,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
@@ -5013,7 +5013,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getMemberRichGroupsWithAttributesByNames(
     member: number,
@@ -5023,16 +5023,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberRichGroupsWithAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberRichGroupsWithAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberRichGroupsWithAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberRichGroupsWithAttributesByNames.',
       );
     }
 
@@ -5041,7 +5041,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -5049,7 +5049,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -5058,7 +5058,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -5067,7 +5067,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'types[]'
+          'types[]',
         );
       });
     }
@@ -5145,32 +5145,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public getParentGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public getParentGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public getParentGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getParentGroup.'
+        'Required parameter group was null or undefined when calling getParentGroup.',
       );
     }
 
@@ -5255,7 +5255,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichGroup>;
   public getRichGroupByIdWithAttributesByNames(
     groupId: number,
@@ -5263,7 +5263,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichGroup>>;
   public getRichGroupByIdWithAttributesByNames(
     groupId: number,
@@ -5271,7 +5271,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichGroup>>;
   public getRichGroupByIdWithAttributesByNames(
     groupId: number,
@@ -5279,11 +5279,11 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
       throw new Error(
-        'Required parameter groupId was null or undefined when calling getRichGroupByIdWithAttributesByNames.'
+        'Required parameter groupId was null or undefined when calling getRichGroupByIdWithAttributesByNames.',
       );
     }
 
@@ -5292,7 +5292,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>groupId,
-        'groupId'
+        'groupId',
       );
     }
     if (attrNames) {
@@ -5300,7 +5300,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -5378,32 +5378,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedRichGroups>;
   public getSubgroupsPage(
     InputGetPaginatedSubgroups: InputGetPaginatedSubgroups,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedRichGroups>>;
   public getSubgroupsPage(
     InputGetPaginatedSubgroups: InputGetPaginatedSubgroups,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedRichGroups>>;
   public getSubgroupsPage(
     InputGetPaginatedSubgroups: InputGetPaginatedSubgroups,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedSubgroups === null || InputGetPaginatedSubgroups === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedSubgroups was null or undefined when calling getSubgroupsPage.'
+        'Required parameter InputGetPaginatedSubgroups was null or undefined when calling getSubgroupsPage.',
       );
     }
 
@@ -5489,7 +5489,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getVoAllAllowedGroupsToHierarchicalVo(
     vo: number,
@@ -5497,7 +5497,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getVoAllAllowedGroupsToHierarchicalVo(
     vo: number,
@@ -5505,7 +5505,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getVoAllAllowedGroupsToHierarchicalVo(
     vo: number,
@@ -5513,16 +5513,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoAllAllowedGroupsToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling getVoAllAllowedGroupsToHierarchicalVo.',
       );
     }
     if (memberVo === null || memberVo === undefined) {
       throw new Error(
-        'Required parameter memberVo was null or undefined when calling getVoAllAllowedGroupsToHierarchicalVo.'
+        'Required parameter memberVo was null or undefined when calling getVoAllAllowedGroupsToHierarchicalVo.',
       );
     }
 
@@ -5534,7 +5534,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>memberVo,
-        'memberVo'
+        'memberVo',
       );
     }
 
@@ -5613,7 +5613,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public isAllowedGroupToHierarchicalVo(
     group: number,
@@ -5621,7 +5621,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public isAllowedGroupToHierarchicalVo(
     group: number,
@@ -5629,7 +5629,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public isAllowedGroupToHierarchicalVo(
     group: number,
@@ -5637,16 +5637,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling isAllowedGroupToHierarchicalVo.'
+        'Required parameter group was null or undefined when calling isAllowedGroupToHierarchicalVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling isAllowedGroupToHierarchicalVo.'
+        'Required parameter vo was null or undefined when calling isAllowedGroupToHierarchicalVo.',
       );
     }
 
@@ -5733,7 +5733,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public isGroupMember(
     member: number,
@@ -5741,7 +5741,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public isGroupMember(
     member: number,
@@ -5749,7 +5749,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public isGroupMember(
     member: number,
@@ -5757,11 +5757,11 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling isGroupMember.'
+        'Required parameter member was null or undefined when calling isGroupMember.',
       );
     }
     if (group === null || group === undefined) {
@@ -5773,7 +5773,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -5855,7 +5855,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public moveGroupWithDestinationGroupMovingGroup(
     movingGroup: number,
@@ -5863,7 +5863,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public moveGroupWithDestinationGroupMovingGroup(
     movingGroup: number,
@@ -5871,7 +5871,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public moveGroupWithDestinationGroupMovingGroup(
     movingGroup: number,
@@ -5879,11 +5879,11 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (movingGroup === null || movingGroup === undefined) {
       throw new Error(
-        'Required parameter movingGroup was null or undefined when calling moveGroupWithDestinationGroupMovingGroup.'
+        'Required parameter movingGroup was null or undefined when calling moveGroupWithDestinationGroupMovingGroup.',
       );
     }
 
@@ -5892,14 +5892,14 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destinationGroup,
-        'destinationGroup'
+        'destinationGroup',
       );
     }
     if (movingGroup !== undefined && movingGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>movingGroup,
-        'movingGroup'
+        'movingGroup',
       );
     }
 
@@ -5978,7 +5978,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupUnion(
     resultGroup: number,
@@ -5986,7 +5986,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupUnion(
     resultGroup: number,
@@ -5994,7 +5994,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupUnion(
     resultGroup: number,
@@ -6002,16 +6002,16 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resultGroup === null || resultGroup === undefined) {
       throw new Error(
-        'Required parameter resultGroup was null or undefined when calling removeGroupUnion.'
+        'Required parameter resultGroup was null or undefined when calling removeGroupUnion.',
       );
     }
     if (operandGroup === null || operandGroup === undefined) {
       throw new Error(
-        'Required parameter operandGroup was null or undefined when calling removeGroupUnion.'
+        'Required parameter operandGroup was null or undefined when calling removeGroupUnion.',
       );
     }
 
@@ -6020,14 +6020,14 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resultGroup,
-        'resultGroup'
+        'resultGroup',
       );
     }
     if (operandGroup !== undefined && operandGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>operandGroup,
-        'operandGroup'
+        'operandGroup',
       );
     }
 
@@ -6106,7 +6106,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMember(
     groups: Array<number>,
@@ -6114,7 +6114,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMember(
     groups: Array<number>,
@@ -6122,7 +6122,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMember(
     groups: Array<number>,
@@ -6130,7 +6130,7 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error('Required parameter groups was null or undefined when calling removeMember.');
@@ -6145,7 +6145,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -6153,7 +6153,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -6232,7 +6232,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMembers(
     group: number,
@@ -6240,7 +6240,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMembers(
     group: number,
@@ -6248,7 +6248,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMembers(
     group: number,
@@ -6256,14 +6256,14 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error('Required parameter group was null or undefined when calling removeMembers.');
     }
     if (members === null || members === undefined) {
       throw new Error(
-        'Required parameter members was null or undefined when calling removeMembers.'
+        'Required parameter members was null or undefined when calling removeMembers.',
       );
     }
 
@@ -6276,7 +6276,7 @@ export class GroupsManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'members[]'
+          'members[]',
         );
       });
     }
@@ -6358,7 +6358,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Member>;
   public setGroupsMemberStatus(
     member: number,
@@ -6367,7 +6367,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Member>>;
   public setGroupsMemberStatus(
     member: number,
@@ -6376,7 +6376,7 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Member>>;
   public setGroupsMemberStatus(
     member: number,
@@ -6385,21 +6385,21 @@ export class GroupsManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling setGroupsMemberStatus.'
+        'Required parameter member was null or undefined when calling setGroupsMemberStatus.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling setGroupsMemberStatus.'
+        'Required parameter group was null or undefined when calling setGroupsMemberStatus.',
       );
     }
     if (status === null || status === undefined) {
       throw new Error(
-        'Required parameter status was null or undefined when calling setGroupsMemberStatus.'
+        'Required parameter status was null or undefined when calling setGroupsMemberStatus.',
       );
     }
 
@@ -6408,7 +6408,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -6418,7 +6418,7 @@ export class GroupsManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>status,
-        'status'
+        'status',
       );
     }
 
@@ -6495,32 +6495,32 @@ export class GroupsManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Group>;
   public updateGroup(
     InputUpdateGroup: InputUpdateGroup,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Group>>;
   public updateGroup(
     InputUpdateGroup: InputUpdateGroup,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Group>>;
   public updateGroup(
     InputUpdateGroup: InputUpdateGroup,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateGroup === null || InputUpdateGroup === undefined) {
       throw new Error(
-        'Required parameter InputUpdateGroup was null or undefined when calling updateGroup.'
+        'Required parameter InputUpdateGroup was null or undefined when calling updateGroup.',
       );
     }
 

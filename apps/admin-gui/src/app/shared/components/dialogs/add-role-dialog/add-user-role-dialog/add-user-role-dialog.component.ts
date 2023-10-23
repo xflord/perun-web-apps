@@ -23,7 +23,7 @@ export class AddUserRoleDialogComponent {
     private authzService: AuthzResolverService,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private displayedRole: DisplayedRolePipe
+    private displayedRole: DisplayedRolePipe,
   ) {}
 
   addRole(formValue: AddRoleForm): void {
@@ -63,7 +63,7 @@ export class AddUserRoleDialogComponent {
     this.notificator.showSuccess(
       this.translate.instant('DIALOGS.ADD_ROLE.SUCCESS', {
         role: role,
-      })
+      }),
     );
   }
 }

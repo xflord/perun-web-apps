@@ -30,7 +30,7 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
     private store: StoreService,
     private attributesManagerService: AttributesManagerService,
     private dialog: MatDialog,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
     translateService
       .get('PREFERRED_UNIX_GROUP_NAMES.REMOVE_DIALOG_DESCRIPTION')
@@ -78,7 +78,7 @@ export class SettingsPreferredUnixGroupNamesComponent implements OnInit {
     this.attributesManagerService
       .getUserAttributeByName(
         this.userId,
-        `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${namespace}`
+        `urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:${namespace}`,
       )
       .subscribe((names) => {
         const value = (names?.value as string[]) ?? [];

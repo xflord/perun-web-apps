@@ -27,7 +27,7 @@ export class OneEntityAttributePageComponent implements OnInit {
 
   constructor(
     private attributesManagerService: AttributesManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

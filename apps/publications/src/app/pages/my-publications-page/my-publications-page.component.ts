@@ -37,7 +37,7 @@ export class MyPublicationsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private cabinetService: CabinetManagerService,
     private dialog: MatDialog,
-    private authResolver: AuthzResolverService
+    private authResolver: AuthzResolverService,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class MyPublicationsPageComponent implements OnInit {
         this.filter.category,
         +this.filter.startYear,
         +this.filter.endYear,
-        this.authorId
+        this.authorId,
       )
       .subscribe((publications) => {
         this.publications = publications;

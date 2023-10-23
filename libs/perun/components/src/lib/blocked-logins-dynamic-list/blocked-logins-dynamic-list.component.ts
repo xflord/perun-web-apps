@@ -57,7 +57,7 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
     private tableConfigService: TableConfigService,
     private dynamicPaginatingService: DynamicPaginatingService,
     private globalNamespacePipe: GlobalNamespacePipe,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   getExportDataForColumn(data: BlockedLogin, column: string): string {
@@ -95,7 +95,7 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
 
     this.dataSource = new DynamicDataSource<BlockedLogin>(
       this.dynamicPaginatingService,
-      this.authResolver
+      this.authResolver,
     );
 
     this.dataSource.loadBlockedLogins(
@@ -104,7 +104,7 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
       'ASCENDING',
       'LOGIN',
       this.searchString,
-      this.selectedNamespaces
+      this.selectedNamespaces,
     );
 
     this.loading$.emit(this.dataSource.loading$);
@@ -120,7 +120,7 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
       sortDirection,
       sortColumn,
       this.searchString,
-      this.selectedNamespaces
+      this.selectedNamespaces,
     );
   }
 
@@ -152,15 +152,15 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
         this.child.paginator.length,
         sortColumn,
         this.searchString,
-        this.selectedNamespaces
+        this.selectedNamespaces,
       )
       .subscribe((response) => {
         exportLoading.close();
         downloadData(
           getDataForExport(response, this.displayedColumns, (data, column) =>
-            this.getExportDataForColumn(data, column)
+            this.getExportDataForColumn(data, column),
           ),
-          format
+          format,
         );
       });
   }
@@ -168,9 +168,9 @@ export class BlockedLoginsDynamicListComponent implements OnInit, OnChanges, Aft
   exportDisplayedData(format: string): void {
     downloadData(
       getDataForExport(this.dataSource.getData(), this.displayedColumns, (data, column) =>
-        this.getExportDataForColumn(data, column)
+        this.getExportDataForColumn(data, column),
       ),
-      format
+      format,
     );
   }
 }

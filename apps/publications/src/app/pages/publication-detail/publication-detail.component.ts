@@ -44,11 +44,11 @@ export class PublicationDetailComponent implements OnInit {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {
     this.matIconRegistry.addSvgIcon(
       'publications',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/publications-dark.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/img/publications-dark.svg'),
     );
   }
 

@@ -15,7 +15,7 @@ export class ShowGeneratedPasswordDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ShowGeneratedPasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: ShowGeneratedPasswordDialogData
+    @Inject(MAT_DIALOG_DATA) private data: ShowGeneratedPasswordDialogData,
   ) {}
 
   ngOnInit(): void {

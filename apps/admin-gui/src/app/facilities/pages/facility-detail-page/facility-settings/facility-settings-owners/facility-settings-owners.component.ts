@@ -32,7 +32,7 @@ export class FacilitySettingsOwnersComponent implements OnInit {
     private facilitiesManagerService: FacilitiesManagerService,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

@@ -18,18 +18,18 @@ export class ResourceAttributesComponent implements OnInit {
   constructor(
     private authResolver: GuiAuthResolver,
     private resourceManager: ResourcesManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
     this.resource = this.entityStorageService.getEntity();
     this.resourceGroupAttAuth = this.authResolver.isAuthorized(
       'getGroupAssignments_Resource_policy',
-      [this.resource]
+      [this.resource],
     );
     this.resourceMemberAttAuth = this.authResolver.isAuthorized(
       'getAssignedMembersWithStatus_Resource_policy',
-      [this.resource]
+      [this.resource],
     );
   }
 }

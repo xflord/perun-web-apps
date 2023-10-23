@@ -60,7 +60,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private serviceService: ServicesManagerService,
     private formBuilder: FormBuilder,
-    private attributeRightsService: AttributeRightsService
+    private attributeRightsService: AttributeRightsService,
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +85,7 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
         switchMap(() => of(this.collections$.getValue())),
         this.attributeRightsService.filterNullInPolicy(),
         switchMap((collections) =>
-          this.attributesManager.setAttributePolicyCollections({ policyCollections: collections })
+          this.attributesManager.setAttributePolicyCollections({ policyCollections: collections }),
         ),
         switchMap(() =>
           this.attributeRightsService.updateAttributeAction(
@@ -94,8 +94,8 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
             this.finalReadGlobal,
             this.initReadGlobal,
             this.attDef.id,
-            AttributeAction.READ
-          )
+            AttributeAction.READ,
+          ),
         ),
         switchMap(() =>
           this.attributeRightsService.updateAttributeAction(
@@ -104,14 +104,14 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
             this.finalWriteGlobal,
             this.initWriteGlobal,
             this.attDef.id,
-            AttributeAction.WRITE
-          )
-        )
+            AttributeAction.WRITE,
+          ),
+        ),
       )
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS') as string
+            this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.SUCCESS') as string,
           );
           this.dialogRef.close(true);
         },
@@ -139,11 +139,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     const success = this.clipboard.copy(this.urn);
     if (success) {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string,
       );
     } else {
       this.notificator.showError(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string,
       );
     }
   }
@@ -157,11 +157,11 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
     const success = this.clipboard.copy(JSON.stringify(data));
     if (success) {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPIED') as string,
       );
     } else {
       this.notificator.showError(
-        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string
+        this.translate.instant('DIALOGS.EDIT_ATTRIBUTE_DEFINITION.COPY_FAILED') as string,
       );
     }
   }

@@ -22,7 +22,7 @@ export class AttributeImportDialogComponent {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private attributesManager: AttributesManagerService,
-    private attributesRightsService: AttributeRightsService
+    private attributesRightsService: AttributeRightsService,
   ) {}
 
   create(): void {
@@ -34,17 +34,17 @@ export class AttributeImportDialogComponent {
         switchMap((attDef) => zip(of(attDef.id), of(this.attributeData.attributeRights))),
         this.attributesRightsService.addAttributeId(),
         switchMap((collections) =>
-          this.attributesManager.setAttributePolicyCollections({ policyCollections: collections })
-        )
+          this.attributesManager.setAttributePolicyCollections({ policyCollections: collections }),
+        ),
       )
       .subscribe(
         () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.IMPORT_ATTRIBUTE_DEFINITION.SUCCESS') as string
+            this.translate.instant('DIALOGS.IMPORT_ATTRIBUTE_DEFINITION.SUCCESS') as string,
           );
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 }

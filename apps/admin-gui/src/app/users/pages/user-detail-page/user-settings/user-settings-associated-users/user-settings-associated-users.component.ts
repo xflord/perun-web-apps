@@ -31,7 +31,7 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
     private router: Router,
     public authResolver: GuiAuthResolver,
     private userManager: UsersManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +47,8 @@ export class UserSettingsAssociatedUsersComponent implements OnInit {
       .pipe(
         map((associatedUsers) => associatedUsers.map((user) => user.id)),
         switchMap((usersIds: number[]) =>
-          this.userManager.getRichUsersWithAttributesByIds(usersIds)
-        )
+          this.userManager.getRichUsersWithAttributesByIds(usersIds),
+        ),
       )
       .subscribe((associatedUsers) => {
         this.associatedUsers = associatedUsers;

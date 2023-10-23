@@ -20,7 +20,7 @@ export class NotificatorComponent {
 
   constructor(
     private notificator: NotificatorService,
-    private notificationStorageService: NotificationStorageService
+    private notificationStorageService: NotificationStorageService,
   ) {
     this.notificator.addNotification.subscribe((notificationData) => {
       this.processNotification(notificationData);

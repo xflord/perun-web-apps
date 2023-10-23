@@ -79,7 +79,7 @@ export class ServicesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -110,7 +110,7 @@ export class ServicesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -124,8 +124,8 @@ export class ServicesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -157,7 +157,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Destination>;
   public addDestination(
     service: number,
@@ -168,7 +168,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Destination>>;
   public addDestination(
     service: number,
@@ -179,7 +179,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Destination>>;
   public addDestination(
     service: number,
@@ -190,21 +190,21 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling addDestination.'
+        'Required parameter service was null or undefined when calling addDestination.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addDestination.'
+        'Required parameter facility was null or undefined when calling addDestination.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling addDestination.'
+        'Required parameter destination was null or undefined when calling addDestination.',
       );
     }
     if (type === null || type === undefined) {
@@ -216,21 +216,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (type !== undefined && type !== null) {
@@ -240,7 +240,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>propagationType,
-        'propagationType'
+        'propagationType',
       );
     }
 
@@ -317,35 +317,35 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Destination>;
   public addDestinationToMultipleServices(
     InputAddDestinationToMultipleServices: InputAddDestinationToMultipleServices,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Destination>>;
   public addDestinationToMultipleServices(
     InputAddDestinationToMultipleServices: InputAddDestinationToMultipleServices,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Destination>>;
   public addDestinationToMultipleServices(
     InputAddDestinationToMultipleServices: InputAddDestinationToMultipleServices,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputAddDestinationToMultipleServices === null ||
       InputAddDestinationToMultipleServices === undefined
     ) {
       throw new Error(
-        'Required parameter InputAddDestinationToMultipleServices was null or undefined when calling addDestinationToMultipleServices.'
+        'Required parameter InputAddDestinationToMultipleServices was null or undefined when calling addDestinationToMultipleServices.',
       );
     }
 
@@ -429,32 +429,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public addDestinationsDefinedByHostsOnFacilityWithFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithFacility.'
+        'Required parameter facility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithFacility.',
       );
     }
 
@@ -463,7 +463,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -540,35 +540,35 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility(
     InputAddDestinationsDefinedByHostsOnFacility: InputAddDestinationsDefinedByHostsOnFacility,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility(
     InputAddDestinationsDefinedByHostsOnFacility: InputAddDestinationsDefinedByHostsOnFacility,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility(
     InputAddDestinationsDefinedByHostsOnFacility: InputAddDestinationsDefinedByHostsOnFacility,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputAddDestinationsDefinedByHostsOnFacility === null ||
       InputAddDestinationsDefinedByHostsOnFacility === undefined
     ) {
       throw new Error(
-        'Required parameter InputAddDestinationsDefinedByHostsOnFacility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility.'
+        'Required parameter InputAddDestinationsDefinedByHostsOnFacility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithListOfServiceAndFacility.',
       );
     }
 
@@ -640,7 +640,7 @@ export class ServicesManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -658,7 +658,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility(
     service: number,
@@ -666,7 +666,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility(
     service: number,
@@ -674,7 +674,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility(
     service: number,
@@ -682,16 +682,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility.'
+        'Required parameter service was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility.'
+        'Required parameter facility was null or undefined when calling addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility.',
       );
     }
 
@@ -700,14 +700,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -791,7 +791,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public addDestinationsForAllServicesOnFacility(
     facility: number,
@@ -801,7 +801,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public addDestinationsForAllServicesOnFacility(
     facility: number,
@@ -811,7 +811,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public addDestinationsForAllServicesOnFacility(
     facility: number,
@@ -821,21 +821,21 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addDestinationsForAllServicesOnFacility.'
+        'Required parameter facility was null or undefined when calling addDestinationsForAllServicesOnFacility.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling addDestinationsForAllServicesOnFacility.'
+        'Required parameter destination was null or undefined when calling addDestinationsForAllServicesOnFacility.',
       );
     }
     if (type === null || type === undefined) {
       throw new Error(
-        'Required parameter type was null or undefined when calling addDestinationsForAllServicesOnFacility.'
+        'Required parameter type was null or undefined when calling addDestinationsForAllServicesOnFacility.',
       );
     }
 
@@ -844,14 +844,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (type !== undefined && type !== null) {
@@ -861,7 +861,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>propagationType,
-        'propagationType'
+        'propagationType',
       );
     }
 
@@ -940,7 +940,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addRequiredAttribute(
     service: number,
@@ -948,7 +948,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addRequiredAttribute(
     service: number,
@@ -956,7 +956,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addRequiredAttribute(
     service: number,
@@ -964,16 +964,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling addRequiredAttribute.'
+        'Required parameter service was null or undefined when calling addRequiredAttribute.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling addRequiredAttribute.'
+        'Required parameter attributeId was null or undefined when calling addRequiredAttribute.',
       );
     }
 
@@ -982,14 +982,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -1068,7 +1068,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addRequiredAttributes(
     service: number,
@@ -1076,7 +1076,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addRequiredAttributes(
     service: number,
@@ -1084,7 +1084,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addRequiredAttributes(
     service: number,
@@ -1092,16 +1092,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling addRequiredAttributes.'
+        'Required parameter service was null or undefined when calling addRequiredAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling addRequiredAttributes.'
+        'Required parameter attributes was null or undefined when calling addRequiredAttributes.',
       );
     }
 
@@ -1110,7 +1110,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (attributes) {
@@ -1118,7 +1118,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -1198,7 +1198,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addServiceToServicesPackage(
     servicesPackage: number,
@@ -1206,7 +1206,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addServiceToServicesPackage(
     servicesPackage: number,
@@ -1214,7 +1214,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addServiceToServicesPackage(
     servicesPackage: number,
@@ -1222,16 +1222,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling addServiceToServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling addServiceToServicesPackage.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling addServiceToServicesPackage.'
+        'Required parameter service was null or undefined when calling addServiceToServicesPackage.',
       );
     }
 
@@ -1240,14 +1240,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -1324,32 +1324,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockAllServicesOnDestinationById(
     destination: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockAllServicesOnDestinationById(
     destination: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockAllServicesOnDestinationById(
     destination: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling blockAllServicesOnDestinationById.'
+        'Required parameter destination was null or undefined when calling blockAllServicesOnDestinationById.',
       );
     }
 
@@ -1358,7 +1358,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -1437,7 +1437,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockAllServicesOnDestinationByName(
     destination: string,
@@ -1445,7 +1445,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockAllServicesOnDestinationByName(
     destination: string,
@@ -1453,7 +1453,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockAllServicesOnDestinationByName(
     destination: string,
@@ -1461,16 +1461,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling blockAllServicesOnDestinationByName.'
+        'Required parameter destination was null or undefined when calling blockAllServicesOnDestinationByName.',
       );
     }
     if (destinationType === null || destinationType === undefined) {
       throw new Error(
-        'Required parameter destinationType was null or undefined when calling blockAllServicesOnDestinationByName.'
+        'Required parameter destinationType was null or undefined when calling blockAllServicesOnDestinationByName.',
       );
     }
 
@@ -1479,14 +1479,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (destinationType !== undefined && destinationType !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destinationType,
-        'destinationType'
+        'destinationType',
       );
     }
 
@@ -1563,32 +1563,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockAllServicesOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockAllServicesOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockAllServicesOnFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling blockAllServicesOnFacility.'
+        'Required parameter facility was null or undefined when calling blockAllServicesOnFacility.',
       );
     }
 
@@ -1597,7 +1597,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -1676,7 +1676,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServiceOnDestination(
     service: number,
@@ -1684,7 +1684,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServiceOnDestination(
     service: number,
@@ -1692,7 +1692,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServiceOnDestination(
     service: number,
@@ -1700,16 +1700,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling blockServiceOnDestination.'
+        'Required parameter service was null or undefined when calling blockServiceOnDestination.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling blockServiceOnDestination.'
+        'Required parameter destination was null or undefined when calling blockServiceOnDestination.',
       );
     }
 
@@ -1718,14 +1718,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -1806,7 +1806,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServiceOnDestinationWithNameAndType(
     service: number,
@@ -1815,7 +1815,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServiceOnDestinationWithNameAndType(
     service: number,
@@ -1824,7 +1824,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServiceOnDestinationWithNameAndType(
     service: number,
@@ -1833,21 +1833,21 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling blockServiceOnDestinationWithNameAndType.'
+        'Required parameter service was null or undefined when calling blockServiceOnDestinationWithNameAndType.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling blockServiceOnDestinationWithNameAndType.'
+        'Required parameter destination was null or undefined when calling blockServiceOnDestinationWithNameAndType.',
       );
     }
     if (destinationType === null || destinationType === undefined) {
       throw new Error(
-        'Required parameter destinationType was null or undefined when calling blockServiceOnDestinationWithNameAndType.'
+        'Required parameter destinationType was null or undefined when calling blockServiceOnDestinationWithNameAndType.',
       );
     }
 
@@ -1856,21 +1856,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (destinationType !== undefined && destinationType !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destinationType,
-        'destinationType'
+        'destinationType',
       );
     }
 
@@ -1949,7 +1949,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServiceOnDestinations(
     service: number,
@@ -1957,7 +1957,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServiceOnDestinations(
     service: number,
@@ -1965,7 +1965,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServiceOnDestinations(
     service: number,
@@ -1973,16 +1973,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling blockServiceOnDestinations.'
+        'Required parameter service was null or undefined when calling blockServiceOnDestinations.',
       );
     }
     if (destinations === null || destinations === undefined) {
       throw new Error(
-        'Required parameter destinations was null or undefined when calling blockServiceOnDestinations.'
+        'Required parameter destinations was null or undefined when calling blockServiceOnDestinations.',
       );
     }
 
@@ -1991,7 +1991,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destinations) {
@@ -1999,7 +1999,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'destinations[]'
+          'destinations[]',
         );
       });
     }
@@ -2079,7 +2079,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServiceOnFacility(
     service: number,
@@ -2087,7 +2087,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServiceOnFacility(
     service: number,
@@ -2095,7 +2095,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServiceOnFacility(
     service: number,
@@ -2103,16 +2103,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling blockServiceOnFacility.'
+        'Required parameter service was null or undefined when calling blockServiceOnFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling blockServiceOnFacility.'
+        'Required parameter facility was null or undefined when calling blockServiceOnFacility.',
       );
     }
 
@@ -2121,14 +2121,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -2205,35 +2205,35 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServicesOnDestinations(
     InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServicesOnDestinations(
     InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServicesOnDestinations(
     InputBlockServicesOnDestinations: InputBlockServicesOnDestinations,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputBlockServicesOnDestinations === null ||
       InputBlockServicesOnDestinations === undefined
     ) {
       throw new Error(
-        'Required parameter InputBlockServicesOnDestinations was null or undefined when calling blockServicesOnDestinations.'
+        'Required parameter InputBlockServicesOnDestinations was null or undefined when calling blockServicesOnDestinations.',
       );
     }
 
@@ -2319,7 +2319,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockServicesOnFacility(
     services: Array<number>,
@@ -2327,7 +2327,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockServicesOnFacility(
     services: Array<number>,
@@ -2335,7 +2335,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockServicesOnFacility(
     services: Array<number>,
@@ -2343,16 +2343,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling blockServicesOnFacility.'
+        'Required parameter services was null or undefined when calling blockServicesOnFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling blockServicesOnFacility.'
+        'Required parameter facility was null or undefined when calling blockServicesOnFacility.',
       );
     }
 
@@ -2362,7 +2362,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -2370,7 +2370,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -2451,7 +2451,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Service>;
   public createService(
     name: string,
@@ -2460,7 +2460,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Service>>;
   public createService(
     name: string,
@@ -2469,7 +2469,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Service>>;
   public createService(
     name: string,
@@ -2478,19 +2478,19 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error('Required parameter name was null or undefined when calling createService.');
     }
     if (description === null || description === undefined) {
       throw new Error(
-        'Required parameter description was null or undefined when calling createService.'
+        'Required parameter description was null or undefined when calling createService.',
       );
     }
     if (script === null || script === undefined) {
       throw new Error(
-        'Required parameter script was null or undefined when calling createService.'
+        'Required parameter script was null or undefined when calling createService.',
       );
     }
 
@@ -2502,14 +2502,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
     if (script !== undefined && script !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>script,
-        'script'
+        'script',
       );
     }
 
@@ -2586,32 +2586,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Service>;
   public createServiceWithService(
     InputCreateService: InputCreateService,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Service>>;
   public createServiceWithService(
     InputCreateService: InputCreateService,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Service>>;
   public createServiceWithService(
     InputCreateService: InputCreateService,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateService === null || InputCreateService === undefined) {
       throw new Error(
-        'Required parameter InputCreateService was null or undefined when calling createServiceWithService.'
+        'Required parameter InputCreateService was null or undefined when calling createServiceWithService.',
       );
     }
 
@@ -2695,32 +2695,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ServicesPackage>;
   public createServicesPackage(
     InputCreateServicesPackage: InputCreateServicesPackage,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ServicesPackage>>;
   public createServicesPackage(
     InputCreateServicesPackage: InputCreateServicesPackage,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ServicesPackage>>;
   public createServicesPackage(
     InputCreateServicesPackage: InputCreateServicesPackage,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateServicesPackage === null || InputCreateServicesPackage === undefined) {
       throw new Error(
-        'Required parameter InputCreateServicesPackage was null or undefined when calling createServicesPackage.'
+        'Required parameter InputCreateServicesPackage was null or undefined when calling createServicesPackage.',
       );
     }
 
@@ -2806,7 +2806,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ServicesPackage>;
   public createServicesPackageByNameAndDescription(
     name: string,
@@ -2814,7 +2814,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ServicesPackage>>;
   public createServicesPackageByNameAndDescription(
     name: string,
@@ -2822,7 +2822,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ServicesPackage>>;
   public createServicesPackageByNameAndDescription(
     name: string,
@@ -2830,16 +2830,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling createServicesPackageByNameAndDescription.'
+        'Required parameter name was null or undefined when calling createServicesPackageByNameAndDescription.',
       );
     }
     if (description === null || description === undefined) {
       throw new Error(
-        'Required parameter description was null or undefined when calling createServicesPackageByNameAndDescription.'
+        'Required parameter description was null or undefined when calling createServicesPackageByNameAndDescription.',
       );
     }
 
@@ -2851,7 +2851,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
 
@@ -2930,7 +2930,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteService(
     service: number,
@@ -2938,7 +2938,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteService(
     service: number,
@@ -2946,7 +2946,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteService(
     service: number,
@@ -2954,11 +2954,11 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling deleteService.'
+        'Required parameter service was null or undefined when calling deleteService.',
       );
     }
 
@@ -2967,7 +2967,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (force !== undefined && force !== null) {
@@ -3049,7 +3049,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteServices(
     services: Array<number>,
@@ -3057,7 +3057,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteServices(
     services: Array<number>,
@@ -3065,7 +3065,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteServices(
     services: Array<number>,
@@ -3073,11 +3073,11 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling deleteServices.'
+        'Required parameter services was null or undefined when calling deleteServices.',
       );
     }
 
@@ -3087,7 +3087,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -3168,32 +3168,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteServicesPackage(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteServicesPackage(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteServicesPackage(
     servicesPackage: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling deleteServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling deleteServicesPackage.',
       );
     }
 
@@ -3202,7 +3202,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
 
@@ -3281,7 +3281,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public forceServicePropagation(
     service: number,
@@ -3289,7 +3289,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public forceServicePropagation(
     service: number,
@@ -3297,7 +3297,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public forceServicePropagation(
     service: number,
@@ -3305,11 +3305,11 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling forceServicePropagation.'
+        'Required parameter service was null or undefined when calling forceServicePropagation.',
       );
     }
 
@@ -3318,14 +3318,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -3404,7 +3404,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public forceServicePropagationBulk(
     services: Array<number>,
@@ -3412,7 +3412,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public forceServicePropagationBulk(
     services: Array<number>,
@@ -3420,7 +3420,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public forceServicePropagationBulk(
     services: Array<number>,
@@ -3428,11 +3428,11 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling forceServicePropagationBulk.'
+        'Required parameter services was null or undefined when calling forceServicePropagationBulk.',
       );
     }
 
@@ -3442,7 +3442,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -3450,7 +3450,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -3525,25 +3525,25 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public getAllDestinations(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public getAllDestinations(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public getAllDestinations(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -3617,32 +3617,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichDestination>>;
   public getAllRichDestinationsForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichDestination>>>;
   public getAllRichDestinationsForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichDestination>>>;
   public getAllRichDestinationsForFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllRichDestinationsForFacility.'
+        'Required parameter facility was null or undefined when calling getAllRichDestinationsForFacility.',
       );
     }
 
@@ -3651,7 +3651,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -3728,32 +3728,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichDestination>>;
   public getAllRichDestinationsForService(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichDestination>>>;
   public getAllRichDestinationsForService(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichDestination>>>;
   public getAllRichDestinationsForService(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAllRichDestinationsForService.'
+        'Required parameter service was null or undefined when calling getAllRichDestinationsForService.',
       );
     }
 
@@ -3762,7 +3762,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -3839,32 +3839,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResources(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResources(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResources(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAssignedResources.'
+        'Required parameter service was null or undefined when calling getAssignedResources.',
       );
     }
 
@@ -3873,7 +3873,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -3950,32 +3950,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getAssignedServices(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getAssignedServices(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getAssignedServices(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedServices.'
+        'Required parameter facility was null or undefined when calling getAssignedServices.',
       );
     }
 
@@ -3984,7 +3984,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -4063,7 +4063,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getAssignedServicesVo(
     facility: number,
@@ -4071,7 +4071,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getAssignedServicesVo(
     facility: number,
@@ -4079,7 +4079,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getAssignedServicesVo(
     facility: number,
@@ -4087,16 +4087,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedServicesVo.'
+        'Required parameter facility was null or undefined when calling getAssignedServicesVo.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAssignedServicesVo.'
+        'Required parameter vo was null or undefined when calling getAssignedServicesVo.',
       );
     }
 
@@ -4105,7 +4105,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -4185,32 +4185,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Destination>;
   public getDestinationById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Destination>>;
   public getDestinationById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Destination>>;
   public getDestinationById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getDestinationById.'
+        'Required parameter id was null or undefined when calling getDestinationById.',
       );
     }
 
@@ -4294,7 +4294,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public getDestinations(
     service: number,
@@ -4302,7 +4302,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public getDestinations(
     service: number,
@@ -4310,7 +4310,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public getDestinations(
     service: number,
@@ -4318,16 +4318,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getDestinations.'
+        'Required parameter service was null or undefined when calling getDestinations.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getDestinations.'
+        'Required parameter facility was null or undefined when calling getDestinations.',
       );
     }
 
@@ -4336,14 +4336,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -4418,25 +4418,25 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getDestinationsCount(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getDestinationsCount(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getDestinationsCount(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -4510,32 +4510,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Destination>>;
   public getFacilitiesDestinations(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Destination>>>;
   public getFacilitiesDestinations(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Destination>>>;
   public getFacilitiesDestinations(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getFacilitiesDestinations.'
+        'Required parameter vo was null or undefined when calling getFacilitiesDestinations.',
       );
     }
 
@@ -4617,32 +4617,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ServiceForGUI>>;
   public getFacilityAssignedServicesForGUI(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ServiceForGUI>>>;
   public getFacilityAssignedServicesForGUI(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ServiceForGUI>>>;
   public getFacilityAssignedServicesForGUI(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAssignedServicesForGUI.'
+        'Required parameter facility was null or undefined when calling getFacilityAssignedServicesForGUI.',
       );
     }
 
@@ -4651,7 +4651,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -4732,7 +4732,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HashedGenData>;
   public getHashedDataWithGroups(
     service: number,
@@ -4741,7 +4741,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<HashedGenData>>;
   public getHashedDataWithGroups(
     service: number,
@@ -4750,7 +4750,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<HashedGenData>>;
   public getHashedDataWithGroups(
     service: number,
@@ -4759,16 +4759,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getHashedDataWithGroups.'
+        'Required parameter service was null or undefined when calling getHashedDataWithGroups.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getHashedDataWithGroups.'
+        'Required parameter facility was null or undefined when calling getHashedDataWithGroups.',
       );
     }
 
@@ -4777,21 +4777,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (consentEval !== undefined && consentEval !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentEval,
-        'consentEval'
+        'consentEval',
       );
     }
 
@@ -4872,7 +4872,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HashedGenData>;
   public getHashedHierarchicalData(
     service: number,
@@ -4881,7 +4881,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<HashedGenData>>;
   public getHashedHierarchicalData(
     service: number,
@@ -4890,7 +4890,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<HashedGenData>>;
   public getHashedHierarchicalData(
     service: number,
@@ -4899,16 +4899,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getHashedHierarchicalData.'
+        'Required parameter service was null or undefined when calling getHashedHierarchicalData.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getHashedHierarchicalData.'
+        'Required parameter facility was null or undefined when calling getHashedHierarchicalData.',
       );
     }
 
@@ -4917,21 +4917,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (consentEval !== undefined && consentEval !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>consentEval,
-        'consentEval'
+        'consentEval',
       );
     }
 
@@ -5010,7 +5010,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichDestination>>;
   public getRichDestinations(
     service: number,
@@ -5018,7 +5018,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichDestination>>>;
   public getRichDestinations(
     service: number,
@@ -5026,7 +5026,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichDestination>>>;
   public getRichDestinations(
     service: number,
@@ -5034,16 +5034,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRichDestinations.'
+        'Required parameter service was null or undefined when calling getRichDestinations.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getRichDestinations.'
+        'Required parameter facility was null or undefined when calling getRichDestinations.',
       );
     }
 
@@ -5052,14 +5052,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -5136,28 +5136,28 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Service>;
   public getServiceById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Service>>;
   public getServiceById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Service>>;
   public getServiceById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getServiceById.');
@@ -5241,32 +5241,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Service>;
   public getServiceByName(
     name: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Service>>;
   public getServiceByName(
     name: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Service>>;
   public getServiceByName(
     name: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getServiceByName.'
+        'Required parameter name was null or undefined when calling getServiceByName.',
       );
     }
 
@@ -5346,25 +5346,25 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getServices(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getServices(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getServices(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -5438,32 +5438,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getServicesBlockedOnDestination(
     destination: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getServicesBlockedOnDestination(
     destination: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getServicesBlockedOnDestination(
     destination: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling getServicesBlockedOnDestination.'
+        'Required parameter destination was null or undefined when calling getServicesBlockedOnDestination.',
       );
     }
 
@@ -5472,7 +5472,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -5549,32 +5549,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getServicesBlockedOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getServicesBlockedOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getServicesBlockedOnFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getServicesBlockedOnFacility.'
+        'Required parameter facility was null or undefined when calling getServicesBlockedOnFacility.',
       );
     }
 
@@ -5583,7 +5583,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -5660,32 +5660,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getServicesByAttributeDefinition(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getServicesByAttributeDefinition(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getServicesByAttributeDefinition(
     attributeDefinition: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling getServicesByAttributeDefinition.'
+        'Required parameter attributeDefinition was null or undefined when calling getServicesByAttributeDefinition.',
       );
     }
 
@@ -5694,7 +5694,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
 
@@ -5771,32 +5771,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getServicesFromServicesPackage(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getServicesFromServicesPackage(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getServicesFromServicesPackage(
     servicesPackage: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling getServicesFromServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling getServicesFromServicesPackage.',
       );
     }
 
@@ -5805,7 +5805,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
 
@@ -5882,32 +5882,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ServicesPackage>;
   public getServicesPackageById(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ServicesPackage>>;
   public getServicesPackageById(
     servicesPackage: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ServicesPackage>>;
   public getServicesPackageById(
     servicesPackage: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling getServicesPackageById.'
+        'Required parameter servicesPackage was null or undefined when calling getServicesPackageById.',
       );
     }
 
@@ -5916,7 +5916,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
 
@@ -5993,32 +5993,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ServicesPackage>;
   public getServicesPackageByName(
     name: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ServicesPackage>>;
   public getServicesPackageByName(
     name: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ServicesPackage>>;
   public getServicesPackageByName(
     name: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getServicesPackageByName.'
+        'Required parameter name was null or undefined when calling getServicesPackageByName.',
       );
     }
 
@@ -6098,25 +6098,25 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ServicesPackage>>;
   public getServicesPackages(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ServicesPackage>>>;
   public getServicesPackages(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ServicesPackage>>>;
   public getServicesPackages(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -6192,7 +6192,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isServiceBlockedOnDestination(
     service: number,
@@ -6200,7 +6200,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isServiceBlockedOnDestination(
     service: number,
@@ -6208,7 +6208,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isServiceBlockedOnDestination(
     service: number,
@@ -6216,16 +6216,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling isServiceBlockedOnDestination.'
+        'Required parameter service was null or undefined when calling isServiceBlockedOnDestination.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling isServiceBlockedOnDestination.'
+        'Required parameter destination was null or undefined when calling isServiceBlockedOnDestination.',
       );
     }
 
@@ -6234,14 +6234,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -6320,7 +6320,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isServiceBlockedOnFacility(
     service: number,
@@ -6328,7 +6328,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isServiceBlockedOnFacility(
     service: number,
@@ -6336,7 +6336,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isServiceBlockedOnFacility(
     service: number,
@@ -6344,16 +6344,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling isServiceBlockedOnFacility.'
+        'Required parameter service was null or undefined when calling isServiceBlockedOnFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling isServiceBlockedOnFacility.'
+        'Required parameter facility was null or undefined when calling isServiceBlockedOnFacility.',
       );
     }
 
@@ -6362,14 +6362,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6448,7 +6448,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public planServicePropagation(
     service: number,
@@ -6456,7 +6456,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public planServicePropagation(
     service: number,
@@ -6464,7 +6464,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public planServicePropagation(
     service: number,
@@ -6472,11 +6472,11 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling planServicePropagation.'
+        'Required parameter service was null or undefined when calling planServicePropagation.',
       );
     }
 
@@ -6485,14 +6485,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6571,7 +6571,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeAllDestinations(
     service: number,
@@ -6579,7 +6579,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeAllDestinations(
     service: number,
@@ -6587,7 +6587,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeAllDestinations(
     service: number,
@@ -6595,16 +6595,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeAllDestinations.'
+        'Required parameter service was null or undefined when calling removeAllDestinations.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeAllDestinations.'
+        'Required parameter facility was null or undefined when calling removeAllDestinations.',
       );
     }
 
@@ -6613,14 +6613,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6697,32 +6697,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeAllRequiredAttributes(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeAllRequiredAttributes(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeAllRequiredAttributes(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeAllRequiredAttributes.'
+        'Required parameter service was null or undefined when calling removeAllRequiredAttributes.',
       );
     }
 
@@ -6731,7 +6731,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -6814,7 +6814,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeDestination(
     service: number,
@@ -6824,7 +6824,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeDestination(
     service: number,
@@ -6834,7 +6834,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeDestination(
     service: number,
@@ -6844,26 +6844,26 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeDestination.'
+        'Required parameter service was null or undefined when calling removeDestination.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeDestination.'
+        'Required parameter facility was null or undefined when calling removeDestination.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling removeDestination.'
+        'Required parameter destination was null or undefined when calling removeDestination.',
       );
     }
     if (type === null || type === undefined) {
       throw new Error(
-        'Required parameter type was null or undefined when calling removeDestination.'
+        'Required parameter type was null or undefined when calling removeDestination.',
       );
     }
 
@@ -6872,21 +6872,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (type !== undefined && type !== null) {
@@ -6970,7 +6970,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeDestinations(
     service: number,
@@ -6979,7 +6979,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeDestinations(
     service: number,
@@ -6988,7 +6988,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeDestinations(
     service: number,
@@ -6997,21 +6997,21 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeDestinations.'
+        'Required parameter service was null or undefined when calling removeDestinations.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeDestinations.'
+        'Required parameter facility was null or undefined when calling removeDestinations.',
       );
     }
     if (destinations === null || destinations === undefined) {
       throw new Error(
-        'Required parameter destinations was null or undefined when calling removeDestinations.'
+        'Required parameter destinations was null or undefined when calling removeDestinations.',
       );
     }
 
@@ -7020,14 +7020,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (destinations) {
@@ -7035,7 +7035,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'destinations[]'
+          'destinations[]',
         );
       });
     }
@@ -7113,32 +7113,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeDestinationsByRichDestinations(
     InputRemoveRichDestinations: InputRemoveRichDestinations,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeDestinationsByRichDestinations(
     InputRemoveRichDestinations: InputRemoveRichDestinations,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeDestinationsByRichDestinations(
     InputRemoveRichDestinations: InputRemoveRichDestinations,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputRemoveRichDestinations === null || InputRemoveRichDestinations === undefined) {
       throw new Error(
-        'Required parameter InputRemoveRichDestinations was null or undefined when calling removeDestinationsByRichDestinations.'
+        'Required parameter InputRemoveRichDestinations was null or undefined when calling removeDestinationsByRichDestinations.',
       );
     }
 
@@ -7224,7 +7224,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeRequiredAttribute(
     service: number,
@@ -7232,7 +7232,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeRequiredAttribute(
     service: number,
@@ -7240,7 +7240,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeRequiredAttribute(
     service: number,
@@ -7248,16 +7248,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeRequiredAttribute.'
+        'Required parameter service was null or undefined when calling removeRequiredAttribute.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling removeRequiredAttribute.'
+        'Required parameter attributeId was null or undefined when calling removeRequiredAttribute.',
       );
     }
 
@@ -7266,14 +7266,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -7352,7 +7352,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeRequiredAttributes(
     service: number,
@@ -7360,7 +7360,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeRequiredAttributes(
     service: number,
@@ -7368,7 +7368,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeRequiredAttributes(
     service: number,
@@ -7376,16 +7376,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeRequiredAttributes.'
+        'Required parameter service was null or undefined when calling removeRequiredAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeRequiredAttributes.'
+        'Required parameter attributes was null or undefined when calling removeRequiredAttributes.',
       );
     }
 
@@ -7394,7 +7394,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (attributes) {
@@ -7402,7 +7402,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -7482,7 +7482,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeServiceFromServicesPackage(
     servicesPackage: number,
@@ -7490,7 +7490,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeServiceFromServicesPackage(
     servicesPackage: number,
@@ -7498,7 +7498,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeServiceFromServicesPackage(
     servicesPackage: number,
@@ -7506,16 +7506,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling removeServiceFromServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling removeServiceFromServicesPackage.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeServiceFromServicesPackage.'
+        'Required parameter service was null or undefined when calling removeServiceFromServicesPackage.',
       );
     }
 
@@ -7524,14 +7524,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -7608,32 +7608,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockAllServicesOnDestinationById(
     destination: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockAllServicesOnDestinationById(
     destination: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockAllServicesOnDestinationById(
     destination: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling unblockAllServicesOnDestinationById.'
+        'Required parameter destination was null or undefined when calling unblockAllServicesOnDestinationById.',
       );
     }
 
@@ -7642,7 +7642,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -7721,7 +7721,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockAllServicesOnDestinationByName(
     destination: string,
@@ -7729,7 +7729,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockAllServicesOnDestinationByName(
     destination: string,
@@ -7737,7 +7737,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockAllServicesOnDestinationByName(
     destination: string,
@@ -7745,16 +7745,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling unblockAllServicesOnDestinationByName.'
+        'Required parameter destination was null or undefined when calling unblockAllServicesOnDestinationByName.',
       );
     }
     if (destinationType === null || destinationType === undefined) {
       throw new Error(
-        'Required parameter destinationType was null or undefined when calling unblockAllServicesOnDestinationByName.'
+        'Required parameter destinationType was null or undefined when calling unblockAllServicesOnDestinationByName.',
       );
     }
 
@@ -7763,14 +7763,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (destinationType !== undefined && destinationType !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destinationType,
-        'destinationType'
+        'destinationType',
       );
     }
 
@@ -7847,32 +7847,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockAllServicesOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockAllServicesOnFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockAllServicesOnFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling unblockAllServicesOnFacility.'
+        'Required parameter facility was null or undefined when calling unblockAllServicesOnFacility.',
       );
     }
 
@@ -7881,7 +7881,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -7960,7 +7960,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServiceOnDestinationById(
     service: number,
@@ -7968,7 +7968,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServiceOnDestinationById(
     service: number,
@@ -7976,7 +7976,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServiceOnDestinationById(
     service: number,
@@ -7984,16 +7984,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling unblockServiceOnDestinationById.'
+        'Required parameter service was null or undefined when calling unblockServiceOnDestinationById.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling unblockServiceOnDestinationById.'
+        'Required parameter destination was null or undefined when calling unblockServiceOnDestinationById.',
       );
     }
 
@@ -8002,14 +8002,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -8090,7 +8090,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServiceOnDestinationByName(
     service: number,
@@ -8099,7 +8099,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServiceOnDestinationByName(
     service: number,
@@ -8108,7 +8108,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServiceOnDestinationByName(
     service: number,
@@ -8117,21 +8117,21 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling unblockServiceOnDestinationByName.'
+        'Required parameter service was null or undefined when calling unblockServiceOnDestinationByName.',
       );
     }
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling unblockServiceOnDestinationByName.'
+        'Required parameter destination was null or undefined when calling unblockServiceOnDestinationByName.',
       );
     }
     if (destinationType === null || destinationType === undefined) {
       throw new Error(
-        'Required parameter destinationType was null or undefined when calling unblockServiceOnDestinationByName.'
+        'Required parameter destinationType was null or undefined when calling unblockServiceOnDestinationByName.',
       );
     }
 
@@ -8140,21 +8140,21 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destination !== undefined && destination !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
     if (destinationType !== undefined && destinationType !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destinationType,
-        'destinationType'
+        'destinationType',
       );
     }
 
@@ -8233,7 +8233,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServiceOnDestinations(
     service: number,
@@ -8241,7 +8241,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServiceOnDestinations(
     service: number,
@@ -8249,7 +8249,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServiceOnDestinations(
     service: number,
@@ -8257,16 +8257,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling unblockServiceOnDestinations.'
+        'Required parameter service was null or undefined when calling unblockServiceOnDestinations.',
       );
     }
     if (destinations === null || destinations === undefined) {
       throw new Error(
-        'Required parameter destinations was null or undefined when calling unblockServiceOnDestinations.'
+        'Required parameter destinations was null or undefined when calling unblockServiceOnDestinations.',
       );
     }
 
@@ -8275,7 +8275,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (destinations) {
@@ -8283,7 +8283,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'destinations[]'
+          'destinations[]',
         );
       });
     }
@@ -8363,7 +8363,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServiceOnFacility(
     service: number,
@@ -8371,7 +8371,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServiceOnFacility(
     service: number,
@@ -8379,7 +8379,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServiceOnFacility(
     service: number,
@@ -8387,16 +8387,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling unblockServiceOnFacility.'
+        'Required parameter service was null or undefined when calling unblockServiceOnFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling unblockServiceOnFacility.'
+        'Required parameter facility was null or undefined when calling unblockServiceOnFacility.',
       );
     }
 
@@ -8405,14 +8405,14 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -8489,35 +8489,35 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServicesOnDestinations(
     InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServicesOnDestinations(
     InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServicesOnDestinations(
     InputUnlockServicesOnDestinations: InputUnlockServicesOnDestinations,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputUnlockServicesOnDestinations === null ||
       InputUnlockServicesOnDestinations === undefined
     ) {
       throw new Error(
-        'Required parameter InputUnlockServicesOnDestinations was null or undefined when calling unblockServicesOnDestinations.'
+        'Required parameter InputUnlockServicesOnDestinations was null or undefined when calling unblockServicesOnDestinations.',
       );
     }
 
@@ -8603,7 +8603,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockServicesOnFacility(
     services: Array<number>,
@@ -8611,7 +8611,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockServicesOnFacility(
     services: Array<number>,
@@ -8619,7 +8619,7 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockServicesOnFacility(
     services: Array<number>,
@@ -8627,16 +8627,16 @@ export class ServicesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling unblockServicesOnFacility.'
+        'Required parameter services was null or undefined when calling unblockServicesOnFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling unblockServicesOnFacility.'
+        'Required parameter facility was null or undefined when calling unblockServicesOnFacility.',
       );
     }
 
@@ -8646,7 +8646,7 @@ export class ServicesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -8654,7 +8654,7 @@ export class ServicesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -8731,32 +8731,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateService(
     InputUpdateService: InputUpdateService,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateService(
     InputUpdateService: InputUpdateService,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateService(
     InputUpdateService: InputUpdateService,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateService === null || InputUpdateService === undefined) {
       throw new Error(
-        'Required parameter InputUpdateService was null or undefined when calling updateService.'
+        'Required parameter InputUpdateService was null or undefined when calling updateService.',
       );
     }
 
@@ -8840,32 +8840,32 @@ export class ServicesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateServicesPackage(
     InputUpdateServicesPackage: InputUpdateServicesPackage,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateServicesPackage(
     InputUpdateServicesPackage: InputUpdateServicesPackage,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateServicesPackage(
     InputUpdateServicesPackage: InputUpdateServicesPackage,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateServicesPackage === null || InputUpdateServicesPackage === undefined) {
       throw new Error(
-        'Required parameter InputUpdateServicesPackage was null or undefined when calling updateServicesPackage.'
+        'Required parameter InputUpdateServicesPackage was null or undefined when calling updateServicesPackage.',
       );
     }
 

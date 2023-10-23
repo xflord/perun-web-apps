@@ -238,7 +238,7 @@ export class HtmlEscapeService {
   private checkHtmlContent(control: AbstractControl): HtmlEscapedMessage {
     // Remove unsafe tags
     const { escapedHtml, removedTags, removedAttrs, removedStyleProps } = this.escapeDangerousHtml(
-      String(control.value)
+      String(control.value),
     );
     // Check if input is valid
     const htmlInvalidMessage = this.generateErrorTooltip({

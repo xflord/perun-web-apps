@@ -21,7 +21,10 @@ type Ref = MatDialogRef<VoAddMemberDialogComponent | GroupAddMemberDialogCompone
 export class AddMemberService {
   private entityType: 'vo' | 'group';
   private dialogRef: Ref;
-  constructor(private notificator: NotificatorService, private translate: TranslateService) {}
+  constructor(
+    private notificator: NotificatorService,
+    private translate: TranslateService,
+  ) {}
 
   setDialogRef(ref: Ref): void {
     this.dialogRef = ref;

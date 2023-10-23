@@ -44,7 +44,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
     private notificator: NotificatorService,
     private translator: TranslateService,
     private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox
+    private tableCheckbox: TableCheckbox,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -80,9 +80,9 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ResourcesTagsListComponent.getDataForColumn
+        ResourcesTagsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -95,9 +95,9 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ResourcesTagsListComponent.getDataForColumn
+        ResourcesTagsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -108,7 +108,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          ResourcesTagsListComponent.getDataForColumn
+          ResourcesTagsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: ResourceTag[], sort: MatSort): ResourceTag[] =>
         customDataSourceSort(data, sort, ResourcesTagsListComponent.getDataForColumn);
@@ -131,7 +131,7 @@ export class ResourcesTagsListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

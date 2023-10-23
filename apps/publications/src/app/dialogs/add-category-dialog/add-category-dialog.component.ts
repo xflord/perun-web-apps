@@ -21,7 +21,7 @@ export class AddCategoryDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
     private notificator: NotificatorService,
     private cabinetManagerService: CabinetManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.ADD_CATEGORY.SUCCESS')

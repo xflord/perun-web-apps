@@ -10,7 +10,7 @@ export class DisableGroupSelectPipe implements PipeTransform {
     group: Group,
     disableMemberGroup: boolean,
     disableGroup: boolean,
-    disableSet: Set<number>
+    disableSet: Set<number>,
   ): boolean {
     return (
       (disableMemberGroup && group.name === 'members') ||

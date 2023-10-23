@@ -35,7 +35,7 @@ export class FacilitySettingsBansComponent implements OnInit {
   filter = '';
   selection = new SelectionModel<EnrichedBanOnFacility>(false, []);
   attrNames = [Urns.MEMBER_DEF_MAIL, Urns.USER_DEF_PREFERRED_MAIL].concat(
-    this.store.getLoginAttributeNames()
+    this.store.getLoginAttributeNames(),
   );
   displayedColumns: BanOnEntityListColumn[] = [
     'select',
@@ -54,7 +54,7 @@ export class FacilitySettingsBansComponent implements OnInit {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private store: StoreService,
-    private userName: UserFullNamePipe
+    private userName: UserFullNamePipe,
   ) {}
 
   ngOnInit(): void {

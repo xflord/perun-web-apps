@@ -89,7 +89,7 @@ export class AuthzResolverService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -120,7 +120,7 @@ export class AuthzResolverService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -134,8 +134,8 @@ export class AuthzResolverService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -156,25 +156,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<PerunPolicy>>;
   public getAllPolicies(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<PerunPolicy>>>;
   public getAllPolicies(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<PerunPolicy>>>;
   public getAllPolicies(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -246,25 +246,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RoleManagementRules>>;
   public getAllRolesManagementRules(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RoleManagementRules>>>;
   public getAllRolesManagementRules(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RoleManagementRules>>>;
   public getAllRolesManagementRules(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -342,7 +342,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAuthzAdminGroups(
     role: string,
@@ -351,7 +351,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAuthzAdminGroups(
     role: string,
@@ -360,7 +360,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAuthzAdminGroups(
     role: string,
@@ -369,21 +369,21 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (role === null || role === undefined) {
       throw new Error(
-        'Required parameter role was null or undefined when calling getAuthzAdminGroups.'
+        'Required parameter role was null or undefined when calling getAuthzAdminGroups.',
       );
     }
     if (complementaryObjectId === null || complementaryObjectId === undefined) {
       throw new Error(
-        'Required parameter complementaryObjectId was null or undefined when calling getAuthzAdminGroups.'
+        'Required parameter complementaryObjectId was null or undefined when calling getAuthzAdminGroups.',
       );
     }
     if (complementaryObjectName === null || complementaryObjectName === undefined) {
       throw new Error(
-        'Required parameter complementaryObjectName was null or undefined when calling getAuthzAdminGroups.'
+        'Required parameter complementaryObjectName was null or undefined when calling getAuthzAdminGroups.',
       );
     }
 
@@ -395,14 +395,14 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>complementaryObjectId,
-        'complementaryObjectId'
+        'complementaryObjectId',
       );
     }
     if (complementaryObjectName !== undefined && complementaryObjectName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>complementaryObjectName,
-        'complementaryObjectName'
+        'complementaryObjectName',
       );
     }
 
@@ -490,7 +490,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getAuthzRichAdmins(
     role: string,
@@ -502,7 +502,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getAuthzRichAdmins(
     role: string,
@@ -514,7 +514,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getAuthzRichAdmins(
     role: string,
@@ -526,26 +526,26 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (role === null || role === undefined) {
       throw new Error(
-        'Required parameter role was null or undefined when calling getAuthzRichAdmins.'
+        'Required parameter role was null or undefined when calling getAuthzRichAdmins.',
       );
     }
     if (complementaryObjectId === null || complementaryObjectId === undefined) {
       throw new Error(
-        'Required parameter complementaryObjectId was null or undefined when calling getAuthzRichAdmins.'
+        'Required parameter complementaryObjectId was null or undefined when calling getAuthzRichAdmins.',
       );
     }
     if (complementaryObjectName === null || complementaryObjectName === undefined) {
       throw new Error(
-        'Required parameter complementaryObjectName was null or undefined when calling getAuthzRichAdmins.'
+        'Required parameter complementaryObjectName was null or undefined when calling getAuthzRichAdmins.',
       );
     }
     if (specificAttributes === null || specificAttributes === undefined) {
       throw new Error(
-        'Required parameter specificAttributes was null or undefined when calling getAuthzRichAdmins.'
+        'Required parameter specificAttributes was null or undefined when calling getAuthzRichAdmins.',
       );
     }
 
@@ -557,14 +557,14 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>complementaryObjectId,
-        'complementaryObjectId'
+        'complementaryObjectId',
       );
     }
     if (complementaryObjectName !== undefined && complementaryObjectName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>complementaryObjectName,
-        'complementaryObjectName'
+        'complementaryObjectName',
       );
     }
     if (specificAttributes) {
@@ -572,7 +572,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'specificAttributes'
+          'specificAttributes',
         );
       });
     }
@@ -580,14 +580,14 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>allUserAttributes,
-        'allUserAttributes'
+        'allUserAttributes',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -666,7 +666,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesWhereUserIsInRoles(
     roles: Array<string>,
@@ -674,7 +674,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesWhereUserIsInRoles(
     roles: Array<string>,
@@ -682,7 +682,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesWhereUserIsInRoles(
     roles: Array<string>,
@@ -690,11 +690,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getFacilitiesWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getFacilitiesWhereUserIsInRoles.',
       );
     }
 
@@ -707,7 +707,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -785,32 +785,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getGroupRoleNames(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getGroupRoleNames(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getGroupRoleNames(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupRoleNames.'
+        'Required parameter group was null or undefined when calling getGroupRoleNames.',
       );
     }
 
@@ -892,32 +892,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: { [key: string]: Array<number> } }>;
   public getGroupRoles(
     groupId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getGroupRoles(
     groupId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getGroupRoles(
     groupId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
       throw new Error(
-        'Required parameter groupId was null or undefined when calling getGroupRoles.'
+        'Required parameter groupId was null or undefined when calling getGroupRoles.',
       );
     }
 
@@ -926,7 +926,7 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>groupId,
-        'groupId'
+        'groupId',
       );
     }
 
@@ -1005,7 +1005,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1013,7 +1013,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1021,7 +1021,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1029,11 +1029,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getGroupsWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getGroupsWhereUserIsInRoles.',
       );
     }
 
@@ -1046,7 +1046,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -1122,25 +1122,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<User>;
   public getLoggedUser(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<User>>;
   public getLoggedUser(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<User>>;
   public getLoggedUser(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1216,7 +1216,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getMembersWhereUserIsInRoles(
     roles: Array<string>,
@@ -1224,7 +1224,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getMembersWhereUserIsInRoles(
     roles: Array<string>,
@@ -1232,7 +1232,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getMembersWhereUserIsInRoles(
     roles: Array<string>,
@@ -1240,11 +1240,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getMembersWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getMembersWhereUserIsInRoles.',
       );
     }
 
@@ -1257,7 +1257,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -1334,25 +1334,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PerunPrincipal>;
   public getPerunPrincipal(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PerunPrincipal>>;
   public getPerunPrincipal(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PerunPrincipal>>;
   public getPerunPrincipal(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1424,25 +1424,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getPrincipalRoleNames(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getPrincipalRoleNames(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getPrincipalRoleNames(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1518,7 +1518,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResourcesWhereUserIsInRoles(
     roles: Array<string>,
@@ -1526,7 +1526,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResourcesWhereUserIsInRoles(
     roles: Array<string>,
@@ -1534,7 +1534,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResourcesWhereUserIsInRoles(
     roles: Array<string>,
@@ -1542,11 +1542,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getResourcesWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getResourcesWhereUserIsInRoles.',
       );
     }
 
@@ -1559,7 +1559,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -1637,14 +1637,14 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: { [key: string]: { [key: string]: Array<Group> } } }>;
   public getRoleComplementaryObjectsWithAuthorizedGroups(
     userId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<
     HttpResponse<{ [key: string]: { [key: string]: { [key: string]: Array<Group> } } }>
   >;
@@ -1653,18 +1653,18 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: { [key: string]: { [key: string]: Array<Group> } } }>>;
   public getRoleComplementaryObjectsWithAuthorizedGroups(
     userId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getRoleComplementaryObjectsWithAuthorizedGroups.'
+        'Required parameter userId was null or undefined when calling getRoleComplementaryObjectsWithAuthorizedGroups.',
       );
     }
 
@@ -1673,7 +1673,7 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -1754,7 +1754,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<SecurityTeam>>;
   public getSecurityTeamsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1762,7 +1762,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<SecurityTeam>>>;
   public getSecurityTeamsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1770,7 +1770,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<SecurityTeam>>>;
   public getSecurityTeamsWhereUserIsInRoles(
     roles: Array<string>,
@@ -1778,11 +1778,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getSecurityTeamsWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getSecurityTeamsWhereUserIsInRoles.',
       );
     }
 
@@ -1795,7 +1795,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -1873,32 +1873,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: { [key: string]: Array<number> } }>;
   public getUserDirectRoles(
     userId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserDirectRoles(
     userId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserDirectRoles(
     userId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getUserDirectRoles.'
+        'Required parameter userId was null or undefined when calling getUserDirectRoles.',
       );
     }
 
@@ -1907,7 +1907,7 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -1984,32 +1984,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getUserRoleNames(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getUserRoleNames(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getUserRoleNames(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserRoleNames.'
+        'Required parameter user was null or undefined when calling getUserRoleNames.',
       );
     }
 
@@ -2091,28 +2091,28 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: { [key: string]: Array<number> } }>;
   public getUserRoles(
     userId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserRoles(
     userId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserRoles(
     userId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error('Required parameter userId was null or undefined when calling getUserRoles.');
@@ -2123,7 +2123,7 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -2200,32 +2200,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: { [key: string]: Array<number> } }>;
   public getUserRolesObtainedFromAuthorizedGroupMemberships(
     userId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserRolesObtainedFromAuthorizedGroupMemberships(
     userId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: { [key: string]: Array<number> } }>>;
   public getUserRolesObtainedFromAuthorizedGroupMemberships(
     userId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getUserRolesObtainedFromAuthorizedGroupMemberships.'
+        'Required parameter userId was null or undefined when calling getUserRolesObtainedFromAuthorizedGroupMemberships.',
       );
     }
 
@@ -2234,7 +2234,7 @@ export class AuthzResolverService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userId,
-        'userId'
+        'userId',
       );
     }
 
@@ -2313,7 +2313,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getVosWhereUserIsInRoles(
     roles: Array<string>,
@@ -2321,7 +2321,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getVosWhereUserIsInRoles(
     roles: Array<string>,
@@ -2329,7 +2329,7 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getVosWhereUserIsInRoles(
     roles: Array<string>,
@@ -2337,11 +2337,11 @@ export class AuthzResolverService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (roles === null || roles === undefined) {
       throw new Error(
-        'Required parameter roles was null or undefined when calling getVosWhereUserIsInRoles.'
+        'Required parameter roles was null or undefined when calling getVosWhereUserIsInRoles.',
       );
     }
 
@@ -2354,7 +2354,7 @@ export class AuthzResolverService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'roles[]'
+          'roles[]',
         );
       });
     }
@@ -2432,35 +2432,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isFacilityAdmin(
     facility?: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isFacilityAdmin(
     facility?: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isFacilityAdmin(
     facility?: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -2537,28 +2537,28 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isGroupAdmin(
     group?: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isGroupAdmin(
     group?: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isGroupAdmin(
     group?: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (group !== undefined && group !== null) {
@@ -2636,25 +2636,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isPerunAdmin(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isPerunAdmin(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isPerunAdmin(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2728,28 +2728,28 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isVoAdmin(
     vo?: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isVoAdmin(
     vo?: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isVoAdmin(
     vo?: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (vo !== undefined && vo !== null) {
@@ -2827,25 +2827,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<string>;
   public keepAlive(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<string>>;
   public keepAlive(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<string>>;
   public keepAlive(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2917,25 +2917,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public loadAuthorizationComponents(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public loadAuthorizationComponents(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public loadAuthorizationComponents(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -3007,25 +3007,25 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public refreshMfa(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public refreshMfa(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public refreshMfa(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -3099,32 +3099,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleForGroup(
     SetRoleForGroup: SetRoleForGroup,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleForGroup(
     SetRoleForGroup: SetRoleForGroup,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleForGroup(
     SetRoleForGroup: SetRoleForGroup,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (SetRoleForGroup === null || SetRoleForGroup === undefined) {
       throw new Error(
-        'Required parameter SetRoleForGroup was null or undefined when calling setRoleForGroup.'
+        'Required parameter SetRoleForGroup was null or undefined when calling setRoleForGroup.',
       );
     }
 
@@ -3208,32 +3208,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleForUser(
     SetRoleForUser: SetRoleForUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleForUser(
     SetRoleForUser: SetRoleForUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleForUser(
     SetRoleForUser: SetRoleForUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (SetRoleForUser === null || SetRoleForUser === undefined) {
       throw new Error(
-        'Required parameter SetRoleForUser was null or undefined when calling setRoleForUser.'
+        'Required parameter SetRoleForUser was null or undefined when calling setRoleForUser.',
       );
     }
 
@@ -3317,35 +3317,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleWithGroupComplementaryObject(
     SetRoleWithGroupComplementaryObject: SetRoleWithGroupComplementaryObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleWithGroupComplementaryObject(
     SetRoleWithGroupComplementaryObject: SetRoleWithGroupComplementaryObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleWithGroupComplementaryObject(
     SetRoleWithGroupComplementaryObject: SetRoleWithGroupComplementaryObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       SetRoleWithGroupComplementaryObject === null ||
       SetRoleWithGroupComplementaryObject === undefined
     ) {
       throw new Error(
-        'Required parameter SetRoleWithGroupComplementaryObject was null or undefined when calling setRoleWithGroupComplementaryObject.'
+        'Required parameter SetRoleWithGroupComplementaryObject was null or undefined when calling setRoleWithGroupComplementaryObject.',
       );
     }
 
@@ -3429,35 +3429,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleWithGroupComplementaryObjects(
     SetRoleWithGroupComplementaryObjects: SetRoleWithGroupComplementaryObjects,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleWithGroupComplementaryObjects(
     SetRoleWithGroupComplementaryObjects: SetRoleWithGroupComplementaryObjects,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleWithGroupComplementaryObjects(
     SetRoleWithGroupComplementaryObjects: SetRoleWithGroupComplementaryObjects,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       SetRoleWithGroupComplementaryObjects === null ||
       SetRoleWithGroupComplementaryObjects === undefined
     ) {
       throw new Error(
-        'Required parameter SetRoleWithGroupComplementaryObjects was null or undefined when calling setRoleWithGroupComplementaryObjects.'
+        'Required parameter SetRoleWithGroupComplementaryObjects was null or undefined when calling setRoleWithGroupComplementaryObjects.',
       );
     }
 
@@ -3541,35 +3541,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleWithUserComplementaryObject(
     SetRoleWithUserComplementaryObject: SetRoleWithUserComplementaryObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleWithUserComplementaryObject(
     SetRoleWithUserComplementaryObject: SetRoleWithUserComplementaryObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleWithUserComplementaryObject(
     SetRoleWithUserComplementaryObject: SetRoleWithUserComplementaryObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       SetRoleWithUserComplementaryObject === null ||
       SetRoleWithUserComplementaryObject === undefined
     ) {
       throw new Error(
-        'Required parameter SetRoleWithUserComplementaryObject was null or undefined when calling setRoleWithUserComplementaryObject.'
+        'Required parameter SetRoleWithUserComplementaryObject was null or undefined when calling setRoleWithUserComplementaryObject.',
       );
     }
 
@@ -3653,35 +3653,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setRoleWithUserComplementaryObjects(
     SetRoleWithUserComplementaryObjects: SetRoleWithUserComplementaryObjects,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setRoleWithUserComplementaryObjects(
     SetRoleWithUserComplementaryObjects: SetRoleWithUserComplementaryObjects,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setRoleWithUserComplementaryObjects(
     SetRoleWithUserComplementaryObjects: SetRoleWithUserComplementaryObjects,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       SetRoleWithUserComplementaryObjects === null ||
       SetRoleWithUserComplementaryObjects === undefined
     ) {
       throw new Error(
-        'Required parameter SetRoleWithUserComplementaryObjects was null or undefined when calling setRoleWithUserComplementaryObjects.'
+        'Required parameter SetRoleWithUserComplementaryObjects was null or undefined when calling setRoleWithUserComplementaryObjects.',
       );
     }
 
@@ -3765,32 +3765,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleForGroup(
     UnsetRoleForGroup: UnsetRoleForGroup,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleForGroup(
     UnsetRoleForGroup: UnsetRoleForGroup,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleForGroup(
     UnsetRoleForGroup: UnsetRoleForGroup,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (UnsetRoleForGroup === null || UnsetRoleForGroup === undefined) {
       throw new Error(
-        'Required parameter UnsetRoleForGroup was null or undefined when calling unsetRoleForGroup.'
+        'Required parameter UnsetRoleForGroup was null or undefined when calling unsetRoleForGroup.',
       );
     }
 
@@ -3874,32 +3874,32 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleForUser(
     UnsetRoleForUser: UnsetRoleForUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleForUser(
     UnsetRoleForUser: UnsetRoleForUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleForUser(
     UnsetRoleForUser: UnsetRoleForUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (UnsetRoleForUser === null || UnsetRoleForUser === undefined) {
       throw new Error(
-        'Required parameter UnsetRoleForUser was null or undefined when calling unsetRoleForUser.'
+        'Required parameter UnsetRoleForUser was null or undefined when calling unsetRoleForUser.',
       );
     }
 
@@ -3983,35 +3983,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleWithGroupComplementaryObject(
     UnsetRoleWithGroupComplementaryObject: UnsetRoleWithGroupComplementaryObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleWithGroupComplementaryObject(
     UnsetRoleWithGroupComplementaryObject: UnsetRoleWithGroupComplementaryObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleWithGroupComplementaryObject(
     UnsetRoleWithGroupComplementaryObject: UnsetRoleWithGroupComplementaryObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       UnsetRoleWithGroupComplementaryObject === null ||
       UnsetRoleWithGroupComplementaryObject === undefined
     ) {
       throw new Error(
-        'Required parameter UnsetRoleWithGroupComplementaryObject was null or undefined when calling unsetRoleWithGroupComplementaryObject.'
+        'Required parameter UnsetRoleWithGroupComplementaryObject was null or undefined when calling unsetRoleWithGroupComplementaryObject.',
       );
     }
 
@@ -4095,35 +4095,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleWithGroupComplementaryObjects(
     UnsetRoleWithGroupComplementaryObjects: UnsetRoleWithGroupComplementaryObjects,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleWithGroupComplementaryObjects(
     UnsetRoleWithGroupComplementaryObjects: UnsetRoleWithGroupComplementaryObjects,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleWithGroupComplementaryObjects(
     UnsetRoleWithGroupComplementaryObjects: UnsetRoleWithGroupComplementaryObjects,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       UnsetRoleWithGroupComplementaryObjects === null ||
       UnsetRoleWithGroupComplementaryObjects === undefined
     ) {
       throw new Error(
-        'Required parameter UnsetRoleWithGroupComplementaryObjects was null or undefined when calling unsetRoleWithGroupComplementaryObjects.'
+        'Required parameter UnsetRoleWithGroupComplementaryObjects was null or undefined when calling unsetRoleWithGroupComplementaryObjects.',
       );
     }
 
@@ -4207,35 +4207,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleWithUserComplementaryObject(
     UnsetRoleWithUserComplementaryObject: UnsetRoleWithUserComplementaryObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleWithUserComplementaryObject(
     UnsetRoleWithUserComplementaryObject: UnsetRoleWithUserComplementaryObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleWithUserComplementaryObject(
     UnsetRoleWithUserComplementaryObject: UnsetRoleWithUserComplementaryObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       UnsetRoleWithUserComplementaryObject === null ||
       UnsetRoleWithUserComplementaryObject === undefined
     ) {
       throw new Error(
-        'Required parameter UnsetRoleWithUserComplementaryObject was null or undefined when calling unsetRoleWithUserComplementaryObject.'
+        'Required parameter UnsetRoleWithUserComplementaryObject was null or undefined when calling unsetRoleWithUserComplementaryObject.',
       );
     }
 
@@ -4319,35 +4319,35 @@ export class AuthzResolverService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unsetRoleWithUserComplementaryObjects(
     UnsetRoleWithUserComplementaryObjects: UnsetRoleWithUserComplementaryObjects,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unsetRoleWithUserComplementaryObjects(
     UnsetRoleWithUserComplementaryObjects: UnsetRoleWithUserComplementaryObjects,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unsetRoleWithUserComplementaryObjects(
     UnsetRoleWithUserComplementaryObjects: UnsetRoleWithUserComplementaryObjects,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       UnsetRoleWithUserComplementaryObjects === null ||
       UnsetRoleWithUserComplementaryObjects === undefined
     ) {
       throw new Error(
-        'Required parameter UnsetRoleWithUserComplementaryObjects was null or undefined when calling unsetRoleWithUserComplementaryObjects.'
+        'Required parameter UnsetRoleWithUserComplementaryObjects was null or undefined when calling unsetRoleWithUserComplementaryObjects.',
       );
     }
 

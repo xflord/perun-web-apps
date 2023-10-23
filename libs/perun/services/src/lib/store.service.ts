@@ -68,7 +68,7 @@ export class StoreService {
       if (key === 'brandings') continue;
       this.config[key] = this.addMissingValuesToProperty(
         configToMerge[key] as T[K],
-        this.config[key] as T[K]
+        this.config[key] as T[K],
       );
     }
   }
@@ -81,7 +81,7 @@ export class StoreService {
    */
   private addMissingValuesToProperty<T extends object, K extends keyof T>(
     value: T[K],
-    defaultValue: T[K]
+    defaultValue: T[K],
   ): T[K] {
     if (value === null || value === undefined) {
       return defaultValue;

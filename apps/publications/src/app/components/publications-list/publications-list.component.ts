@@ -73,7 +73,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {
     translate
       .get('PUBLICATIONS_LIST.CHANGE_LOCK_SUCCESS')
@@ -131,9 +131,9 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        PublicationsListComponent.getDataForColumn
+        PublicationsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -146,9 +146,9 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        PublicationsListComponent.getDataForColumn
+        PublicationsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -167,7 +167,7 @@ export class PublicationsListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

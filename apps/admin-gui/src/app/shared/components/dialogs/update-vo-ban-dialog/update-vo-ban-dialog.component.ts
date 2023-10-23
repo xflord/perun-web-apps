@@ -17,7 +17,7 @@ export class UpdateVoBanDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: UpdateBanData<BanOnVo>,
     private dialogRef: MatDialogRef<UpdateVoBanDialogComponent>,
     private voService: VosManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   update(banForm: BanForm): void {

@@ -29,7 +29,7 @@ export class UnblockLoginsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: UnblockLoginsDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private usersService: UsersManagerService
+    private usersService: UsersManagerService,
   ) {}
 
   ngOnInit(): void {

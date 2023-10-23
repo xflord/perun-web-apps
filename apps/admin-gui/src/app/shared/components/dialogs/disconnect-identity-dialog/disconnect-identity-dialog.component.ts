@@ -36,7 +36,7 @@ export class DisconnectIdentityDialogComponent implements OnInit {
     public userManager: UsersManagerService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class DisconnectIdentityDialogComponent implements OnInit {
 
     this.userManager.removeSpecificUserOwner(owner, specificUser).subscribe(() => {
       this.notificator.showSuccess(
-        this.translate.instant('DIALOGS.DISCONNECT_IDENTITY.SUCCESS') as string
+        this.translate.instant('DIALOGS.DISCONNECT_IDENTITY.SUCCESS') as string,
       );
       this.dialogRef.close(true);
     });

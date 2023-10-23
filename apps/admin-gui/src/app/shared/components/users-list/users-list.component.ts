@@ -54,7 +54,7 @@ export class UsersListComponent implements OnChanges {
   constructor(
     public authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -113,9 +113,9 @@ export class UsersListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        UsersListComponent.getExportDataForColumn
+        UsersListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -128,9 +128,9 @@ export class UsersListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        UsersListComponent.getExportDataForColumn
+        UsersListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -144,7 +144,7 @@ export class UsersListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          UsersListComponent.getDataForColumn
+          UsersListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: RichUser[], sort: MatSort): RichUser[] =>
         customDataSourceSort(data, sort, UsersListComponent.getDataForColumn);
@@ -165,7 +165,7 @@ export class UsersListComponent implements OnChanges {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.dataSource,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 
@@ -179,7 +179,7 @@ export class UsersListComponent implements OnChanges {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 }

@@ -31,7 +31,7 @@ export class CreateFacilityDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private router: Router,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class CreateFacilityDialogComponent implements OnInit {
         this.facilities = facilities;
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -79,19 +79,19 @@ export class CreateFacilityDialogComponent implements OnInit {
               () => {
                 this.handleSuccess(destFacility);
               },
-              () => (this.loading = false)
+              () => (this.loading = false),
             );
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
   private handleSuccess(facilityId: number): void {
     this.notificator.showSuccess(
-      this.translate.instant('DIALOGS.CREATE_FACILITY.SUCCESS') as string
+      this.translate.instant('DIALOGS.CREATE_FACILITY.SUCCESS') as string,
     );
     if (this.configure) {
       void this.router.navigate(['facilities', facilityId.toString(), 'configuration'], {

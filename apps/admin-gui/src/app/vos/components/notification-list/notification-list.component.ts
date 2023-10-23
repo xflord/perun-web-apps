@@ -56,7 +56,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
     private notificator: NotificatorService,
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
-    private tableCheckbox: TableCheckbox
+    private tableCheckbox: TableCheckbox,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -89,7 +89,7 @@ export class NotificationListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

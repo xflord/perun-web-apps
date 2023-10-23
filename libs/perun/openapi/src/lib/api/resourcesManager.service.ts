@@ -101,7 +101,7 @@ export class ResourcesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -132,7 +132,7 @@ export class ResourcesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -146,8 +146,8 @@ export class ResourcesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -174,7 +174,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public activateGroupResourceAssignment(
     group: number,
@@ -183,7 +183,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public activateGroupResourceAssignment(
     group: number,
@@ -192,7 +192,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public activateGroupResourceAssignment(
     group: number,
@@ -201,16 +201,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling activateGroupResourceAssignment.'
+        'Required parameter group was null or undefined when calling activateGroupResourceAssignment.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling activateGroupResourceAssignment.'
+        'Required parameter resource was null or undefined when calling activateGroupResourceAssignment.',
       );
     }
 
@@ -222,7 +222,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (async !== undefined && async !== null) {
@@ -304,7 +304,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addAdminToGroup(
     resource: number,
@@ -312,7 +312,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addAdminToGroup(
     resource: number,
@@ -320,7 +320,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addAdminToGroup(
     resource: number,
@@ -328,16 +328,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling addAdminToGroup.'
+        'Required parameter resource was null or undefined when calling addAdminToGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling addAdminToGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling addAdminToGroup.',
       );
     }
 
@@ -346,14 +346,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -432,7 +432,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addAdminToUser(
     resource: number,
@@ -440,7 +440,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addAdminToUser(
     resource: number,
@@ -448,7 +448,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addAdminToUser(
     resource: number,
@@ -456,11 +456,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling addAdminToUser.'
+        'Required parameter resource was null or undefined when calling addAdminToUser.',
       );
     }
     if (user === null || user === undefined) {
@@ -472,7 +472,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -554,7 +554,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addResourceSelfServiceGroup(
     resource: number,
@@ -562,7 +562,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addResourceSelfServiceGroup(
     resource: number,
@@ -570,7 +570,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addResourceSelfServiceGroup(
     resource: number,
@@ -578,16 +578,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling addResourceSelfServiceGroup.'
+        'Required parameter resource was null or undefined when calling addResourceSelfServiceGroup.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling addResourceSelfServiceGroup.'
+        'Required parameter group was null or undefined when calling addResourceSelfServiceGroup.',
       );
     }
 
@@ -596,7 +596,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -678,7 +678,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addResourceSelfServiceUser(
     resource: number,
@@ -686,7 +686,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addResourceSelfServiceUser(
     resource: number,
@@ -694,7 +694,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addResourceSelfServiceUser(
     resource: number,
@@ -702,16 +702,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling addResourceSelfServiceUser.'
+        'Required parameter resource was null or undefined when calling addResourceSelfServiceUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling addResourceSelfServiceUser.'
+        'Required parameter user was null or undefined when calling addResourceSelfServiceUser.',
       );
     }
 
@@ -720,7 +720,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -804,7 +804,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public allowGroupsToResources(
     groups: Array<number>,
@@ -813,7 +813,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public allowGroupsToResources(
     groups: Array<number>,
@@ -822,7 +822,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public allowGroupsToResources(
     groups: Array<number>,
@@ -831,16 +831,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling allowGroupsToResources.'
+        'Required parameter groups was null or undefined when calling allowGroupsToResources.',
       );
     }
     if (resources === null || resources === undefined) {
       throw new Error(
-        'Required parameter resources was null or undefined when calling allowGroupsToResources.'
+        'Required parameter resources was null or undefined when calling allowGroupsToResources.',
       );
     }
 
@@ -850,7 +850,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -859,7 +859,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'resources[]'
+          'resources[]',
         );
       });
     }
@@ -948,7 +948,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignGroupToResource(
     group: number,
@@ -959,7 +959,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignGroupToResource(
     group: number,
@@ -970,7 +970,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignGroupToResource(
     group: number,
@@ -981,16 +981,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling assignGroupToResource.'
+        'Required parameter group was null or undefined when calling assignGroupToResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling assignGroupToResource.'
+        'Required parameter resource was null or undefined when calling assignGroupToResource.',
       );
     }
 
@@ -1002,7 +1002,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (async !== undefined && async !== null) {
@@ -1012,14 +1012,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>assignInactive,
-        'assignInactive'
+        'assignInactive',
       );
     }
     if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>autoAssignSubgroups,
-        'autoAssignSubgroups'
+        'autoAssignSubgroups',
       );
     }
 
@@ -1104,7 +1104,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignGroupToResources(
     group: number,
@@ -1115,7 +1115,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignGroupToResources(
     group: number,
@@ -1126,7 +1126,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignGroupToResources(
     group: number,
@@ -1137,16 +1137,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling assignGroupToResources.'
+        'Required parameter group was null or undefined when calling assignGroupToResources.',
       );
     }
     if (resources === null || resources === undefined) {
       throw new Error(
-        'Required parameter resources was null or undefined when calling assignGroupToResources.'
+        'Required parameter resources was null or undefined when calling assignGroupToResources.',
       );
     }
 
@@ -1159,7 +1159,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'resources[]'
+          'resources[]',
         );
       });
     }
@@ -1170,14 +1170,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>assignInactive,
-        'assignInactive'
+        'assignInactive',
       );
     }
     if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>autoAssignSubgroups,
-        'autoAssignSubgroups'
+        'autoAssignSubgroups',
       );
     }
 
@@ -1262,7 +1262,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignGroupsToResource(
     groups: Array<number>,
@@ -1273,7 +1273,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignGroupsToResource(
     groups: Array<number>,
@@ -1284,7 +1284,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignGroupsToResource(
     groups: Array<number>,
@@ -1295,16 +1295,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling assignGroupsToResource.'
+        'Required parameter groups was null or undefined when calling assignGroupsToResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling assignGroupsToResource.'
+        'Required parameter resource was null or undefined when calling assignGroupsToResource.',
       );
     }
 
@@ -1314,7 +1314,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -1322,7 +1322,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (async !== undefined && async !== null) {
@@ -1332,14 +1332,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>assignInactive,
-        'assignInactive'
+        'assignInactive',
       );
     }
     if (autoAssignSubgroups !== undefined && autoAssignSubgroups !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>autoAssignSubgroups,
-        'autoAssignSubgroups'
+        'autoAssignSubgroups',
       );
     }
 
@@ -1416,35 +1416,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignResourceTagToResource(
     InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignResourceTagToResource(
     InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignResourceTagToResource(
     InputAssignResourceTagToResource: InputAssignResourceTagToResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputAssignResourceTagToResource === null ||
       InputAssignResourceTagToResource === undefined
     ) {
       throw new Error(
-        'Required parameter InputAssignResourceTagToResource was null or undefined when calling assignResourceTagToResource.'
+        'Required parameter InputAssignResourceTagToResource was null or undefined when calling assignResourceTagToResource.',
       );
     }
 
@@ -1528,35 +1528,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignResourceTagsToResource(
     InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignResourceTagsToResource(
     InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignResourceTagsToResource(
     InputAssignResourceTagsToResource: InputAssignResourceTagsToResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputAssignResourceTagsToResource === null ||
       InputAssignResourceTagsToResource === undefined
     ) {
       throw new Error(
-        'Required parameter InputAssignResourceTagsToResource was null or undefined when calling assignResourceTagsToResource.'
+        'Required parameter InputAssignResourceTagsToResource was null or undefined when calling assignResourceTagsToResource.',
       );
     }
 
@@ -1642,7 +1642,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignService(
     resource: number,
@@ -1650,7 +1650,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignService(
     resource: number,
@@ -1658,7 +1658,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignService(
     resource: number,
@@ -1666,16 +1666,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling assignService.'
+        'Required parameter resource was null or undefined when calling assignService.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling assignService.'
+        'Required parameter service was null or undefined when calling assignService.',
       );
     }
 
@@ -1684,14 +1684,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -1770,7 +1770,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignServices(
     resource: number,
@@ -1778,7 +1778,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignServices(
     resource: number,
@@ -1786,7 +1786,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignServices(
     resource: number,
@@ -1794,16 +1794,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling assignServices.'
+        'Required parameter resource was null or undefined when calling assignServices.',
       );
     }
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling assignServices.'
+        'Required parameter services was null or undefined when calling assignServices.',
       );
     }
 
@@ -1812,7 +1812,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (services) {
@@ -1820,7 +1820,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -1900,7 +1900,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignServicesPackage(
     resource: number,
@@ -1908,7 +1908,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignServicesPackage(
     resource: number,
@@ -1916,7 +1916,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignServicesPackage(
     resource: number,
@@ -1924,16 +1924,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling assignServicesPackage.'
+        'Required parameter resource was null or undefined when calling assignServicesPackage.',
       );
     }
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling assignServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling assignServicesPackage.',
       );
     }
 
@@ -1942,14 +1942,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (servicesPackage !== undefined && servicesPackage !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
 
@@ -2026,32 +2026,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Resource>;
   public copyResource(
     InputCopyResource: InputCopyResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Resource>>;
   public copyResource(
     InputCopyResource: InputCopyResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Resource>>;
   public copyResource(
     InputCopyResource: InputCopyResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCopyResource === null || InputCopyResource === undefined) {
       throw new Error(
-        'Required parameter InputCopyResource was null or undefined when calling copyResource.'
+        'Required parameter InputCopyResource was null or undefined when calling copyResource.',
       );
     }
 
@@ -2141,7 +2141,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Resource>;
   public createResource(
     vo: number,
@@ -2151,7 +2151,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Resource>>;
   public createResource(
     vo: number,
@@ -2161,7 +2161,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Resource>>;
   public createResource(
     vo: number,
@@ -2171,14 +2171,14 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling createResource.');
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling createResource.'
+        'Required parameter facility was null or undefined when calling createResource.',
       );
     }
     if (name === null || name === undefined) {
@@ -2193,7 +2193,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (name !== undefined && name !== null) {
@@ -2203,7 +2203,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
 
@@ -2280,35 +2280,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ResourceTag>;
   public createResourceTagWithResourceTag(
     InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ResourceTag>>;
   public createResourceTagWithResourceTag(
     InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ResourceTag>>;
   public createResourceTagWithResourceTag(
     InputCreateResourceTagWithResourceTag: InputCreateResourceTagWithResourceTag,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputCreateResourceTagWithResourceTag === null ||
       InputCreateResourceTagWithResourceTag === undefined
     ) {
       throw new Error(
-        'Required parameter InputCreateResourceTagWithResourceTag was null or undefined when calling createResourceTagWithResourceTag.'
+        'Required parameter InputCreateResourceTagWithResourceTag was null or undefined when calling createResourceTagWithResourceTag.',
       );
     }
 
@@ -2394,7 +2394,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ResourceTag>;
   public createResourceTagWithTagName(
     tagName: string,
@@ -2402,7 +2402,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ResourceTag>>;
   public createResourceTagWithTagName(
     tagName: string,
@@ -2410,7 +2410,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ResourceTag>>;
   public createResourceTagWithTagName(
     tagName: string,
@@ -2418,16 +2418,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (tagName === null || tagName === undefined) {
       throw new Error(
-        'Required parameter tagName was null or undefined when calling createResourceTagWithTagName.'
+        'Required parameter tagName was null or undefined when calling createResourceTagWithTagName.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling createResourceTagWithTagName.'
+        'Required parameter vo was null or undefined when calling createResourceTagWithTagName.',
       );
     }
 
@@ -2436,7 +2436,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>tagName,
-        'tagName'
+        'tagName',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -2518,7 +2518,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deactivateGroupResourceAssignment(
     group: number,
@@ -2526,7 +2526,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deactivateGroupResourceAssignment(
     group: number,
@@ -2534,7 +2534,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deactivateGroupResourceAssignment(
     group: number,
@@ -2542,16 +2542,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling deactivateGroupResourceAssignment.'
+        'Required parameter group was null or undefined when calling deactivateGroupResourceAssignment.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling deactivateGroupResourceAssignment.'
+        'Required parameter resource was null or undefined when calling deactivateGroupResourceAssignment.',
       );
     }
 
@@ -2563,7 +2563,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -2640,32 +2640,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAllResources(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAllResources(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAllResources(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling deleteAllResources.'
+        'Required parameter vo was null or undefined when calling deleteAllResources.',
       );
     }
 
@@ -2747,32 +2747,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAllResourcesTagsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAllResourcesTagsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAllResourcesTagsForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling deleteAllResourcesTagsForVo.'
+        'Required parameter vo was null or undefined when calling deleteAllResourcesTagsForVo.',
       );
     }
 
@@ -2854,32 +2854,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling deleteResource.'
+        'Required parameter resource was null or undefined when calling deleteResource.',
       );
     }
 
@@ -2888,7 +2888,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -2965,32 +2965,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteResourceTag(
     InputDeleteResourceTag: InputDeleteResourceTag,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteResourceTag(
     InputDeleteResourceTag: InputDeleteResourceTag,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteResourceTag(
     InputDeleteResourceTag: InputDeleteResourceTag,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputDeleteResourceTag === null || InputDeleteResourceTag === undefined) {
       throw new Error(
-        'Required parameter InputDeleteResourceTag was null or undefined when calling deleteResourceTag.'
+        'Required parameter InputDeleteResourceTag was null or undefined when calling deleteResourceTag.',
       );
     }
 
@@ -3074,32 +3074,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAdminGroups(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAdminGroups(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAdminGroups(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAdminGroups.'
+        'Required parameter resource was null or undefined when calling getAdminGroups.',
       );
     }
 
@@ -3108,7 +3108,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -3188,7 +3188,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAdmins(
     resource: number,
@@ -3196,7 +3196,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAdmins(
     resource: number,
@@ -3204,7 +3204,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAdmins(
     resource: number,
@@ -3212,14 +3212,14 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error('Required parameter resource was null or undefined when calling getAdmins.');
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getAdmins.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getAdmins.',
       );
     }
 
@@ -3228,14 +3228,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -3310,25 +3310,25 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAllResources(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAllResources(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAllResources(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -3402,35 +3402,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAllResourcesByResourceTag(
     InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAllResourcesByResourceTag(
     InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAllResourcesByResourceTag(
     InputGetAllResourcesByResourceTag: InputGetAllResourcesByResourceTag,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputGetAllResourcesByResourceTag === null ||
       InputGetAllResourcesByResourceTag === undefined
     ) {
       throw new Error(
-        'Required parameter InputGetAllResourcesByResourceTag was null or undefined when calling getAllResourcesByResourceTag.'
+        'Required parameter InputGetAllResourcesByResourceTag was null or undefined when calling getAllResourcesByResourceTag.',
       );
     }
 
@@ -3514,32 +3514,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ResourceTag>>;
   public getAllResourcesTagsForResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ResourceTag>>>;
   public getAllResourcesTagsForResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ResourceTag>>>;
   public getAllResourcesTagsForResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAllResourcesTagsForResource.'
+        'Required parameter resource was null or undefined when calling getAllResourcesTagsForResource.',
       );
     }
 
@@ -3548,7 +3548,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -3625,32 +3625,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ResourceTag>>;
   public getAllResourcesTagsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ResourceTag>>>;
   public getAllResourcesTagsForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ResourceTag>>>;
   public getAllResourcesTagsForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getAllResourcesTagsForVo.'
+        'Required parameter vo was null or undefined when calling getAllResourcesTagsForVo.',
       );
     }
 
@@ -3732,32 +3732,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAllResourcesWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAllResourcesWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAllResourcesWhereUserIsAdmin(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getAllResourcesWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getAllResourcesWhereUserIsAdmin.',
       );
     }
 
@@ -3839,32 +3839,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getAllowedMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getAllowedMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getAllowedMembers(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAllowedMembers.'
+        'Required parameter resource was null or undefined when calling getAllowedMembers.',
       );
     }
 
@@ -3873,7 +3873,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -3950,32 +3950,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAllowedResources(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAllowedResources(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAllowedResources(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAllowedResources.'
+        'Required parameter member was null or undefined when calling getAllowedResources.',
       );
     }
 
@@ -3984,7 +3984,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4061,32 +4061,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAllowedUsersOfResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAllowedUsersOfResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAllowedUsersOfResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAllowedUsersOfResource.'
+        'Required parameter resource was null or undefined when calling getAllowedUsersOfResource.',
       );
     }
 
@@ -4095,7 +4095,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -4174,7 +4174,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAssignedGroups(
     resource: number,
@@ -4182,7 +4182,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAssignedGroups(
     resource: number,
@@ -4190,7 +4190,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAssignedGroups(
     resource: number,
@@ -4198,11 +4198,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAssignedGroups.'
+        'Required parameter resource was null or undefined when calling getAssignedGroups.',
       );
     }
 
@@ -4211,14 +4211,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (member !== undefined && member !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4295,32 +4295,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getAssignedMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getAssignedMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getAssignedMembers(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAssignedMembers.'
+        'Required parameter resource was null or undefined when calling getAssignedMembers.',
       );
     }
 
@@ -4329,7 +4329,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -4406,32 +4406,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AssignedMember>>;
   public getAssignedMembersWithStatus(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AssignedMember>>>;
   public getAssignedMembersWithStatus(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AssignedMember>>>;
   public getAssignedMembersWithStatus(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAssignedMembersWithStatus.'
+        'Required parameter resource was null or undefined when calling getAssignedMembersWithStatus.',
       );
     }
 
@@ -4440,7 +4440,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -4517,32 +4517,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResourcesWithGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResourcesWithGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResourcesWithGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getAssignedResourcesWithGroup.'
+        'Required parameter group was null or undefined when calling getAssignedResourcesWithGroup.',
       );
     }
 
@@ -4624,32 +4624,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResourcesWithMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAssignedResourcesWithMember.'
+        'Required parameter member was null or undefined when calling getAssignedResourcesWithMember.',
       );
     }
 
@@ -4658,7 +4658,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4735,32 +4735,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AssignedResource>>;
   public getAssignedResourcesWithStatus(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AssignedResource>>>;
   public getAssignedResourcesWithStatus(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AssignedResource>>>;
   public getAssignedResourcesWithStatus(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAssignedResourcesWithStatus.'
+        'Required parameter member was null or undefined when calling getAssignedResourcesWithStatus.',
       );
     }
 
@@ -4769,7 +4769,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4846,32 +4846,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichMember>>;
   public getAssignedRichMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichMember>>>;
   public getAssignedRichMembers(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichMember>>>;
   public getAssignedRichMembers(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAssignedRichMembers.'
+        'Required parameter resource was null or undefined when calling getAssignedRichMembers.',
       );
     }
 
@@ -4880,7 +4880,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -4957,32 +4957,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesWithGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesWithGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesWithGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getAssignedRichResourcesWithGroup.'
+        'Required parameter group was null or undefined when calling getAssignedRichResourcesWithGroup.',
       );
     }
 
@@ -5064,32 +5064,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesWithMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAssignedRichResourcesWithMember.'
+        'Required parameter member was null or undefined when calling getAssignedRichResourcesWithMember.',
       );
     }
 
@@ -5098,7 +5098,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -5177,7 +5177,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesWithMemberService(
     member: number,
@@ -5185,7 +5185,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesWithMemberService(
     member: number,
@@ -5193,7 +5193,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesWithMemberService(
     member: number,
@@ -5201,16 +5201,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAssignedRichResourcesWithMemberService.'
+        'Required parameter member was null or undefined when calling getAssignedRichResourcesWithMemberService.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAssignedRichResourcesWithMemberService.'
+        'Required parameter service was null or undefined when calling getAssignedRichResourcesWithMemberService.',
       );
     }
 
@@ -5219,14 +5219,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -5303,32 +5303,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Service>>;
   public getAssignedServicesToResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Service>>>;
   public getAssignedServicesToResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Service>>>;
   public getAssignedServicesToResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getAssignedServicesToResource.'
+        'Required parameter resource was null or undefined when calling getAssignedServicesToResource.',
       );
     }
 
@@ -5337,7 +5337,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -5414,32 +5414,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BanOnResource>>;
   public getBansForMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BanOnResource>>>;
   public getBansForMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BanOnResource>>>;
   public getBansForMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getBansForMember.'
+        'Required parameter member was null or undefined when calling getBansForMember.',
       );
     }
 
@@ -5448,7 +5448,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -5525,32 +5525,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BanOnResource>>;
   public getBansForResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BanOnResource>>>;
   public getBansForResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BanOnResource>>>;
   public getBansForResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getBansForResource.'
+        'Required parameter resource was null or undefined when calling getBansForResource.',
       );
     }
 
@@ -5559,7 +5559,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -5638,7 +5638,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnResource>>;
   public getEnrichedBansForResource(
     resource: number,
@@ -5646,7 +5646,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnResource>>>;
   public getEnrichedBansForResource(
     resource: number,
@@ -5654,7 +5654,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnResource>>>;
   public getEnrichedBansForResource(
     resource: number,
@@ -5662,11 +5662,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getEnrichedBansForResource.'
+        'Required parameter resource was null or undefined when calling getEnrichedBansForResource.',
       );
     }
 
@@ -5675,7 +5675,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attrNames) {
@@ -5683,7 +5683,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -5763,7 +5763,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnResource>>;
   public getEnrichedBansForUser(
     user: number,
@@ -5771,7 +5771,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnResource>>>;
   public getEnrichedBansForUser(
     user: number,
@@ -5779,7 +5779,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnResource>>>;
   public getEnrichedBansForUser(
     user: number,
@@ -5787,11 +5787,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getEnrichedBansForUser.'
+        'Required parameter user was null or undefined when calling getEnrichedBansForUser.',
       );
     }
 
@@ -5804,7 +5804,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -5884,7 +5884,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<EnrichedResource>;
   public getEnrichedResourceById(
     id: number,
@@ -5892,7 +5892,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<EnrichedResource>>;
   public getEnrichedResourceById(
     id: number,
@@ -5900,7 +5900,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<EnrichedResource>>;
   public getEnrichedResourceById(
     id: number,
@@ -5908,11 +5908,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getEnrichedResourceById.'
+        'Required parameter id was null or undefined when calling getEnrichedResourceById.',
       );
     }
 
@@ -5925,7 +5925,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -6005,7 +6005,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedResource>>;
   public getEnrichedResourcesForFacility(
     facility: number,
@@ -6013,7 +6013,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedResource>>>;
   public getEnrichedResourcesForFacility(
     facility: number,
@@ -6021,7 +6021,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedResource>>>;
   public getEnrichedResourcesForFacility(
     facility: number,
@@ -6029,11 +6029,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getEnrichedResourcesForFacility.'
+        'Required parameter facility was null or undefined when calling getEnrichedResourcesForFacility.',
       );
     }
 
@@ -6042,7 +6042,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -6050,7 +6050,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -6130,7 +6130,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedResource>>;
   public getEnrichedResourcesForVo(
     vo: number,
@@ -6138,7 +6138,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedResource>>>;
   public getEnrichedResourcesForVo(
     vo: number,
@@ -6146,7 +6146,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedResource>>>;
   public getEnrichedResourcesForVo(
     vo: number,
@@ -6154,11 +6154,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getEnrichedResourcesForVo.'
+        'Required parameter vo was null or undefined when calling getEnrichedResourcesForVo.',
       );
     }
 
@@ -6171,7 +6171,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -6249,32 +6249,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public getFacility(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public getFacility(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public getFacility(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getFacility.'
+        'Required parameter resource was null or undefined when calling getFacility.',
       );
     }
 
@@ -6283,7 +6283,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -6362,7 +6362,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AssignedGroup>>;
   public getGroupAssignments(
     resource: number,
@@ -6370,7 +6370,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AssignedGroup>>>;
   public getGroupAssignments(
     resource: number,
@@ -6378,7 +6378,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AssignedGroup>>>;
   public getGroupAssignments(
     resource: number,
@@ -6386,11 +6386,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getGroupAssignments.'
+        'Required parameter resource was null or undefined when calling getGroupAssignments.',
       );
     }
 
@@ -6399,7 +6399,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attrNames) {
@@ -6407,7 +6407,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -6485,32 +6485,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getMailingServiceRichResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getMailingServiceRichResourcesWithMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getMailingServiceRichResourcesWithMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMailingServiceRichResourcesWithMember.'
+        'Required parameter member was null or undefined when calling getMailingServiceRichResourcesWithMember.',
       );
     }
 
@@ -6519,7 +6519,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -6598,7 +6598,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AssignedResource>>;
   public getResourceAssignments(
     group: number,
@@ -6606,7 +6606,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AssignedResource>>>;
   public getResourceAssignments(
     group: number,
@@ -6614,7 +6614,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AssignedResource>>>;
   public getResourceAssignments(
     group: number,
@@ -6622,11 +6622,11 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourceAssignments.'
+        'Required parameter group was null or undefined when calling getResourceAssignments.',
       );
     }
 
@@ -6639,7 +6639,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -6719,7 +6719,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnResource>;
   public getResourceBan(
     member: number,
@@ -6727,7 +6727,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnResource>>;
   public getResourceBan(
     member: number,
@@ -6735,7 +6735,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnResource>>;
   public getResourceBan(
     member: number,
@@ -6743,16 +6743,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getResourceBan.'
+        'Required parameter member was null or undefined when calling getResourceBan.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceBan.'
+        'Required parameter resource was null or undefined when calling getResourceBan.',
       );
     }
 
@@ -6761,14 +6761,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -6845,32 +6845,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnResource>;
   public getResourceBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnResource>>;
   public getResourceBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnResource>>;
   public getResourceBanById(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error(
-        'Required parameter banId was null or undefined when calling getResourceBanById.'
+        'Required parameter banId was null or undefined when calling getResourceBanById.',
       );
     }
 
@@ -6952,28 +6952,28 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Resource>;
   public getResourceById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Resource>>;
   public getResourceById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Resource>>;
   public getResourceById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getResourceById.');
@@ -7061,7 +7061,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Resource>;
   public getResourceByName(
     vo: number,
@@ -7070,7 +7070,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Resource>>;
   public getResourceByName(
     vo: number,
@@ -7079,7 +7079,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Resource>>;
   public getResourceByName(
     vo: number,
@@ -7088,21 +7088,21 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getResourceByName.'
+        'Required parameter vo was null or undefined when calling getResourceByName.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getResourceByName.'
+        'Required parameter facility was null or undefined when calling getResourceByName.',
       );
     }
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getResourceByName.'
+        'Required parameter name was null or undefined when calling getResourceByName.',
       );
     }
 
@@ -7114,7 +7114,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (name !== undefined && name !== null) {
@@ -7194,28 +7194,28 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResources(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResources(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResources(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getResources.');
@@ -7299,32 +7299,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResourcesByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getResourcesByIds.'
+        'Required parameter ids was null or undefined when calling getResourcesByIds.',
       );
     }
 
@@ -7334,7 +7334,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -7410,25 +7410,25 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getResourcesCountForAll(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getResourcesCountForAll(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getResourcesCountForAll(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -7502,32 +7502,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getResourcesCountForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getResourcesCountForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getResourcesCountForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getResourcesCountForVo.'
+        'Required parameter vo was null or undefined when calling getResourcesCountForVo.',
       );
     }
 
@@ -7611,7 +7611,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResourcesFromVoWhereUserIsAdmin(
     vo: number,
@@ -7619,7 +7619,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResourcesFromVoWhereUserIsAdmin(
     vo: number,
@@ -7627,7 +7627,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResourcesFromVoWhereUserIsAdmin(
     vo: number,
@@ -7635,16 +7635,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getResourcesFromVoWhereUserIsAdmin.'
+        'Required parameter vo was null or undefined when calling getResourcesFromVoWhereUserIsAdmin.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getResourcesFromVoWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getResourcesFromVoWhereUserIsAdmin.',
       );
     }
 
@@ -7733,7 +7733,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResourcesWhereGroupIsAdmin(
     facility: number,
@@ -7742,7 +7742,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResourcesWhereGroupIsAdmin(
     facility: number,
@@ -7751,7 +7751,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResourcesWhereGroupIsAdmin(
     facility: number,
@@ -7760,21 +7760,21 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getResourcesWhereGroupIsAdmin.'
+        'Required parameter facility was null or undefined when calling getResourcesWhereGroupIsAdmin.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getResourcesWhereGroupIsAdmin.'
+        'Required parameter vo was null or undefined when calling getResourcesWhereGroupIsAdmin.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourcesWhereGroupIsAdmin.'
+        'Required parameter group was null or undefined when calling getResourcesWhereGroupIsAdmin.',
       );
     }
 
@@ -7783,7 +7783,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -7870,7 +7870,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getResourcesWhereUserIsAdmin(
     facility: number,
@@ -7879,7 +7879,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getResourcesWhereUserIsAdmin(
     facility: number,
@@ -7888,7 +7888,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getResourcesWhereUserIsAdmin(
     facility: number,
@@ -7897,21 +7897,21 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getResourcesWhereUserIsAdmin.'
+        'Required parameter facility was null or undefined when calling getResourcesWhereUserIsAdmin.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getResourcesWhereUserIsAdmin.'
+        'Required parameter vo was null or undefined when calling getResourcesWhereUserIsAdmin.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getResourcesWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getResourcesWhereUserIsAdmin.',
       );
     }
 
@@ -7920,7 +7920,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -8009,7 +8009,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getRichAdmins(
     resource: number,
@@ -8019,7 +8019,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getRichAdmins(
     resource: number,
@@ -8029,7 +8029,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getRichAdmins(
     resource: number,
@@ -8039,26 +8039,26 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRichAdmins.'
+        'Required parameter resource was null or undefined when calling getRichAdmins.',
       );
     }
     if (specificAttributes === null || specificAttributes === undefined) {
       throw new Error(
-        'Required parameter specificAttributes was null or undefined when calling getRichAdmins.'
+        'Required parameter specificAttributes was null or undefined when calling getRichAdmins.',
       );
     }
     if (allUserAttributes === null || allUserAttributes === undefined) {
       throw new Error(
-        'Required parameter allUserAttributes was null or undefined when calling getRichAdmins.'
+        'Required parameter allUserAttributes was null or undefined when calling getRichAdmins.',
       );
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getRichAdmins.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getRichAdmins.',
       );
     }
 
@@ -8067,7 +8067,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (specificAttributes) {
@@ -8075,7 +8075,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'specificAttributes'
+          'specificAttributes',
         );
       });
     }
@@ -8083,14 +8083,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>allUserAttributes,
-        'allUserAttributes'
+        'allUserAttributes',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -8167,32 +8167,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichResource>;
   public getRichResourceById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichResource>>;
   public getRichResourceById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichResource>>;
   public getRichResourceById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getRichResourceById.'
+        'Required parameter id was null or undefined when calling getRichResourceById.',
       );
     }
 
@@ -8274,28 +8274,28 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getRichResources(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getRichResources(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getRichResources(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getRichResources.');
@@ -8379,32 +8379,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getRichResourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getRichResourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getRichResourcesByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getRichResourcesByIds.'
+        'Required parameter ids was null or undefined when calling getRichResourcesByIds.',
       );
     }
 
@@ -8414,7 +8414,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -8492,28 +8492,28 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public getVo(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public getVo(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public getVo(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error('Required parameter resource was null or undefined when calling getVo.');
@@ -8524,7 +8524,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -8601,32 +8601,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeAllResourceTagsFromResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeAllResourceTagsFromResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeAllResourceTagsFromResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeAllResourceTagsFromResource.'
+        'Required parameter resource was null or undefined when calling removeAllResourceTagsFromResource.',
       );
     }
 
@@ -8635,7 +8635,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -8714,7 +8714,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeBanByMemberAndResource(
     member: number,
@@ -8722,7 +8722,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeBanByMemberAndResource(
     member: number,
@@ -8730,7 +8730,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeBanByMemberAndResource(
     member: number,
@@ -8738,16 +8738,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeBanByMemberAndResource.'
+        'Required parameter member was null or undefined when calling removeBanByMemberAndResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeBanByMemberAndResource.'
+        'Required parameter resource was null or undefined when calling removeBanByMemberAndResource.',
       );
     }
 
@@ -8756,14 +8756,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -8842,7 +8842,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupAdminResource(
     resource: number,
@@ -8850,7 +8850,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupAdminResource(
     resource: number,
@@ -8858,7 +8858,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupAdminResource(
     resource: number,
@@ -8866,16 +8866,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupAdminResource.'
+        'Required parameter resource was null or undefined when calling removeGroupAdminResource.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling removeGroupAdminResource.'
+        'Required parameter authorizedGroup was null or undefined when calling removeGroupAdminResource.',
       );
     }
 
@@ -8884,14 +8884,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -8970,7 +8970,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupFromResource(
     group: number,
@@ -8978,7 +8978,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupFromResource(
     group: number,
@@ -8986,7 +8986,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupFromResource(
     group: number,
@@ -8994,16 +8994,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupFromResource.'
+        'Required parameter group was null or undefined when calling removeGroupFromResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupFromResource.'
+        'Required parameter resource was null or undefined when calling removeGroupFromResource.',
       );
     }
 
@@ -9015,7 +9015,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -9094,7 +9094,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupFromResources(
     group: number,
@@ -9102,7 +9102,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupFromResources(
     group: number,
@@ -9110,7 +9110,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupFromResources(
     group: number,
@@ -9118,16 +9118,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupFromResources.'
+        'Required parameter group was null or undefined when calling removeGroupFromResources.',
       );
     }
     if (resources === null || resources === undefined) {
       throw new Error(
-        'Required parameter resources was null or undefined when calling removeGroupFromResources.'
+        'Required parameter resources was null or undefined when calling removeGroupFromResources.',
       );
     }
 
@@ -9140,7 +9140,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'resources[]'
+          'resources[]',
         );
       });
     }
@@ -9220,7 +9220,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupsFromResource(
     groups: Array<number>,
@@ -9228,7 +9228,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupsFromResource(
     groups: Array<number>,
@@ -9236,7 +9236,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupsFromResource(
     groups: Array<number>,
@@ -9244,16 +9244,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling removeGroupsFromResource.'
+        'Required parameter groups was null or undefined when calling removeGroupsFromResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupsFromResource.'
+        'Required parameter resource was null or undefined when calling removeGroupsFromResource.',
       );
     }
 
@@ -9263,7 +9263,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -9271,7 +9271,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -9348,32 +9348,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceBanById(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error(
-        'Required parameter banId was null or undefined when calling removeResourceBanById.'
+        'Required parameter banId was null or undefined when calling removeResourceBanById.',
       );
     }
 
@@ -9457,7 +9457,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceSelfServiceGroup(
     resource: number,
@@ -9465,7 +9465,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceSelfServiceGroup(
     resource: number,
@@ -9473,7 +9473,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceSelfServiceGroup(
     resource: number,
@@ -9481,16 +9481,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeResourceSelfServiceGroup.'
+        'Required parameter resource was null or undefined when calling removeResourceSelfServiceGroup.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeResourceSelfServiceGroup.'
+        'Required parameter group was null or undefined when calling removeResourceSelfServiceGroup.',
       );
     }
 
@@ -9499,7 +9499,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -9581,7 +9581,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceSelfServiceUser(
     resource: number,
@@ -9589,7 +9589,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceSelfServiceUser(
     resource: number,
@@ -9597,7 +9597,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceSelfServiceUser(
     resource: number,
@@ -9605,16 +9605,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeResourceSelfServiceUser.'
+        'Required parameter resource was null or undefined when calling removeResourceSelfServiceUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeResourceSelfServiceUser.'
+        'Required parameter user was null or undefined when calling removeResourceSelfServiceUser.',
       );
     }
 
@@ -9623,7 +9623,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -9703,35 +9703,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceTagFromResource(
     InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceTagFromResource(
     InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceTagFromResource(
     InputRemoveResourceTagFromResource: InputRemoveResourceTagFromResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputRemoveResourceTagFromResource === null ||
       InputRemoveResourceTagFromResource === undefined
     ) {
       throw new Error(
-        'Required parameter InputRemoveResourceTagFromResource was null or undefined when calling removeResourceTagFromResource.'
+        'Required parameter InputRemoveResourceTagFromResource was null or undefined when calling removeResourceTagFromResource.',
       );
     }
 
@@ -9815,35 +9815,35 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceTagsFromResource(
     InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceTagsFromResource(
     InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceTagsFromResource(
     InputRemoveResourceTagsFromResource: InputRemoveResourceTagsFromResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputRemoveResourceTagsFromResource === null ||
       InputRemoveResourceTagsFromResource === undefined
     ) {
       throw new Error(
-        'Required parameter InputRemoveResourceTagsFromResource was null or undefined when calling removeResourceTagsFromResource.'
+        'Required parameter InputRemoveResourceTagsFromResource was null or undefined when calling removeResourceTagsFromResource.',
       );
     }
 
@@ -9929,7 +9929,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeService(
     resource: number,
@@ -9937,7 +9937,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeService(
     resource: number,
@@ -9945,7 +9945,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeService(
     resource: number,
@@ -9953,16 +9953,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeService.'
+        'Required parameter resource was null or undefined when calling removeService.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeService.'
+        'Required parameter service was null or undefined when calling removeService.',
       );
     }
 
@@ -9971,14 +9971,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -10057,7 +10057,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeServiceForResources(
     resources: Array<number>,
@@ -10065,7 +10065,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeServiceForResources(
     resources: Array<number>,
@@ -10073,7 +10073,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeServiceForResources(
     resources: Array<number>,
@@ -10081,16 +10081,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resources === null || resources === undefined) {
       throw new Error(
-        'Required parameter resources was null or undefined when calling removeServiceForResources.'
+        'Required parameter resources was null or undefined when calling removeServiceForResources.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling removeServiceForResources.'
+        'Required parameter service was null or undefined when calling removeServiceForResources.',
       );
     }
 
@@ -10100,7 +10100,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'resources[]'
+          'resources[]',
         );
       });
     }
@@ -10108,7 +10108,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -10187,7 +10187,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeServices(
     resource: number,
@@ -10195,7 +10195,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeServices(
     resource: number,
@@ -10203,7 +10203,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeServices(
     resource: number,
@@ -10211,16 +10211,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeServices.'
+        'Required parameter resource was null or undefined when calling removeServices.',
       );
     }
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling removeServices.'
+        'Required parameter services was null or undefined when calling removeServices.',
       );
     }
 
@@ -10229,7 +10229,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (services) {
@@ -10237,7 +10237,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -10317,7 +10317,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeServicesPackage(
     resource: number,
@@ -10325,7 +10325,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeServicesPackage(
     resource: number,
@@ -10333,7 +10333,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeServicesPackage(
     resource: number,
@@ -10341,16 +10341,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeServicesPackage.'
+        'Required parameter resource was null or undefined when calling removeServicesPackage.',
       );
     }
     if (servicesPackage === null || servicesPackage === undefined) {
       throw new Error(
-        'Required parameter servicesPackage was null or undefined when calling removeServicesPackage.'
+        'Required parameter servicesPackage was null or undefined when calling removeServicesPackage.',
       );
     }
 
@@ -10359,14 +10359,14 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (servicesPackage !== undefined && servicesPackage !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>servicesPackage,
-        'servicesPackage'
+        'servicesPackage',
       );
     }
 
@@ -10445,7 +10445,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserAdminResource(
     resource: number,
@@ -10453,7 +10453,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserAdminResource(
     resource: number,
@@ -10461,7 +10461,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserAdminResource(
     resource: number,
@@ -10469,16 +10469,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeUserAdminResource.'
+        'Required parameter resource was null or undefined when calling removeUserAdminResource.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserAdminResource.'
+        'Required parameter user was null or undefined when calling removeUserAdminResource.',
       );
     }
 
@@ -10487,7 +10487,7 @@ export class ResourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -10567,32 +10567,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnResource>;
   public setResourceBan(
     InputSetBan: InputSetBan,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnResource>>;
   public setResourceBan(
     InputSetBan: InputSetBan,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnResource>>;
   public setResourceBan(
     InputSetBan: InputSetBan,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetBan === null || InputSetBan === undefined) {
       throw new Error(
-        'Required parameter InputSetBan was null or undefined when calling setResourceBan.'
+        'Required parameter InputSetBan was null or undefined when calling setResourceBan.',
       );
     }
 
@@ -10678,7 +10678,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unallowGroupsFromResources(
     groups: Array<number>,
@@ -10686,7 +10686,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unallowGroupsFromResources(
     groups: Array<number>,
@@ -10694,7 +10694,7 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unallowGroupsFromResources(
     groups: Array<number>,
@@ -10702,16 +10702,16 @@ export class ResourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (groups === null || groups === undefined) {
       throw new Error(
-        'Required parameter groups was null or undefined when calling unallowGroupsFromResources.'
+        'Required parameter groups was null or undefined when calling unallowGroupsFromResources.',
       );
     }
     if (resources === null || resources === undefined) {
       throw new Error(
-        'Required parameter resources was null or undefined when calling unallowGroupsFromResources.'
+        'Required parameter resources was null or undefined when calling unallowGroupsFromResources.',
       );
     }
 
@@ -10721,7 +10721,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'groups[]'
+          'groups[]',
         );
       });
     }
@@ -10730,7 +10730,7 @@ export class ResourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'resources[]'
+          'resources[]',
         );
       });
     }
@@ -10808,32 +10808,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateResource(
     InputUpdateResource: InputUpdateResource,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateResource(
     InputUpdateResource: InputUpdateResource,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateResource(
     InputUpdateResource: InputUpdateResource,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateResource === null || InputUpdateResource === undefined) {
       throw new Error(
-        'Required parameter InputUpdateResource was null or undefined when calling updateResource.'
+        'Required parameter InputUpdateResource was null or undefined when calling updateResource.',
       );
     }
 
@@ -10917,32 +10917,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnResource>;
   public updateResourceBan(
     InputUpdateBan: InputUpdateBan,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnResource>>;
   public updateResourceBan(
     InputUpdateBan: InputUpdateBan,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnResource>>;
   public updateResourceBan(
     InputUpdateBan: InputUpdateBan,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateBan === null || InputUpdateBan === undefined) {
       throw new Error(
-        'Required parameter InputUpdateBan was null or undefined when calling updateResourceBan.'
+        'Required parameter InputUpdateBan was null or undefined when calling updateResourceBan.',
       );
     }
 
@@ -11026,32 +11026,32 @@ export class ResourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ResourceTag>;
   public updateResourceTag(
     InputUpdateResourceTag: InputUpdateResourceTag,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ResourceTag>>;
   public updateResourceTag(
     InputUpdateResourceTag: InputUpdateResourceTag,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ResourceTag>>;
   public updateResourceTag(
     InputUpdateResourceTag: InputUpdateResourceTag,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateResourceTag === null || InputUpdateResourceTag === undefined) {
       throw new Error(
-        'Required parameter InputUpdateResourceTag was null or undefined when calling updateResourceTag.'
+        'Required parameter InputUpdateResourceTag was null or undefined when calling updateResourceTag.',
       );
     }
 

@@ -34,7 +34,7 @@ export class EditEmailFooterDialogComponent implements OnInit {
     private translateService: TranslateService,
     private notificator: NotificatorService,
     private escapeInput: HtmlEscapeService,
-    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormEmailFooterDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ApplicationFormEmailFooterDialogData,
   ) {}
 
   ngOnInit(): void {

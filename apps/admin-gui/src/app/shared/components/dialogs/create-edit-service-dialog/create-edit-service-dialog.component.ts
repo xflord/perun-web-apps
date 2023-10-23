@@ -40,7 +40,7 @@ export class CreateEditServiceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: CreateServiceDialogData,
     private serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -83,12 +83,12 @@ export class CreateEditServiceDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS') as string
+            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.CREATE_SUCCESS') as string,
           );
           this.dialogRef.close(true);
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 
@@ -111,12 +111,12 @@ export class CreateEditServiceDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS') as string
+            this.translate.instant('DIALOGS.CREATE_EDIT_SERVICE.EDIT_SUCCESS') as string,
           );
           this.dialogRef.close(true);
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 

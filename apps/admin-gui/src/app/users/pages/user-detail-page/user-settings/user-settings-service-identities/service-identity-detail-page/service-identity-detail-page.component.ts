@@ -24,7 +24,7 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class ServiceIdentityDetailPageComponent implements OnInit {
           this.sideMenuService.setUserItems([userItem]);
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     });
   }

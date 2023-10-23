@@ -26,7 +26,7 @@ export const loginAsyncValidator =
     usersManager: UsersManagerService,
     apiRequestConfiguration: ApiRequestConfigurationService,
     useNon = false,
-    time = 500
+    time = 500,
   ) =>
   (input: UntypedFormControl): Observable<PasswordError | null> =>
     timer(time).pipe(
@@ -40,7 +40,7 @@ export const loginAsyncValidator =
             password: input.value as string,
             namespace: namespace,
           },
-          useNon
+          useNon,
         ) as Observable<PasswordError>;
       }),
       map(() => null),
@@ -50,5 +50,5 @@ export const loginAsyncValidator =
           backendError: err.message.substring(err.message.indexOf(':') + 1),
         };
         return of(pwdError);
-      })
+      }),
     ) as Observable<PasswordError>;

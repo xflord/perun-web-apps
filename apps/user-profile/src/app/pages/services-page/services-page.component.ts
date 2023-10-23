@@ -24,7 +24,7 @@ export class ServicesPageComponent implements OnInit {
     private usersManagerService: UsersManagerService,
     private membersManagerService: MembersManagerService,
     private resourcesManagerService: ResourcesManagerService,
-    private storage: StoreService
+    private storage: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class ServicesPageComponent implements OnInit {
 
   applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((res) =>
-      res.name.toLowerCase().includes(filter.toLowerCase())
+      res.name.toLowerCase().includes(filter.toLowerCase()),
     );
   }
 }

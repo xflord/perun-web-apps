@@ -41,7 +41,7 @@ export class VoSelectPageComponent implements OnInit, AfterViewChecked {
     private guiAuthResolver: GuiAuthResolver,
     private dialog: MatDialog,
     private notificator: NotificatorService,
-    private apiRequest: ApiRequestConfigurationService
+    private apiRequest: ApiRequestConfigurationService,
   ) {}
 
   ngOnInit(): void {

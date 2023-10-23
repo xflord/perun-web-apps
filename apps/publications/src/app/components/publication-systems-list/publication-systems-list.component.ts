@@ -59,9 +59,9 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        PublicationSystemsListComponent.getDataForColumn
+        PublicationSystemsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -74,9 +74,9 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        PublicationSystemsListComponent.getDataForColumn
+        PublicationSystemsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -87,7 +87,7 @@ export class PublicationSystemsListComponent implements AfterViewInit, OnChanges
           data,
           filter,
           this.displayedColumns,
-          PublicationSystemsListComponent.getDataForColumn
+          PublicationSystemsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: PublicationSystem[], sort: MatSort): PublicationSystem[] =>
         customDataSourceSort(data, sort, PublicationSystemsListComponent.getDataForColumn);

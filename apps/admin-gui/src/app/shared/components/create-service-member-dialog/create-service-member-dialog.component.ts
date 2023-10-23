@@ -83,7 +83,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     },
     {
       validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-    }
+    },
   );
 
   parsedRules: Map<string, { login: string }> = new Map<string, { login: string }>();
@@ -116,7 +116,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
     private _formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private authResolver: GuiAuthResolver,
-    private findSponsors: FindSponsorsService
+    private findSponsors: FindSponsorsService,
   ) {
     translate
       .get('DIALOGS.CREATE_SERVICE_MEMBER.SUCCESS_MEMBER')
@@ -146,7 +146,7 @@ export class CreateServiceMemberDialogComponent implements OnInit, AfterViewInit
 
     this.setSponsorshipAuth = this.authResolver.isAuthorized(
       'setSponsorshipForMember_Member_User_LocalDate_policy',
-      [this.data.vo, this.store.getPerunPrincipal().user]
+      [this.data.vo, this.store.getPerunPrincipal().user],
     );
 
     this.findSponsorsAuth = this.findSponsors.findSponsorsAuth(this.data.vo);

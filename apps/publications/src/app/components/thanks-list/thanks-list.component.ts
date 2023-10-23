@@ -66,9 +66,9 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ThanksListComponent.getDataForColumn
+        ThanksListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -81,9 +81,9 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ThanksListComponent.getDataForColumn
+        ThanksListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -96,7 +96,7 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 
@@ -107,7 +107,7 @@ export class ThanksListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          ThanksListComponent.getDataForColumn
+          ThanksListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: ThanksForGUI[], sort: MatSort): ThanksForGUI[] =>
         customDataSourceSort(data, sort, ThanksListComponent.getDataForColumn);

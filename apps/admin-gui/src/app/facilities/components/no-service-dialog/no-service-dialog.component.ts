@@ -15,7 +15,7 @@ export class NoServiceDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<NoServiceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: NoServiceDialogData
+    @Inject(MAT_DIALOG_DATA) public data: NoServiceDialogData,
   ) {}
 
   ngOnInit(): void {

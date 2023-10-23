@@ -10,7 +10,10 @@ import { LinkerResult } from '@perun-web-apps/lib-linker';
 export class ShowResultPageComponent implements OnInit {
   linkerResult: LinkerResult;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

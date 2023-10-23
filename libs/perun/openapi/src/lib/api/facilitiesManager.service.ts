@@ -81,7 +81,7 @@ export class FacilitiesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -112,7 +112,7 @@ export class FacilitiesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -126,8 +126,8 @@ export class FacilitiesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -152,7 +152,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityAdminGroup(
     facility: number,
@@ -160,7 +160,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityAdminGroup(
     facility: number,
@@ -168,7 +168,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityAdminGroup(
     facility: number,
@@ -176,16 +176,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityAdminGroup.'
+        'Required parameter facility was null or undefined when calling addFacilityAdminGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling addFacilityAdminGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling addFacilityAdminGroup.',
       );
     }
 
@@ -194,14 +194,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -280,7 +280,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityAdminGroupByFacilityName(
     facility: string,
@@ -288,7 +288,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityAdminGroupByFacilityName(
     facility: string,
@@ -296,7 +296,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityAdminGroupByFacilityName(
     facility: string,
@@ -304,16 +304,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityAdminGroupByFacilityName.'
+        'Required parameter facility was null or undefined when calling addFacilityAdminGroupByFacilityName.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling addFacilityAdminGroupByFacilityName.'
+        'Required parameter authorizedGroup was null or undefined when calling addFacilityAdminGroupByFacilityName.',
       );
     }
 
@@ -322,14 +322,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -408,7 +408,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityAdminUser(
     facility: number,
@@ -416,7 +416,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityAdminUser(
     facility: number,
@@ -424,7 +424,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityAdminUser(
     facility: number,
@@ -432,16 +432,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityAdminUser.'
+        'Required parameter facility was null or undefined when calling addFacilityAdminUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling addFacilityAdminUser.'
+        'Required parameter user was null or undefined when calling addFacilityAdminUser.',
       );
     }
 
@@ -450,7 +450,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -532,7 +532,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityAdminUserByFacilityName(
     facility: string,
@@ -540,7 +540,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityAdminUserByFacilityName(
     facility: string,
@@ -548,7 +548,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityAdminUserByFacilityName(
     facility: string,
@@ -556,16 +556,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityAdminUserByFacilityName.'
+        'Required parameter facility was null or undefined when calling addFacilityAdminUserByFacilityName.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling addFacilityAdminUserByFacilityName.'
+        'Required parameter user was null or undefined when calling addFacilityAdminUserByFacilityName.',
       );
     }
 
@@ -574,7 +574,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -656,7 +656,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwner(
     facility: number,
@@ -664,7 +664,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwner(
     facility: number,
@@ -672,7 +672,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwner(
     facility: number,
@@ -680,16 +680,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwner.'
+        'Required parameter facility was null or undefined when calling addFacilityOwner.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling addFacilityOwner.'
+        'Required parameter owner was null or undefined when calling addFacilityOwner.',
       );
     }
 
@@ -698,7 +698,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -780,7 +780,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnerByFacilityName(
     facility: string,
@@ -788,7 +788,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnerByFacilityName(
     facility: string,
@@ -796,7 +796,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnerByFacilityName(
     facility: string,
@@ -804,16 +804,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnerByFacilityName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnerByFacilityName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling addFacilityOwnerByFacilityName.'
+        'Required parameter owner was null or undefined when calling addFacilityOwnerByFacilityName.',
       );
     }
 
@@ -822,7 +822,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -904,7 +904,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -912,7 +912,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -920,7 +920,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -928,16 +928,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnerByFacilityNameOwnerName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnerByFacilityNameOwnerName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling addFacilityOwnerByFacilityNameOwnerName.'
+        'Required parameter owner was null or undefined when calling addFacilityOwnerByFacilityNameOwnerName.',
       );
     }
 
@@ -946,7 +946,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -1028,7 +1028,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnerByOwnerName(
     facility: number,
@@ -1036,7 +1036,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnerByOwnerName(
     facility: number,
@@ -1044,7 +1044,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnerByOwnerName(
     facility: number,
@@ -1052,16 +1052,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnerByOwnerName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnerByOwnerName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling addFacilityOwnerByOwnerName.'
+        'Required parameter owner was null or undefined when calling addFacilityOwnerByOwnerName.',
       );
     }
 
@@ -1070,7 +1070,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -1152,7 +1152,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwners(
     facility: number,
@@ -1160,7 +1160,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwners(
     facility: number,
@@ -1168,7 +1168,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwners(
     facility: number,
@@ -1176,16 +1176,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwners.'
+        'Required parameter facility was null or undefined when calling addFacilityOwners.',
       );
     }
     if (owners === null || owners === undefined) {
       throw new Error(
-        'Required parameter owners was null or undefined when calling addFacilityOwners.'
+        'Required parameter owners was null or undefined when calling addFacilityOwners.',
       );
     }
 
@@ -1194,7 +1194,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owners) {
@@ -1202,7 +1202,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'owners[]'
+          'owners[]',
         );
       });
     }
@@ -1282,7 +1282,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnersByFacilityName(
     facility: string,
@@ -1290,7 +1290,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnersByFacilityName(
     facility: string,
@@ -1298,7 +1298,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnersByFacilityName(
     facility: string,
@@ -1306,16 +1306,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnersByFacilityName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnersByFacilityName.',
       );
     }
     if (owners === null || owners === undefined) {
       throw new Error(
-        'Required parameter owners was null or undefined when calling addFacilityOwnersByFacilityName.'
+        'Required parameter owners was null or undefined when calling addFacilityOwnersByFacilityName.',
       );
     }
 
@@ -1324,7 +1324,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owners) {
@@ -1332,7 +1332,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'owners[]'
+          'owners[]',
         );
       });
     }
@@ -1412,7 +1412,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -1420,7 +1420,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -1428,7 +1428,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -1436,16 +1436,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnersByFacilityNameOwnerName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnersByFacilityNameOwnerName.',
       );
     }
     if (ownerNames === null || ownerNames === undefined) {
       throw new Error(
-        'Required parameter ownerNames was null or undefined when calling addFacilityOwnersByFacilityNameOwnerName.'
+        'Required parameter ownerNames was null or undefined when calling addFacilityOwnersByFacilityNameOwnerName.',
       );
     }
 
@@ -1454,7 +1454,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (ownerNames) {
@@ -1462,7 +1462,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ownerNames[]'
+          'ownerNames[]',
         );
       });
     }
@@ -1542,7 +1542,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addFacilityOwnersByOwnerName(
     facility: number,
@@ -1550,7 +1550,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addFacilityOwnersByOwnerName(
     facility: number,
@@ -1558,7 +1558,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addFacilityOwnersByOwnerName(
     facility: number,
@@ -1566,16 +1566,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addFacilityOwnersByOwnerName.'
+        'Required parameter facility was null or undefined when calling addFacilityOwnersByOwnerName.',
       );
     }
     if (ownerNames === null || ownerNames === undefined) {
       throw new Error(
-        'Required parameter ownerNames was null or undefined when calling addFacilityOwnersByOwnerName.'
+        'Required parameter ownerNames was null or undefined when calling addFacilityOwnersByOwnerName.',
       );
     }
 
@@ -1584,7 +1584,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (ownerNames) {
@@ -1592,7 +1592,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ownerNames[]'
+          'ownerNames[]',
         );
       });
     }
@@ -1673,7 +1673,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public addHost(
     facility: number,
@@ -1681,7 +1681,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public addHost(
     facility: number,
@@ -1689,7 +1689,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public addHost(
     facility: number,
@@ -1697,7 +1697,7 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error('Required parameter facility was null or undefined when calling addHost.');
@@ -1711,14 +1711,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hostname !== undefined && hostname !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>hostname,
-        'hostname'
+        'hostname',
       );
     }
 
@@ -1798,7 +1798,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public addHostByFacilityName(
     facility: string,
@@ -1806,7 +1806,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public addHostByFacilityName(
     facility: string,
@@ -1814,7 +1814,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public addHostByFacilityName(
     facility: string,
@@ -1822,16 +1822,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addHostByFacilityName.'
+        'Required parameter facility was null or undefined when calling addHostByFacilityName.',
       );
     }
     if (hostname === null || hostname === undefined) {
       throw new Error(
-        'Required parameter hostname was null or undefined when calling addHostByFacilityName.'
+        'Required parameter hostname was null or undefined when calling addHostByFacilityName.',
       );
     }
 
@@ -1840,14 +1840,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hostname !== undefined && hostname !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>hostname,
-        'hostname'
+        'hostname',
       );
     }
 
@@ -1927,7 +1927,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public addHosts(
     facility: number,
@@ -1935,7 +1935,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public addHosts(
     facility: number,
@@ -1943,7 +1943,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public addHosts(
     facility: number,
@@ -1951,7 +1951,7 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error('Required parameter facility was null or undefined when calling addHosts.');
@@ -1965,7 +1965,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hostnames) {
@@ -1973,7 +1973,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'hostnames[]'
+          'hostnames[]',
         );
       });
     }
@@ -2054,7 +2054,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public addHostsByFacilityName(
     facility: string,
@@ -2062,7 +2062,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public addHostsByFacilityName(
     facility: string,
@@ -2070,7 +2070,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public addHostsByFacilityName(
     facility: string,
@@ -2078,16 +2078,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling addHostsByFacilityName.'
+        'Required parameter facility was null or undefined when calling addHostsByFacilityName.',
       );
     }
     if (hostnames === null || hostnames === undefined) {
       throw new Error(
-        'Required parameter hostnames was null or undefined when calling addHostsByFacilityName.'
+        'Required parameter hostnames was null or undefined when calling addHostsByFacilityName.',
       );
     }
 
@@ -2096,7 +2096,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hostnames) {
@@ -2104,7 +2104,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'hostnames[]'
+          'hostnames[]',
         );
       });
     }
@@ -2184,7 +2184,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignSecurityTeam(
     facility: number,
@@ -2192,7 +2192,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignSecurityTeam(
     facility: number,
@@ -2200,7 +2200,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignSecurityTeam(
     facility: number,
@@ -2208,16 +2208,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling assignSecurityTeam.'
+        'Required parameter facility was null or undefined when calling assignSecurityTeam.',
       );
     }
     if (securityTeam === null || securityTeam === undefined) {
       throw new Error(
-        'Required parameter securityTeam was null or undefined when calling assignSecurityTeam.'
+        'Required parameter securityTeam was null or undefined when calling assignSecurityTeam.',
       );
     }
 
@@ -2226,14 +2226,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (securityTeam !== undefined && securityTeam !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>securityTeam,
-        'securityTeam'
+        'securityTeam',
       );
     }
 
@@ -2312,7 +2312,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public assignSecurityTeamByFacilityName(
     facility: string,
@@ -2320,7 +2320,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public assignSecurityTeamByFacilityName(
     facility: string,
@@ -2328,7 +2328,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public assignSecurityTeamByFacilityName(
     facility: string,
@@ -2336,16 +2336,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling assignSecurityTeamByFacilityName.'
+        'Required parameter facility was null or undefined when calling assignSecurityTeamByFacilityName.',
       );
     }
     if (securityTeam === null || securityTeam === undefined) {
       throw new Error(
-        'Required parameter securityTeam was null or undefined when calling assignSecurityTeamByFacilityName.'
+        'Required parameter securityTeam was null or undefined when calling assignSecurityTeamByFacilityName.',
       );
     }
 
@@ -2354,14 +2354,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (securityTeam !== undefined && securityTeam !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>securityTeam,
-        'securityTeam'
+        'securityTeam',
       );
     }
 
@@ -2440,7 +2440,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyAttributes(
     srcFacility: number,
@@ -2448,7 +2448,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyAttributes(
     srcFacility: number,
@@ -2456,7 +2456,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyAttributes(
     srcFacility: number,
@@ -2464,16 +2464,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyAttributes.'
+        'Required parameter srcFacility was null or undefined when calling copyAttributes.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyAttributes.'
+        'Required parameter destFacility was null or undefined when calling copyAttributes.',
       );
     }
 
@@ -2482,14 +2482,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -2568,7 +2568,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyAttributesByDestinationName(
     srcFacility: number,
@@ -2576,7 +2576,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyAttributesByDestinationName(
     srcFacility: number,
@@ -2584,7 +2584,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyAttributesByDestinationName(
     srcFacility: number,
@@ -2592,16 +2592,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyAttributesByDestinationName.'
+        'Required parameter srcFacility was null or undefined when calling copyAttributesByDestinationName.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyAttributesByDestinationName.'
+        'Required parameter destFacilityName was null or undefined when calling copyAttributesByDestinationName.',
       );
     }
 
@@ -2610,14 +2610,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -2696,7 +2696,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyAttributesBySourceDestinationNames(
     srcFacilityName: string,
@@ -2704,7 +2704,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyAttributesBySourceDestinationNames(
     srcFacilityName: string,
@@ -2712,7 +2712,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyAttributesBySourceDestinationNames(
     srcFacilityName: string,
@@ -2720,16 +2720,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyAttributesBySourceDestinationNames.'
+        'Required parameter srcFacilityName was null or undefined when calling copyAttributesBySourceDestinationNames.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyAttributesBySourceDestinationNames.'
+        'Required parameter destFacilityName was null or undefined when calling copyAttributesBySourceDestinationNames.',
       );
     }
 
@@ -2738,14 +2738,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -2824,7 +2824,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyAttributesBySourceName(
     srcFacilityName: string,
@@ -2832,7 +2832,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyAttributesBySourceName(
     srcFacilityName: string,
@@ -2840,7 +2840,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyAttributesBySourceName(
     srcFacilityName: string,
@@ -2848,16 +2848,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyAttributesBySourceName.'
+        'Required parameter srcFacilityName was null or undefined when calling copyAttributesBySourceName.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyAttributesBySourceName.'
+        'Required parameter destFacility was null or undefined when calling copyAttributesBySourceName.',
       );
     }
 
@@ -2866,14 +2866,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -2952,7 +2952,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyManagers(
     srcFacility: number,
@@ -2960,7 +2960,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyManagers(
     srcFacility: number,
@@ -2968,7 +2968,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyManagers(
     srcFacility: number,
@@ -2976,16 +2976,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyManagers.'
+        'Required parameter srcFacility was null or undefined when calling copyManagers.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyManagers.'
+        'Required parameter destFacility was null or undefined when calling copyManagers.',
       );
     }
 
@@ -2994,14 +2994,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -3080,7 +3080,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyManagersByDestinationName(
     srcFacility: number,
@@ -3088,7 +3088,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyManagersByDestinationName(
     srcFacility: number,
@@ -3096,7 +3096,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyManagersByDestinationName(
     srcFacility: number,
@@ -3104,16 +3104,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyManagersByDestinationName.'
+        'Required parameter srcFacility was null or undefined when calling copyManagersByDestinationName.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyManagersByDestinationName.'
+        'Required parameter destFacilityName was null or undefined when calling copyManagersByDestinationName.',
       );
     }
 
@@ -3122,14 +3122,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -3208,7 +3208,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyManagersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3216,7 +3216,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyManagersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3224,7 +3224,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyManagersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3232,16 +3232,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyManagersBySourceDestinationNames.'
+        'Required parameter srcFacilityName was null or undefined when calling copyManagersBySourceDestinationNames.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyManagersBySourceDestinationNames.'
+        'Required parameter destFacilityName was null or undefined when calling copyManagersBySourceDestinationNames.',
       );
     }
 
@@ -3250,14 +3250,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -3336,7 +3336,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyManagersBySourceName(
     srcFacilityName: string,
@@ -3344,7 +3344,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyManagersBySourceName(
     srcFacilityName: string,
@@ -3352,7 +3352,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyManagersBySourceName(
     srcFacilityName: string,
@@ -3360,16 +3360,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyManagersBySourceName.'
+        'Required parameter srcFacilityName was null or undefined when calling copyManagersBySourceName.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyManagersBySourceName.'
+        'Required parameter destFacility was null or undefined when calling copyManagersBySourceName.',
       );
     }
 
@@ -3378,14 +3378,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -3464,7 +3464,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyOwners(
     srcFacility: number,
@@ -3472,7 +3472,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyOwners(
     srcFacility: number,
@@ -3480,7 +3480,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyOwners(
     srcFacility: number,
@@ -3488,16 +3488,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyOwners.'
+        'Required parameter srcFacility was null or undefined when calling copyOwners.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyOwners.'
+        'Required parameter destFacility was null or undefined when calling copyOwners.',
       );
     }
 
@@ -3506,14 +3506,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -3592,7 +3592,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyOwnersByDestinationName(
     srcFacility: number,
@@ -3600,7 +3600,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyOwnersByDestinationName(
     srcFacility: number,
@@ -3608,7 +3608,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyOwnersByDestinationName(
     srcFacility: number,
@@ -3616,16 +3616,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacility === null || srcFacility === undefined) {
       throw new Error(
-        'Required parameter srcFacility was null or undefined when calling copyOwnersByDestinationName.'
+        'Required parameter srcFacility was null or undefined when calling copyOwnersByDestinationName.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyOwnersByDestinationName.'
+        'Required parameter destFacilityName was null or undefined when calling copyOwnersByDestinationName.',
       );
     }
 
@@ -3634,14 +3634,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacility,
-        'srcFacility'
+        'srcFacility',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -3720,7 +3720,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyOwnersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3728,7 +3728,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyOwnersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3736,7 +3736,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyOwnersBySourceDestinationNames(
     srcFacilityName: string,
@@ -3744,16 +3744,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyOwnersBySourceDestinationNames.'
+        'Required parameter srcFacilityName was null or undefined when calling copyOwnersBySourceDestinationNames.',
       );
     }
     if (destFacilityName === null || destFacilityName === undefined) {
       throw new Error(
-        'Required parameter destFacilityName was null or undefined when calling copyOwnersBySourceDestinationNames.'
+        'Required parameter destFacilityName was null or undefined when calling copyOwnersBySourceDestinationNames.',
       );
     }
 
@@ -3762,14 +3762,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacilityName !== undefined && destFacilityName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacilityName,
-        'destFacilityName'
+        'destFacilityName',
       );
     }
 
@@ -3848,7 +3848,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public copyOwnersBySourceName(
     srcFacilityName: string,
@@ -3856,7 +3856,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public copyOwnersBySourceName(
     srcFacilityName: string,
@@ -3864,7 +3864,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public copyOwnersBySourceName(
     srcFacilityName: string,
@@ -3872,16 +3872,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (srcFacilityName === null || srcFacilityName === undefined) {
       throw new Error(
-        'Required parameter srcFacilityName was null or undefined when calling copyOwnersBySourceName.'
+        'Required parameter srcFacilityName was null or undefined when calling copyOwnersBySourceName.',
       );
     }
     if (destFacility === null || destFacility === undefined) {
       throw new Error(
-        'Required parameter destFacility was null or undefined when calling copyOwnersBySourceName.'
+        'Required parameter destFacility was null or undefined when calling copyOwnersBySourceName.',
       );
     }
 
@@ -3890,14 +3890,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>srcFacilityName,
-        'srcFacilityName'
+        'srcFacilityName',
       );
     }
     if (destFacility !== undefined && destFacility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destFacility,
-        'destFacility'
+        'destFacility',
       );
     }
 
@@ -3976,7 +3976,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public createFacility(
     name: string,
@@ -3984,7 +3984,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public createFacility(
     name: string,
@@ -3992,7 +3992,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public createFacility(
     name: string,
@@ -4000,7 +4000,7 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error('Required parameter name was null or undefined when calling createFacility.');
@@ -4014,7 +4014,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>description,
-        'description'
+        'description',
       );
     }
 
@@ -4093,7 +4093,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteFacility(
     facility: number,
@@ -4101,7 +4101,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteFacility(
     facility: number,
@@ -4109,7 +4109,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteFacility(
     facility: number,
@@ -4117,11 +4117,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling deleteFacility.'
+        'Required parameter facility was null or undefined when calling deleteFacility.',
       );
     }
 
@@ -4130,7 +4130,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (force !== undefined && force !== null) {
@@ -4210,32 +4210,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteFacilityByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling deleteFacilityByFacilityName.'
+        'Required parameter facility was null or undefined when calling deleteFacilityByFacilityName.',
       );
     }
 
@@ -4244,7 +4244,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -4319,25 +4319,25 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getAllFacilities(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getAllFacilities(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getAllFacilities(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -4415,7 +4415,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllowedGroups(
     facility: number,
@@ -4424,7 +4424,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllowedGroups(
     facility: number,
@@ -4433,7 +4433,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllowedGroups(
     facility: number,
@@ -4442,11 +4442,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedGroups.'
+        'Required parameter facility was null or undefined when calling getAllowedGroups.',
       );
     }
 
@@ -4455,7 +4455,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -4465,7 +4465,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -4546,7 +4546,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getAllowedGroupsByFacilityName(
     facility: string,
@@ -4555,7 +4555,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getAllowedGroupsByFacilityName(
     facility: string,
@@ -4564,7 +4564,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getAllowedGroupsByFacilityName(
     facility: string,
@@ -4573,11 +4573,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedGroupsByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAllowedGroupsByFacilityName.',
       );
     }
 
@@ -4586,7 +4586,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -4596,7 +4596,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -4679,7 +4679,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getAllowedRichGroupsWithAttributes(
     facility: number,
@@ -4689,7 +4689,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getAllowedRichGroupsWithAttributes(
     facility: number,
@@ -4699,7 +4699,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getAllowedRichGroupsWithAttributes(
     facility: number,
@@ -4709,16 +4709,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedRichGroupsWithAttributes.'
+        'Required parameter facility was null or undefined when calling getAllowedRichGroupsWithAttributes.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getAllowedRichGroupsWithAttributes.'
+        'Required parameter attrNames was null or undefined when calling getAllowedRichGroupsWithAttributes.',
       );
     }
 
@@ -4727,7 +4727,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -4735,7 +4735,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -4746,7 +4746,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -4829,7 +4829,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichGroup>>;
   public getAllowedRichGroupsWithAttributesByFacilityName(
     facility: string,
@@ -4839,7 +4839,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichGroup>>>;
   public getAllowedRichGroupsWithAttributesByFacilityName(
     facility: string,
@@ -4849,7 +4849,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichGroup>>>;
   public getAllowedRichGroupsWithAttributesByFacilityName(
     facility: string,
@@ -4859,16 +4859,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedRichGroupsWithAttributesByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAllowedRichGroupsWithAttributesByFacilityName.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getAllowedRichGroupsWithAttributesByFacilityName.'
+        'Required parameter attrNames was null or undefined when calling getAllowedRichGroupsWithAttributesByFacilityName.',
       );
     }
 
@@ -4877,7 +4877,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -4885,7 +4885,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -4896,7 +4896,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -4977,7 +4977,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAllowedUsersOfFacility(
     facility: number,
@@ -4986,7 +4986,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAllowedUsersOfFacility(
     facility: number,
@@ -4995,7 +4995,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAllowedUsersOfFacility(
     facility: number,
@@ -5004,11 +5004,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedUsersOfFacility.'
+        'Required parameter facility was null or undefined when calling getAllowedUsersOfFacility.',
       );
     }
 
@@ -5017,7 +5017,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -5027,7 +5027,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -5108,7 +5108,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAllowedUsersOfFacilityByFacilityName(
     facility: string,
@@ -5117,7 +5117,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAllowedUsersOfFacilityByFacilityName(
     facility: string,
@@ -5126,7 +5126,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAllowedUsersOfFacilityByFacilityName(
     facility: string,
@@ -5135,11 +5135,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedUsersOfFacilityByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAllowedUsersOfFacilityByFacilityName.',
       );
     }
 
@@ -5148,7 +5148,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -5158,7 +5158,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -5235,32 +5235,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getAllowedVos(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getAllowedVos(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getAllowedVos(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedVos.'
+        'Required parameter facility was null or undefined when calling getAllowedVos.',
       );
     }
 
@@ -5269,7 +5269,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -5346,32 +5346,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getAllowedVosByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getAllowedVosByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getAllowedVosByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAllowedVosByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAllowedVosByFacilityName.',
       );
     }
 
@@ -5380,7 +5380,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -5457,32 +5457,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getAssignedFacilitiesByGroup(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getAssignedFacilitiesByGroup(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getAssignedFacilitiesByGroup(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getAssignedFacilitiesByGroup.'
+        'Required parameter group was null or undefined when calling getAssignedFacilitiesByGroup.',
       );
     }
 
@@ -5564,32 +5564,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getAssignedFacilitiesByMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getAssignedFacilitiesByMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getAssignedFacilitiesByMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getAssignedFacilitiesByMember.'
+        'Required parameter member was null or undefined when calling getAssignedFacilitiesByMember.',
       );
     }
 
@@ -5598,7 +5598,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -5675,32 +5675,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getAssignedFacilitiesByService(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getAssignedFacilitiesByService(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getAssignedFacilitiesByService(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAssignedFacilitiesByService.'
+        'Required parameter service was null or undefined when calling getAssignedFacilitiesByService.',
       );
     }
 
@@ -5709,7 +5709,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -5786,32 +5786,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getAssignedFacilitiesByUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getAssignedFacilitiesByUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getAssignedFacilitiesByUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getAssignedFacilitiesByUser.'
+        'Required parameter user was null or undefined when calling getAssignedFacilitiesByUser.',
       );
     }
 
@@ -5895,7 +5895,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResourcesByAssignedServiceForFacility(
     facility: number,
@@ -5903,7 +5903,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResourcesByAssignedServiceForFacility(
     facility: number,
@@ -5911,7 +5911,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResourcesByAssignedServiceForFacility(
     facility: number,
@@ -5919,16 +5919,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedResourcesByAssignedServiceForFacility.'
+        'Required parameter facility was null or undefined when calling getAssignedResourcesByAssignedServiceForFacility.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAssignedResourcesByAssignedServiceForFacility.'
+        'Required parameter service was null or undefined when calling getAssignedResourcesByAssignedServiceForFacility.',
       );
     }
 
@@ -5937,14 +5937,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -6021,32 +6021,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResourcesForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResourcesForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResourcesForFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedResourcesForFacility.'
+        'Required parameter facility was null or undefined when calling getAssignedResourcesForFacility.',
       );
     }
 
@@ -6055,7 +6055,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6132,32 +6132,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssignedResourcesForFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssignedResourcesForFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssignedResourcesForFacilityByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedResourcesForFacilityByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAssignedResourcesForFacilityByFacilityName.',
       );
     }
 
@@ -6166,7 +6166,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6243,32 +6243,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesForFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesForFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacility.'
+        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacility.',
       );
     }
 
@@ -6277,7 +6277,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6356,7 +6356,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesForFacilityAndService(
     facility: number,
@@ -6364,7 +6364,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesForFacilityAndService(
     facility: number,
@@ -6372,7 +6372,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesForFacilityAndService(
     facility: number,
@@ -6380,16 +6380,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacilityAndService.'
+        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacilityAndService.',
       );
     }
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getAssignedRichResourcesForFacilityAndService.'
+        'Required parameter service was null or undefined when calling getAssignedRichResourcesForFacilityAndService.',
       );
     }
 
@@ -6398,14 +6398,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -6482,32 +6482,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesForFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesForFacilityByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesForFacilityByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacilityByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAssignedRichResourcesForFacilityByFacilityName.',
       );
     }
 
@@ -6516,7 +6516,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6593,32 +6593,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<SecurityTeam>>;
   public getAssignedSecurityTeams(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<SecurityTeam>>>;
   public getAssignedSecurityTeams(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<SecurityTeam>>>;
   public getAssignedSecurityTeams(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedSecurityTeams.'
+        'Required parameter facility was null or undefined when calling getAssignedSecurityTeams.',
       );
     }
 
@@ -6627,7 +6627,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6704,32 +6704,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<SecurityTeam>>;
   public getAssignedSecurityTeamsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<SecurityTeam>>>;
   public getAssignedSecurityTeamsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<SecurityTeam>>>;
   public getAssignedSecurityTeamsByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedSecurityTeamsByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAssignedSecurityTeamsByFacilityName.',
       );
     }
 
@@ -6738,7 +6738,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -6817,7 +6817,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAssignedUsers(
     facility: number,
@@ -6825,7 +6825,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAssignedUsers(
     facility: number,
@@ -6833,7 +6833,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAssignedUsers(
     facility: number,
@@ -6841,11 +6841,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedUsers.'
+        'Required parameter facility was null or undefined when calling getAssignedUsers.',
       );
     }
 
@@ -6854,14 +6854,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -6940,7 +6940,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getAssignedUsersByFacilityName(
     facility: string,
@@ -6948,7 +6948,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getAssignedUsersByFacilityName(
     facility: string,
@@ -6956,7 +6956,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getAssignedUsersByFacilityName(
     facility: string,
@@ -6964,11 +6964,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssignedUsersByFacilityName.'
+        'Required parameter facility was null or undefined when calling getAssignedUsersByFacilityName.',
       );
     }
 
@@ -6977,14 +6977,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (service !== undefined && service !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -7061,32 +7061,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BanOnFacility>>;
   public getBansForFacility(
     facilityId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BanOnFacility>>>;
   public getBansForFacility(
     facilityId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BanOnFacility>>>;
   public getBansForFacility(
     facilityId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facilityId === null || facilityId === undefined) {
       throw new Error(
-        'Required parameter facilityId was null or undefined when calling getBansForFacility.'
+        'Required parameter facilityId was null or undefined when calling getBansForFacility.',
       );
     }
 
@@ -7095,7 +7095,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facilityId,
-        'facilityId'
+        'facilityId',
       );
     }
 
@@ -7172,28 +7172,28 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BanOnFacility>>;
   public getBansForUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BanOnFacility>>>;
   public getBansForUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BanOnFacility>>>;
   public getBansForUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling getBansForUser.');
@@ -7279,7 +7279,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnFacility>>;
   public getEnricheFacilitydBansForUser(
     user: number,
@@ -7287,7 +7287,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnFacility>>>;
   public getEnricheFacilitydBansForUser(
     user: number,
@@ -7295,7 +7295,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnFacility>>>;
   public getEnricheFacilitydBansForUser(
     user: number,
@@ -7303,11 +7303,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getEnricheFacilitydBansForUser.'
+        'Required parameter user was null or undefined when calling getEnricheFacilitydBansForUser.',
       );
     }
 
@@ -7320,7 +7320,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -7400,7 +7400,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnFacility>>;
   public getEnrichedBansForFacility(
     facility: number,
@@ -7408,7 +7408,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnFacility>>>;
   public getEnrichedBansForFacility(
     facility: number,
@@ -7416,7 +7416,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnFacility>>>;
   public getEnrichedBansForFacility(
     facility: number,
@@ -7424,11 +7424,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getEnrichedBansForFacility.'
+        'Required parameter facility was null or undefined when calling getEnrichedBansForFacility.',
       );
     }
 
@@ -7437,7 +7437,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -7445,7 +7445,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -7521,25 +7521,25 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedFacility>>;
   public getEnrichedFacilities(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedFacility>>>;
   public getEnrichedFacilities(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedFacility>>>;
   public getEnrichedFacilities(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -7615,7 +7615,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedHost>>;
   public getEnrichedHosts(
     facility: number,
@@ -7623,7 +7623,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedHost>>>;
   public getEnrichedHosts(
     facility: number,
@@ -7631,7 +7631,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedHost>>>;
   public getEnrichedHosts(
     facility: number,
@@ -7639,16 +7639,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getEnrichedHosts.'
+        'Required parameter facility was null or undefined when calling getEnrichedHosts.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getEnrichedHosts.'
+        'Required parameter attrNames was null or undefined when calling getEnrichedHosts.',
       );
     }
 
@@ -7657,7 +7657,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -7665,7 +7665,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -7746,7 +7746,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesByAttribute(
     attributeName: string,
@@ -7754,7 +7754,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesByAttribute(
     attributeName: string,
@@ -7762,7 +7762,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesByAttribute(
     attributeName: string,
@@ -7770,16 +7770,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getFacilitiesByAttribute.'
+        'Required parameter attributeName was null or undefined when calling getFacilitiesByAttribute.',
       );
     }
     if (attributeValue === null || attributeValue === undefined) {
       throw new Error(
-        'Required parameter attributeValue was null or undefined when calling getFacilitiesByAttribute.'
+        'Required parameter attributeValue was null or undefined when calling getFacilitiesByAttribute.',
       );
     }
 
@@ -7788,14 +7788,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
     if (attributeValue !== undefined && attributeValue !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeValue,
-        'attributeValue'
+        'attributeValue',
       );
     }
 
@@ -7876,7 +7876,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<FacilityWithAttributes>>;
   public getFacilitiesByAttributeWithAttributes(
     attributeName: string,
@@ -7885,7 +7885,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<FacilityWithAttributes>>>;
   public getFacilitiesByAttributeWithAttributes(
     attributeName: string,
@@ -7894,7 +7894,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<FacilityWithAttributes>>>;
   public getFacilitiesByAttributeWithAttributes(
     attributeName: string,
@@ -7903,21 +7903,21 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+        'Required parameter attributeName was null or undefined when calling getFacilitiesByAttributeWithAttributes.',
       );
     }
     if (attributeValue === null || attributeValue === undefined) {
       throw new Error(
-        'Required parameter attributeValue was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+        'Required parameter attributeValue was null or undefined when calling getFacilitiesByAttributeWithAttributes.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getFacilitiesByAttributeWithAttributes.'
+        'Required parameter attrNames was null or undefined when calling getFacilitiesByAttributeWithAttributes.',
       );
     }
 
@@ -7926,14 +7926,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
     if (attributeValue !== undefined && attributeValue !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeValue,
-        'attributeValue'
+        'attributeValue',
       );
     }
     if (attrNames) {
@@ -7941,7 +7941,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -8019,32 +8019,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesByDestination(
     destination: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesByDestination(
     destination: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesByDestination(
     destination: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (destination === null || destination === undefined) {
       throw new Error(
-        'Required parameter destination was null or undefined when calling getFacilitiesByDestination.'
+        'Required parameter destination was null or undefined when calling getFacilitiesByDestination.',
       );
     }
 
@@ -8053,7 +8053,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>destination,
-        'destination'
+        'destination',
       );
     }
 
@@ -8130,32 +8130,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesByHostName(
     hostname: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesByHostName(
     hostname: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesByHostName(
     hostname: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (hostname === null || hostname === undefined) {
       throw new Error(
-        'Required parameter hostname was null or undefined when calling getFacilitiesByHostName.'
+        'Required parameter hostname was null or undefined when calling getFacilitiesByHostName.',
       );
     }
 
@@ -8164,7 +8164,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>hostname,
-        'hostname'
+        'hostname',
       );
     }
 
@@ -8241,32 +8241,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getFacilitiesByIds.'
+        'Required parameter ids was null or undefined when calling getFacilitiesByIds.',
       );
     }
 
@@ -8276,7 +8276,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -8352,25 +8352,25 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getFacilitiesCount(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getFacilitiesCount(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getFacilitiesCount(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -8444,32 +8444,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilitiesWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilitiesWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilitiesWhereUserIsAdmin(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getFacilitiesWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getFacilitiesWhereUserIsAdmin.',
       );
     }
 
@@ -8551,32 +8551,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getFacilityAdminGroups(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getFacilityAdminGroups(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getFacilityAdminGroups(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAdminGroups.'
+        'Required parameter facility was null or undefined when calling getFacilityAdminGroups.',
       );
     }
 
@@ -8585,7 +8585,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -8662,32 +8662,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getFacilityAdminGroupsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getFacilityAdminGroupsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getFacilityAdminGroupsByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAdminGroupsByFacilityName.'
+        'Required parameter facility was null or undefined when calling getFacilityAdminGroupsByFacilityName.',
       );
     }
 
@@ -8696,7 +8696,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -8775,7 +8775,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getFacilityAdminUsers(
     facility: number,
@@ -8783,7 +8783,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getFacilityAdminUsers(
     facility: number,
@@ -8791,7 +8791,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getFacilityAdminUsers(
     facility: number,
@@ -8799,16 +8799,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAdminUsers.'
+        'Required parameter facility was null or undefined when calling getFacilityAdminUsers.',
       );
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getFacilityAdminUsers.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getFacilityAdminUsers.',
       );
     }
 
@@ -8817,14 +8817,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -8903,7 +8903,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getFacilityAdminUsersByFacilityName(
     facility: string,
@@ -8911,7 +8911,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getFacilityAdminUsersByFacilityName(
     facility: string,
@@ -8919,7 +8919,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getFacilityAdminUsersByFacilityName(
     facility: string,
@@ -8927,16 +8927,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAdminUsersByFacilityName.'
+        'Required parameter facility was null or undefined when calling getFacilityAdminUsersByFacilityName.',
       );
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getFacilityAdminUsersByFacilityName.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getFacilityAdminUsersByFacilityName.',
       );
     }
 
@@ -8945,14 +8945,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -9031,7 +9031,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnFacility>;
   public getFacilityBan(
     user: number,
@@ -9039,7 +9039,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnFacility>>;
   public getFacilityBan(
     user: number,
@@ -9047,7 +9047,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnFacility>>;
   public getFacilityBan(
     user: number,
@@ -9055,14 +9055,14 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling getFacilityBan.');
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityBan.'
+        'Required parameter facility was null or undefined when calling getFacilityBan.',
       );
     }
 
@@ -9074,7 +9074,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -9151,32 +9151,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnFacility>;
   public getFacilityBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnFacility>>;
   public getFacilityBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnFacility>>;
   public getFacilityBanById(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error(
-        'Required parameter banId was null or undefined when calling getFacilityBanById.'
+        'Required parameter banId was null or undefined when calling getFacilityBanById.',
       );
     }
 
@@ -9258,28 +9258,28 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public getFacilityById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public getFacilityById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public getFacilityById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getFacilityById.');
@@ -9363,32 +9363,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public getFacilityByName(
     name: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public getFacilityByName(
     name: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public getFacilityByName(
     name: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getFacilityByName.'
+        'Required parameter name was null or undefined when calling getFacilityByName.',
       );
     }
 
@@ -9470,32 +9470,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public getFacilityForHost(
     host: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public getFacilityForHost(
     host: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public getFacilityForHost(
     host: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getFacilityForHost.'
+        'Required parameter host was null or undefined when calling getFacilityForHost.',
       );
     }
 
@@ -9577,32 +9577,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Owner>>;
   public getFacilityOwners(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Owner>>>;
   public getFacilityOwners(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Owner>>>;
   public getFacilityOwners(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityOwners.'
+        'Required parameter facility was null or undefined when calling getFacilityOwners.',
       );
     }
 
@@ -9611,7 +9611,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -9688,32 +9688,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Owner>>;
   public getFacilityOwnersByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Owner>>>;
   public getFacilityOwnersByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Owner>>>;
   public getFacilityOwnersByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityOwnersByFacilityName.'
+        'Required parameter facility was null or undefined when calling getFacilityOwnersByFacilityName.',
       );
     }
 
@@ -9722,7 +9722,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -9799,28 +9799,28 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Host>;
   public getHostById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Host>>;
   public getHostById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Host>>;
   public getHostById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getHostById.');
@@ -9904,28 +9904,28 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public getHosts(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public getHosts(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public getHosts(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error('Required parameter facility was null or undefined when calling getHosts.');
@@ -9936,7 +9936,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -10013,32 +10013,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Host>>;
   public getHostsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Host>>>;
   public getHostsByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Host>>>;
   public getHostsByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getHostsByFacilityName.'
+        'Required parameter facility was null or undefined when calling getHostsByFacilityName.',
       );
     }
 
@@ -10047,7 +10047,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -10124,32 +10124,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Host>;
   public getHostsByHostname(
     hostname: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Host>>;
   public getHostsByHostname(
     hostname: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Host>>;
   public getHostsByHostname(
     hostname: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (hostname === null || hostname === undefined) {
       throw new Error(
-        'Required parameter hostname was null or undefined when calling getHostsByHostname.'
+        'Required parameter hostname was null or undefined when calling getHostsByHostname.',
       );
     }
 
@@ -10158,7 +10158,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>hostname,
-        'hostname'
+        'hostname',
       );
     }
 
@@ -10235,32 +10235,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getHostsCount(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getHostsCount(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getHostsCount(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getHostsCount.'
+        'Required parameter facility was null or undefined when calling getHostsCount.',
       );
     }
 
@@ -10269,7 +10269,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -10346,32 +10346,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getHostsCountByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getHostsCountByFacilityName(
     facility: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getHostsCountByFacilityName(
     facility: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getHostsCountByFacilityName.'
+        'Required parameter facility was null or undefined when calling getHostsCountByFacilityName.',
       );
     }
 
@@ -10380,7 +10380,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -10457,32 +10457,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getOwnerFacilities(
     owner: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getOwnerFacilities(
     owner: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getOwnerFacilities(
     owner: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling getOwnerFacilities.'
+        'Required parameter owner was null or undefined when calling getOwnerFacilities.',
       );
     }
 
@@ -10562,25 +10562,25 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichFacility>>;
   public getRichFacilities(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichFacility>>>;
   public getRichFacilities(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichFacility>>>;
   public getRichFacilities(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -10656,7 +10656,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeBanByUserIdFacilityId(
     user: number,
@@ -10664,7 +10664,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeBanByUserIdFacilityId(
     user: number,
@@ -10672,7 +10672,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeBanByUserIdFacilityId(
     user: number,
@@ -10680,16 +10680,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeBanByUserIdFacilityId.'
+        'Required parameter user was null or undefined when calling removeBanByUserIdFacilityId.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeBanByUserIdFacilityId.'
+        'Required parameter facility was null or undefined when calling removeBanByUserIdFacilityId.',
       );
     }
 
@@ -10701,7 +10701,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -10780,7 +10780,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAdminGroup(
     facility: number,
@@ -10788,7 +10788,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAdminGroup(
     facility: number,
@@ -10796,7 +10796,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAdminGroup(
     facility: number,
@@ -10804,16 +10804,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAdminGroup.'
+        'Required parameter facility was null or undefined when calling removeFacilityAdminGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling removeFacilityAdminGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling removeFacilityAdminGroup.',
       );
     }
 
@@ -10822,14 +10822,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -10908,7 +10908,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAdminGroupByFacilityName(
     facility: string,
@@ -10916,7 +10916,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAdminGroupByFacilityName(
     facility: string,
@@ -10924,7 +10924,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAdminGroupByFacilityName(
     facility: string,
@@ -10932,16 +10932,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAdminGroupByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeFacilityAdminGroupByFacilityName.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling removeFacilityAdminGroupByFacilityName.'
+        'Required parameter authorizedGroup was null or undefined when calling removeFacilityAdminGroupByFacilityName.',
       );
     }
 
@@ -10950,14 +10950,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (authorizedGroup !== undefined && authorizedGroup !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -11036,7 +11036,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAdminUser(
     facility: number,
@@ -11044,7 +11044,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAdminUser(
     facility: number,
@@ -11052,7 +11052,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAdminUser(
     facility: number,
@@ -11060,16 +11060,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAdminUser.'
+        'Required parameter facility was null or undefined when calling removeFacilityAdminUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeFacilityAdminUser.'
+        'Required parameter user was null or undefined when calling removeFacilityAdminUser.',
       );
     }
 
@@ -11078,7 +11078,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -11160,7 +11160,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAdminUserByFacilityName(
     facility: string,
@@ -11168,7 +11168,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAdminUserByFacilityName(
     facility: string,
@@ -11176,7 +11176,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAdminUserByFacilityName(
     facility: string,
@@ -11184,16 +11184,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAdminUserByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeFacilityAdminUserByFacilityName.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeFacilityAdminUserByFacilityName.'
+        'Required parameter user was null or undefined when calling removeFacilityAdminUserByFacilityName.',
       );
     }
 
@@ -11202,7 +11202,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -11282,32 +11282,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityBanById(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error(
-        'Required parameter banId was null or undefined when calling removeFacilityBanById.'
+        'Required parameter banId was null or undefined when calling removeFacilityBanById.',
       );
     }
 
@@ -11391,7 +11391,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwner(
     facility: number,
@@ -11399,7 +11399,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwner(
     facility: number,
@@ -11407,7 +11407,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwner(
     facility: number,
@@ -11415,16 +11415,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwner.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwner.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling removeFacilityOwner.'
+        'Required parameter owner was null or undefined when calling removeFacilityOwner.',
       );
     }
 
@@ -11433,7 +11433,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -11515,7 +11515,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnerByFacilityName(
     facility: string,
@@ -11523,7 +11523,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnerByFacilityName(
     facility: string,
@@ -11531,7 +11531,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnerByFacilityName(
     facility: string,
@@ -11539,16 +11539,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnerByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnerByFacilityName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling removeFacilityOwnerByFacilityName.'
+        'Required parameter owner was null or undefined when calling removeFacilityOwnerByFacilityName.',
       );
     }
 
@@ -11557,7 +11557,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -11639,7 +11639,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -11647,7 +11647,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -11655,7 +11655,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnerByFacilityNameOwnerName(
     facility: string,
@@ -11663,16 +11663,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnerByFacilityNameOwnerName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnerByFacilityNameOwnerName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling removeFacilityOwnerByFacilityNameOwnerName.'
+        'Required parameter owner was null or undefined when calling removeFacilityOwnerByFacilityNameOwnerName.',
       );
     }
 
@@ -11681,7 +11681,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -11763,7 +11763,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnerByOwnerName(
     facility: number,
@@ -11771,7 +11771,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnerByOwnerName(
     facility: number,
@@ -11779,7 +11779,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnerByOwnerName(
     facility: number,
@@ -11787,16 +11787,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnerByOwnerName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnerByOwnerName.',
       );
     }
     if (owner === null || owner === undefined) {
       throw new Error(
-        'Required parameter owner was null or undefined when calling removeFacilityOwnerByOwnerName.'
+        'Required parameter owner was null or undefined when calling removeFacilityOwnerByOwnerName.',
       );
     }
 
@@ -11805,7 +11805,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owner !== undefined && owner !== null) {
@@ -11887,7 +11887,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwners(
     facility: number,
@@ -11895,7 +11895,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwners(
     facility: number,
@@ -11903,7 +11903,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwners(
     facility: number,
@@ -11911,16 +11911,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwners.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwners.',
       );
     }
     if (owners === null || owners === undefined) {
       throw new Error(
-        'Required parameter owners was null or undefined when calling removeFacilityOwners.'
+        'Required parameter owners was null or undefined when calling removeFacilityOwners.',
       );
     }
 
@@ -11929,7 +11929,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owners) {
@@ -11937,7 +11937,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'owners[]'
+          'owners[]',
         );
       });
     }
@@ -12017,7 +12017,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnersByFacilityName(
     facility: string,
@@ -12025,7 +12025,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnersByFacilityName(
     facility: string,
@@ -12033,7 +12033,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnersByFacilityName(
     facility: string,
@@ -12041,16 +12041,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnersByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnersByFacilityName.',
       );
     }
     if (owners === null || owners === undefined) {
       throw new Error(
-        'Required parameter owners was null or undefined when calling removeFacilityOwnersByFacilityName.'
+        'Required parameter owners was null or undefined when calling removeFacilityOwnersByFacilityName.',
       );
     }
 
@@ -12059,7 +12059,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (owners) {
@@ -12067,7 +12067,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'owners[]'
+          'owners[]',
         );
       });
     }
@@ -12147,7 +12147,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -12155,7 +12155,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -12163,7 +12163,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnersByFacilityNameOwnerName(
     facility: string,
@@ -12171,16 +12171,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnersByFacilityNameOwnerName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnersByFacilityNameOwnerName.',
       );
     }
     if (ownerNames === null || ownerNames === undefined) {
       throw new Error(
-        'Required parameter ownerNames was null or undefined when calling removeFacilityOwnersByFacilityNameOwnerName.'
+        'Required parameter ownerNames was null or undefined when calling removeFacilityOwnersByFacilityNameOwnerName.',
       );
     }
 
@@ -12189,7 +12189,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (ownerNames) {
@@ -12197,7 +12197,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ownerNames[]'
+          'ownerNames[]',
         );
       });
     }
@@ -12277,7 +12277,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityOwnersByOwnerName(
     facility: number,
@@ -12285,7 +12285,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityOwnersByOwnerName(
     facility: number,
@@ -12293,7 +12293,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityOwnersByOwnerName(
     facility: number,
@@ -12301,16 +12301,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityOwnersByOwnerName.'
+        'Required parameter facility was null or undefined when calling removeFacilityOwnersByOwnerName.',
       );
     }
     if (ownerNames === null || ownerNames === undefined) {
       throw new Error(
-        'Required parameter ownerNames was null or undefined when calling removeFacilityOwnersByOwnerName.'
+        'Required parameter ownerNames was null or undefined when calling removeFacilityOwnersByOwnerName.',
       );
     }
 
@@ -12319,7 +12319,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (ownerNames) {
@@ -12327,7 +12327,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ownerNames[]'
+          'ownerNames[]',
         );
       });
     }
@@ -12405,28 +12405,28 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHost(
     host: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHost(
     host: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHost(
     host: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error('Required parameter host was null or undefined when calling removeHost.');
@@ -12510,32 +12510,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHostByHostname(
     hostname: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHostByHostname(
     hostname: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHostByHostname(
     hostname: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (hostname === null || hostname === undefined) {
       throw new Error(
-        'Required parameter hostname was null or undefined when calling removeHostByHostname.'
+        'Required parameter hostname was null or undefined when calling removeHostByHostname.',
       );
     }
 
@@ -12544,7 +12544,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>hostname,
-        'hostname'
+        'hostname',
       );
     }
 
@@ -12623,7 +12623,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHosts(
     facility: number,
@@ -12631,7 +12631,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHosts(
     facility: number,
@@ -12639,7 +12639,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHosts(
     facility: number,
@@ -12647,11 +12647,11 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeHosts.'
+        'Required parameter facility was null or undefined when calling removeHosts.',
       );
     }
     if (hosts === null || hosts === undefined) {
@@ -12663,7 +12663,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hosts) {
@@ -12671,7 +12671,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'hosts[]'
+          'hosts[]',
         );
       });
     }
@@ -12751,7 +12751,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHostsByFacilityName(
     facility: string,
@@ -12759,7 +12759,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHostsByFacilityName(
     facility: string,
@@ -12767,7 +12767,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHostsByFacilityName(
     facility: string,
@@ -12775,16 +12775,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeHostsByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeHostsByFacilityName.',
       );
     }
     if (hosts === null || hosts === undefined) {
       throw new Error(
-        'Required parameter hosts was null or undefined when calling removeHostsByFacilityName.'
+        'Required parameter hosts was null or undefined when calling removeHostsByFacilityName.',
       );
     }
 
@@ -12793,7 +12793,7 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (hosts) {
@@ -12801,7 +12801,7 @@ export class FacilitiesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'hosts[]'
+          'hosts[]',
         );
       });
     }
@@ -12881,7 +12881,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSecurityTeam(
     facility: number,
@@ -12889,7 +12889,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSecurityTeam(
     facility: number,
@@ -12897,7 +12897,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSecurityTeam(
     facility: number,
@@ -12905,16 +12905,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeSecurityTeam.'
+        'Required parameter facility was null or undefined when calling removeSecurityTeam.',
       );
     }
     if (securityTeam === null || securityTeam === undefined) {
       throw new Error(
-        'Required parameter securityTeam was null or undefined when calling removeSecurityTeam.'
+        'Required parameter securityTeam was null or undefined when calling removeSecurityTeam.',
       );
     }
 
@@ -12923,14 +12923,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (securityTeam !== undefined && securityTeam !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>securityTeam,
-        'securityTeam'
+        'securityTeam',
       );
     }
 
@@ -13009,7 +13009,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSecurityTeamByFacilityName(
     facility: string,
@@ -13017,7 +13017,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSecurityTeamByFacilityName(
     facility: string,
@@ -13025,7 +13025,7 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSecurityTeamByFacilityName(
     facility: string,
@@ -13033,16 +13033,16 @@ export class FacilitiesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeSecurityTeamByFacilityName.'
+        'Required parameter facility was null or undefined when calling removeSecurityTeamByFacilityName.',
       );
     }
     if (securityTeam === null || securityTeam === undefined) {
       throw new Error(
-        'Required parameter securityTeam was null or undefined when calling removeSecurityTeamByFacilityName.'
+        'Required parameter securityTeam was null or undefined when calling removeSecurityTeamByFacilityName.',
       );
     }
 
@@ -13051,14 +13051,14 @@ export class FacilitiesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (securityTeam !== undefined && securityTeam !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>securityTeam,
-        'securityTeam'
+        'securityTeam',
       );
     }
 
@@ -13135,32 +13135,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnFacility>;
   public setFacilityBan(
     InputSetBanForUserOnFacility: InputSetBanForUserOnFacility,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnFacility>>;
   public setFacilityBan(
     InputSetBanForUserOnFacility: InputSetBanForUserOnFacility,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnFacility>>;
   public setFacilityBan(
     InputSetBanForUserOnFacility: InputSetBanForUserOnFacility,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetBanForUserOnFacility === null || InputSetBanForUserOnFacility === undefined) {
       throw new Error(
-        'Required parameter InputSetBanForUserOnFacility was null or undefined when calling setFacilityBan.'
+        'Required parameter InputSetBanForUserOnFacility was null or undefined when calling setFacilityBan.',
       );
     }
 
@@ -13244,32 +13244,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Facility>;
   public updateFacility(
     InputUpdateFacility: InputUpdateFacility,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Facility>>;
   public updateFacility(
     InputUpdateFacility: InputUpdateFacility,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Facility>>;
   public updateFacility(
     InputUpdateFacility: InputUpdateFacility,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateFacility === null || InputUpdateFacility === undefined) {
       throw new Error(
-        'Required parameter InputUpdateFacility was null or undefined when calling updateFacility.'
+        'Required parameter InputUpdateFacility was null or undefined when calling updateFacility.',
       );
     }
 
@@ -13353,32 +13353,32 @@ export class FacilitiesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnFacility>;
   public updateFacilityBan(
     InputUpdateBanForFacility: InputUpdateBanForFacility,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnFacility>>;
   public updateFacilityBan(
     InputUpdateBanForFacility: InputUpdateBanForFacility,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnFacility>>;
   public updateFacilityBan(
     InputUpdateBanForFacility: InputUpdateBanForFacility,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateBanForFacility === null || InputUpdateBanForFacility === undefined) {
       throw new Error(
-        'Required parameter InputUpdateBanForFacility was null or undefined when calling updateFacilityBan.'
+        'Required parameter InputUpdateBanForFacility was null or undefined when calling updateFacilityBan.',
       );
     }
 

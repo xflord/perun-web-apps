@@ -46,7 +46,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     private membersService: MembersManagerService,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class SponsorExistingMemberDialogComponent implements OnInit {
     this.membersService.sponsorMembers(memberIds, sponsor.id, this.expiration).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS')
+          this.translate.instant('DIALOGS.SPONSOR_EXISTING_MEMBER.SUCCESS'),
         );
         this.loading = false;
         this.dialogRef.close(true);

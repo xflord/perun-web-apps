@@ -32,7 +32,7 @@ export class GroupSyncDetailDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<GroupSyncDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupSyncDetailDialogData,
     private groupService: GroupsManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -92,15 +92,15 @@ export class GroupSyncDetailDialogComponent implements OnInit {
           .value as string;
         const structSyncEnabled = getAttribute(
           this.group.attributes,
-          Urns.GROUP_STRUCTURE_SYNC_ENABLED
+          Urns.GROUP_STRUCTURE_SYNC_ENABLED,
         ).value as boolean;
         const lastStructSyncState = getAttribute(
           this.group.attributes,
-          Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
+          Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
         ).value as string;
         const lastStructSyncTime = getAttribute(
           this.group.attributes,
-          Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+          Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
         ).value as string;
         const syncInterval = getAttribute(this.group.attributes, Urns.GROUP_SYNC_INTERVAL)
           .value as string;

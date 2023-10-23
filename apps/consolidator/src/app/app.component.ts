@@ -12,5 +12,8 @@ export class AppComponent {
   isLoginScreenShow = this.initAuth.isLoginScreenShown();
   otherApp = AppType.Profile;
 
-  constructor(private store: StoreService, private initAuth: InitAuthService) {}
+  constructor(
+    private store: StoreService,
+    private initAuth: InitAuthService,
+  ) {}
 }

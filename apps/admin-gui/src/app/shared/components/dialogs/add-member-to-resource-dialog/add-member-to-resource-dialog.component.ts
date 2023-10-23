@@ -57,7 +57,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
     private notificator: NotificatorService,
     private translate: TranslateService,
     private authResolver: GuiAuthResolver,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngAfterViewInit(): void {
@@ -78,7 +78,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
         this.getResourceFacilities();
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -91,7 +91,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
         this.services = services;
         this.processing = false;
       },
-      () => (this.processing = false)
+      () => (this.processing = false),
     );
     this.description = this.selectedResource.description;
   }
@@ -112,7 +112,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
           });
           this.processing = false;
         },
-        () => (this.processing = false)
+        () => (this.processing = false),
       );
     });
   }
@@ -124,7 +124,7 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
     this.groupManager.addMembers(groupId, [this.data.memberId]).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS') as string
+          this.translate.instant('DIALOGS.ADD_MEMBER_TO_RESOURCE.SUCCESS') as string,
         );
         this.dialogRef.close(true);
       },
@@ -151,10 +151,10 @@ export class AddMemberToResourceDialogComponent implements OnInit, AfterViewInit
 
     const filterValue = value.toLowerCase();
     const filtered = this.resources.filter((option) =>
-      option.facility.name.toLowerCase().startsWith(filterValue)
+      option.facility.name.toLowerCase().startsWith(filterValue),
     );
     this.filteredResources = filtered.sort((a, b) =>
-      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
     );
     this.setResource(this.filteredResources[0]);
   }

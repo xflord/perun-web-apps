@@ -57,7 +57,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
     private groupsManager: GroupsManagerService,
     private attributeService: AttributesManagerService,
     private notificatorService: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +82,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
     this.resetExpiration();
     this.setDateBounds();
     this.currentStatusDescription = this.translate.instant(
-      this.descriptionTranslations.get(this.currentStatus)
+      this.descriptionTranslations.get(this.currentStatus),
     );
   }
 
@@ -155,7 +155,7 @@ export class ChangeMemberStatusDialogComponent implements OnInit {
     }
 
     this.changeDescription = this.translate.instant(
-      this.descriptionTranslations.get(val + this.newStatus)
+      this.descriptionTranslations.get(val + this.newStatus),
     );
   }
 

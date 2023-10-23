@@ -21,7 +21,7 @@ export class BreadcrumbsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class BreadcrumbsComponent implements OnInit {
       }
 
       const label = this.translate.instant(
-        child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB] as string
+        child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB] as string,
       ) as string;
       if (
         label &&

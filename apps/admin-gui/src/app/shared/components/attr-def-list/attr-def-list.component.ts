@@ -66,7 +66,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     private dialog: MatDialog,
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
-    private consentRelatedPipe: ConsentRelatedAttributePipe
+    private consentRelatedPipe: ConsentRelatedAttributePipe,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -123,9 +123,9 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        AttrDefListComponent.getDataForColumn
+        AttrDefListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -138,9 +138,9 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        AttrDefListComponent.getDataForColumn
+        AttrDefListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -154,11 +154,11 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          AttrDefListComponent.getDataForColumn
+          AttrDefListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (
         data: AttributeDefinition[],
-        sort: MatSort
+        sort: MatSort,
       ): AttributeDefinition[] =>
         customDataSourceSort(data, sort, AttrDefListComponent.getDataForColumn);
       this.dataSource.paginator = this.child.paginator;
@@ -169,7 +169,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.dataSource,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 
@@ -183,7 +183,7 @@ export class AttrDefListComponent implements OnChanges, AfterViewInit {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 

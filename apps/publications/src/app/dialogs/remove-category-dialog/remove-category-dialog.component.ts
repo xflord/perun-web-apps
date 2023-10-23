@@ -21,7 +21,7 @@ export class RemoveCategoryDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Category[],
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private cabinetManagerService: CabinetManagerService
+    private cabinetManagerService: CabinetManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class RemoveCategoryDialogComponent implements OnInit {
         () => {
           this.onSubmit();
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     } else {
       this.translate.get('DIALOGS.REMOVE_CATEGORY.SUCCESS').subscribe((successMessage: string) => {

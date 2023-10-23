@@ -38,7 +38,10 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -70,9 +73,9 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        HostsListComponent.getDataForColumn
+        HostsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -85,9 +88,9 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        HostsListComponent.getDataForColumn
+        HostsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -99,7 +102,7 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          HostsListComponent.getDataForColumn
+          HostsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Host[], sort: MatSort): Host[] =>
         customDataSourceSort(data, sort, HostsListComponent.getDataForColumn);
@@ -122,7 +125,7 @@ export class HostsListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

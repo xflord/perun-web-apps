@@ -49,7 +49,7 @@ export class PerunHeaderComponent implements OnInit {
     private otherApplicationService: OtherApplicationsService,
     private notificationStorageService: NotificationStorageService,
     private dialog: MatDialog,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class PerunHeaderComponent implements OnInit {
 
     this.translateService.onLangChange.subscribe((lang) => {
       this.label = this.storeService.getProperty(
-        lang.lang === 'en' ? 'header_label_en' : 'header_label_cs'
+        lang.lang === 'en' ? 'header_label_en' : 'header_label_cs',
       );
       this.otherAppLabel = this.getOtherAppLabel(lang.lang);
     });
@@ -72,7 +72,7 @@ export class PerunHeaderComponent implements OnInit {
       return this.storeService.getProperty('profile_label_en');
     }
     return this.storeService.getProperty(
-      currLang === 'en' ? 'admin_gui_label_en' : 'admin_gui_label_cs'
+      currLang === 'en' ? 'admin_gui_label_en' : 'admin_gui_label_cs',
     );
   }
 

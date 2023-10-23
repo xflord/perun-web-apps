@@ -27,7 +27,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   constructor(
     private translator: TranslateService,
     private usersManagerService: UsersManagerService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -36,13 +36,13 @@ export class PasswordFormComponent implements OnInit, OnChanges {
         .getRichUserWithAttributes(this.store.getPerunPrincipal().userId)
         .subscribe((richUser) => {
           const languageAttribute: Attribute = richUser.userAttributes.find(
-            (att) => att.friendlyName === 'preferredLanguage'
+            (att) => att.friendlyName === 'preferredLanguage',
           );
           this.language = (languageAttribute?.value as string) ?? 'en';
 
           if (this.language !== 'en') {
             this.allPasswordRequirements = this.store.getProperty(
-              this.language === 'en' ? 'password_help' : 'password_help_cs'
+              this.language === 'en' ? 'password_help' : 'password_help_cs',
             );
           }
 
@@ -55,7 +55,7 @@ export class PasswordFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.allPasswordRequirements = this.store.getProperty(
-      this.language === 'en' ? 'password_help' : 'password_help_cs'
+      this.language === 'en' ? 'password_help' : 'password_help_cs',
     );
 
     this.changeHelp();
@@ -64,17 +64,17 @@ export class PasswordFormComponent implements OnInit, OnChanges {
   getPasswordDisabledTooltip(): string {
     if (this.namespace === null) {
       return this.translator.instant(
-        'DIALOGS.CREATE_SPONSORED_MEMBER.NO_NAMESPACE_SELECTED'
+        'DIALOGS.CREATE_SPONSORED_MEMBER.NO_NAMESPACE_SELECTED',
       ) as string;
     }
 
     if (this.tooltipPwdViaEmail) {
       return this.translator.instant(
-        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL'
+        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_VIA_EMAIL',
       ) as string;
     } else {
       return this.translator.instant(
-        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_DISABLED'
+        'SHARED_LIB.PERUN.COMPONENTS.PASSWORD_FORM_FIELD.TOOLTIP_PASSWORD_DISABLED',
       ) as string;
     }
   }

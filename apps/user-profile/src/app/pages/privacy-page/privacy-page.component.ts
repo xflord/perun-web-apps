@@ -30,7 +30,7 @@ export class PrivacyPageComponent implements OnInit {
     private usersManagerService: UsersManagerService,
     private membersService: MembersManagerService,
     private attributesManagerService: AttributesManagerService,
-    private storage: StoreService
+    private storage: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class PrivacyPageComponent implements OnInit {
 
   applyFilter(filter: string): void {
     this.filteredVos = this.vos.filter((res) =>
-      res.name.toLowerCase().includes(filter.toLowerCase())
+      res.name.toLowerCase().includes(filter.toLowerCase()),
     );
   }
 }

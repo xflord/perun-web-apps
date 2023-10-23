@@ -31,7 +31,7 @@ export class DeleteAttributeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DeleteAttributeDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private attributesManager: AttributesManagerService
+    private attributesManager: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {

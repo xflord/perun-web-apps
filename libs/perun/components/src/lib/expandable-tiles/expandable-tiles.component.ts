@@ -20,7 +20,7 @@ export class ExpandableTilesComponent implements OnInit {
     this.expanded = this.expandedTilesStore.getStates().pipe(
       switchMap((states) => {
         return of(states.get(this.sectionId));
-      })
+      }),
     );
   }
 

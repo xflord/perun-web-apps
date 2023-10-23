@@ -33,7 +33,7 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
         this.parentVos = enrichedVo.parentVos;
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -116,7 +116,7 @@ export class VoSettingsHierarchicalInclusionComponent implements OnInit {
     this.groupService.disallowGroupsToHierarchicalVo(groupIds, this.selectedParentVo.id).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.REMOVE_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS')
+          this.translate.instant('DIALOGS.REMOVE_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS'),
         );
         this.loadAllowedGroups();
       },

@@ -31,7 +31,7 @@ export class AdminConsentHubsComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
     private store: StoreService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +79,7 @@ export class AdminConsentHubsComponent implements OnInit {
     this.consentsManager.evaluateConsentsForConsentHubs(consentHubIds).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH')
+          this.translate.instant('ADMIN.CONSENT_HUBS.EVALUATION_FINISH'),
         );
         this.selection.clear();
         this.loading = false;

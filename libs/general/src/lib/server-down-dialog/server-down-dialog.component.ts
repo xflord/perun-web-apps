@@ -15,7 +15,7 @@ export interface ServerDownDialogData {
 export class ServerDownDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<ServerDownDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ServerDownDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ServerDownDialogData,
   ) {}
 
   refresh(): void {

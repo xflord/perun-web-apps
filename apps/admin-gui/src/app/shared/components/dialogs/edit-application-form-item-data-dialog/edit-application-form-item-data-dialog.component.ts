@@ -33,7 +33,7 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: EditApplicationFormItemDataDialogData,
     private notificator: NotificatorService,
     private translateService: TranslateService,
-    private registrarService: RegistrarManagerService
+    private registrarService: RegistrarManagerService,
   ) {}
 
   private static getLabel(formItem: ApplicationFormItem): string {
@@ -89,12 +89,12 @@ export class EditApplicationFormItemDataDialogComponent implements OnInit {
         () => {
           this.notificator.showSuccess(
             this.translateService.instant(
-              'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS'
-            ) as string
+              'DIALOGS.EDIT_APPLICATION_FORM_ITEM_DATA.SUCCESS',
+            ) as string,
           );
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 }

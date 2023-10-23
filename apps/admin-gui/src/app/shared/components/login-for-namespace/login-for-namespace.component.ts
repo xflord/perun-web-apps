@@ -33,7 +33,7 @@ export class LoginForNamespaceComponent implements OnInit {
 
   constructor(
     private membersManagerService: MembersManagerService,
-    private usersManagerService: UsersManagerService
+    private usersManagerService: UsersManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -56,8 +56,8 @@ export class LoginForNamespaceComponent implements OnInit {
         switchMap(() =>
           this.usersManagerService
             .isLoginAvailable(namespace, control.value as string)
-            .pipe(map((res) => (res ? null : { loginExists: true })))
-        )
+            .pipe(map((res) => (res ? null : { loginExists: true }))),
+        ),
       );
     };
   }

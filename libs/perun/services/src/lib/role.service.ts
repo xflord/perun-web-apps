@@ -7,7 +7,7 @@ import { Group } from '@perun-web-apps/perun/openapi';
 export class RoleService {
   prepareRoles(
     roles: { [p: string]: { [p: string]: number[] } },
-    names: string[]
+    names: string[],
   ): Map<string, Map<string, number[]>> {
     const preparedRoles = new Map<string, Map<string, number[]>>();
     names.forEach((roleName) => {
@@ -27,7 +27,7 @@ export class RoleService {
     roleNames: string[],
     roleComplementaryObjectsWithAuthzGroups: {
       [p: string]: { [p: string]: { [p: string]: Group[] } };
-    }
+    },
   ): Map<string, Map<string, Map<number, Group[]>>> {
     const mappedResult = new Map<string, Map<string, Map<number, Group[]>>>();
     roleNames.forEach((roleName) => {
@@ -39,13 +39,13 @@ export class RoleService {
 
         // prepare all complementary objects IDs
         const compObjectsIds = Object.keys(
-          roleComplementaryObjectsWithAuthzGroups[roleName][beanName]
+          roleComplementaryObjectsWithAuthzGroups[roleName][beanName],
         ).map((value) => Number(value));
 
         compObjectsIds.forEach((id) => {
           beanIdToGroupsMap.set(
             id,
-            roleComplementaryObjectsWithAuthzGroups[roleName][beanName][id]
+            roleComplementaryObjectsWithAuthzGroups[roleName][beanName][id],
           );
         });
         beanNamesMap.set(beanName, beanIdToGroupsMap);

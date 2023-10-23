@@ -36,7 +36,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
     private facilityManager: FacilitiesManagerService,
     private serviceService: ServicesManagerService,
     private router: Router,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class UserDestinationRelationshipComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => (this.loading = true)),
       switchMap((term: string) => this.usersService.findUsers(term)),
-      tap(() => (this.loading = false))
+      tap(() => (this.loading = false)),
     );
     this.translate
       .get('ADMIN.VISUALIZER.USER_DESTINATION.SELECT_NO_SERVICE')

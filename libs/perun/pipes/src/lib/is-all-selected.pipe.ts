@@ -16,7 +16,7 @@ export class IsAllSelectedPipe implements PipeTransform {
   transform<T>(
     ds: MatTableDataSource<T> | DynamicDataSource<T> | PaginatedDataSource<T>,
     numberSelected: number,
-    canBeSelected?: (item: T) => boolean
+    canBeSelected?: (item: T) => boolean,
   ): boolean {
     if (numberSelected === 0) return false;
 

@@ -49,16 +49,16 @@ export class AddServicesDestinationDialogComponent implements OnInit {
 
   private emailRegex = new RegExp(emailRegexString);
   private hostPattern = new RegExp(
-    '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$'
+    '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$',
   );
   private urlPattern = new RegExp(
-    "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;()*$']*[-a-zA-Z0-9+&@#/%=~_|()*$']$"
+    "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;()*$']*[-a-zA-Z0-9+&@#/%=~_|()*$']$",
   );
   private userAtHostPattern = new RegExp(
-    '^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)@(?:(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$)'
+    '^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)@(?:(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$)',
   );
   private userAtHostPortPattern = new RegExp(
-    '^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)@(?:(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)|(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}):[0-9]+'
+    '^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)@(?:(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)|(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}):[0-9]+',
   );
   private serviceSpecificPattern = new RegExp('^(?!-)[a-zA-Z0-9-_.:/]*$');
 
@@ -66,7 +66,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<AddServicesDestinationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddServicesDestinationDialogData,
     public facilitiesManager: FacilitiesManagerService,
-    public servicesManager: ServicesManagerService
+    public servicesManager: ServicesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +98,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
             () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
       } else {
         this.servicesManager
@@ -113,7 +113,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
             () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
       }
     } else {
@@ -121,13 +121,13 @@ export class AddServicesDestinationDialogComponent implements OnInit {
         this.servicesManager
           .addDestinationsDefinedByHostsOnFacilityWithServiceAndFacility(
             (this.serviceControl.value as Service).id,
-            this.data.facility.id
+            this.data.facility.id,
           )
           .subscribe(
             () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
       } else {
         this.servicesManager
@@ -136,13 +136,13 @@ export class AddServicesDestinationDialogComponent implements OnInit {
             this.data.facility.id,
             this.destinationControl.value as string,
             this.selectedType as DestinationType,
-            this.selectedPropagation as DestinationPropagationType
+            this.selectedPropagation as DestinationPropagationType,
           )
           .subscribe(
             () => {
               this.dialogRef.close(true);
             },
-            () => (this.loading = false)
+            () => (this.loading = false),
           );
       }
     }
@@ -158,7 +158,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
           (services) => {
             this.services = services;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       }
     } else {
@@ -166,7 +166,7 @@ export class AddServicesDestinationDialogComponent implements OnInit {
         (services) => {
           this.services = services;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     }
     this.loading = false;

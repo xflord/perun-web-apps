@@ -40,7 +40,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
     public userManager: UsersManagerService,
     private storeService: StoreService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
     this.userManager.addSpecificUserOwner(owner, specificUser).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS') as string
+          this.translate.instant('DIALOGS.CONNECT_IDENTITY.SUCCESS') as string,
         );
         this.dialogRef.close(true);
       },
@@ -100,7 +100,7 @@ export class ConnectIdentityDialogComponent implements OnInit {
         },
         () => {
           this.loading = false;
-        }
+        },
       );
   }
 

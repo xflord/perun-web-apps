@@ -61,7 +61,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
     private resourcesManager: ResourcesManagerService,
     private groupsManager: GroupsManagerService,
     private vosManager: VosManagerService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -140,7 +140,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -156,7 +156,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -175,10 +175,10 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
                 this.dialogRef.close(true);
               });
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -193,7 +193,7 @@ export class EditFacilityResourceGroupVoDialogComponent implements OnInit {
             this.dialogRef.close(true);
           });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

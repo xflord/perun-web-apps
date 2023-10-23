@@ -24,7 +24,7 @@ export class ReportIssueDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private rtMessages: RTMessagesManagerService,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class ReportIssueDialogComponent implements OnInit {
           .subscribe(() =>
             this.notificator.showSuccess(
               (this.translate.instant('DIALOGS.REPORT_ISSUE.SUCCESS') as string) +
-                String(message.ticketNumber)
-            )
+                String(message.ticketNumber),
+            ),
           );
         this.dialogRef.close();
       });
@@ -55,7 +55,7 @@ export class ReportIssueDialogComponent implements OnInit {
       this.instanceName,
       '\n ',
       'Sended from new Perun Gui, version: ',
-      require('../../../../../../package.json').version as string
+      require('../../../../../../package.json').version as string,
     );
   }
 

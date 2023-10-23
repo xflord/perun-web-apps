@@ -41,7 +41,7 @@ export class FacilityDetailPageComponent extends destroyDetailMixin() implements
     public guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private entityStorageService: EntityStorageService,
-    private reloadEntityDetail: ReloadEntityDetailService
+    private reloadEntityDetail: ReloadEntityDetailService,
   ) {
     super();
   }
@@ -66,18 +66,18 @@ export class FacilityDetailPageComponent extends destroyDetailMixin() implements
 
           this.editFacilityAuth = this.guiAuthResolver.isAuthorized(
             'updateFacility_Facility_policy',
-            [this.facility]
+            [this.facility],
           );
           this.deleteAuth = this.guiAuthResolver.isAuthorized(
             'deleteFacility_Facility_Boolean_policy',
-            [this.facility]
+            [this.facility],
           );
 
           addRecentlyVisited('facilities', this.facility);
           addRecentlyVisitedObject(this.facility);
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     });
   }

@@ -46,7 +46,7 @@ export class ApplicationDetailComponent implements OnInit {
     private notificator: NotificatorService,
     private router: Router,
     private authResolver: GuiAuthResolver,
-    private usersService: UsersManagerService
+    private usersService: UsersManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class ApplicationDetailComponent implements OnInit {
               .getRichUserWithAttributes(this.application.user.id)
               .subscribe((user) => {
                 const preferredMail = user.userAttributes.find(
-                  (att) => att.friendlyName === 'preferredMail'
+                  (att) => att.friendlyName === 'preferredMail',
                 );
                 this.userMail = preferredMail?.value as string;
                 this.setAuthRights();
@@ -94,19 +94,19 @@ export class ApplicationDetailComponent implements OnInit {
       ]);
       this.approveAuth = this.authResolver.isAuthorized(
         'group-approveApplicationInternal_int_policy',
-        [this.application.group]
+        [this.application.group],
       );
       this.rejectAuth = this.authResolver.isAuthorized(
         'group-rejectApplication_int_String_policy',
-        [this.application.group]
+        [this.application.group],
       );
       this.deleteAuth = this.authResolver.isAuthorized(
         'group-deleteApplication_Application_policy',
-        [this.application.group]
+        [this.application.group],
       );
       this.resendAuth = this.authResolver.isAuthorized(
         'group-sendMessage_Application_MailType_String_policy',
-        [this.application.group]
+        [this.application.group],
       );
     } else {
       this.verifyAuth = this.authResolver.isAuthorized('vo-verifyApplication_int_policy', [
@@ -114,7 +114,7 @@ export class ApplicationDetailComponent implements OnInit {
       ]);
       this.approveAuth = this.authResolver.isAuthorized(
         'vo-approveApplicationInternal_int_policy',
-        [this.application.vo]
+        [this.application.vo],
       );
       this.rejectAuth = this.authResolver.isAuthorized('vo-rejectApplication_int_String_policy', [
         this.application.vo,
@@ -124,7 +124,7 @@ export class ApplicationDetailComponent implements OnInit {
       ]);
       this.resendAuth = this.authResolver.isAuthorized(
         'vo-sendMessage_Application_MailType_String_policy',
-        [this.application.vo]
+        [this.application.vo],
       );
     }
   }
@@ -141,7 +141,7 @@ export class ApplicationDetailComponent implements OnInit {
   submittedBy(): string {
     return this.application.createdBy.slice(
       this.application.createdBy.lastIndexOf('=') + 1,
-      this.application.createdBy.length
+      this.application.createdBy.length,
     );
   }
 
@@ -193,7 +193,7 @@ export class ApplicationDetailComponent implements OnInit {
             .subscribe((successMessage: string) => {
               this.notificator.showSuccess(successMessage);
               void this.router.navigateByUrl(
-                this.router.url.substring(0, this.router.url.lastIndexOf('/'))
+                this.router.url.substring(0, this.router.url.lastIndexOf('/')),
               );
             });
         });
@@ -215,7 +215,7 @@ export class ApplicationDetailComponent implements OnInit {
           this.application = reloaded;
           this.loading = false;
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     });
   }
@@ -234,10 +234,10 @@ export class ApplicationDetailComponent implements OnInit {
             this.application = reloaded;
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

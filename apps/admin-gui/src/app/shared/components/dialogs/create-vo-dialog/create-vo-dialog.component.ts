@@ -28,7 +28,7 @@ export class CreateVoDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private voService: VosManagerService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
   ) {
     translate
       .get('DIALOGS.CREATE_VO.SUCCESS')

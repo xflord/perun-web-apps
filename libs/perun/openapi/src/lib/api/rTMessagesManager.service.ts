@@ -45,7 +45,7 @@ export class RTMessagesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -76,7 +76,7 @@ export class RTMessagesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -90,8 +90,8 @@ export class RTMessagesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -120,7 +120,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RTMessage>;
   public sentMessageToRTWithMemberQueue(
     memberId: number,
@@ -130,7 +130,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RTMessage>>;
   public sentMessageToRTWithMemberQueue(
     memberId: number,
@@ -140,7 +140,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RTMessage>>;
   public sentMessageToRTWithMemberQueue(
     memberId: number,
@@ -150,26 +150,26 @@ export class RTMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (memberId === null || memberId === undefined) {
       throw new Error(
-        'Required parameter memberId was null or undefined when calling sentMessageToRTWithMemberQueue.'
+        'Required parameter memberId was null or undefined when calling sentMessageToRTWithMemberQueue.',
       );
     }
     if (queue === null || queue === undefined) {
       throw new Error(
-        'Required parameter queue was null or undefined when calling sentMessageToRTWithMemberQueue.'
+        'Required parameter queue was null or undefined when calling sentMessageToRTWithMemberQueue.',
       );
     }
     if (subject === null || subject === undefined) {
       throw new Error(
-        'Required parameter subject was null or undefined when calling sentMessageToRTWithMemberQueue.'
+        'Required parameter subject was null or undefined when calling sentMessageToRTWithMemberQueue.',
       );
     }
     if (text === null || text === undefined) {
       throw new Error(
-        'Required parameter text was null or undefined when calling sentMessageToRTWithMemberQueue.'
+        'Required parameter text was null or undefined when calling sentMessageToRTWithMemberQueue.',
       );
     }
 
@@ -178,7 +178,7 @@ export class RTMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>memberId,
-        'memberId'
+        'memberId',
       );
     }
     if (queue !== undefined && queue !== null) {
@@ -188,7 +188,7 @@ export class RTMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>subject,
-        'subject'
+        'subject',
       );
     }
     if (text !== undefined && text !== null) {
@@ -272,7 +272,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RTMessage>;
   public sentMessageToRTWithQueue(
     queue: string,
@@ -281,7 +281,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RTMessage>>;
   public sentMessageToRTWithQueue(
     queue: string,
@@ -290,7 +290,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RTMessage>>;
   public sentMessageToRTWithQueue(
     queue: string,
@@ -299,21 +299,21 @@ export class RTMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (queue === null || queue === undefined) {
       throw new Error(
-        'Required parameter queue was null or undefined when calling sentMessageToRTWithQueue.'
+        'Required parameter queue was null or undefined when calling sentMessageToRTWithQueue.',
       );
     }
     if (subject === null || subject === undefined) {
       throw new Error(
-        'Required parameter subject was null or undefined when calling sentMessageToRTWithQueue.'
+        'Required parameter subject was null or undefined when calling sentMessageToRTWithQueue.',
       );
     }
     if (text === null || text === undefined) {
       throw new Error(
-        'Required parameter text was null or undefined when calling sentMessageToRTWithQueue.'
+        'Required parameter text was null or undefined when calling sentMessageToRTWithQueue.',
       );
     }
 
@@ -325,7 +325,7 @@ export class RTMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>subject,
-        'subject'
+        'subject',
       );
     }
     if (text !== undefined && text !== null) {
@@ -409,7 +409,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RTMessage>;
   public sentMessageToRTWithVo(
     voId: number,
@@ -418,7 +418,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RTMessage>>;
   public sentMessageToRTWithVo(
     voId: number,
@@ -427,7 +427,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RTMessage>>;
   public sentMessageToRTWithVo(
     voId: number,
@@ -436,21 +436,21 @@ export class RTMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (voId === null || voId === undefined) {
       throw new Error(
-        'Required parameter voId was null or undefined when calling sentMessageToRTWithVo.'
+        'Required parameter voId was null or undefined when calling sentMessageToRTWithVo.',
       );
     }
     if (subject === null || subject === undefined) {
       throw new Error(
-        'Required parameter subject was null or undefined when calling sentMessageToRTWithVo.'
+        'Required parameter subject was null or undefined when calling sentMessageToRTWithVo.',
       );
     }
     if (text === null || text === undefined) {
       throw new Error(
-        'Required parameter text was null or undefined when calling sentMessageToRTWithVo.'
+        'Required parameter text was null or undefined when calling sentMessageToRTWithVo.',
       );
     }
 
@@ -462,7 +462,7 @@ export class RTMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>subject,
-        'subject'
+        'subject',
       );
     }
     if (text !== undefined && text !== null) {
@@ -548,7 +548,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RTMessage>;
   public sentMessageToRTWithVoQueue(
     voId: number,
@@ -558,7 +558,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RTMessage>>;
   public sentMessageToRTWithVoQueue(
     voId: number,
@@ -568,7 +568,7 @@ export class RTMessagesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RTMessage>>;
   public sentMessageToRTWithVoQueue(
     voId: number,
@@ -578,26 +578,26 @@ export class RTMessagesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (voId === null || voId === undefined) {
       throw new Error(
-        'Required parameter voId was null or undefined when calling sentMessageToRTWithVoQueue.'
+        'Required parameter voId was null or undefined when calling sentMessageToRTWithVoQueue.',
       );
     }
     if (queue === null || queue === undefined) {
       throw new Error(
-        'Required parameter queue was null or undefined when calling sentMessageToRTWithVoQueue.'
+        'Required parameter queue was null or undefined when calling sentMessageToRTWithVoQueue.',
       );
     }
     if (subject === null || subject === undefined) {
       throw new Error(
-        'Required parameter subject was null or undefined when calling sentMessageToRTWithVoQueue.'
+        'Required parameter subject was null or undefined when calling sentMessageToRTWithVoQueue.',
       );
     }
     if (text === null || text === undefined) {
       throw new Error(
-        'Required parameter text was null or undefined when calling sentMessageToRTWithVoQueue.'
+        'Required parameter text was null or undefined when calling sentMessageToRTWithVoQueue.',
       );
     }
 
@@ -612,7 +612,7 @@ export class RTMessagesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>subject,
-        'subject'
+        'subject',
       );
     }
     if (text !== undefined && text !== null) {

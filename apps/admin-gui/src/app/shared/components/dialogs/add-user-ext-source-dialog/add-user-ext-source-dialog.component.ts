@@ -35,7 +35,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
     private extSourcesManagerService: ExtSourcesManagerService,
     private usersManagerService: UsersManagerService,
     private translate: TranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {
     translate
       .get('DIALOGS.ADD_USER_EXT_SOURCE.SUCCESS')
@@ -53,7 +53,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
     this.extSourcesControl.markAllAsTouched();
     this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filter(value))
+      map((value: string) => this._filter(value)),
     );
     this.extSourcesManagerService.getExtSources().subscribe(
       (extSources) => {
@@ -61,11 +61,11 @@ export class AddUserExtSourceDialogComponent implements OnInit {
 
         this.filteredExtSources = this.extSourcesControl.valueChanges.pipe(
           startWith(''),
-          map((value: string) => this._filter(value))
+          map((value: string) => this._filter(value)),
         );
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -94,7 +94,7 @@ export class AddUserExtSourceDialogComponent implements OnInit {
           this.notificator.showSuccess(this.successMessage);
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 

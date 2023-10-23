@@ -25,7 +25,7 @@ export class YearRangeComponent implements OnInit {
   chosenYearHandler(
     dateFormControl: FormControl<Moment>,
     event: Moment,
-    datepicker: MatDatepicker<Moment>
+    datepicker: MatDatepicker<Moment>,
   ): void {
     dateFormControl.setValue(event);
     this.startMaxYear = this.endYear.value.toDate();

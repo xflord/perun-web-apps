@@ -37,7 +37,7 @@ export class MemberOverviewGroupsComponent implements OnInit {
     private groupsManager: GroupsManagerService,
     public authResolver: GuiAuthResolver,
     private translate: PerunTranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -68,19 +68,19 @@ export class MemberOverviewGroupsComponent implements OnInit {
     this.selectedGroup = group;
     this.editAuth = this.authResolver.isAuthorized(
       'setMemberGroupStatus_Member_Group_MemberGroupStatus_policy',
-      [this.selectedGroup]
+      [this.selectedGroup],
     );
 
     this.groupsManager
       .getGroupRichMembersByIds(
         this.selectedGroup.id,
         [this.member.id],
-        [Urns.MEMBER_DEF_GROUP_EXPIRATION]
+        [Urns.MEMBER_DEF_GROUP_EXPIRATION],
       )
       .subscribe((members) => {
         this.selectedMember = members[0];
         this.expirationAtt = this.selectedMember.memberAttributes.find(
-          (att) => att.baseFriendlyName === 'groupMembershipExpiration'
+          (att) => att.baseFriendlyName === 'groupMembershipExpiration',
         );
         if (this.expirationAtt) {
           this.expiration = !this.expirationAtt.value

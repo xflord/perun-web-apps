@@ -19,7 +19,7 @@ export class GroupSyncIconPipe implements PipeTransform {
     const normalSyncEnabled = getAttribute(richGroup.attributes, Urns.GROUP_SYNC_ENABLED);
     const structureSyncEnabled = getAttribute(
       richGroup.attributes,
-      Urns.GROUP_STRUCTURE_SYNC_ENABLED
+      Urns.GROUP_STRUCTURE_SYNC_ENABLED,
     );
     if (normalSyncEnabled === null && structureSyncEnabled === null) {
       return '';
@@ -45,11 +45,11 @@ export class GroupSyncIconPipe implements PipeTransform {
     if (structureSyncEnabledValue) {
       const syncLastStatus = getAttribute(
         richGroup.attributes,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE
+        Urns.GROUP_LAST_STRUCTURE_SYNC_STATE,
       );
       const syncLastTime = getAttribute(
         richGroup.attributes,
-        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP
+        Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
       );
       const lastStatusValue = syncLastStatus.value as string;
       const lastTimeValue = syncLastTime.value as string;

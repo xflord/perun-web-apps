@@ -34,7 +34,7 @@ export class AddAuthorsDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddAuthorsDialogData,
     private notificator: NotificatorService,
     private cabinetService: CabinetManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.ADD_AUTHORS.SUCCESS_MESSAGE')
@@ -57,7 +57,7 @@ export class AddAuthorsDialogComponent implements OnInit {
       this.cabinetService.findNewAuthors(this.searchControl.value).subscribe({
         next: (authors) => {
           authors = authors.filter(
-            (item) => !this.alreadyAddedAuthors.map((author) => author.id).includes(item.id)
+            (item) => !this.alreadyAddedAuthors.map((author) => author.id).includes(item.id),
           );
           this.authors = authors;
           this.searchLoading = false;

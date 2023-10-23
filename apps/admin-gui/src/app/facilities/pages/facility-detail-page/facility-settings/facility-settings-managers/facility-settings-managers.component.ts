@@ -26,7 +26,7 @@ export class FacilitySettingsManagersComponent implements OnInit {
   constructor(
     private facilityService: FacilitiesManagerService,
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

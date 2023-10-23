@@ -26,7 +26,7 @@ export class FacilitySettingsBlacklistComponent implements OnInit {
   constructor(
     private facilitiesManager: FacilitiesManagerService,
     private usersManager: UsersManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

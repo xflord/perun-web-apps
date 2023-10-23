@@ -24,7 +24,7 @@ export class MfaApiService {
     private oauthService: OAuthService,
     private httpClient: HttpClient,
     private authService: AuthService,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
   ) {}
 
   /**
@@ -62,7 +62,7 @@ export class MfaApiService {
       this.attributesManagerService
         .getEntitylessAttributeByName(
           categoriesKey,
-          'urn:perun:entityless:attribute-def:def:mfaCategories'
+          'urn:perun:entityless:attribute-def:def:mfaCategories',
         )
         .subscribe({
           next: (categories) => {
@@ -82,7 +82,7 @@ export class MfaApiService {
                       result.includedCategories = Object.keys(result.categories);
                       for (const category in result.categories) {
                         result.includedRpsByCategory[category] = Object.keys(
-                          result.categories[category].rps as object
+                          result.categories[category].rps as object,
                         );
                       }
                     } else {

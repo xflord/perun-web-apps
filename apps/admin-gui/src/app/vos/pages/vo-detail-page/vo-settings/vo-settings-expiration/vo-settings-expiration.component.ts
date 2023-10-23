@@ -31,7 +31,7 @@ export class VoSettingsExpirationComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private apiRequest: ApiRequestConfigurationService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('VO_DETAIL.SETTINGS.EXPIRATION.SUCCESS_MESSAGE')

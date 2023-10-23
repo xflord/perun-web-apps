@@ -5,14 +5,14 @@ export const openClose = trigger('openClose', [
     'open',
     style({
       overflow: 'hidden',
-    })
+    }),
   ),
   state(
     'closed',
     style({
       height: '0px',
       overflow: 'hidden',
-    })
+    }),
   ),
   transition('open <=> closed', [animate('.3s ease-in')]),
 ]);
@@ -39,7 +39,7 @@ export const fadeIn = trigger('routeAnimations', [
           opacity: 0,
         }),
       ],
-      { optional: true }
+      { optional: true },
     ),
 
     query(
@@ -56,10 +56,10 @@ export const fadeIn = trigger('routeAnimations', [
             position: 'absolute',
             width: '100%',
             opacity: 0,
-          })
+          }),
         ),
       ],
-      { optional: true }
+      { optional: true },
     ),
 
     query(
@@ -76,10 +76,10 @@ export const fadeIn = trigger('routeAnimations', [
             position: 'absolute',
             width: '100%',
             opacity: 1,
-          })
+          }),
         ),
       ],
-      { optional: true }
+      { optional: true },
     ),
   ]),
 ]);
@@ -91,7 +91,7 @@ export const tagsOpenClose = trigger('tagsOpenClose', [
     style({
       width: '0px',
       height: '0px',
-    })
+    }),
   ),
   transition('open <=> closed', [animate('.3s ease-in')]),
 ]);
@@ -106,7 +106,7 @@ export const switchAnimation = trigger('switchAnimations', [
           style({ transform: 'translateX(-100%)' }),
           animate('1s ease-in-out', style({ transform: 'translateX(0%)' })),
         ],
-        { optional: true }
+        { optional: true },
       ),
       query(
         ':leave',
@@ -114,7 +114,7 @@ export const switchAnimation = trigger('switchAnimations', [
           style({ transform: 'translateX(0%)', position: 'absolute' }),
           animate('1s ease-in-out', style({ transform: 'translateX(100%)' })),
         ],
-        { optional: true }
+        { optional: true },
       ),
     ]),
   ]),
@@ -127,7 +127,7 @@ export const switchAnimation = trigger('switchAnimations', [
           style({ transform: 'translateX(100%)' }),
           animate('1s ease-in-out', style({ transform: 'translateX(0%)' })),
         ],
-        { optional: true }
+        { optional: true },
       ),
       query(
         ':leave',
@@ -135,7 +135,7 @@ export const switchAnimation = trigger('switchAnimations', [
           style({ transform: 'translateX(0%)', position: 'absolute' }),
           animate('1s ease-in-out', style({ transform: 'translateX(-100%)' })),
         ],
-        { optional: true }
+        { optional: true },
       ),
     ]),
   ]),

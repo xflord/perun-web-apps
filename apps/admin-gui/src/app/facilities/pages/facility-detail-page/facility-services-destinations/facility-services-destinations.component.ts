@@ -71,7 +71,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     private notificator: NotificatorService,
     private authResolver: GuiAuthResolver,
     private serviceManager: ServicesManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -97,19 +97,19 @@ export class FacilityServicesDestinationsComponent implements OnInit {
   setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'addDestination_Service_Facility_Destination_policy',
-      [this.facility]
+      [this.facility],
     );
     this.removeAuth = this.authResolver.isAuthorized(
       'removeDestination_Service_Facility_Destination_policy',
-      [this.facility]
+      [this.facility],
     );
     this.allowAuth = this.authResolver.isAuthorized(
       'unblockServiceOnDestination_Service_int_policy',
-      [this.facility]
+      [this.facility],
     );
     this.blockAuth = this.authResolver.isAuthorized(
       'blockServiceOnDestination_Service_int_policy',
-      [this.facility]
+      [this.facility],
     );
 
     this.displayedColumns = this.removeAuth
@@ -132,7 +132,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       if (result) {
         this.refreshTable();
         this.notificator.showSuccess(
-          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD_SUCCESS')
+          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ADD_SUCCESS'),
         );
       }
     });
@@ -156,7 +156,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
     this.serviceManager.blockServicesOnDestinations({ richDestinations: destinations }).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS')
+          this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.BLOCK_SUCCESS'),
         );
         this.refreshTable();
       },
@@ -175,7 +175,7 @@ export class FacilityServicesDestinationsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS')
+            this.translate.instant('FACILITY_DETAIL.SERVICES_DESTINATIONS.ALLOW_SUCCESS'),
           );
           this.refreshTable();
         },

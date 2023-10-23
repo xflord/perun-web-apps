@@ -65,7 +65,7 @@ export class FacilityServiceConfigComponent implements OnInit {
     private membersManager: MembersManagerService,
     private namePipe: UserFullNamePipe,
     private translate: TranslateService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('FACILITY_DETAIL.SERVICE_CONFIG.ALL')
@@ -90,19 +90,19 @@ export class FacilityServiceConfigComponent implements OnInit {
     });
     this.filteredServices = this.serviceField.valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterServices(value))
+      map((value: string) => this._filterServices(value)),
     );
     this.filteredResources = this.resourceField.valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterResources(value))
+      map((value: string) => this._filterResources(value)),
     );
     this.filteredGroups = this.groupField.valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterGroups(value))
+      map((value: string) => this._filterGroups(value)),
     );
     this.filteredMembers = this.memberField.valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterMembers(value))
+      map((value: string) => this._filterMembers(value)),
     );
   }
 
@@ -140,7 +140,7 @@ export class FacilityServiceConfigComponent implements OnInit {
           false,
           this.allowedStatuses,
           [],
-          this.attrNames as string[]
+          this.attrNames as string[],
         )
         .subscribe((members) => (this.members = members));
       this.selectedMember = undefined;
@@ -210,7 +210,7 @@ export class FacilityServiceConfigComponent implements OnInit {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterValue)
+        .includes(filterValue),
     );
   }
 
@@ -222,7 +222,7 @@ export class FacilityServiceConfigComponent implements OnInit {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterValue)
+        .includes(filterValue),
     );
   }
 
@@ -234,7 +234,7 @@ export class FacilityServiceConfigComponent implements OnInit {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterValue)
+        .includes(filterValue),
     );
   }
 
@@ -246,7 +246,7 @@ export class FacilityServiceConfigComponent implements OnInit {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
-        .includes(filterValue)
+        .includes(filterValue),
     );
   }
 }

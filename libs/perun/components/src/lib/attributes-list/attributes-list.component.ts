@@ -45,7 +45,10 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -106,9 +109,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        AttributesListComponent.getDataForColumn
+        AttributesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -121,9 +124,9 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        AttributesListComponent.getDataForColumn
+        AttributesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -135,7 +138,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns.concat('urn'),
-          AttributesListComponent.getDataForColumn
+          AttributesListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Attribute[], sort: MatSort): Attribute[] =>
         customDataSourceSort(data, sort, AttributesListComponent.getDataForColumn);
@@ -149,7 +152,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.dataSource,
-      AttributesListComponent.canBeSelected
+      AttributesListComponent.canBeSelected,
     );
   }
 
@@ -163,7 +166,7 @@ export class AttributesListComponent implements OnChanges, AfterViewInit {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      AttributesListComponent.canBeSelected
+      AttributesListComponent.canBeSelected,
     );
   }
 

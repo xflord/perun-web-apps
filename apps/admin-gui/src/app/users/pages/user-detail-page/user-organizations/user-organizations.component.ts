@@ -30,7 +30,7 @@ export class UserOrganizationsComponent implements OnInit {
     private usersService: UsersManagerService,
     private authResolver: GuiAuthResolver,
     private store: StoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class UserOrganizationsComponent implements OnInit {
         this.vosWhereIsMember = vosMember;
         this.memberRefresh = false;
       },
-      () => (this.memberRefresh = false)
+      () => (this.memberRefresh = false),
     );
   }
 
@@ -61,7 +61,7 @@ export class UserOrganizationsComponent implements OnInit {
         this.vosWhereIsAdmin = vosAdmin;
         this.adminRefresh = false;
       },
-      () => (this.adminRefresh = false)
+      () => (this.adminRefresh = false),
     );
   }
 

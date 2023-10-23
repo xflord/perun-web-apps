@@ -28,7 +28,7 @@ export class ChangeEmailDialogComponent implements OnInit {
     private translate: TranslateService,
     private notificator: NotificatorService,
     private usersManagerService: UsersManagerService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     translate
       .get('DIALOGS.CHANGE_EMAIL.SUCCESS')
@@ -45,7 +45,7 @@ export class ChangeEmailDialogComponent implements OnInit {
     this.emailControl = new UntypedFormControl(null, [
       Validators.required,
       Validators.pattern(
-        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i
+        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
       ),
     ]);
     this.usersManagerService
@@ -54,7 +54,7 @@ export class ChangeEmailDialogComponent implements OnInit {
         this.pendingMails = mails.filter((el, i, a) => i === a.indexOf(el));
         let result = '';
         this.pendingMails.forEach(
-          (mail) => (result += `${mail === this.pendingMails[0] ? '' : ', '}${mail}`)
+          (mail) => (result += `${mail === this.pendingMails[0] ? '' : ', '}${mail}`),
         );
         this.pendingEmailsMessage =
           this.pendingEmailsMessageStart + result + this.pendingEmailsMessageEnd;
@@ -77,7 +77,7 @@ export class ChangeEmailDialogComponent implements OnInit {
         this.translate.currentLang,
         '',
         domain,
-        this.authService.getIdpFilter()
+        this.authService.getIdpFilter(),
       )
       .subscribe(() => {
         this.notificator.showSuccess(this.successMessage);

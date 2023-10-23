@@ -20,7 +20,7 @@ export class VoResourcesStatesComponent implements OnInit {
 
   constructor(
     private taskService: TasksManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class VoResourcesStatesComponent implements OnInit {
         }
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

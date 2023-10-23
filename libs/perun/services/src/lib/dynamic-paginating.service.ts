@@ -28,7 +28,7 @@ export class DynamicPaginatingService {
     private membersService: MembersManagerService,
     private usersService: UsersManagerService,
     private auditMessagesManagerService: AuditMessagesManagerService,
-    private registrarService: RegistrarManagerService
+    private registrarService: RegistrarManagerService,
   ) {}
 
   getMembers(
@@ -41,7 +41,7 @@ export class DynamicPaginatingService {
     statuses: VoMemberStatuses[],
     searchString?: string,
     groupId?: number,
-    groupStatuses?: MemberGroupStatus[]
+    groupStatuses?: MemberGroupStatus[],
   ): Observable<PaginatedRichMembers> {
     return this.membersService.getMembersPage({
       vo: voId,
@@ -72,7 +72,7 @@ export class DynamicPaginatingService {
     resourceId: number,
     serviceId: number,
     onlyAllowed: boolean,
-    consentStatuses: ConsentStatus[]
+    consentStatuses: ConsentStatus[],
   ): Observable<PaginatedRichUsers> {
     return this.usersService.getUsersPage({
       attrNames: attrNames,
@@ -99,7 +99,7 @@ export class DynamicPaginatingService {
     order: SortingOrder,
     sortColumn: BlockedLoginsOrderColumn,
     searchString?: string,
-    namespaces?: string[]
+    namespaces?: string[],
   ): Observable<PaginatedBlockedLogins> {
     return this.usersService.getBlockedLoginsPage({
       query: {
@@ -117,7 +117,7 @@ export class DynamicPaginatingService {
     order: SortingOrder,
     pageNumber: number,
     pageSize: number,
-    selectedEvents: string[]
+    selectedEvents: string[],
   ): Observable<PaginatedAuditMessages> {
     return this.auditMessagesManagerService.getMessagesPage({
       query: {
@@ -142,7 +142,7 @@ export class DynamicPaginatingService {
     userId: number,
     voId: number,
     groupId: number,
-    getDetails: boolean
+    getDetails: boolean,
   ): Observable<PaginatedRichApplications> {
     return this.registrarService.getApplicationsPage({
       vo: voId,

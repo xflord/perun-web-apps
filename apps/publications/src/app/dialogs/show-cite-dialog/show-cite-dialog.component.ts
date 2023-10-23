@@ -13,7 +13,7 @@ export class ShowCiteDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ShowCiteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI,
-    public clipboard: Clipboard
+    public clipboard: Clipboard,
   ) {}
 
   ngOnInit(): void {

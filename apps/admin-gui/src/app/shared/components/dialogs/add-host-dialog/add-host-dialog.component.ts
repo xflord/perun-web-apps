@@ -21,7 +21,7 @@ export class AddHostDialogComponent implements OnInit {
   hostsCtrl: UntypedFormControl;
 
   hostPattern = new RegExp(
-    '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$'
+    '^(?!:\\/\\/)(?=.{1,255}$)((.{1,63}\\.){1,127}(?![0-9]*$)[a-z0-9-]+\\.?)$|^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}$',
   );
 
   constructor(
@@ -29,7 +29,7 @@ export class AddHostDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddHostDialogData,
     public facilitiesManager: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   private static parseRange(range: string): number[] {
@@ -60,7 +60,7 @@ export class AddHostDialogComponent implements OnInit {
         this.notificator.showSuccess(this.translate.instant('DIALOGS.ADD_HOST.SUCCESS') as string);
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

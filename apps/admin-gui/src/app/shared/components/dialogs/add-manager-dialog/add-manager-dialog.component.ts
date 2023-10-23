@@ -53,7 +53,7 @@ export class AddManagerDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private storeService: StoreService,
     protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
   ) {
     this.title = this.translate.instant('DIALOGS.ADD_MANAGERS.TITLE');
     this.successMessage = this.translate.instant('DIALOGS.ADD_MANAGERS.SUCCESS');

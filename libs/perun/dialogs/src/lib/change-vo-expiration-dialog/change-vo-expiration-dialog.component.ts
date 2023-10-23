@@ -33,7 +33,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: ChangeVoExpirationDialogData,
     private attributesManagerService: AttributesManagerService,
     private memberManager: MembersManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class ChangeVoExpirationDialogComponent implements OnInit {
           switchMap((attr) => {
             if (!attr.value) return of(false);
             return this.memberManager.canExtendMembership(this.data.memberId);
-          })
+          }),
         )
         .subscribe({
           next: (canExtend) => {

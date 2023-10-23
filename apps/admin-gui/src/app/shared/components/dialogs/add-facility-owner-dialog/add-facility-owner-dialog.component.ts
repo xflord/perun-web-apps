@@ -36,7 +36,7 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
     private ownersManagerService: OwnersManagerService,
-    private facilitiesManagerService: FacilitiesManagerService
+    private facilitiesManagerService: FacilitiesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class AddFacilityOwnerDialogComponent implements OnInit {
         this.owners = owners.filter((owner) => !this.data.forbiddenOwners.includes(owner.id));
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

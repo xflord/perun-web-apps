@@ -34,7 +34,7 @@ export class ServiceDestinationsComponent implements OnInit {
     private translate: PerunTranslateService,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +90,7 @@ export class ServiceDestinationsComponent implements OnInit {
     this.serviceManager.blockServicesOnDestinations({ richDestinations: destinations }).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS')
+          this.translate.instant('SERVICE_DETAIL.DESTINATIONS.BLOCK_SUCCESS'),
         );
         this.refreshTable();
       },
@@ -104,7 +104,7 @@ export class ServiceDestinationsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS')
+            this.translate.instant('SERVICE_DETAIL.DESTINATIONS.ALLOW_SUCCESS'),
           );
           this.refreshTable();
         },

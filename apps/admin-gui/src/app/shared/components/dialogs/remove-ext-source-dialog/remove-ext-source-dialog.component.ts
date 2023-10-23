@@ -29,7 +29,7 @@ export class RemoveExtSourceDialogComponent implements OnInit {
     private extSourceService: ExtSourcesManagerService,
     private notificator: NotificatorService,
     private tableConfigService: TableConfigService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {

@@ -29,7 +29,7 @@ export class UserAccountsComponent implements OnInit {
     private route: ActivatedRoute,
     private usersService: UsersManagerService,
     private membersService: MembersManagerService,
-    private groupService: GroupsManagerService
+    private groupService: GroupsManagerService,
   ) {}
 
   ngOnInit(): void {

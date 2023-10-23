@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private changeDetector: ChangeDetectorRef,
     private preferredLangService: PreferredLanguageService,
     private titleService: Title,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
     this.getScreenSize();
   }
@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.isLoginScreenShown || this.isServiceAccess) {
       const preferredLanguage = this.preferredLangService.getPreferredLanguage(null);
       this.headerLabel = this.store.getProperty(
-        preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs'
+        preferredLanguage === 'en' ? 'header_label_en' : 'header_label_cs',
       );
       return;
     }

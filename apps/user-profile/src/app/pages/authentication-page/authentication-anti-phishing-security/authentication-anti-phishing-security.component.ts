@@ -38,7 +38,7 @@ export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
     private attributesManagerService: AttributesManagerService,
     private store: StoreService,
     private translate: PerunTranslateService,
-    private notificatorService: NotificatorService
+    private notificatorService: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
     attribute: Attribute,
     attributeName: string,
     dialogComponentName: 'AddAuthImgDialogComponent' | 'AddAuthTextDialogComponent',
-    translation: string
+    translation: string,
   ): void {
     const config = getDefaultDialogConfig();
     config.width = '500px';
@@ -107,7 +107,7 @@ export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.notificatorService.showSuccess(
-          this.translate.instant(`AUTHENTICATION.SAVE_${translation}_SUCCESS`)
+          this.translate.instant(`AUTHENTICATION.SAVE_${translation}_SUCCESS`),
         );
         this.loadSecurityAttribute(attributeName, translation === 'IMG').subscribe((attr) => {
           attribute = attr;
@@ -121,10 +121,10 @@ export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
     config.width = '600px';
 
     const removeDialogTitle = this.translate.instant(
-      `AUTHENTICATION.DELETE_${translation}_DIALOG_TITLE`
+      `AUTHENTICATION.DELETE_${translation}_DIALOG_TITLE`,
     );
     const removeDialogDescription = this.translate.instant(
-      `AUTHENTICATION.DELETE_${translation}_DIALOG_DESC`
+      `AUTHENTICATION.DELETE_${translation}_DIALOG_DESC`,
     );
     config.data = {
       doNotShowValues: true,
@@ -139,7 +139,7 @@ export class AuthenticationAntiPhishingSecurityComponent implements OnInit {
     dialogRef.afterClosed().subscribe((attrRemoved) => {
       if (attrRemoved) {
         this.notificatorService.showSuccess(
-          this.translate.instant(`AUTHENTICATION.REMOVE_${translation}_SUCCESS`)
+          this.translate.instant(`AUTHENTICATION.REMOVE_${translation}_SUCCESS`),
         );
         this.loadSecurityAttribute(attributeName, translation === 'IMG').subscribe((attr) => {
           attribute = attr;

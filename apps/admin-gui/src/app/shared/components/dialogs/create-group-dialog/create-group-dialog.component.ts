@@ -38,7 +38,7 @@ export class CreateGroupDialogComponent implements OnInit {
     private groupService: GroupsManagerService,
     private translate: TranslateService,
     private notificator: NotificatorService,
-    private store: StoreService
+    private store: StoreService,
   ) {
     this.isNotSubGroup = this.data.parentGroup === null;
     if (this.isNotSubGroup) {
@@ -84,7 +84,7 @@ export class CreateGroupDialogComponent implements OnInit {
         .createGroupWithVoNameDescription(
           this.data.voId,
           this.nameControl.value as string,
-          this.descriptionControl.value as string
+          this.descriptionControl.value as string,
         )
         .subscribe(
           () => {
@@ -92,7 +92,7 @@ export class CreateGroupDialogComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     } else {
       const parentGroupId = this.asSubgroup ? this.selectedParent.id : this.data.parentGroup.id;
@@ -100,7 +100,7 @@ export class CreateGroupDialogComponent implements OnInit {
         .createGroupWithParentGroupNameDescription(
           parentGroupId,
           this.nameControl.value as string,
-          this.descriptionControl.value as string
+          this.descriptionControl.value as string,
         )
         .subscribe(
           () => {
@@ -108,7 +108,7 @@ export class CreateGroupDialogComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     }
   }

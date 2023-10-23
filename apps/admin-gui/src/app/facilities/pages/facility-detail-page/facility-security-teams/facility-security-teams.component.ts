@@ -28,7 +28,7 @@ export class FacilitySecurityTeamsComponent implements OnInit {
     private dialog: MatDialog,
     private facilitiesManager: FacilitiesManagerService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -49,11 +49,11 @@ export class FacilitySecurityTeamsComponent implements OnInit {
   setAuthRights(): void {
     this.addAuth = this.authResolver.isAuthorized(
       'assignSecurityTeam_Facility_SecurityTeam_policy',
-      [this.facility]
+      [this.facility],
     );
     this.removeAuth = this.authResolver.isAuthorized(
       'removeSecurityTeam_Facility_SecurityTeam_policy',
-      [this.facility]
+      [this.facility],
     );
 
     this.displayedColumns = this.removeAuth

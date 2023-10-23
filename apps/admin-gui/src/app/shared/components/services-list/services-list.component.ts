@@ -46,7 +46,10 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -86,9 +89,9 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ServicesListComponent.getDataForColumn
+        ServicesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -101,9 +104,9 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ServicesListComponent.getDataForColumn
+        ServicesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -114,13 +117,13 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          ServicesListComponent.getDataForColumn as (data: Service, column: string) => string
+          ServicesListComponent.getDataForColumn as (data: Service, column: string) => string,
         );
       this.dataSource.sortData = (data: Service[], sort: MatSort): Service[] =>
         customDataSourceSort(
           data,
           sort,
-          ServicesListComponent.getDataForColumn as (data: Service, column: string) => string
+          ServicesListComponent.getDataForColumn as (data: Service, column: string) => string,
         );
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.child.paginator;
@@ -143,7 +146,7 @@ export class ServicesListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

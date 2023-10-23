@@ -83,7 +83,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     private authResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
     private route: ActivatedRoute,
-    private translateService: PerunTranslateService
+    private translateService: PerunTranslateService,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -109,7 +109,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   static getSortDataForColumn(
     data: MemberWithConsentStatus,
     column: string,
-    showGroupStatuses: boolean
+    showGroupStatuses: boolean,
   ): string {
     switch (column) {
       case 'id':
@@ -135,7 +135,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
   getExportDataForColumn(
     data: MemberWithConsentStatus,
     column: string,
-    showGroupStatuses: boolean
+    showGroupStatuses: boolean,
   ): string {
     switch (column) {
       case 'id':
@@ -177,9 +177,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        this.getExportDataForColumnFun
+        this.getExportDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -188,9 +188,9 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumnFun
+        this.getExportDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -204,11 +204,11 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          MembersListComponent.getFilterDataForColumn
+          MembersListComponent.getFilterDataForColumn,
         );
       this.dataSource.sortData = (
         data: MemberWithConsentStatus[],
-        sort: MatSort
+        sort: MatSort,
       ): MemberWithConsentStatus[] =>
         customDataSourceSort(data, sort, this.getSortDataForColumnFun);
     }
@@ -238,7 +238,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
     return this.tableCheckbox.isAllSelected<MemberWithConsentStatus>(
       this.selection.selected.length,
       this.dataSource,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 
@@ -252,7 +252,7 @@ export class MembersListComponent implements OnChanges, AfterViewInit {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 

@@ -43,7 +43,7 @@ export class UserProfileConfigService {
     private initAuthService: InitAuthService,
     private appConfigService: AppConfigService,
     private location: Location,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   initialize(): Promise<void> {
@@ -52,7 +52,7 @@ export class UserProfileConfigService {
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
       .then(() =>
-        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs),
       )
       .then(() => this.appConfigService.setInstanceFavicon())
       .then(() => this.initAuthService.verifyAuth())

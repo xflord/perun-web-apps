@@ -49,17 +49,17 @@ export class GroupSubgroupsComponent implements OnInit {
       return changed.source.selected.reduce(
         (acc, grp) =>
           acc && this.guiAuthResolver.isAuthorized('deleteGroup_Group_boolean_policy', [grp]),
-        true
+        true,
       );
     }),
-    startWith(true)
+    startWith(true),
   );
 
   constructor(
     private dialog: MatDialog,
     private groupService: GroupsManagerService,
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   onCreateGroup(): void {
@@ -139,7 +139,7 @@ export class GroupSubgroupsComponent implements OnInit {
           Urns.GROUP_LAST_STRUCTURE_SYNC_TIMESTAMP,
         ],
         this.selectedRoles,
-        this.selectedRoleTypes
+        this.selectedRoleTypes,
       )
       .subscribe((groups) => {
         this.groups = groups;

@@ -29,7 +29,7 @@ export class AddFacilityBanDialogComponent implements OnInit {
     private store: StoreService,
     private facilityService: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {

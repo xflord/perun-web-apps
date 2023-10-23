@@ -14,7 +14,7 @@ export interface PageQuery {
 }
 
 export function isDynamicDataSource<T>(
-  source: MatTableDataSource<T> | DynamicDataSource<T>
+  source: MatTableDataSource<T> | DynamicDataSource<T>,
 ): source is DynamicDataSource<T> {
   return `_count` in source;
 }
@@ -106,7 +106,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
   update(): void {
     // React to sort changes
     const sortChange: Observable<Sort> = this._sort.sortChange.pipe(
-      startWith({ active: 'NAME', direction: this._sort.direction })
+      startWith({ active: 'NAME', direction: this._sort.direction }),
     );
 
     // React to page changes
@@ -115,7 +115,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
         pageSize: 5,
         pageIndex: this._paginator.pageIndex,
         length: this._paginator.length,
-      })
+      }),
     );
 
     // Combine sort, page and filter state
@@ -131,7 +131,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
           offset: page.pageIndex * page.pageSize,
           searchString: filter,
         } as PageQuery);
-      })
+      }),
     );
 
     // Dispose of old subscription and set up new one

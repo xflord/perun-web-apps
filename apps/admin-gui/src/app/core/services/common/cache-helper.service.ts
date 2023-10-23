@@ -6,7 +6,10 @@ import { CacheRouteReuseStrategy } from './cache-route-reuse-strategy';
   providedIn: 'root',
 })
 export class CacheHelperService {
-  constructor(private router: Router, private routeReuseStrategy: RouteReuseStrategy) {
+  constructor(
+    private router: Router,
+    private routeReuseStrategy: RouteReuseStrategy,
+  ) {
     const cache = routeReuseStrategy as CacheRouteReuseStrategy;
 
     router.events.subscribe((event) => {

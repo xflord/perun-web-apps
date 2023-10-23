@@ -35,7 +35,10 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -72,9 +75,9 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ExtSourcesListComponent.getDataForColumn
+        ExtSourcesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -87,9 +90,9 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ExtSourcesListComponent.getDataForColumn
+        ExtSourcesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -100,7 +103,7 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          ExtSourcesListComponent.getDataForColumn
+          ExtSourcesListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: UserExtSource[], sort: MatSort): UserExtSource[] =>
         customDataSourceSort(data, sort, ExtSourcesListComponent.getDataForColumn);
@@ -123,7 +126,7 @@ export class ExtSourcesListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 }

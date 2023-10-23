@@ -78,7 +78,7 @@ export class CreateAttributeDefinitionDialogComponent {
     private attributeRightsService: AttributeRightsService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private uniqueAttPipe: DisableUniqueAttributePipe
+    private uniqueAttPipe: DisableUniqueAttributePipe,
   ) {
     this.attributeControl.valueChanges.pipe(debounceTime(200)).subscribe((value: AttributeForm) => {
       this.setAttribute(value);
@@ -97,7 +97,7 @@ export class CreateAttributeDefinitionDialogComponent {
         this.attributeRightsService.addAttributeId(),
         this.attributeRightsService.filterNullInPolicy(),
         switchMap((collections) =>
-          this.attributeService.setAttributePolicyCollections({ policyCollections: collections })
+          this.attributeService.setAttributePolicyCollections({ policyCollections: collections }),
         ),
         switchMap(() =>
           this.attributeRightsService.updateAttributeAction(
@@ -106,8 +106,8 @@ export class CreateAttributeDefinitionDialogComponent {
             this.finalReadGlobal,
             false,
             this.attDefCreated.id,
-            AttributeAction.READ
-          )
+            AttributeAction.READ,
+          ),
         ),
         switchMap(() =>
           this.attributeRightsService.updateAttributeAction(
@@ -116,14 +116,14 @@ export class CreateAttributeDefinitionDialogComponent {
             this.finalWriteGlobal,
             false,
             this.attDefCreated.id,
-            AttributeAction.WRITE
-          )
-        )
+            AttributeAction.WRITE,
+          ),
+        ),
       )
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS') as string
+            this.translate.instant('DIALOGS.CREATE_ATTRIBUTE_DEFINITION.SUCCESS') as string,
           );
           this.dialogRef.close(true);
         },

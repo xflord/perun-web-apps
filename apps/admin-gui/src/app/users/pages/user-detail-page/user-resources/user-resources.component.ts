@@ -14,7 +14,10 @@ export class UserResourcesComponent implements OnInit {
   tableId = TABLE_ADMIN_USER_RESOURCES_LIST;
   filterValue = '';
 
-  constructor(private userManager: UsersManagerService, private route: ActivatedRoute) {}
+  constructor(
+    private userManager: UsersManagerService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.refreshTable();

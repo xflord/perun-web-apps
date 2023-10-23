@@ -39,7 +39,7 @@ export class AddSshDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddSshDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddSshDialogData,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class AddSshDialogComponent implements OnInit {
         },
         () => {
           keys.pop();
-        }
+        },
       );
   }
 }

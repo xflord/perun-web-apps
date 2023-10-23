@@ -30,7 +30,10 @@ export class AttributeValueListComponent implements OnInit {
   defaultItemsShown = 5;
   itemsShown: number;
 
-  constructor(private dialog: MatDialog, private changeDetector: ChangeDetectorRef) {}
+  constructor(
+    private dialog: MatDialog,
+    private changeDetector: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.removable = !isVirtualAttribute(this.attribute) && !this.readonly;

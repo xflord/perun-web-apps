@@ -26,7 +26,7 @@ export class MemberBansComponent implements OnInit {
   constructor(
     private voService: VosManagerService,
     private entityService: EntityStorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

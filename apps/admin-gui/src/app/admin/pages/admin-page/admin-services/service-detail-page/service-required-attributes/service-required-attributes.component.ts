@@ -35,7 +35,7 @@ export class ServiceRequiredAttributesComponent implements OnInit {
     private attributeManager: AttributesManagerService,
     private dialog: MatDialog,
     public authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

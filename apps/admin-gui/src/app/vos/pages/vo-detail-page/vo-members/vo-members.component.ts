@@ -70,7 +70,7 @@ export class VoMembersComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private apiRequest: ApiRequestConfigurationService,
     private entityStorageService: EntityStorageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -111,7 +111,7 @@ export class VoMembersComponent implements OnInit {
 
     this.inviteAuth = this.authzService.isAuthorized(
       'vo-sendInvitation_Vo_Group_String_String_String_policy',
-      [this.vo]
+      [this.vo],
     );
   }
 

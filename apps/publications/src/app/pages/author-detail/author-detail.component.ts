@@ -30,7 +30,7 @@ export class AuthorDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private cabinetService: CabinetManagerService,
     private userService: UsersManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +83,7 @@ export class AuthorDetailComponent implements OnInit {
         event.category,
         +event.startYear,
         +event.endYear,
-        this.author.id
+        this.author.id,
       )
       .subscribe((publications) => {
         this.publications = publications;

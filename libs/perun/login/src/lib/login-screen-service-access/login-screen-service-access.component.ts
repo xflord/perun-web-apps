@@ -19,7 +19,7 @@ export class LoginScreenServiceAccessComponent implements OnInit, AfterViewInit 
     private authzService: AuthzResolverService,
     private auth: AuthService,
     private initAuth: InitAuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   startAuth(): void {

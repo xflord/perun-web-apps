@@ -24,7 +24,7 @@ export class UniversalConfirmationItemsDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<UniversalConfirmationItemsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UniversalConfirmationItemsDialogData
+    @Inject(MAT_DIALOG_DATA) public data: UniversalConfirmationItemsDialogData,
   ) {}
 
   ngOnInit(): void {

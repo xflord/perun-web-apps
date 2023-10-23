@@ -58,7 +58,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
     private groupsManagerService: GroupsManagerService,
     private membersManager: MembersManagerService,
     private usersManager: UsersManagerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +112,7 @@ export class TwoEntityAttributePageComponent implements OnInit {
                 false,
                 this.allowedStatuses,
                 null,
-                [Urns.MEMBER_CORE_ID]
+                [Urns.MEMBER_CORE_ID],
               )
               .subscribe((members) => {
                 this.entityValues = members;

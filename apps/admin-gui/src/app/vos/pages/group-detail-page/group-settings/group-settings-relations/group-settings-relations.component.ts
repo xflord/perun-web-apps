@@ -34,16 +34,16 @@ export class GroupSettingsRelationsComponent implements OnInit {
             { id: this.group.id, beanName: 'Group' },
           ]) &&
           this.authResolver.isAuthorized('operand-removeGroupUnion_Group_Group_policy', [grp]),
-        true
+        true,
       );
-    })
+    }),
   );
 
   constructor(
     private groupService: GroupsManagerService,
     private dialog: MatDialog,
     private entityStorageService: EntityStorageService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +98,7 @@ export class GroupSettingsRelationsComponent implements OnInit {
         this.groups = groups;
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

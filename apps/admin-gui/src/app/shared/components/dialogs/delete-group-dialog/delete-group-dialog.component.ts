@@ -30,7 +30,7 @@ export class DeleteGroupDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DeleteGroupDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private groupService: GroupsManagerService
+    private groupService: GroupsManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -54,10 +54,10 @@ export class DeleteGroupDialogComponent implements OnInit {
             this.notificator.showSuccess(successMessage);
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

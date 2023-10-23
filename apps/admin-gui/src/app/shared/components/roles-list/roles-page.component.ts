@@ -78,7 +78,7 @@ export class RolesPageComponent implements OnInit {
       }
     }),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   vos: Observable<Vo[]> = this.selectedRole.pipe(
@@ -92,7 +92,7 @@ export class RolesPageComponent implements OnInit {
       }
     }),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   facilities: Observable<EnrichedFacility[]> = this.selectedRole.pipe(
@@ -107,7 +107,7 @@ export class RolesPageComponent implements OnInit {
     }),
     map((facilities) => facilities.map((f) => ({ facility: f }))),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   resources: Observable<RichResource[]> = this.selectedRole.pipe(
@@ -121,25 +121,25 @@ export class RolesPageComponent implements OnInit {
       }
     }),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   members: Observable<RichMember[]> = this.selectedRole.pipe(
     switchMap((role) =>
-      this.membersService.getRichMembersByIds(this.roles.get(role.roleName).get('Member'))
+      this.membersService.getRichMembersByIds(this.roles.get(role.roleName).get('Member')),
     ),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   users: Observable<RichUser[]> = this.selectedRole.pipe(
     switchMap((role) =>
       this.usersService.getRichUsersByIds(
-        [this.entityId].concat(this.roles.get(role.roleName).get('User'))
-      )
+        [this.entityId].concat(this.roles.get(role.roleName).get('User')),
+      ),
     ),
     tap(() => (this.loading = false)),
-    startWith([])
+    startWith([]),
   );
 
   _complementaryObjectsWithAuthzGroups = new Map<string, Map<string, Map<number, Group[]>>>();
@@ -158,7 +158,7 @@ export class RolesPageComponent implements OnInit {
     private translate: PerunTranslateService,
     private rolePipe: DisplayedRolePipe,
     private guiAuthResolver: GuiAuthResolver,
-    private manageableEntities: ManageableEntitiesPipe
+    private manageableEntities: ManageableEntitiesPipe,
   ) {}
 
   get roles(): Map<string, Map<string, number[]>> {
@@ -174,7 +174,7 @@ export class RolesPageComponent implements OnInit {
   }
 
   @Input() set complementaryObjectsWithAuthzGroups(
-    compObjects: Map<string, Map<string, Map<number, Group[]>>>
+    compObjects: Map<string, Map<string, Map<number, Group[]>>>,
   ) {
     this._complementaryObjectsWithAuthzGroups = compObjects;
     this.updateVoNames();
@@ -182,7 +182,7 @@ export class RolesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignableRules = this.guiAuthResolver.getAssignableRoleRules(
-      this.entityType === 'GROUP' ? 'GROUP' : 'USER'
+      this.entityType === 'GROUP' ? 'GROUP' : 'USER',
     );
 
     this.selection.changed.subscribe((change) => {
@@ -191,7 +191,7 @@ export class RolesPageComponent implements OnInit {
       });
       const manageableNum = this.manageableEntities.transform(
         entities,
-        this.selectedRole.getValue()
+        this.selectedRole.getValue(),
       ).length;
       this.disableRemove = change.source.selected.length !== manageableNum;
     });
@@ -202,7 +202,7 @@ export class RolesPageComponent implements OnInit {
       });
       const manageableNum = this.manageableEntities.transform(
         entities,
-        this.selectedRole.getValue()
+        this.selectedRole.getValue(),
       ).length;
       this.disableRemove = change.source.selected.length !== manageableNum;
     });
@@ -281,9 +281,12 @@ export class RolesPageComponent implements OnInit {
               role: role.roleName,
               authorizedGroup: this.entityId,
             }),
-            this.authzResolverService.unsetRoleForUser({ role: role.roleName, user: this.entityId })
-          )
-        )
+            this.authzResolverService.unsetRoleForUser({
+              role: role.roleName,
+              user: this.entityId,
+            }),
+          ),
+        ),
       )
       .subscribe({
         next: () => {
@@ -310,7 +313,7 @@ export class RolesPageComponent implements OnInit {
     ) {
       // Facility list works with Enriched facilities we need just basic facility
       assignedObjects = this.selectedFacilities.selected.map((facility) =>
-        this.parseFacility(facility)
+        this.parseFacility(facility),
       );
     }
 
@@ -328,9 +331,9 @@ export class RolesPageComponent implements OnInit {
               role: role.roleName,
               complementaryObjects: assignedObjects,
               user: this.entityId,
-            })
-          )
-        )
+            }),
+          ),
+        ),
       )
       .subscribe({
         next: () => {
@@ -346,7 +349,7 @@ export class RolesPageComponent implements OnInit {
 
   private showSuccess(role: RoleManagementRules): void {
     this.notification.showSuccess(
-      this.translate.instant('ROLES.REMOVE_SUCCESS', { role: this.rolePipe.transform(role) })
+      this.translate.instant('ROLES.REMOVE_SUCCESS', { role: this.rolePipe.transform(role) }),
     );
   }
 

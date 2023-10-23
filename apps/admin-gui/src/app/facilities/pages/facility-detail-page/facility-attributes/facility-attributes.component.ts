@@ -15,7 +15,7 @@ export class FacilityAttributesComponent implements OnInit {
 
   constructor(
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

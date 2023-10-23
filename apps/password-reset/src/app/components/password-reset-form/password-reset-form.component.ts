@@ -48,7 +48,7 @@ export class PasswordResetFormComponent implements OnInit {
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private usersService: UsersManagerService,
     private formBuilder: FormBuilder,
-    private errorTranslate: ErrorTranslateService
+    private errorTranslate: ErrorTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class PasswordResetFormComponent implements OnInit {
               this.namespace,
               this.usersService,
               this.apiRequestConfiguration,
-              !this.authWithoutToken
+              !this.authWithoutToken,
             ),
           ],
         ],
@@ -70,7 +70,7 @@ export class PasswordResetFormComponent implements OnInit {
       },
       {
         validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-      }
+      },
     );
     this.setLabels(this.translate.currentLang);
 
@@ -101,10 +101,10 @@ export class PasswordResetFormComponent implements OnInit {
                 token: this.token,
                 password: this.newPasswdForm.value.passwordCtrl,
               },
-              true
-            )
-          )
-        )
+              true,
+            ),
+          ),
+        ),
       )
       .subscribe({
         next: () => {
@@ -123,7 +123,7 @@ export class PasswordResetFormComponent implements OnInit {
 
   private setLabels(lang: string): void {
     this.labels = this.storeService.getProperty(
-      lang === 'en' ? 'password_labels' : 'password_labels_cs'
+      lang === 'en' ? 'password_labels' : 'password_labels_cs',
     );
   }
 

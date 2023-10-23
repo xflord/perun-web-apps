@@ -56,7 +56,7 @@ export class GroupsTreeComponent implements OnChanges {
 
   treeControl = new FlatTreeControl<EnrichedGroupNode>(
     (node) => node.level,
-    (node) => node.expandable
+    (node) => node.expandable,
   );
 
   treeFlattener: MatTreeFlattener<TreeGroup, EnrichedGroupNode>;
@@ -65,13 +65,13 @@ export class GroupsTreeComponent implements OnChanges {
   constructor(
     public cd: ChangeDetectorRef,
     private dialog: MatDialog,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {
     this.treeFlattener = new MatTreeFlattener<TreeGroup, EnrichedGroupNode>(
       this.transformer,
       (node) => node.level,
       (node) => node.expandable,
-      (node) => node.children
+      (node) => node.children,
     );
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
@@ -88,12 +88,12 @@ export class GroupsTreeComponent implements OnChanges {
           option.name?.toLowerCase().includes(this.filterValue.toLowerCase()) ||
           option.description?.toLowerCase().includes(this.filterValue.toLowerCase()) ||
           option.id.toString().includes(this.filterValue.toLowerCase()) ||
-          option.uuid.toLowerCase().includes(this.filterValue.toLowerCase())
+          option.uuid.toLowerCase().includes(this.filterValue.toLowerCase()),
       );
       for (const group of this.filteredGroups) {
         if (group.parentGroupId) {
           this.filteredGroups = this.filteredGroups.concat(
-            findParent(group.parentGroupId, this.groups)
+            findParent(group.parentGroupId, this.groups),
           );
         }
       }
@@ -234,13 +234,13 @@ export class GroupsTreeComponent implements OnChanges {
         (acc, grp) =>
           acc &&
           this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [this.vo, grp]),
-        true
+        true,
       );
     }
     return this.selection.selected.reduce(
       (acc, grp) =>
         acc && this.authResolver.isAuthorized('deleteGroups_List<Group>_boolean_policy', [grp]),
-      true
+      true,
     );
   }
 

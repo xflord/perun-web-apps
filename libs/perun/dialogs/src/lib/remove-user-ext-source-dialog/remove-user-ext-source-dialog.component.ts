@@ -29,7 +29,7 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveUserExtSourceDialogData,
     private usersManagerService: UsersManagerService,
     private translate: PerunTranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class RemoveUserExtSourceDialogComponent implements OnInit {
           this.loading = false;
           if (this.data.showSuccess) {
             this.notificator.showSuccess(
-              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS')
+              this.translate.instant('SHARED_LIB.PERUN.COMPONENTS.REMOVE_USER_EXT_SOURCE.SUCCESS'),
             );
           }
           this.dialogRef.close(true);

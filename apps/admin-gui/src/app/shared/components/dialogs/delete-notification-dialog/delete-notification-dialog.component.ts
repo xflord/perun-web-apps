@@ -28,7 +28,7 @@ export class DeleteNotificationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormMailDialogData,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private registrarService: RegistrarManagerService
+    private registrarService: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class DeleteNotificationDialogComponent implements OnInit {
           () => {
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       }
     } else {
@@ -57,7 +57,7 @@ export class DeleteNotificationDialogComponent implements OnInit {
           () => {
             this.dialogRef.close(true);
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       }
     }

@@ -11,7 +11,10 @@ export class FacilityHostsDetailComponent implements OnInit {
   hostId: number;
   host: Host = { beanName: '', id: 0 };
 
-  constructor(private facilityManager: FacilitiesManagerService, private route: ActivatedRoute) {}
+  constructor(
+    private facilityManager: FacilitiesManagerService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

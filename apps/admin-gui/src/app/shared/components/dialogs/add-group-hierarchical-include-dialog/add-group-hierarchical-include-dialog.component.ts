@@ -32,7 +32,7 @@ export class AddGroupHierarchicalIncludeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AddGroupHierarchicalIncludeDialogData,
     private groupService: GroupsManagerService,
     private notificator: NotificatorService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class AddGroupHierarchicalIncludeDialogComponent implements OnInit {
       next: () => {
         this.dialogRef.close(true);
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS')
+          this.translate.instant('DIALOGS.ADD_GROUPS_HIERARCHICAL_INCLUSION.SUCCESS'),
         );
         this.loading = false;
       },

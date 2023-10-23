@@ -18,7 +18,7 @@ export class AddVoBanDialogComponent implements OnInit {
   ban: BanOnVo;
   loading = false;
   attrNames = [Urns.MEMBER_DEF_MAIL, Urns.USER_DEF_PREFERRED_MAIL].concat(
-    this.store.getLoginAttributeNames()
+    this.store.getLoginAttributeNames(),
   );
   displayedColumns = ['checkbox', 'id', 'fullName', 'email', 'logins'];
   tableId = TABLE_BANS;
@@ -30,7 +30,7 @@ export class AddVoBanDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddVoBanDialogComponent>,
     private store: StoreService,
     private voService: VosManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {

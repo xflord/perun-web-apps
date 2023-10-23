@@ -39,7 +39,7 @@ export class NotificationsCopyMailsDialogComponent implements OnInit {
     private translateService: PerunTranslateService,
     private registrarService: RegistrarManagerService,
     private cd: ChangeDetectorRef,
-    @Inject(MAT_DIALOG_DATA) public data: NotificationsCopyMailsDialogData
+    @Inject(MAT_DIALOG_DATA) public data: NotificationsCopyMailsDialogData,
   ) {}
 
   nameFunction: (group: Group) => string = (group: Group) => group.name;

@@ -16,7 +16,7 @@ export class UserAttributesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private store: StoreService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class UserAttributesComponent implements OnInit {
       };
       this.userFacilityAttAuth = this.authResolver.isAuthorized(
         'getAssignedFacilities_User_policy',
-        [user]
+        [user],
       );
     });
   }

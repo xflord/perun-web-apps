@@ -17,7 +17,7 @@ export class GroupSettingsManagersComponent implements OnInit {
 
   constructor(
     private guiAuthResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

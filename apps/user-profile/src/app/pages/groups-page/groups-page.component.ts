@@ -43,7 +43,7 @@ export class GroupsPageComponent implements OnInit {
     private memberService: MembersManagerService,
     private groupService: GroupsManagerService,
     private store: StoreService,
-    private attributesManagerService: AttributesManagerService
+    private attributesManagerService: AttributesManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class GroupsPageComponent implements OnInit {
       this.vos = vos;
       this.filteredVos = this.myControl.valueChanges.pipe(
         startWith(''),
-        map((value: string) => this._filter(value))
+        map((value: string) => this._filter(value)),
       );
       this.getAllGroups();
     });
@@ -94,7 +94,7 @@ export class GroupsPageComponent implements OnInit {
               this.userMembershipsTemp.push({
                 entity: group,
                 expirationAttribute: atts.find(
-                  (att) => att.friendlyName === 'groupMembershipExpiration'
+                  (att) => att.friendlyName === 'groupMembershipExpiration',
                 ),
               });
               this.loading = i !== 0 && j !== 0;
@@ -142,7 +142,7 @@ export class GroupsPageComponent implements OnInit {
                 this.userMembershipsTemp.push({
                   entity: group,
                   expirationAttribute: atts.find(
-                    (att) => att.friendlyName === 'groupMembershipExpiration'
+                    (att) => att.friendlyName === 'groupMembershipExpiration',
                   ),
                 });
                 this.loading = i !== 0;

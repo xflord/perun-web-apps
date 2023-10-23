@@ -15,7 +15,7 @@ export class DeleteApplicationFormItemDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<DeleteApplicationFormItemDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormItemDialogData
+    @Inject(MAT_DIALOG_DATA) public data: DeleteApplicationFormItemDialogData,
   ) {
     this.deletionDisabled = this.data.errorMessage?.length !== 0;
   }

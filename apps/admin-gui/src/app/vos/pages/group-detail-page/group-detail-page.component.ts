@@ -66,7 +66,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
     private router: Router,
     private entityStorageService: EntityStorageService,
     private reloadEntityDetail: ReloadEntityDetailService,
-    private queryParamsRouter: QueryParamsRouterService
+    private queryParamsRouter: QueryParamsRouterService,
   ) {
     super();
   }
@@ -121,7 +121,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
           this.group = group;
           const richGroupAuth = this.guiAuthResolver.isAuthorized(
             'getRichGroupByIdWithAttributesByNames_int_List<String>_policy',
-            [this.group]
+            [this.group],
           );
 
           return forkJoin({
@@ -133,7 +133,7 @@ export class GroupDetailPageComponent extends destroyDetailMixin() implements On
               ? this.groupService.getRichGroupByIdWithAttributesByNames(group.id, this.attrNames)
               : of(group),
           });
-        })
+        }),
       )
       .subscribe({
         next: (additionalEntities) => {

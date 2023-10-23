@@ -34,13 +34,13 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
       distinct(),
       mergeMap((id: number) => this.consentHubService.getConsentHubByFacility(id)),
       reduce((req, hub: ConsentHub) => req || hub.enforceConsents, false),
-      startWith(true)
+      startWith(true),
     );
   serviceEnabled$: Observable<boolean> = this.serviceManager
     .getServiceById(this.data.serviceId)
     .pipe(
       map((service) => service.enabled),
-      startWith(true)
+      startWith(true),
     );
   theme: string;
   attrDefinitions: AttributeDefinition[] = [];
@@ -57,7 +57,7 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
     private facilitiesService: FacilitiesManagerService,
     private consentHubService: ConsentsManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -77,12 +77,12 @@ export class AddRequiredAttributesDialogComponent implements OnInit {
     this.serviceManager.addRequiredAttributes(this.serviceId, attrDefinitionsIds).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ADD_REQUIRED_ATTRIBUTES.SUCCESS') as string
+          this.translate.instant('DIALOGS.ADD_REQUIRED_ATTRIBUTES.SUCCESS') as string,
         );
         this.dialogRef.close(true);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

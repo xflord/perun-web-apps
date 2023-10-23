@@ -28,7 +28,7 @@ export class RemoveHostDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveHostDialogData,
     public facilitiesManager: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -42,16 +42,16 @@ export class RemoveHostDialogComponent implements OnInit {
     this.facilitiesManager
       .removeHosts(
         this.data.facilityId,
-        this.hosts.map((m) => m.id)
+        this.hosts.map((m) => m.id),
       )
       .subscribe(
         () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS') as string
+            this.translate.instant('DIALOGS.REMOVE_HOST.SUCCESS') as string,
           );
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 

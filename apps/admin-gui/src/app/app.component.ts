@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router,
     private initAuth: InitAuthService,
     private authService: AuthService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {
     this.cache.init();
     this.getScreenSize();

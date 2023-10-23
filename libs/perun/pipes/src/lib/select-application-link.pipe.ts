@@ -17,7 +17,7 @@ export class SelectApplicationLinkPipe implements PipeTransform {
     application: Application,
     disableRouting: boolean,
     group: Group,
-    member: Member
+    member: Member,
   ): string[] {
     if (disableRouting) return null;
     if (group) {

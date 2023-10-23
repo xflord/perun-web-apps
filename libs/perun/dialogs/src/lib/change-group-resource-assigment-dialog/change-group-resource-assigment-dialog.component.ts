@@ -31,7 +31,7 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<ChangeGroupResourceAssigmentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: ChangeGroupResourceAssigmentDialogComponentData,
     private resourceService: ResourcesManagerService,
-    private groupService: GroupsManagerService
+    private groupService: GroupsManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +47,10 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
             this.group = grp;
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -68,21 +68,21 @@ export class ChangeGroupResourceAssigmentDialogComponent implements OnInit {
             this.dialogRef.close(true);
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     } else {
       this.resourceService
         .activateGroupResourceAssignment(
           this.data.groupId,
           this.data.resourceId,
-          this.asyncValidation
+          this.asyncValidation,
         )
         .subscribe(
           () => {
             this.dialogRef.close(true);
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     }
   }

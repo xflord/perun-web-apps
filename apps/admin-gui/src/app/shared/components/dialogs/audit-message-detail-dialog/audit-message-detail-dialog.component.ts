@@ -25,7 +25,7 @@ export class AuditMessageDetailDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AuditMessageDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AuditMessageDetailDialogData,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class AuditMessageDetailDialogComponent implements OnInit {
           cls = 'null';
         }
         return '<span class="' + cls + '">' + match + '</span>';
-      }
+      },
     );
   }
 

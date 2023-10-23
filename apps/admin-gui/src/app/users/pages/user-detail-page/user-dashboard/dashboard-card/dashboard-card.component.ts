@@ -31,7 +31,7 @@ export class DashboardCardComponent implements OnInit {
   constructor(
     private authzResolver: AuthzResolverService,
     private guiAuthResolver: GuiAuthResolver,
-    private resourceService: ResourcesManagerService
+    private resourceService: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {

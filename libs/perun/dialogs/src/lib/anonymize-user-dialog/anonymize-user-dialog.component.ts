@@ -28,7 +28,7 @@ export class AnonymizeUserDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: AnonymizeUserDialogComponentData,
     private notificator: NotificatorService,
     private usersService: UsersManagerService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class AnonymizeUserDialogComponent implements OnInit {
     this.usersService.anonymizeUser(this.data.user.id, this.force).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.ANONYMIZE_USER.SUCCESS_NOTIFICATION')
+          this.translate.instant('DIALOGS.ANONYMIZE_USER.SUCCESS_NOTIFICATION'),
         );
         this.loading = false;
         this.dialogRef.close(true);

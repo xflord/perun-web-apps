@@ -55,7 +55,7 @@ export class OtherApplicationsService {
 
     const brand = OtherApplicationsService.getBrandContainingDomain(
       this.storeService.getAppsConfig().brands,
-      domain
+      domain,
     );
     let url: string;
 

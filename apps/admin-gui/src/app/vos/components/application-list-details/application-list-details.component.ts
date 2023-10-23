@@ -74,7 +74,7 @@ export class ApplicationListDetailsComponent implements OnChanges {
   constructor(
     private router: Router,
     private authResolver: GuiAuthResolver,
-    private registrarManager: RegistrarManagerService
+    private registrarManager: RegistrarManagerService,
   ) {}
 
   ngOnChanges(): void {
@@ -131,10 +131,10 @@ export class ApplicationListDetailsComponent implements OnChanges {
         this.displayedColumns,
         this.getExportDataForColumn.bind(ApplicationListDetailsComponent) as (
           data: Record<string, unknown>,
-          column: string
-        ) => string
+          column: string,
+        ) => string,
       ),
-      format
+      format,
     );
   }
 
@@ -149,10 +149,10 @@ export class ApplicationListDetailsComponent implements OnChanges {
         this.displayedColumns,
         this.getExportDataForColumn.bind(ApplicationListDetailsComponent) as (
           data: Record<string, unknown>,
-          column: string
-        ) => string
+          column: string,
+        ) => string,
       ),
-      format
+      format,
     );
   }
 

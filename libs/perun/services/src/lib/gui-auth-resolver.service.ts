@@ -92,7 +92,7 @@ export class GuiAuthResolver {
       Role.PERUNADMINBA,
       Role.PERUNOBSERVER,
       Role.FACILITYADMIN,
-      Role.FACILITIYOBSERVER
+      Role.FACILITIYOBSERVER,
     );
   }
 
@@ -178,7 +178,7 @@ export class GuiAuthResolver {
           this.allRolesManagementRules = allRules;
           resolve();
         },
-        (error) => reject(error)
+        (error) => reject(error),
       );
     });
   }
@@ -215,7 +215,7 @@ export class GuiAuthResolver {
   setRolesAuthorization(
     availableRoles: RoleManagementRules[],
     primaryObject: PerunBean,
-    availableRolesPrivileges: Map<string, AuthPrivilege>
+    availableRolesPrivileges: Map<string, AuthPrivilege>,
   ): void {
     for (const role of availableRoles) {
       let privilegedReadRoles: Array<{ [key: string]: string }> = [];
@@ -335,7 +335,7 @@ export class GuiAuthResolver {
    */
   private canManage(rule: RoleManagementRules): boolean {
     return rule.privilegedRolesToManage.some((manager) =>
-      this.principalRoles.has(Object.keys(manager)[0] as Role)
+      this.principalRoles.has(Object.keys(manager)[0] as Role),
     );
   }
 
@@ -353,7 +353,7 @@ export class GuiAuthResolver {
 
   private resolveAuthorization(
     policyRoles: Array<{ [key: string]: string }>,
-    mapOfBeans: { [key: string]: number[] }
+    mapOfBeans: { [key: string]: number[] },
   ): boolean {
     //Traverse through outer role list which works like logical OR
     for (const roleArray of policyRoles) {

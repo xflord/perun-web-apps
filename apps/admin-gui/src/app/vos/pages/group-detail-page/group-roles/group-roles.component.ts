@@ -19,7 +19,7 @@ export class GroupRolesComponent implements OnInit {
   constructor(
     private authzResolverService: AuthzResolverService,
     private entityStorageService: EntityStorageService,
-    private roleService: RoleService
+    private roleService: RoleService,
   ) {}
 
   ngOnInit(): void {

@@ -30,7 +30,7 @@ export class AddThanksDialogComponent implements OnInit {
     private storeService: StoreService,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private cabinetManagerService: CabinetManagerService
+    private cabinetManagerService: CabinetManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class AddThanksDialogComponent implements OnInit {
         this.owners = owners;
       }
       this.owners = this.owners.filter(
-        (item) => !this.data.thanks.map((thanks) => thanks.ownerId).includes(item.id)
+        (item) => !this.data.thanks.map((thanks) => thanks.ownerId).includes(item.id),
       );
 
       this.loading = false;
@@ -78,7 +78,7 @@ export class AddThanksDialogComponent implements OnInit {
           () => {
             this.onSubmit();
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
     }
   }

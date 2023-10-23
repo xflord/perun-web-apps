@@ -30,7 +30,10 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
   pageSizeOptions = TABLE_ITEMS_COUNT_OPTIONS;
   private sort: MatSort;
 
-  constructor(private authResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private authResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -61,9 +64,9 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        OwnersListComponent.getDataForColumn
+        OwnersListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -76,9 +79,9 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        OwnersListComponent.getDataForColumn
+        OwnersListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -89,7 +92,7 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
           data,
           filter,
           this.displayedColumns,
-          OwnersListComponent.getDataForColumn
+          OwnersListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Owner[], sort: MatSort): Owner[] =>
         customDataSourceSort(data, sort, OwnersListComponent.getDataForColumn);
@@ -120,7 +123,7 @@ export class OwnersListComponent implements OnChanges, AfterViewInit {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 }

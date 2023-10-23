@@ -63,7 +63,7 @@ export class PublicationDetailListComponent implements OnInit {
   constructor(
     private cabinetService: CabinetManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {

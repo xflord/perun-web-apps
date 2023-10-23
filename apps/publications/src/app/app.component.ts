@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private initAuth: InitAuthService,
     private changeDetector: ChangeDetectorRef,
     private authResolver: GuiAuthResolver,
-    private router: Router
+    private router: Router,
   ) {}
 
   @HostListener('window:resize', ['$event'])

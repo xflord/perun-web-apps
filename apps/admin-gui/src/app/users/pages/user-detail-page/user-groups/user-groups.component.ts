@@ -41,7 +41,7 @@ export class UserGroupsComponent implements OnInit {
     private memberService: MembersManagerService,
     private groupService: GroupsManagerService,
     private store: StoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

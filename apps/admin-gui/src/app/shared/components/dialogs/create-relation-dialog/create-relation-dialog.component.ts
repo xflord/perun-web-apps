@@ -46,7 +46,7 @@ export class CreateRelationDialogComponent implements OnInit {
     private translate: TranslateService,
     private guiAuthResolver: GuiAuthResolver,
     private voService: VosManagerService,
-    @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData
+    @Inject(MAT_DIALOG_DATA) public data: CreateRelationDialogData,
   ) {
     translate
       .get('DIALOGS.CREATE_RELATION.SUCCESS')
@@ -62,7 +62,9 @@ export class CreateRelationDialogComponent implements OnInit {
         this.voService.getEnrichedVoById(this.data.voId).subscribe((enrichedVo) => {
           this.thisVo = enrichedVo;
           this.vosToSelect = enrichedVo.memberVos.filter((vo) =>
-            this.guiAuthResolver.isAuthorized('getAllAllowedGroupsToHierarchicalVo_Vo_policy', [vo])
+            this.guiAuthResolver.isAuthorized('getAllAllowedGroupsToHierarchicalVo_Vo_policy', [
+              vo,
+            ]),
           );
           this.vosToSelect.push(enrichedVo.vo);
           this.getGroupsToInclude(this.data.voId);
@@ -130,7 +132,7 @@ export class CreateRelationDialogComponent implements OnInit {
 
   private finishLoadingGroups(groups: Group[]): void {
     this.groups = groups.filter(
-      (group) => !this.groupsToNotInclude.includes(group.id) && group.id !== this.data.group.id
+      (group) => !this.groupsToNotInclude.includes(group.id) && group.id !== this.data.group.id,
     );
     this.setGroupsToDisable();
     this.selection.clear();

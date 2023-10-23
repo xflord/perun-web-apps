@@ -76,7 +76,7 @@ export class PublicationFilterComponent implements OnInit {
       startYear: formatDate(
         this.startYear.value ? this.startYear.value.toDate() : null,
         'yyyy',
-        'en-GB'
+        'en-GB',
       ),
       endYear: formatDate(this.endYear.value.toDate(), 'yyyy', 'en-GB'),
     };

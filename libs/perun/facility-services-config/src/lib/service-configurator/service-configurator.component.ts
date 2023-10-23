@@ -50,7 +50,10 @@ export class ServiceConfiguratorComponent implements OnInit, OnChanges {
 
   tableId = TABLE_ATTRIBUTES_SETTINGS;
 
-  constructor(private attributesManager: AttributesManagerService, private dialog: MatDialog) {}
+  constructor(
+    private attributesManager: AttributesManagerService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.loadFacilityAttributes();

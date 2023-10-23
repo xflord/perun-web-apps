@@ -24,7 +24,7 @@ export class DeleteTaskDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DeleteTaskDialogCData,
     private tasksManager: TasksManagerService,
     private translate: TranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class DeleteTaskDialogComponent implements OnInit {
           this.dialogRef.close(true);
         });
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

@@ -10,7 +10,7 @@ export class ConfigureFacilityGuardService {
   constructor(private router: Router) {}
 
   canActivate(
-    route: ActivatedRouteSnapshot
+    route: ActivatedRouteSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (route.parent.params['facilityId'] === sessionStorage.getItem('newFacilityId')) {
       return true;
@@ -20,7 +20,7 @@ export class ConfigureFacilityGuardService {
   }
 
   canDeactivate(
-    component: FacilityConfigurationPageComponent
+    component: FacilityConfigurationPageComponent,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return component.canDeactivate();
   }

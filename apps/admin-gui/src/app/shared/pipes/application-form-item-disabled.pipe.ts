@@ -14,7 +14,7 @@ export class ApplicationFormItemDisabledPipe implements PipeTransform {
       case 'IF_PREFILLED':
       case 'IF_EMPTY':
         return this.translateService.instant(
-          'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED.' + value
+          'VO_DETAIL.SETTINGS.APPLICATION_FORM.DISABLED.' + value,
         );
       default:
         return value;

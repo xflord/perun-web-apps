@@ -15,7 +15,10 @@ export class UserSettingsOverviewComponent implements OnInit {
   isServiceUser: boolean;
   loading = false;
 
-  constructor(private route: ActivatedRoute, private userManager: UsersManagerService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private userManager: UsersManagerService,
+  ) {}
 
   ngOnInit(): void {
     if (window.location.pathname.startsWith('/admin')) {
@@ -29,7 +32,7 @@ export class UserSettingsOverviewComponent implements OnInit {
             this.initNavItems();
             this.loading = false;
           },
-          () => (this.loading = false)
+          () => (this.loading = false),
         );
       });
     } else {
@@ -53,7 +56,7 @@ export class UserSettingsOverviewComponent implements OnInit {
           url: '/myProfile/settings/guiConfig',
           label: 'MENU_ITEMS.USER.GUI_CONFIG',
           style: 'user-btn',
-        }
+        },
       );
     }
   }

@@ -8,7 +8,10 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   styleUrls: ['./main-menu-page.component.scss'],
 })
 export class MainMenuPageComponent implements OnInit {
-  constructor(private sideMenuService: SideMenuService, public authResolver: GuiAuthResolver) {}
+  constructor(
+    private sideMenuService: SideMenuService,
+    public authResolver: GuiAuthResolver,
+  ) {}
 
   ngOnInit(): void {
     this.sideMenuService.reset();

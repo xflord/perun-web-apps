@@ -99,7 +99,7 @@ export class GroupMembersComponent implements OnInit {
     private apiRequest: ApiRequestConfigurationService,
     private notificator: NotificatorService,
     private entityStorageService: EntityStorageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -142,11 +142,11 @@ export class GroupMembersComponent implements OnInit {
       : ['id', 'type', 'fullName', 'status', 'groupStatus', 'organization', 'email', 'logins'];
     this.inviteAuth = this.guiAuthResolver.isAuthorized(
       'group-sendInvitation_Vo_Group_String_String_String_policy',
-      [this.group]
+      [this.group],
     );
     this.copyAuth = this.guiAuthResolver.isAuthorized(
       'source-copyMembers_Group_List<Group>_List<Member>_boolean_policy',
-      [this.group]
+      [this.group],
     );
   }
 

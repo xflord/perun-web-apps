@@ -88,7 +88,7 @@ export class GroupsListComponent {
     private voService: VosManagerService,
     private tableCheckbox: TableCheckbox,
     private disableGroupSelect: DisableGroupSelectPipe,
-    private groupUtils: GroupUtilsService
+    private groupUtils: GroupUtilsService,
   ) {}
 
   @Input() set groups(groups: GroupWithStatus[] | PaginatedRichGroups) {
@@ -144,7 +144,7 @@ export class GroupsListComponent {
     } else {
       downloadData(
         getDataForExport(this.dataSource.filteredData, this.columns, this.getDataForColumnFun),
-        format
+        format,
       );
     }
   }
@@ -153,7 +153,7 @@ export class GroupsListComponent {
     if (isDynamicDataSource(this.dataSource)) {
       downloadData(
         getDataForExport(this.dataSource.data, this.columns, this.getDataForColumnFun),
-        format
+        format,
       );
     } else {
       const start = this.dataSource.paginator.pageIndex * this.dataSource.paginator.pageSize;
@@ -164,9 +164,9 @@ export class GroupsListComponent {
             .sortData(this.dataSource.filteredData, this.dataSource.sort)
             .slice(start, end),
           this.columns,
-          this.getDataForColumnFun
+          this.getDataForColumnFun,
         ),
-        format
+        format,
       );
     }
   }
@@ -176,13 +176,13 @@ export class GroupsListComponent {
       return this.tableCheckbox.isAllSelectedPaginated(
         this.dataSource,
         this.selection.selected.length,
-        this.canBeSelected
+        this.canBeSelected,
       );
     } else {
       return this.tableCheckbox.isAllSelected(
         this.selection.selected.length,
         this.dataSource,
-        this.canBeSelected
+        this.canBeSelected,
       );
     }
   }
@@ -193,7 +193,7 @@ export class GroupsListComponent {
         this.dataSource,
         this.selection,
         !this.isAllSelected(),
-        this.canBeSelected
+        this.canBeSelected,
       );
     } else {
       this.tableCheckbox.masterToggle(
@@ -205,7 +205,7 @@ export class GroupsListComponent {
         this.dataSource.paginator.pageSize,
         this.dataSource.paginator.pageIndex,
         true,
-        this.canBeSelected
+        this.canBeSelected,
       );
     }
   }
@@ -242,7 +242,7 @@ export class GroupsListComponent {
 
   changeExpiration(group: GroupWithStatus): void {
     const expirationAtt = group.attributes.find(
-      (att) => att.baseFriendlyName === 'groupMembershipExpiration'
+      (att) => att.baseFriendlyName === 'groupMembershipExpiration',
     );
     const config = getDefaultDialogConfig();
     config.width = '400px';
@@ -275,7 +275,7 @@ export class GroupsListComponent {
       group,
       this.disableMembers,
       this.disableGroups,
-      this.groupsToDisableCheckbox
+      this.groupsToDisableCheckbox,
     );
   };
 
@@ -288,7 +288,7 @@ export class GroupsListComponent {
           groups.data,
           groups.totalCount,
           this.sort,
-          this.tableWrapper.paginator
+          this.tableWrapper.paginator,
         )
       : new MatTableDataSource(groups);
 

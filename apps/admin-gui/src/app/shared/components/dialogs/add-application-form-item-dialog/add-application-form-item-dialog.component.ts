@@ -47,7 +47,7 @@ export class AddApplicationFormItemDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddApplicationFormItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddApplicationFormItemDialogComponentData,
     private translateService: TranslateService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   ngOnInit(): void {

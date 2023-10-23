@@ -50,7 +50,7 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
     private oauthService: OAuthService,
     private authService: AuthService,
     private httpClient: HttpClient,
-    private mfaApiService: MfaApiService
+    private mfaApiService: MfaApiService,
   ) {}
 
   ngOnInit(): void {
@@ -156,11 +156,11 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
     for (const category in this.settings.categories) {
       this.allRpsKeysByCategory.set(
         category,
-        Object.keys(this.settings.rpsByCategory[category] as object)
+        Object.keys(this.settings.rpsByCategory[category] as object),
       );
       this.rpsSelections.set(
         category,
-        new SelectionModel<string>(true, this.settings.includedRpsByCategory[category] as string[])
+        new SelectionModel<string>(true, this.settings.includedRpsByCategory[category] as string[]),
       );
     }
     this.checkAllRpsSelected();
@@ -266,8 +266,8 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
       this.settings.includedRpsByCategory[category] = this.rpsSelections.get(category).selected;
       this.settings.excludedRps.push(
         ...Object.keys(this.settings.rpsByCategory[category] as object).filter(
-          (rps) => !this.rpsSelections.get(category).selected.includes(rps)
-        )
+          (rps) => !this.rpsSelections.get(category).selected.includes(rps),
+        ),
       );
     }
 

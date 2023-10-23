@@ -13,7 +13,10 @@ export class AuthenticationOverviewComponent implements OnInit {
   items: TabItem[] = [];
   loading = false;
 
-  constructor(private translate: PerunTranslateService, private storeService: StoreService) {}
+  constructor(
+    private translate: PerunTranslateService,
+    private storeService: StoreService,
+  ) {}
 
   ngOnInit(): void {
     this.initItems();

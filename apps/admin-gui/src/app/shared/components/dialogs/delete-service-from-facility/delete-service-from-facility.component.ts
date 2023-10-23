@@ -48,7 +48,7 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     private serviceManager: ServicesManagerService,
     private translate: PerunTranslateService,
     private notificator: NotificatorService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -91,12 +91,12 @@ export class DeleteServiceFromFacilityComponent implements OnInit {
     this.resourcesManager
       .removeServiceForResources(
         this.selected.selected.map((resource) => resource.id),
-        this.serviceId
+        this.serviceId,
       )
       .subscribe({
         next: () => {
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS')
+            this.translate.instant('DIALOGS.REMOVE_SERVICE_FROM_FACILITY.SUCCESS'),
           );
           this.dialogRef.close(true);
         },

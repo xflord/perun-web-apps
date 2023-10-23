@@ -62,7 +62,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
     private translate: PerunTranslateService,
     private notificator: NotificatorService,
     protected route: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
   ) {
     this.title = this.translate.instant('DIALOGS.ADD_GROUPS.TITLE');
     this.successMessage = this.translate.instant('DIALOGS.ADD_GROUPS.SUCCESS');
@@ -103,7 +103,7 @@ export class AddGroupManagerDialogComponent implements OnInit {
       next: (vos) => {
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
-          map((value: string) => this._filter(value))
+          map((value: string) => this._filter(value)),
         );
 
         this.vos = vos;

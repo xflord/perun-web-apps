@@ -24,7 +24,10 @@ export class LoaderDirective<T> implements OnInit, OnChanges {
   @Input('perunWebAppsLoaderIndicator') loadingIndicator: TemplateRef<Element>;
   loadingIndicatorRef: EmbeddedViewRef<Element> = null;
 
-  constructor(private viewContainerRef: ViewContainerRef, private template: TemplateRef<T>) {}
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private template: TemplateRef<T>,
+  ) {}
 
   ngOnInit(): void {
     // Templates are not rendered by default

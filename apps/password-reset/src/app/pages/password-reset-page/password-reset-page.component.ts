@@ -23,12 +23,12 @@ export class PasswordResetPageComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.passwordResetLogo = this.sanitizer.bypassSecurityTrustHtml(
-      this.storeService.getProperty('password_reset_logo')
+      this.storeService.getProperty('password_reset_logo'),
     );
     this.setDescription(this.translateService.currentLang);
     this.translateService.onLangChange.subscribe((lang) => {
@@ -38,7 +38,7 @@ export class PasswordResetPageComponent implements OnInit {
 
   private setDescription(lang: string): void {
     const passwordLabels = this.storeService.getProperty(
-      lang === 'en' ? 'password_labels' : 'password_labels_cs'
+      lang === 'en' ? 'password_labels' : 'password_labels_cs',
     );
     this.description = passwordLabels[this.namespace]?.[this.mode]?.description;
     if (!this.description) {

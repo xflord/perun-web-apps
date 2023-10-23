@@ -13,7 +13,7 @@ export class NotificationDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<NotificationDialogComponent>,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: NotificationData
+    @Inject(MAT_DIALOG_DATA) public data: NotificationData,
   ) {}
 
   onCloseClick(): void {

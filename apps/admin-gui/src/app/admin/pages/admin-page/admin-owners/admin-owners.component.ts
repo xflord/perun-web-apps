@@ -26,7 +26,7 @@ export class AdminOwnersComponent implements OnInit {
   constructor(
     private ownersManagerService: OwnersManagerService,
     private dialog: MatDialog,
-    private guiAuthResolver: GuiAuthResolver
+    private guiAuthResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

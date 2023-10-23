@@ -51,7 +51,7 @@ export class PublicationsConfigService {
     private location: Location,
     private authzSevice: AuthzResolverService,
     private guiAuthResolver: GuiAuthResolver,
-    private mfaHandlerService: MfaHandlerService
+    private mfaHandlerService: MfaHandlerService,
   ) {}
 
   loadConfigs(): Promise<void> {
@@ -60,7 +60,7 @@ export class PublicationsConfigService {
       .then(() => this.appConfigService.loadAppInstanceConfig())
       .then(() => this.appConfigService.setApiUrl())
       .then(() =>
-        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs)
+        this.appConfigService.initializeColors(this.entityColorConfigs, this.colorConfigs),
       )
       .then(() => this.initAuthService.verifyAuth())
       .catch((err) => {

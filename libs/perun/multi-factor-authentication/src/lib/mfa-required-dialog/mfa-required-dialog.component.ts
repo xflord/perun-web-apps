@@ -13,7 +13,7 @@ export interface MfaRequiredDialogData {
 export class MfaRequiredDialogComponent {
   constructor(
     private dialogRef: MatDialogRef<MfaRequiredDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: MfaRequiredDialogData
+    @Inject(MAT_DIALOG_DATA) public data: MfaRequiredDialogData,
   ) {}
 
   cancel(): void {

@@ -23,7 +23,7 @@ export class AddOwnerDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddOwnerDialogComponent>,
     private notificator: NotificatorService,
     private ownersManagerService: OwnersManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.ADD_OWNER.SUCCESS')
@@ -59,7 +59,7 @@ export class AddOwnerDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 }

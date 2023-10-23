@@ -94,9 +94,9 @@ export class FacilitiesListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -109,9 +109,9 @@ export class FacilitiesListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -125,7 +125,7 @@ export class FacilitiesListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumnFun
+          this.getDataForColumnFun,
         );
       this.dataSource.sortData = (data: EnrichedFacility[], sort: MatSort): EnrichedFacility[] =>
         customDataSourceSort(data, sort, this.getDataForColumnFun);

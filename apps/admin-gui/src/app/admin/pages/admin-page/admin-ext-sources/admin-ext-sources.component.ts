@@ -18,7 +18,7 @@ export class AdminExtSourcesComponent implements OnInit {
 
   constructor(
     private extSourceService: ExtSourcesManagerService,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {

@@ -91,7 +91,7 @@ export class UsersManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -122,7 +122,7 @@ export class UsersManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -136,8 +136,8 @@ export class UsersManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -162,7 +162,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addSpecificUserOwner(
     user: number,
@@ -170,7 +170,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addSpecificUserOwner(
     user: number,
@@ -178,7 +178,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addSpecificUserOwner(
     user: number,
@@ -186,16 +186,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling addSpecificUserOwner.'
+        'Required parameter user was null or undefined when calling addSpecificUserOwner.',
       );
     }
     if (specificUser === null || specificUser === undefined) {
       throw new Error(
-        'Required parameter specificUser was null or undefined when calling addSpecificUserOwner.'
+        'Required parameter specificUser was null or undefined when calling addSpecificUserOwner.',
       );
     }
 
@@ -207,7 +207,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>specificUser,
-        'specificUser'
+        'specificUser',
       );
     }
 
@@ -284,32 +284,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<UserExtSource>;
   public addUserExtSource(
     AddUserExtSourceInput: AddUserExtSourceInput,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<UserExtSource>>;
   public addUserExtSource(
     AddUserExtSourceInput: AddUserExtSourceInput,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<UserExtSource>>;
   public addUserExtSource(
     AddUserExtSourceInput: AddUserExtSourceInput,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (AddUserExtSourceInput === null || AddUserExtSourceInput === undefined) {
       throw new Error(
-        'Required parameter AddUserExtSourceInput was null or undefined when calling addUserExtSource.'
+        'Required parameter AddUserExtSourceInput was null or undefined when calling addUserExtSource.',
       );
     }
 
@@ -395,7 +395,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public anonymizeUser(
     user: number,
@@ -403,7 +403,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public anonymizeUser(
     user: number,
@@ -411,7 +411,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public anonymizeUser(
     user: number,
@@ -419,7 +419,7 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling anonymizeUser.');
@@ -508,7 +508,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public blockLogins(
     logins?: Array<string>,
@@ -516,7 +516,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public blockLogins(
     logins?: Array<string>,
@@ -524,7 +524,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public blockLogins(
     logins?: Array<string>,
@@ -532,7 +532,7 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (logins) {
@@ -540,7 +540,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'logins[]'
+          'logins[]',
         );
       });
     }
@@ -548,7 +548,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -626,35 +626,35 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public changeNonAuthzPasswordByToken(
     InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public changeNonAuthzPasswordByToken(
     InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public changeNonAuthzPasswordByToken(
     InputChangeNonAuthzPasswordByToken: InputChangeNonAuthzPasswordByToken,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputChangeNonAuthzPasswordByToken === null ||
       InputChangeNonAuthzPasswordByToken === undefined
     ) {
       throw new Error(
-        'Required parameter InputChangeNonAuthzPasswordByToken was null or undefined when calling changeNonAuthzPasswordByToken.'
+        'Required parameter InputChangeNonAuthzPasswordByToken was null or undefined when calling changeNonAuthzPasswordByToken.',
       );
     }
 
@@ -738,32 +738,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public changePasswordForLogin(
     InputChangePasswordForLogin: InputChangePasswordForLogin,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public changePasswordForLogin(
     InputChangePasswordForLogin: InputChangePasswordForLogin,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public changePasswordForLogin(
     InputChangePasswordForLogin: InputChangePasswordForLogin,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputChangePasswordForLogin === null || InputChangePasswordForLogin === undefined) {
       throw new Error(
-        'Required parameter InputChangePasswordForLogin was null or undefined when calling changePasswordForLogin.'
+        'Required parameter InputChangePasswordForLogin was null or undefined when calling changePasswordForLogin.',
       );
     }
 
@@ -847,32 +847,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public changePasswordForUser(
     InputChangePasswordForUser: InputChangePasswordForUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public changePasswordForUser(
     InputChangePasswordForUser: InputChangePasswordForUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public changePasswordForUser(
     InputChangePasswordForUser: InputChangePasswordForUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputChangePasswordForUser === null || InputChangePasswordForUser === undefined) {
       throw new Error(
-        'Required parameter InputChangePasswordForUser was null or undefined when calling changePasswordForUser.'
+        'Required parameter InputChangePasswordForUser was null or undefined when calling changePasswordForUser.',
       );
     }
 
@@ -957,32 +957,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public checkPasswordResetRequestByTokenIsValid(
     token: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public checkPasswordResetRequestByTokenIsValid(
     token: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public checkPasswordResetRequestByTokenIsValid(
     token: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (token === null || token === undefined) {
       throw new Error(
-        'Required parameter token was null or undefined when calling checkPasswordResetRequestByTokenIsValid.'
+        'Required parameter token was null or undefined when calling checkPasswordResetRequestByTokenIsValid.',
       );
     }
 
@@ -1065,32 +1065,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public checkPasswordStrength(
     InputCheckPasswordStrength: InputCheckPasswordStrength,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public checkPasswordStrength(
     InputCheckPasswordStrength: InputCheckPasswordStrength,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public checkPasswordStrength(
     InputCheckPasswordStrength: InputCheckPasswordStrength,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCheckPasswordStrength === null || InputCheckPasswordStrength === undefined) {
       throw new Error(
-        'Required parameter InputCheckPasswordStrength was null or undefined when calling checkPasswordStrength.'
+        'Required parameter InputCheckPasswordStrength was null or undefined when calling checkPasswordStrength.',
       );
     }
 
@@ -1174,32 +1174,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public createAlternativePassword(
     InputCreateAlternativePassword: InputCreateAlternativePassword,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public createAlternativePassword(
     InputCreateAlternativePassword: InputCreateAlternativePassword,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public createAlternativePassword(
     InputCreateAlternativePassword: InputCreateAlternativePassword,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateAlternativePassword === null || InputCreateAlternativePassword === undefined) {
       throw new Error(
-        'Required parameter InputCreateAlternativePassword was null or undefined when calling createAlternativePassword.'
+        'Required parameter InputCreateAlternativePassword was null or undefined when calling createAlternativePassword.',
       );
     }
 
@@ -1284,32 +1284,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<User>;
   public createServiceUser(
     InputCreateServiceUser: InputCreateServiceUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<User>>;
   public createServiceUser(
     InputCreateServiceUser: InputCreateServiceUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<User>>;
   public createServiceUser(
     InputCreateServiceUser: InputCreateServiceUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateServiceUser === null || InputCreateServiceUser === undefined) {
       throw new Error(
-        'Required parameter InputCreateServiceUser was null or undefined when calling createServiceUser.'
+        'Required parameter InputCreateServiceUser was null or undefined when calling createServiceUser.',
       );
     }
 
@@ -1397,7 +1397,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAlternativePassword(
     user: number,
@@ -1406,7 +1406,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAlternativePassword(
     user: number,
@@ -1415,7 +1415,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAlternativePassword(
     user: number,
@@ -1424,21 +1424,21 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling deleteAlternativePassword.'
+        'Required parameter user was null or undefined when calling deleteAlternativePassword.',
       );
     }
     if (loginNamespace === null || loginNamespace === undefined) {
       throw new Error(
-        'Required parameter loginNamespace was null or undefined when calling deleteAlternativePassword.'
+        'Required parameter loginNamespace was null or undefined when calling deleteAlternativePassword.',
       );
     }
     if (passwordId === null || passwordId === undefined) {
       throw new Error(
-        'Required parameter passwordId was null or undefined when calling deleteAlternativePassword.'
+        'Required parameter passwordId was null or undefined when calling deleteAlternativePassword.',
       );
     }
 
@@ -1450,14 +1450,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>loginNamespace,
-        'loginNamespace'
+        'loginNamespace',
       );
     }
     if (passwordId !== undefined && passwordId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>passwordId,
-        'passwordId'
+        'passwordId',
       );
     }
 
@@ -1536,7 +1536,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deletePasswordForLogin(
     login: string,
@@ -1544,7 +1544,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deletePasswordForLogin(
     login: string,
@@ -1552,7 +1552,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deletePasswordForLogin(
     login: string,
@@ -1560,16 +1560,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (login === null || login === undefined) {
       throw new Error(
-        'Required parameter login was null or undefined when calling deletePasswordForLogin.'
+        'Required parameter login was null or undefined when calling deletePasswordForLogin.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling deletePasswordForLogin.'
+        'Required parameter namespace was null or undefined when calling deletePasswordForLogin.',
       );
     }
 
@@ -1581,7 +1581,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -1660,7 +1660,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deletePasswordForUser(
     user: number,
@@ -1668,7 +1668,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deletePasswordForUser(
     user: number,
@@ -1676,7 +1676,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deletePasswordForUser(
     user: number,
@@ -1684,16 +1684,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling deletePasswordForUser.'
+        'Required parameter user was null or undefined when calling deletePasswordForUser.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling deletePasswordForUser.'
+        'Required parameter namespace was null or undefined when calling deletePasswordForUser.',
       );
     }
 
@@ -1705,7 +1705,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -1784,7 +1784,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteUser(
     user: number,
@@ -1792,7 +1792,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteUser(
     user: number,
@@ -1800,7 +1800,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteUser(
     user: number,
@@ -1808,7 +1808,7 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling deleteUser.');
@@ -1895,32 +1895,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public findRichUsers(
     searchString: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public findRichUsers(
     searchString: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public findRichUsers(
     searchString: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findRichUsers.'
+        'Required parameter searchString was null or undefined when calling findRichUsers.',
       );
     }
 
@@ -1929,7 +1929,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -2008,7 +2008,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public findRichUsersWithAttributes(
     searchString: string,
@@ -2016,7 +2016,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public findRichUsersWithAttributes(
     searchString: string,
@@ -2024,7 +2024,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public findRichUsersWithAttributes(
     searchString: string,
@@ -2032,11 +2032,11 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findRichUsersWithAttributes.'
+        'Required parameter searchString was null or undefined when calling findRichUsersWithAttributes.',
       );
     }
 
@@ -2045,7 +2045,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
     if (attrsNames) {
@@ -2053,7 +2053,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -2131,32 +2131,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public findUsers(
     searchString: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public findUsers(
     searchString: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public findUsers(
     searchString: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findUsers.'
+        'Required parameter searchString was null or undefined when calling findUsers.',
       );
     }
 
@@ -2165,7 +2165,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -2244,7 +2244,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: string }>;
   public generateAccountForName(
     namespace: string,
@@ -2252,7 +2252,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: string }>>;
   public generateAccountForName(
     namespace: string,
@@ -2260,7 +2260,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: string }>>;
   public generateAccountForName(
     namespace: string,
@@ -2268,11 +2268,11 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling generateAccountForName.'
+        'Required parameter namespace was null or undefined when calling generateAccountForName.',
       );
     }
 
@@ -2281,7 +2281,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
     if (name !== undefined && name !== null) {
@@ -2359,25 +2359,25 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BlockedLogin>>;
   public getAllBlockedLoginsInNamespaces(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BlockedLogin>>>;
   public getAllBlockedLoginsInNamespaces(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BlockedLogin>>>;
   public getAllBlockedLoginsInNamespaces(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2452,32 +2452,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getAllRichUsersWithAttributes(
     includedSpecificUsers: boolean,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getAllRichUsersWithAttributes(
     includedSpecificUsers: boolean,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getAllRichUsersWithAttributes(
     includedSpecificUsers: boolean,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (includedSpecificUsers === null || includedSpecificUsers === undefined) {
       throw new Error(
-        'Required parameter includedSpecificUsers was null or undefined when calling getAllRichUsersWithAttributes.'
+        'Required parameter includedSpecificUsers was null or undefined when calling getAllRichUsersWithAttributes.',
       );
     }
 
@@ -2486,7 +2486,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>includedSpecificUsers,
-        'includedSpecificUsers'
+        'includedSpecificUsers',
       );
     }
 
@@ -2563,32 +2563,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichResource>>;
   public getAssignedRichResourcesForUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichResource>>>;
   public getAssignedRichResourcesForUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichResource>>>;
   public getAssignedRichResourcesForUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getAssignedRichResourcesForUser.'
+        'Required parameter user was null or undefined when calling getAssignedRichResourcesForUser.',
       );
     }
 
@@ -2672,7 +2672,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAssociatedResourcesForUser(
     facility: number,
@@ -2680,7 +2680,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAssociatedResourcesForUser(
     facility: number,
@@ -2688,7 +2688,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAssociatedResourcesForUser(
     facility: number,
@@ -2696,16 +2696,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getAssociatedResourcesForUser.'
+        'Required parameter facility was null or undefined when calling getAssociatedResourcesForUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getAssociatedResourcesForUser.'
+        'Required parameter user was null or undefined when calling getAssociatedResourcesForUser.',
       );
     }
 
@@ -2714,7 +2714,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -2794,32 +2794,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedBlockedLogins>;
   public getBlockedLoginsPage(
     InputGetPaginatedBlockedLogins: InputGetPaginatedBlockedLogins,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedBlockedLogins>>;
   public getBlockedLoginsPage(
     InputGetPaginatedBlockedLogins: InputGetPaginatedBlockedLogins,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedBlockedLogins>>;
   public getBlockedLoginsPage(
     InputGetPaginatedBlockedLogins: InputGetPaginatedBlockedLogins,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedBlockedLogins === null || InputGetPaginatedBlockedLogins === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedBlockedLogins was null or undefined when calling getBlockedLoginsPage.'
+        'Required parameter InputGetPaginatedBlockedLogins was null or undefined when calling getBlockedLoginsPage.',
       );
     }
 
@@ -2891,7 +2891,7 @@ export class UsersManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -2910,7 +2910,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsForFacilityWhereUserIsActive(
     user: number,
@@ -2918,7 +2918,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsForFacilityWhereUserIsActive(
     user: number,
@@ -2926,7 +2926,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsForFacilityWhereUserIsActive(
     user: number,
@@ -2934,16 +2934,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getGroupsForFacilityWhereUserIsActive.'
+        'Required parameter user was null or undefined when calling getGroupsForFacilityWhereUserIsActive.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getGroupsForFacilityWhereUserIsActive.'
+        'Required parameter facility was null or undefined when calling getGroupsForFacilityWhereUserIsActive.',
       );
     }
 
@@ -2955,7 +2955,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -3035,7 +3035,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsForResourceWhereUserIsActive(
     user: number,
@@ -3043,7 +3043,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsForResourceWhereUserIsActive(
     user: number,
@@ -3051,7 +3051,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsForResourceWhereUserIsActive(
     user: number,
@@ -3059,16 +3059,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getGroupsForResourceWhereUserIsActive.'
+        'Required parameter user was null or undefined when calling getGroupsForResourceWhereUserIsActive.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getGroupsForResourceWhereUserIsActive.'
+        'Required parameter resource was null or undefined when calling getGroupsForResourceWhereUserIsActive.',
       );
     }
 
@@ -3080,7 +3080,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -3159,7 +3159,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsInVoWhereUserIsAdmin(
     user: number,
@@ -3167,7 +3167,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsInVoWhereUserIsAdmin(
     user: number,
@@ -3175,7 +3175,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsInVoWhereUserIsAdmin(
     user: number,
@@ -3183,16 +3183,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getGroupsInVoWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getGroupsInVoWhereUserIsAdmin.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getGroupsInVoWhereUserIsAdmin.'
+        'Required parameter vo was null or undefined when calling getGroupsInVoWhereUserIsAdmin.',
       );
     }
 
@@ -3277,32 +3277,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getGroupsWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getGroupsWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getGroupsWhereUserIsAdmin(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getGroupsWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getGroupsWhereUserIsAdmin.',
       );
     }
 
@@ -3384,32 +3384,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getPendingPreferredEmailChanges(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getPendingPreferredEmailChanges(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getPendingPreferredEmailChanges(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getPendingPreferredEmailChanges.'
+        'Required parameter user was null or undefined when calling getPendingPreferredEmailChanges.',
       );
     }
 
@@ -3491,32 +3491,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUserExtSource>>;
   public getRichUserExtSources(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUserExtSource>>>;
   public getRichUserExtSources(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUserExtSource>>>;
   public getRichUserExtSources(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getRichUserExtSources.'
+        'Required parameter user was null or undefined when calling getRichUserExtSources.',
       );
     }
 
@@ -3599,32 +3599,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<RichUser>;
   public getRichUserWithAttributes(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<RichUser>>;
   public getRichUserWithAttributes(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<RichUser>>;
   public getRichUserWithAttributes(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getRichUserWithAttributes.'
+        'Required parameter user was null or undefined when calling getRichUserWithAttributes.',
       );
     }
 
@@ -3706,32 +3706,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getRichUsersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getRichUsersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getRichUsersByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getRichUsersByIds.'
+        'Required parameter ids was null or undefined when calling getRichUsersByIds.',
       );
     }
 
@@ -3741,7 +3741,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -3819,32 +3819,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getRichUsersWithAttributesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getRichUsersWithAttributesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getRichUsersWithAttributesByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getRichUsersWithAttributesByIds.'
+        'Required parameter ids was null or undefined when calling getRichUsersWithAttributesByIds.',
       );
     }
 
@@ -3854,7 +3854,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -3932,28 +3932,28 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getRichUsersWithoutVoWithAttributes(
     attrsNames?: Array<string>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getRichUsersWithoutVoWithAttributes(
     attrsNames?: Array<string>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getRichUsersWithoutVoWithAttributes(
     attrsNames?: Array<string>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (attrsNames) {
@@ -3961,7 +3961,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrsNames[]'
+          'attrsNames[]',
         );
       });
     }
@@ -4039,32 +4039,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getSpecificUsersByUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getSpecificUsersByUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getSpecificUsersByUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getSpecificUsersByUser.'
+        'Required parameter user was null or undefined when calling getSpecificUsersByUser.',
       );
     }
 
@@ -4148,7 +4148,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Sponsor>>;
   public getSponsorsForMember(
     member: number,
@@ -4156,7 +4156,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Sponsor>>>;
   public getSponsorsForMember(
     member: number,
@@ -4164,7 +4164,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Sponsor>>>;
   public getSponsorsForMember(
     member: number,
@@ -4172,11 +4172,11 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getSponsorsForMember.'
+        'Required parameter member was null or undefined when calling getSponsorsForMember.',
       );
     }
 
@@ -4185,7 +4185,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -4193,7 +4193,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -4277,7 +4277,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Sponsor>>;
   public getSponsorsForMemberByVoAndLogin(
     vo: number,
@@ -4287,7 +4287,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Sponsor>>>;
   public getSponsorsForMemberByVoAndLogin(
     vo: number,
@@ -4297,7 +4297,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Sponsor>>>;
   public getSponsorsForMemberByVoAndLogin(
     vo: number,
@@ -4307,21 +4307,21 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+        'Required parameter vo was null or undefined when calling getSponsorsForMemberByVoAndLogin.',
       );
     }
     if (extSourceName === null || extSourceName === undefined) {
       throw new Error(
-        'Required parameter extSourceName was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+        'Required parameter extSourceName was null or undefined when calling getSponsorsForMemberByVoAndLogin.',
       );
     }
     if (extLogin === null || extLogin === undefined) {
       throw new Error(
-        'Required parameter extLogin was null or undefined when calling getSponsorsForMemberByVoAndLogin.'
+        'Required parameter extLogin was null or undefined when calling getSponsorsForMemberByVoAndLogin.',
       );
     }
 
@@ -4333,14 +4333,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceName,
-        'extSourceName'
+        'extSourceName',
       );
     }
     if (extLogin !== undefined && extLogin !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extLogin,
-        'extLogin'
+        'extLogin',
       );
     }
     if (attrNames) {
@@ -4348,7 +4348,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -4429,7 +4429,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<User>;
   public getUserByExtSourceNameAndExtLogin(
     extLogin: string,
@@ -4437,7 +4437,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<User>>;
   public getUserByExtSourceNameAndExtLogin(
     extLogin: string,
@@ -4445,7 +4445,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<User>>;
   public getUserByExtSourceNameAndExtLogin(
     extLogin: string,
@@ -4453,16 +4453,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (extLogin === null || extLogin === undefined) {
       throw new Error(
-        'Required parameter extLogin was null or undefined when calling getUserByExtSourceNameAndExtLogin.'
+        'Required parameter extLogin was null or undefined when calling getUserByExtSourceNameAndExtLogin.',
       );
     }
     if (extSourceName === null || extSourceName === undefined) {
       throw new Error(
-        'Required parameter extSourceName was null or undefined when calling getUserByExtSourceNameAndExtLogin.'
+        'Required parameter extSourceName was null or undefined when calling getUserByExtSourceNameAndExtLogin.',
       );
     }
 
@@ -4471,14 +4471,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extLogin,
-        'extLogin'
+        'extLogin',
       );
     }
     if (extSourceName !== undefined && extSourceName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceName,
-        'extSourceName'
+        'extSourceName',
       );
     }
 
@@ -4556,28 +4556,28 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<User>;
   public getUserById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<User>>;
   public getUserById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<User>>;
   public getUserById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getUserById.');
@@ -4663,7 +4663,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<UserExtSource>;
   public getUserExtSourceByExtLoginAndExtSourceName(
     extSourceName: string,
@@ -4671,7 +4671,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<UserExtSource>>;
   public getUserExtSourceByExtLoginAndExtSourceName(
     extSourceName: string,
@@ -4679,7 +4679,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<UserExtSource>>;
   public getUserExtSourceByExtLoginAndExtSourceName(
     extSourceName: string,
@@ -4687,16 +4687,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (extSourceName === null || extSourceName === undefined) {
       throw new Error(
-        'Required parameter extSourceName was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.'
+        'Required parameter extSourceName was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.',
       );
     }
     if (extSourceLogin === null || extSourceLogin === undefined) {
       throw new Error(
-        'Required parameter extSourceLogin was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.'
+        'Required parameter extSourceLogin was null or undefined when calling getUserExtSourceByExtLoginAndExtSourceName.',
       );
     }
 
@@ -4705,14 +4705,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceName,
-        'extSourceName'
+        'extSourceName',
       );
     }
     if (extSourceLogin !== undefined && extSourceLogin !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>extSourceLogin,
-        'extSourceLogin'
+        'extSourceLogin',
       );
     }
 
@@ -4789,32 +4789,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<UserExtSource>;
   public getUserExtSourceById(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<UserExtSource>>;
   public getUserExtSourceById(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<UserExtSource>>;
   public getUserExtSourceById(
     userExtSource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling getUserExtSourceById.'
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceById.',
       );
     }
 
@@ -4823,7 +4823,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
 
@@ -4902,7 +4902,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<UserExtSource>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeId(
     attributeId: number,
@@ -4910,7 +4910,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<UserExtSource>>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeId(
     attributeId: number,
@@ -4918,7 +4918,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<UserExtSource>>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeId(
     attributeId: number,
@@ -4926,16 +4926,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.'
+        'Required parameter attributeId was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.',
       );
     }
     if (attributeValue === null || attributeValue === undefined) {
       throw new Error(
-        'Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.'
+        'Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeId.',
       );
     }
 
@@ -4944,14 +4944,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
     if (attributeValue !== undefined && attributeValue !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeValue,
-        'attributeValue'
+        'attributeValue',
       );
     }
 
@@ -5030,7 +5030,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<UserExtSource>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeName(
     attributeName: string,
@@ -5038,7 +5038,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<UserExtSource>>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeName(
     attributeName: string,
@@ -5046,7 +5046,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<UserExtSource>>;
   public getUserExtSourceByUniqueAttributeValueAndAttributeName(
     attributeName: string,
@@ -5054,16 +5054,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.'
+        'Required parameter attributeName was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.',
       );
     }
     if (attributeValue === null || attributeValue === undefined) {
       throw new Error(
-        'Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.'
+        'Required parameter attributeValue was null or undefined when calling getUserExtSourceByUniqueAttributeValueAndAttributeName.',
       );
     }
 
@@ -5072,14 +5072,14 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
     if (attributeValue !== undefined && attributeValue !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeValue,
-        'attributeValue'
+        'attributeValue',
       );
     }
 
@@ -5156,32 +5156,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<UserExtSource>>;
   public getUserExtSources(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<UserExtSource>>>;
   public getUserExtSources(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<UserExtSource>>>;
   public getUserExtSources(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserExtSources.'
+        'Required parameter user was null or undefined when calling getUserExtSources.',
       );
     }
 
@@ -5263,32 +5263,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<UserExtSource>>;
   public getUserExtSourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<UserExtSource>>>;
   public getUserExtSourcesByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<UserExtSource>>>;
   public getUserExtSourcesByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error(
-        'Required parameter ids was null or undefined when calling getUserExtSourcesByIds.'
+        'Required parameter ids was null or undefined when calling getUserExtSourcesByIds.',
       );
     }
 
@@ -5298,7 +5298,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -5375,25 +5375,25 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getUsers(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getUsers(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getUsers(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -5467,28 +5467,28 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getUsersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getUsersByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getUsersByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error('Required parameter ids was null or undefined when calling getUsersByIds.');
@@ -5500,7 +5500,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -5578,32 +5578,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getUsersBySpecificUser(
     specificUser: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getUsersBySpecificUser(
     specificUser: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getUsersBySpecificUser(
     specificUser: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (specificUser === null || specificUser === undefined) {
       throw new Error(
-        'Required parameter specificUser was null or undefined when calling getUsersBySpecificUser.'
+        'Required parameter specificUser was null or undefined when calling getUsersBySpecificUser.',
       );
     }
 
@@ -5612,7 +5612,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>specificUser,
-        'specificUser'
+        'specificUser',
       );
     }
 
@@ -5689,32 +5689,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<PaginatedRichUsers>;
   public getUsersPage(
     InputGetPaginatedUsers: InputGetPaginatedUsers,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<PaginatedRichUsers>>;
   public getUsersPage(
     InputGetPaginatedUsers: InputGetPaginatedUsers,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<PaginatedRichUsers>>;
   public getUsersPage(
     InputGetPaginatedUsers: InputGetPaginatedUsers,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetPaginatedUsers === null || InputGetPaginatedUsers === undefined) {
       throw new Error(
-        'Required parameter InputGetPaginatedUsers was null or undefined when calling getUsersPage.'
+        'Required parameter InputGetPaginatedUsers was null or undefined when calling getUsersPage.',
       );
     }
 
@@ -5798,32 +5798,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getVosWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getVosWhereUserIsAdmin(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getVosWhereUserIsAdmin(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getVosWhereUserIsAdmin.'
+        'Required parameter user was null or undefined when calling getVosWhereUserIsAdmin.',
       );
     }
 
@@ -5905,32 +5905,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getVosWhereUserIsMember(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getVosWhereUserIsMember(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getVosWhereUserIsMember(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getVosWhereUserIsMember.'
+        'Required parameter user was null or undefined when calling getVosWhereUserIsMember.',
       );
     }
 
@@ -6014,7 +6014,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public isLoginAvailable(
     loginNamespace: string,
@@ -6022,7 +6022,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public isLoginAvailable(
     loginNamespace: string,
@@ -6030,7 +6030,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public isLoginAvailable(
     loginNamespace: string,
@@ -6038,16 +6038,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (loginNamespace === null || loginNamespace === undefined) {
       throw new Error(
-        'Required parameter loginNamespace was null or undefined when calling isLoginAvailable.'
+        'Required parameter loginNamespace was null or undefined when calling isLoginAvailable.',
       );
     }
     if (login === null || login === undefined) {
       throw new Error(
-        'Required parameter login was null or undefined when calling isLoginAvailable.'
+        'Required parameter login was null or undefined when calling isLoginAvailable.',
       );
     }
 
@@ -6056,7 +6056,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>loginNamespace,
-        'loginNamespace'
+        'loginNamespace',
       );
     }
     if (login !== undefined && login !== null) {
@@ -6138,7 +6138,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<boolean>;
   public loginExist(
     user: number,
@@ -6146,7 +6146,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<boolean>>;
   public loginExist(
     user: number,
@@ -6154,7 +6154,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<boolean>>;
   public loginExist(
     user: number,
@@ -6162,14 +6162,14 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling loginExist.');
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling loginExist.'
+        'Required parameter namespace was null or undefined when calling loginExist.',
       );
     }
 
@@ -6181,7 +6181,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -6260,7 +6260,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSpecificUserOwner(
     user: number,
@@ -6268,7 +6268,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSpecificUserOwner(
     user: number,
@@ -6276,7 +6276,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSpecificUserOwner(
     user: number,
@@ -6284,16 +6284,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeSpecificUserOwner.'
+        'Required parameter user was null or undefined when calling removeSpecificUserOwner.',
       );
     }
     if (specificUser === null || specificUser === undefined) {
       throw new Error(
-        'Required parameter specificUser was null or undefined when calling removeSpecificUserOwner.'
+        'Required parameter specificUser was null or undefined when calling removeSpecificUserOwner.',
       );
     }
 
@@ -6305,7 +6305,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>specificUser,
-        'specificUser'
+        'specificUser',
       );
     }
 
@@ -6386,7 +6386,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserExtSource(
     user: number,
@@ -6395,7 +6395,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserExtSource(
     user: number,
@@ -6404,7 +6404,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserExtSource(
     user: number,
@@ -6413,16 +6413,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserExtSource.'
+        'Required parameter user was null or undefined when calling removeUserExtSource.',
       );
     }
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling removeUserExtSource.'
+        'Required parameter userExtSource was null or undefined when calling removeUserExtSource.',
       );
     }
 
@@ -6434,7 +6434,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (force !== undefined && force !== null) {
@@ -6518,7 +6518,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserExtSources(
     user: number,
@@ -6527,7 +6527,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserExtSources(
     user: number,
@@ -6536,7 +6536,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserExtSources(
     user: number,
@@ -6545,16 +6545,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserExtSources.'
+        'Required parameter user was null or undefined when calling removeUserExtSources.',
       );
     }
     if (userExtSources === null || userExtSources === undefined) {
       throw new Error(
-        'Required parameter userExtSources was null or undefined when calling removeUserExtSources.'
+        'Required parameter userExtSources was null or undefined when calling removeUserExtSources.',
       );
     }
 
@@ -6567,7 +6567,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'userExtSources'
+          'userExtSources',
         );
       });
     }
@@ -6658,7 +6658,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public requestPreferredEmailChange(
     user: number,
@@ -6670,7 +6670,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public requestPreferredEmailChange(
     user: number,
@@ -6682,7 +6682,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public requestPreferredEmailChange(
     user: number,
@@ -6694,16 +6694,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling requestPreferredEmailChange.'
+        'Required parameter user was null or undefined when calling requestPreferredEmailChange.',
       );
     }
     if (email === null || email === undefined) {
       throw new Error(
-        'Required parameter email was null or undefined when calling requestPreferredEmailChange.'
+        'Required parameter email was null or undefined when calling requestPreferredEmailChange.',
       );
     }
 
@@ -6721,21 +6721,21 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>linkPath,
-        'linkPath'
+        'linkPath',
       );
     }
     if (customUrl !== undefined && customUrl !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>customUrl,
-        'customUrl'
+        'customUrl',
       );
     }
     if (idpFilter !== undefined && idpFilter !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>idpFilter,
-        'idpFilter'
+        'idpFilter',
       );
     }
 
@@ -6812,32 +6812,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public reservePasswordForLogin(
     InputReservePasswordForLogin: InputReservePasswordForLogin,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public reservePasswordForLogin(
     InputReservePasswordForLogin: InputReservePasswordForLogin,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public reservePasswordForLogin(
     InputReservePasswordForLogin: InputReservePasswordForLogin,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputReservePasswordForLogin === null || InputReservePasswordForLogin === undefined) {
       throw new Error(
-        'Required parameter InputReservePasswordForLogin was null or undefined when calling reservePasswordForLogin.'
+        'Required parameter InputReservePasswordForLogin was null or undefined when calling reservePasswordForLogin.',
       );
     }
 
@@ -6921,32 +6921,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public reservePasswordForUser(
     InputReservePasswordForUser: InputReservePasswordForUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public reservePasswordForUser(
     InputReservePasswordForUser: InputReservePasswordForUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public reservePasswordForUser(
     InputReservePasswordForUser: InputReservePasswordForUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputReservePasswordForUser === null || InputReservePasswordForUser === undefined) {
       throw new Error(
-        'Required parameter InputReservePasswordForUser was null or undefined when calling reservePasswordForUser.'
+        'Required parameter InputReservePasswordForUser was null or undefined when calling reservePasswordForUser.',
       );
     }
 
@@ -7032,7 +7032,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public reserveRandomPassword(
     user: number,
@@ -7040,7 +7040,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public reserveRandomPassword(
     user: number,
@@ -7048,7 +7048,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public reserveRandomPassword(
     user: number,
@@ -7056,16 +7056,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling reserveRandomPassword.'
+        'Required parameter user was null or undefined when calling reserveRandomPassword.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling reserveRandomPassword.'
+        'Required parameter namespace was null or undefined when calling reserveRandomPassword.',
       );
     }
 
@@ -7077,7 +7077,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -7158,7 +7158,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setLogin(
     user: number,
@@ -7167,7 +7167,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setLogin(
     user: number,
@@ -7176,7 +7176,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setLogin(
     user: number,
@@ -7185,7 +7185,7 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling setLogin.');
@@ -7208,7 +7208,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -7287,7 +7287,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockLogins(
     logins?: Array<string>,
@@ -7295,7 +7295,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockLogins(
     logins?: Array<string>,
@@ -7303,7 +7303,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockLogins(
     logins?: Array<string>,
@@ -7311,7 +7311,7 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (logins) {
@@ -7319,7 +7319,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'logins[]'
+          'logins[]',
         );
       });
     }
@@ -7327,7 +7327,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -7404,32 +7404,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public unblockLoginsById(
     logins: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public unblockLoginsById(
     logins: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public unblockLoginsById(
     logins: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (logins === null || logins === undefined) {
       throw new Error(
-        'Required parameter logins was null or undefined when calling unblockLoginsById.'
+        'Required parameter logins was null or undefined when calling unblockLoginsById.',
       );
     }
 
@@ -7439,7 +7439,7 @@ export class UsersManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'logins[]'
+          'logins[]',
         );
       });
     }
@@ -7517,32 +7517,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<User>;
   public updateUser(
     InputUpdateUser: InputUpdateUser,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<User>>;
   public updateUser(
     InputUpdateUser: InputUpdateUser,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<User>>;
   public updateUser(
     InputUpdateUser: InputUpdateUser,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateUser === null || InputUpdateUser === undefined) {
       throw new Error(
-        'Required parameter InputUpdateUser was null or undefined when calling updateUser.'
+        'Required parameter InputUpdateUser was null or undefined when calling updateUser.',
       );
     }
 
@@ -7626,32 +7626,32 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public updateUserExtSourceLastAccess(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public updateUserExtSourceLastAccess(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public updateUserExtSourceLastAccess(
     userExtSource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling updateUserExtSourceLastAccess.'
+        'Required parameter userExtSource was null or undefined when calling updateUserExtSourceLastAccess.',
       );
     }
 
@@ -7660,7 +7660,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
 
@@ -7739,7 +7739,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public validatePasswordForLogin(
     login: string,
@@ -7747,7 +7747,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public validatePasswordForLogin(
     login: string,
@@ -7755,7 +7755,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public validatePasswordForLogin(
     login: string,
@@ -7763,16 +7763,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (login === null || login === undefined) {
       throw new Error(
-        'Required parameter login was null or undefined when calling validatePasswordForLogin.'
+        'Required parameter login was null or undefined when calling validatePasswordForLogin.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling validatePasswordForLogin.'
+        'Required parameter namespace was null or undefined when calling validatePasswordForLogin.',
       );
     }
 
@@ -7784,7 +7784,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -7863,7 +7863,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public validatePasswordForUser(
     user: number,
@@ -7871,7 +7871,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public validatePasswordForUser(
     user: number,
@@ -7879,7 +7879,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public validatePasswordForUser(
     user: number,
@@ -7887,16 +7887,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling validatePasswordForUser.'
+        'Required parameter user was null or undefined when calling validatePasswordForUser.',
       );
     }
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling validatePasswordForUser.'
+        'Required parameter namespace was null or undefined when calling validatePasswordForUser.',
       );
     }
 
@@ -7908,7 +7908,7 @@ export class UsersManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -7987,7 +7987,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<string>;
   public validatePreferredEmailChangeWithToken(
     token: string,
@@ -7995,7 +7995,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<string>>;
   public validatePreferredEmailChangeWithToken(
     token: string,
@@ -8003,7 +8003,7 @@ export class UsersManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<string>>;
   public validatePreferredEmailChangeWithToken(
     token: string,
@@ -8011,16 +8011,16 @@ export class UsersManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (token === null || token === undefined) {
       throw new Error(
-        'Required parameter token was null or undefined when calling validatePreferredEmailChangeWithToken.'
+        'Required parameter token was null or undefined when calling validatePreferredEmailChangeWithToken.',
       );
     }
     if (u === null || u === undefined) {
       throw new Error(
-        'Required parameter u was null or undefined when calling validatePreferredEmailChangeWithToken.'
+        'Required parameter u was null or undefined when calling validatePreferredEmailChangeWithToken.',
       );
     }
 

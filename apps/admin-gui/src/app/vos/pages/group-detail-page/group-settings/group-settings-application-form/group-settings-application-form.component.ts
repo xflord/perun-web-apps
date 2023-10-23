@@ -59,7 +59,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
     private router: Router,
     private guiAuthResolver: GuiAuthResolver,
     private attributesManager: AttributesManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +78,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
             this.attributesManager
               .getGroupAttributeByName(
                 this.group.id,
-                'urn:perun:group:attribute-def:virt:autoRegistrationEnabled'
+                'urn:perun:group:attribute-def:virt:autoRegistrationEnabled',
               )
               .subscribe((attr) => {
                 this.autoRegistrationEnabled = !!attr.value;
@@ -89,7 +89,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
           () => {
             this.loadingHeader = false;
             this.loadingTable = false;
-          }
+          },
         );
       },
       (error: RPCError) => {
@@ -100,18 +100,18 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
         } else {
           this.notificator.showRPCError(error);
         }
-      }
+      },
     );
   }
 
   setAuth(): void {
     this.editAuth = this.guiAuthResolver.isAuthorized(
       'group-updateFormItems_ApplicationForm_List<ApplicationFormItem>_policy',
-      [this.group]
+      [this.group],
     );
     this.createEmptyForm = this.guiAuthResolver.isAuthorized(
       'createApplicationFormInGroup_Group_policy',
-      [this.group]
+      [this.group],
     );
   }
 
@@ -197,7 +197,7 @@ export class GroupSettingsApplicationFormComponent implements OnInit {
       {
         queryParams: { applicationFormItems: JSON.stringify(this.applicationFormItems) },
         queryParamsHandling: 'merge',
-      }
+      },
     );
   }
 

@@ -16,7 +16,10 @@ export class UserFacilitiesComponent implements OnInit {
   tableId = TABLE_ADMIN_FACILITIES;
   displayedColumns = ['id', 'name', 'description'];
 
-  constructor(private facilityManager: FacilitiesManagerService, private route: ActivatedRoute) {}
+  constructor(
+    private facilityManager: FacilitiesManagerService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;

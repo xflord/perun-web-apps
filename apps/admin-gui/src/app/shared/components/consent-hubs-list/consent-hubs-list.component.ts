@@ -40,7 +40,7 @@ export class ConsentHubsListComponent implements OnChanges {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private consentsManager: ConsentsManagerService
+    private consentsManager: ConsentsManagerService,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -76,9 +76,9 @@ export class ConsentHubsListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ConsentHubsListComponent.getDataForColumn
+        ConsentHubsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -91,9 +91,9 @@ export class ConsentHubsListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ConsentHubsListComponent.getDataForColumn
+        ConsentHubsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -112,7 +112,7 @@ export class ConsentHubsListComponent implements OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 
@@ -123,7 +123,7 @@ export class ConsentHubsListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          ConsentHubsListComponent.getDataForColumn
+          ConsentHubsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: ConsentHub[], sort: MatSort): ConsentHub[] =>
         customDataSourceSort(data, sort, ConsentHubsListComponent.getDataForColumn);
@@ -160,7 +160,7 @@ export class ConsentHubsListComponent implements OnChanges {
                 this.notificator.showSuccess(success);
               });
           },
-          () => (consentHub.enforceConsents = !consentHub.enforceConsents)
+          () => (consentHub.enforceConsents = !consentHub.enforceConsents),
         );
       }
     });

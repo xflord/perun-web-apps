@@ -31,7 +31,7 @@ export class CreateResourceDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private voService: VosManagerService,
     private translate: TranslateService,
-    private resourcesManager: ResourcesManagerService
+    private resourcesManager: ResourcesManagerService,
   ) {
     translate
       .get('DIALOGS.CREATE_RESOURCE.SUCCESS')
@@ -46,7 +46,7 @@ export class CreateResourceDialogComponent implements OnInit {
         this.vos = vos;
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
 
     this.nameCtrl = new UntypedFormControl(null, [
@@ -63,7 +63,7 @@ export class CreateResourceDialogComponent implements OnInit {
         this.selectedVo.id,
         this.data.facilityId,
         this.nameCtrl.value as string,
-        this.descriptionCtrl.value as string
+        this.descriptionCtrl.value as string,
       )
       .subscribe(
         () => {
@@ -71,7 +71,7 @@ export class CreateResourceDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 

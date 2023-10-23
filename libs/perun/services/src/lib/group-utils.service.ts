@@ -10,7 +10,7 @@ export class GroupUtilsService {
   getDataForColumn: (
     data: GroupWithStatus,
     column: string,
-    voNames?: Map<number, string>
+    voNames?: Map<number, string>,
   ) => string = (data, column, voNames) => {
     switch (column) {
       case 'id':
@@ -40,7 +40,7 @@ export class GroupUtilsService {
     data: GroupWithStatus,
     column: string,
     voNames: Map<number, string>,
-    recentIds: number[]
+    recentIds: number[],
   ) => string = (data, column, voNames, recentIds) => {
     switch (column) {
       case 'id':

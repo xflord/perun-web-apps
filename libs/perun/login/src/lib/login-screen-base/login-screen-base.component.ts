@@ -21,7 +21,7 @@ export class LoginScreenBaseComponent implements OnInit {
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
     private preferredLangService: PreferredLanguageService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {

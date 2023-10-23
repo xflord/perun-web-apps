@@ -53,7 +53,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
     private notificator: NotificatorService,
     public guiAuthResolver: GuiAuthResolver,
     private attributesService: AttributesManagerService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -86,7 +86,7 @@ export class GroupSettingsNotificationsComponent implements OnInit {
                 }
                 this.setAuthRights();
                 this.loading = false;
-              }
+              },
             );
         });
       },
@@ -98,26 +98,26 @@ export class GroupSettingsNotificationsComponent implements OnInit {
         } else {
           this.notificator.showRPCError(error);
         }
-      }
+      },
     );
   }
 
   setAuthRights(): void {
     this.createFormAuth = this.guiAuthResolver.isAuthorized(
       'createApplicationFormInGroup_Group_policy',
-      [this.group]
+      [this.group],
     );
     this.addAuth = this.guiAuthResolver.isAuthorized(
       'group-addMail_ApplicationForm_ApplicationMail_policy',
-      [this.group]
+      [this.group],
     );
     this.removeAuth = this.guiAuthResolver.isAuthorized(
       'group-deleteMailById_ApplicationForm_Integer_policy',
-      [this.group]
+      [this.group],
     );
     this.copyAuth = this.guiAuthResolver.isAuthorized(
       'destination-copyMailsFromVoToGroup_Vo_Group_boolean_policy',
-      [this.group]
+      [this.group],
     );
     this.displayedColumns = this.removeAuth
       ? ['select', 'id', 'mailType', 'appType', 'send']

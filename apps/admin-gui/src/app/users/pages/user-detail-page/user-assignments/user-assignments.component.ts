@@ -27,7 +27,7 @@ export class UserAssignmentsComponent implements OnInit {
     private route: ActivatedRoute,
     private facilityService: FacilitiesManagerService,
     private usersService: UsersManagerService,
-    private resourcesService: ResourcesManagerService
+    private resourcesService: ResourcesManagerService,
   ) {}
 
   ngOnInit(): void {

@@ -133,7 +133,7 @@ export class AttributesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -164,7 +164,7 @@ export class AttributesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -178,8 +178,8 @@ export class AttributesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -202,32 +202,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public convertAttributeToNonunique(
     attributeDefinition: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling convertAttributeToNonunique.'
+        'Required parameter attributeDefinition was null or undefined when calling convertAttributeToNonunique.',
       );
     }
 
@@ -236,7 +236,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
 
@@ -313,32 +313,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public convertAttributeToUnique(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public convertAttributeToUnique(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public convertAttributeToUnique(
     attributeDefinition: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling convertAttributeToUnique.'
+        'Required parameter attributeDefinition was null or undefined when calling convertAttributeToUnique.',
       );
     }
 
@@ -347,7 +347,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
 
@@ -424,32 +424,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<AttributeDefinition>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<AttributeDefinition>>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<AttributeDefinition>>;
   public createAttributeDefinition(
     InputCreateAttributeDefinition: InputCreateAttributeDefinition,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateAttributeDefinition === null || InputCreateAttributeDefinition === undefined) {
       throw new Error(
-        'Required parameter InputCreateAttributeDefinition was null or undefined when calling createAttributeDefinition.'
+        'Required parameter InputCreateAttributeDefinition was null or undefined when calling createAttributeDefinition.',
       );
     }
 
@@ -533,32 +533,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAttributeDefinition(
     attribute: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAttributeDefinition(
     attribute: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAttributeDefinition(
     attribute: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling deleteAttributeDefinition.'
+        'Required parameter attribute was null or undefined when calling deleteAttributeDefinition.',
       );
     }
 
@@ -567,7 +567,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -644,32 +644,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteAttributeDefinitions(
     attributes: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling deleteAttributeDefinitions.'
+        'Required parameter attributes was null or undefined when calling deleteAttributeDefinitions.',
       );
     }
 
@@ -679,7 +679,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -755,25 +755,25 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeDefinition>>;
   public getAllAttributeDefinitions(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getAllAttributeDefinitions(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getAllAttributeDefinitions(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -845,25 +845,25 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getAllNamespaces(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getAllNamespaces(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getAllNamespaces(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -958,7 +958,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getAttribute(
     attributeName?: string,
@@ -975,7 +975,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getAttribute(
     attributeName?: string,
@@ -992,7 +992,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getAttribute(
     attributeName?: string,
@@ -1009,28 +1009,28 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -1043,14 +1043,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (member !== undefined && member !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -1063,7 +1063,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (key !== undefined && key !== null) {
@@ -1143,32 +1143,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<AttributeDefinition>;
   public getAttributeDefinitionById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<AttributeDefinition>>;
   public getAttributeDefinitionById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<AttributeDefinition>>;
   public getAttributeDefinitionById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getAttributeDefinitionById.'
+        'Required parameter id was null or undefined when calling getAttributeDefinitionById.',
       );
     }
 
@@ -1250,32 +1250,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<AttributeDefinition>;
   public getAttributeDefinitionByName(
     attributeName: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<AttributeDefinition>>;
   public getAttributeDefinitionByName(
     attributeName: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<AttributeDefinition>>;
   public getAttributeDefinitionByName(
     attributeName: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getAttributeDefinitionByName.'
+        'Required parameter attributeName was null or undefined when calling getAttributeDefinitionByName.',
       );
     }
 
@@ -1284,7 +1284,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -1361,32 +1361,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeDefinition>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getAttributeDefinitionsByNamespace(
     namespace: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (namespace === null || namespace === undefined) {
       throw new Error(
-        'Required parameter namespace was null or undefined when calling getAttributeDefinitionsByNamespace.'
+        'Required parameter namespace was null or undefined when calling getAttributeDefinitionsByNamespace.',
       );
     }
 
@@ -1395,7 +1395,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>namespace,
-        'namespace'
+        'namespace',
       );
     }
 
@@ -1474,7 +1474,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<GraphDTO>;
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
@@ -1482,7 +1482,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<GraphDTO>>;
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
@@ -1490,7 +1490,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<GraphDTO>>;
   public getAttributeModulesDependenciesForAttributeGraphText(
     format: GraphFileFormat,
@@ -1498,16 +1498,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (format === null || format === undefined) {
       throw new Error(
-        'Required parameter format was null or undefined when calling getAttributeModulesDependenciesForAttributeGraphText.'
+        'Required parameter format was null or undefined when calling getAttributeModulesDependenciesForAttributeGraphText.',
       );
     }
     if (attrName === null || attrName === undefined) {
       throw new Error(
-        'Required parameter attrName was null or undefined when calling getAttributeModulesDependenciesForAttributeGraphText.'
+        'Required parameter attrName was null or undefined when calling getAttributeModulesDependenciesForAttributeGraphText.',
       );
     }
 
@@ -1516,14 +1516,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>format,
-        'format'
+        'format',
       );
     }
     if (attrName !== undefined && attrName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attrName,
-        'attrName'
+        'attrName',
       );
     }
 
@@ -1600,32 +1600,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<GraphDTO>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<GraphDTO>>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<GraphDTO>>;
   public getAttributeModulesDependenciesGraphText(
     format: GraphFileFormat,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (format === null || format === undefined) {
       throw new Error(
-        'Required parameter format was null or undefined when calling getAttributeModulesDependenciesGraphText.'
+        'Required parameter format was null or undefined when calling getAttributeModulesDependenciesGraphText.',
       );
     }
 
@@ -1634,7 +1634,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>format,
-        'format'
+        'format',
       );
     }
 
@@ -1711,32 +1711,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributePolicyCollection>>;
   public getAttributePolicyCollections(
     attributeId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributePolicyCollection>>>;
   public getAttributePolicyCollections(
     attributeId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributePolicyCollection>>>;
   public getAttributePolicyCollections(
     attributeId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getAttributePolicyCollections.'
+        'Required parameter attributeId was null or undefined when calling getAttributePolicyCollections.',
       );
     }
 
@@ -1745,7 +1745,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -1822,32 +1822,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeRights>>;
   public getAttributeRights(
     attributeId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeRights>>>;
   public getAttributeRights(
     attributeId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeRights>>>;
   public getAttributeRights(
     attributeId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getAttributeRights.'
+        'Required parameter attributeId was null or undefined when calling getAttributeRights.',
       );
     }
 
@@ -1856,7 +1856,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -1933,32 +1933,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<AttributeRules>;
   public getAttributeRules(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<AttributeRules>>;
   public getAttributeRules(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<AttributeRules>>;
   public getAttributeRules(
     attributeDefinition: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling getAttributeRules.'
+        'Required parameter attributeDefinition was null or undefined when calling getAttributeRules.',
       );
     }
 
@@ -1967,7 +1967,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
 
@@ -2058,7 +2058,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeDefinition>>;
   public getAttributesDefinitionWithRights(
     member?: number,
@@ -2072,7 +2072,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getAttributesDefinitionWithRights(
     member?: number,
@@ -2086,7 +2086,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getAttributesDefinitionWithRights(
     member?: number,
@@ -2100,14 +2100,14 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (member !== undefined && member !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (user !== undefined && user !== null) {
@@ -2123,14 +2123,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (host !== undefined && host !== null) {
@@ -2140,7 +2140,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
 
@@ -2220,7 +2220,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getEntitylessAttributeByName(
     key: string,
@@ -2228,7 +2228,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getEntitylessAttributeByName(
     key: string,
@@ -2236,7 +2236,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getEntitylessAttributeByName(
     key: string,
@@ -2244,16 +2244,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (key === null || key === undefined) {
       throw new Error(
-        'Required parameter key was null or undefined when calling getEntitylessAttributeByName.'
+        'Required parameter key was null or undefined when calling getEntitylessAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getEntitylessAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getEntitylessAttributeByName.',
       );
     }
 
@@ -2265,7 +2265,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -2342,32 +2342,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getEntitylessAttributesByKey(
     key: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getEntitylessAttributesByKey(
     key: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getEntitylessAttributesByKey(
     key: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (key === null || key === undefined) {
       throw new Error(
-        'Required parameter key was null or undefined when calling getEntitylessAttributesByKey.'
+        'Required parameter key was null or undefined when calling getEntitylessAttributesByKey.',
       );
     }
 
@@ -2449,32 +2449,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getEntitylessAttributesByName(
     attrName: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getEntitylessAttributesByName(
     attrName: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getEntitylessAttributesByName(
     attrName: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attrName === null || attrName === undefined) {
       throw new Error(
-        'Required parameter attrName was null or undefined when calling getEntitylessAttributesByName.'
+        'Required parameter attrName was null or undefined when calling getEntitylessAttributesByName.',
       );
     }
 
@@ -2483,7 +2483,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attrName,
-        'attrName'
+        'attrName',
       );
     }
 
@@ -2562,7 +2562,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: Attribute }>;
   public getEntitylessAttributesWithKeys(
     attrName: string,
@@ -2570,7 +2570,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: Attribute }>>;
   public getEntitylessAttributesWithKeys(
     attrName: string,
@@ -2578,7 +2578,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: Attribute }>>;
   public getEntitylessAttributesWithKeys(
     attrName: string,
@@ -2586,11 +2586,11 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attrName === null || attrName === undefined) {
       throw new Error(
-        'Required parameter attrName was null or undefined when calling getEntitylessAttributesWithKeys.'
+        'Required parameter attrName was null or undefined when calling getEntitylessAttributesWithKeys.',
       );
     }
 
@@ -2599,7 +2599,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attrName,
-        'attrName'
+        'attrName',
       );
     }
     if (keys) {
@@ -2607,7 +2607,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'keys[]'
+          'keys[]',
         );
       });
     }
@@ -2685,32 +2685,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<string>>;
   public getEntitylessKeys(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<string>>>;
   public getEntitylessKeys(
     attributeDefinition: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<string>>>;
   public getEntitylessKeys(
     attributeDefinition: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling getEntitylessKeys.'
+        'Required parameter attributeDefinition was null or undefined when calling getEntitylessKeys.',
       );
     }
 
@@ -2719,7 +2719,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
 
@@ -2799,7 +2799,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getFacilityAttributeById(
     facility: number,
@@ -2807,7 +2807,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getFacilityAttributeById(
     facility: number,
@@ -2815,7 +2815,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getFacilityAttributeById(
     facility: number,
@@ -2823,16 +2823,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAttributeById.'
+        'Required parameter facility was null or undefined when calling getFacilityAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getFacilityAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getFacilityAttributeById.',
       );
     }
 
@@ -2841,14 +2841,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -2928,7 +2928,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getFacilityAttributeByName(
     facility: number,
@@ -2936,7 +2936,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getFacilityAttributeByName(
     facility: number,
@@ -2944,7 +2944,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getFacilityAttributeByName(
     facility: number,
@@ -2952,16 +2952,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAttributeByName.'
+        'Required parameter facility was null or undefined when calling getFacilityAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getFacilityAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getFacilityAttributeByName.',
       );
     }
 
@@ -2970,14 +2970,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -3054,32 +3054,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getFacilityAttributes(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getFacilityAttributes(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getFacilityAttributes(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAttributes.'
+        'Required parameter facility was null or undefined when calling getFacilityAttributes.',
       );
     }
 
@@ -3088,7 +3088,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -3167,7 +3167,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getFacilityAttributesByNames(
     facility: number,
@@ -3175,7 +3175,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getFacilityAttributesByNames(
     facility: number,
@@ -3183,7 +3183,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getFacilityAttributesByNames(
     facility: number,
@@ -3191,16 +3191,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityAttributesByNames.'
+        'Required parameter facility was null or undefined when calling getFacilityAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getFacilityAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getFacilityAttributesByNames.',
       );
     }
 
@@ -3209,7 +3209,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attrNames) {
@@ -3217,7 +3217,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -3301,7 +3301,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getFacilityResourceUserMemberAttributes(
     facility: number,
@@ -3311,7 +3311,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getFacilityResourceUserMemberAttributes(
     facility: number,
@@ -3321,7 +3321,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getFacilityResourceUserMemberAttributes(
     facility: number,
@@ -3331,26 +3331,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityResourceUserMemberAttributes.'
+        'Required parameter facility was null or undefined when calling getFacilityResourceUserMemberAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getFacilityResourceUserMemberAttributes.'
+        'Required parameter resource was null or undefined when calling getFacilityResourceUserMemberAttributes.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getFacilityResourceUserMemberAttributes.'
+        'Required parameter user was null or undefined when calling getFacilityResourceUserMemberAttributes.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getFacilityResourceUserMemberAttributes.'
+        'Required parameter member was null or undefined when calling getFacilityResourceUserMemberAttributes.',
       );
     }
 
@@ -3359,14 +3359,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -3376,7 +3376,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -3455,7 +3455,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getFacilityUserAttributes(
     facility: number,
@@ -3463,7 +3463,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getFacilityUserAttributes(
     facility: number,
@@ -3471,7 +3471,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getFacilityUserAttributes(
     facility: number,
@@ -3479,16 +3479,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getFacilityUserAttributes.'
+        'Required parameter facility was null or undefined when calling getFacilityUserAttributes.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getFacilityUserAttributes.'
+        'Required parameter user was null or undefined when calling getFacilityUserAttributes.',
       );
     }
 
@@ -3497,7 +3497,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (user !== undefined && user !== null) {
@@ -3580,7 +3580,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getGroupAttributeById(
     group: number,
@@ -3588,7 +3588,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getGroupAttributeById(
     group: number,
@@ -3596,7 +3596,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getGroupAttributeById(
     group: number,
@@ -3604,16 +3604,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupAttributeById.'
+        'Required parameter group was null or undefined when calling getGroupAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getGroupAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getGroupAttributeById.',
       );
     }
 
@@ -3625,7 +3625,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -3705,7 +3705,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getGroupAttributeByName(
     group: number,
@@ -3713,7 +3713,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getGroupAttributeByName(
     group: number,
@@ -3721,7 +3721,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getGroupAttributeByName(
     group: number,
@@ -3729,16 +3729,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupAttributeByName.'
+        'Required parameter group was null or undefined when calling getGroupAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getGroupAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getGroupAttributeByName.',
       );
     }
 
@@ -3750,7 +3750,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -3827,32 +3827,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getGroupAttributes(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getGroupAttributes(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getGroupAttributes(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupAttributes.'
+        'Required parameter group was null or undefined when calling getGroupAttributes.',
       );
     }
 
@@ -3936,7 +3936,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getGroupAttributesByNames(
     group: number,
@@ -3944,7 +3944,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getGroupAttributesByNames(
     group: number,
@@ -3952,7 +3952,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getGroupAttributesByNames(
     group: number,
@@ -3960,16 +3960,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupAttributesByNames.'
+        'Required parameter group was null or undefined when calling getGroupAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getGroupAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getGroupAttributesByNames.',
       );
     }
 
@@ -3982,7 +3982,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -4065,7 +4065,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getGroupResourceAttributeById(
     group: number,
@@ -4074,7 +4074,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getGroupResourceAttributeById(
     group: number,
@@ -4083,7 +4083,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getGroupResourceAttributeById(
     group: number,
@@ -4092,21 +4092,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupResourceAttributeById.'
+        'Required parameter group was null or undefined when calling getGroupResourceAttributeById.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getGroupResourceAttributeById.'
+        'Required parameter resource was null or undefined when calling getGroupResourceAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getGroupResourceAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getGroupResourceAttributeById.',
       );
     }
 
@@ -4118,14 +4118,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -4207,7 +4207,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getGroupResourceAttributeByName(
     group: number,
@@ -4216,7 +4216,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getGroupResourceAttributeByName(
     group: number,
@@ -4225,7 +4225,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getGroupResourceAttributeByName(
     group: number,
@@ -4234,21 +4234,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupResourceAttributeByName.'
+        'Required parameter group was null or undefined when calling getGroupResourceAttributeByName.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getGroupResourceAttributeByName.'
+        'Required parameter resource was null or undefined when calling getGroupResourceAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getGroupResourceAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getGroupResourceAttributeByName.',
       );
     }
 
@@ -4260,14 +4260,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -4346,7 +4346,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getGroupResourceAttributes(
     group: number,
@@ -4354,7 +4354,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getGroupResourceAttributes(
     group: number,
@@ -4362,7 +4362,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getGroupResourceAttributes(
     group: number,
@@ -4370,16 +4370,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupResourceAttributes.'
+        'Required parameter group was null or undefined when calling getGroupResourceAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getGroupResourceAttributes.'
+        'Required parameter resource was null or undefined when calling getGroupResourceAttributes.',
       );
     }
 
@@ -4391,7 +4391,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -4471,7 +4471,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getHostAttributeById(
     host: number,
@@ -4479,7 +4479,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getHostAttributeById(
     host: number,
@@ -4487,7 +4487,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getHostAttributeById(
     host: number,
@@ -4495,16 +4495,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getHostAttributeById.'
+        'Required parameter host was null or undefined when calling getHostAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getHostAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getHostAttributeById.',
       );
     }
 
@@ -4516,7 +4516,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -4596,7 +4596,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getHostAttributeByName(
     host: number,
@@ -4604,7 +4604,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getHostAttributeByName(
     host: number,
@@ -4612,7 +4612,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getHostAttributeByName(
     host: number,
@@ -4620,16 +4620,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getHostAttributeByName.'
+        'Required parameter host was null or undefined when calling getHostAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getHostAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getHostAttributeByName.',
       );
     }
 
@@ -4641,7 +4641,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -4718,32 +4718,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getHostAttributes(
     host: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getHostAttributes(
     host: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getHostAttributes(
     host: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getHostAttributes.'
+        'Required parameter host was null or undefined when calling getHostAttributes.',
       );
     }
 
@@ -4827,7 +4827,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getHostAttributesByNames(
     host: number,
@@ -4835,7 +4835,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getHostAttributesByNames(
     host: number,
@@ -4843,7 +4843,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getHostAttributesByNames(
     host: number,
@@ -4851,16 +4851,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getHostAttributesByNames.'
+        'Required parameter host was null or undefined when calling getHostAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getHostAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getHostAttributesByNames.',
       );
     }
 
@@ -4873,7 +4873,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -4949,25 +4949,25 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeDefinition>>;
   public getIdpAttributeDefinitions(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getIdpAttributeDefinitions(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getIdpAttributeDefinitions(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -5041,28 +5041,28 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getLogins(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getLogins(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getLogins(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error('Required parameter user was null or undefined when calling getLogins.');
@@ -5148,7 +5148,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberAndUserAttributes(
     member: number,
@@ -5156,7 +5156,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberAndUserAttributes(
     member: number,
@@ -5164,7 +5164,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberAndUserAttributes(
     member: number,
@@ -5172,16 +5172,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAndUserAttributes.'
+        'Required parameter member was null or undefined when calling getMemberAndUserAttributes.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling getMemberAndUserAttributes.'
+        'Required parameter workWithUserAttributes was null or undefined when calling getMemberAndUserAttributes.',
       );
     }
 
@@ -5190,14 +5190,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -5278,7 +5278,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberAndUserAttributesByNames(
     member: number,
@@ -5287,7 +5287,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberAndUserAttributesByNames(
     member: number,
@@ -5296,7 +5296,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberAndUserAttributesByNames(
     member: number,
@@ -5305,21 +5305,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAndUserAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberAndUserAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberAndUserAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberAndUserAttributesByNames.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling getMemberAndUserAttributesByNames.'
+        'Required parameter workWithUserAttributes was null or undefined when calling getMemberAndUserAttributesByNames.',
       );
     }
 
@@ -5328,7 +5328,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -5336,7 +5336,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -5344,7 +5344,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -5424,7 +5424,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberAttributeById(
     member: number,
@@ -5432,7 +5432,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberAttributeById(
     member: number,
@@ -5440,7 +5440,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberAttributeById(
     member: number,
@@ -5448,16 +5448,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAttributeById.'
+        'Required parameter member was null or undefined when calling getMemberAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getMemberAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getMemberAttributeById.',
       );
     }
 
@@ -5466,14 +5466,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -5553,7 +5553,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberAttributeByName(
     member: number,
@@ -5561,7 +5561,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberAttributeByName(
     member: number,
@@ -5569,7 +5569,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberAttributeByName(
     member: number,
@@ -5577,16 +5577,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAttributeByName.'
+        'Required parameter member was null or undefined when calling getMemberAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getMemberAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getMemberAttributeByName.',
       );
     }
 
@@ -5595,14 +5595,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -5679,32 +5679,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberAttributes(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberAttributes(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberAttributes(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAttributes.'
+        'Required parameter member was null or undefined when calling getMemberAttributes.',
       );
     }
 
@@ -5713,7 +5713,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -5792,7 +5792,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberAttributesByNames(
     member: number,
@@ -5800,7 +5800,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberAttributesByNames(
     member: number,
@@ -5808,7 +5808,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberAttributesByNames(
     member: number,
@@ -5816,16 +5816,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberAttributesByNames.',
       );
     }
 
@@ -5834,7 +5834,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -5842,7 +5842,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -5926,7 +5926,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberGroupAndUserAttributesByNames(
     member: number,
@@ -5936,7 +5936,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberGroupAndUserAttributesByNames(
     member: number,
@@ -5946,7 +5946,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberGroupAndUserAttributesByNames(
     member: number,
@@ -5956,26 +5956,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroupAndUserAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberGroupAndUserAttributesByNames.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getMemberGroupAndUserAttributesByNames.'
+        'Required parameter group was null or undefined when calling getMemberGroupAndUserAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberGroupAndUserAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberGroupAndUserAttributesByNames.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling getMemberGroupAndUserAttributesByNames.'
+        'Required parameter workWithUserAttributes was null or undefined when calling getMemberGroupAndUserAttributesByNames.',
       );
     }
 
@@ -5984,7 +5984,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -5995,7 +5995,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -6003,7 +6003,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -6085,7 +6085,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberGroupAttributeById(
     member: number,
@@ -6094,7 +6094,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberGroupAttributeById(
     member: number,
@@ -6103,7 +6103,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberGroupAttributeById(
     member: number,
@@ -6112,21 +6112,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroupAttributeById.'
+        'Required parameter member was null or undefined when calling getMemberGroupAttributeById.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getMemberGroupAttributeById.'
+        'Required parameter group was null or undefined when calling getMemberGroupAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getMemberGroupAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getMemberGroupAttributeById.',
       );
     }
 
@@ -6135,7 +6135,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -6145,7 +6145,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -6227,7 +6227,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberGroupAttributeByName(
     member: number,
@@ -6236,7 +6236,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberGroupAttributeByName(
     member: number,
@@ -6245,7 +6245,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberGroupAttributeByName(
     member: number,
@@ -6254,21 +6254,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroupAttributeByName.'
+        'Required parameter member was null or undefined when calling getMemberGroupAttributeByName.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getMemberGroupAttributeByName.'
+        'Required parameter group was null or undefined when calling getMemberGroupAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getMemberGroupAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getMemberGroupAttributeByName.',
       );
     }
 
@@ -6277,7 +6277,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -6287,7 +6287,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -6366,7 +6366,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberGroupAttributes(
     member: number,
@@ -6374,7 +6374,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberGroupAttributes(
     member: number,
@@ -6382,7 +6382,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberGroupAttributes(
     member: number,
@@ -6390,16 +6390,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroupAttributes.'
+        'Required parameter member was null or undefined when calling getMemberGroupAttributes.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getMemberGroupAttributes.'
+        'Required parameter group was null or undefined when calling getMemberGroupAttributes.',
       );
     }
 
@@ -6408,7 +6408,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -6492,7 +6492,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberGroupAttributesByNames(
     member: number,
@@ -6501,7 +6501,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberGroupAttributesByNames(
     member: number,
@@ -6510,7 +6510,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberGroupAttributesByNames(
     member: number,
@@ -6519,21 +6519,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberGroupAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberGroupAttributesByNames.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getMemberGroupAttributesByNames.'
+        'Required parameter group was null or undefined when calling getMemberGroupAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberGroupAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberGroupAttributesByNames.',
       );
     }
 
@@ -6542,7 +6542,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -6553,7 +6553,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -6635,7 +6635,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberResourceAndUserFacilityAttributes(
     member: number,
@@ -6644,7 +6644,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberResourceAndUserFacilityAttributes(
     member: number,
@@ -6653,7 +6653,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberResourceAndUserFacilityAttributes(
     member: number,
@@ -6662,21 +6662,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributes.'
+        'Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getMemberResourceAndUserFacilityAttributes.'
+        'Required parameter resource was null or undefined when calling getMemberResourceAndUserFacilityAttributes.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling getMemberResourceAndUserFacilityAttributes.'
+        'Required parameter workWithUserAttributes was null or undefined when calling getMemberResourceAndUserFacilityAttributes.',
       );
     }
 
@@ -6685,21 +6685,21 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -6782,7 +6782,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberResourceAndUserFacilityAttributesByNames(
     member: number,
@@ -6792,7 +6792,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberResourceAndUserFacilityAttributesByNames(
     member: number,
@@ -6802,7 +6802,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberResourceAndUserFacilityAttributesByNames(
     member: number,
@@ -6812,26 +6812,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.'
+        'Required parameter member was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.'
+        'Required parameter resource was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.'
+        'Required parameter workWithUserAttributes was null or undefined when calling getMemberResourceAndUserFacilityAttributesByNames.',
       );
     }
 
@@ -6840,14 +6840,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attrNames) {
@@ -6855,7 +6855,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -6863,7 +6863,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -6945,7 +6945,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberResourceAttributeById(
     member: number,
@@ -6954,7 +6954,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberResourceAttributeById(
     member: number,
@@ -6963,7 +6963,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberResourceAttributeById(
     member: number,
@@ -6972,21 +6972,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberResourceAttributeById.'
+        'Required parameter member was null or undefined when calling getMemberResourceAttributeById.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getMemberResourceAttributeById.'
+        'Required parameter resource was null or undefined when calling getMemberResourceAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getMemberResourceAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getMemberResourceAttributeById.',
       );
     }
 
@@ -6995,21 +6995,21 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -7091,7 +7091,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getMemberResourceAttributeByName(
     member: number,
@@ -7100,7 +7100,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getMemberResourceAttributeByName(
     member: number,
@@ -7109,7 +7109,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getMemberResourceAttributeByName(
     member: number,
@@ -7118,21 +7118,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberResourceAttributeByName.'
+        'Required parameter member was null or undefined when calling getMemberResourceAttributeByName.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getMemberResourceAttributeByName.'
+        'Required parameter resource was null or undefined when calling getMemberResourceAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getMemberResourceAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getMemberResourceAttributeByName.',
       );
     }
 
@@ -7141,21 +7141,21 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -7234,7 +7234,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getMemberResourceAttributes(
     member: number,
@@ -7242,7 +7242,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getMemberResourceAttributes(
     member: number,
@@ -7250,7 +7250,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getMemberResourceAttributes(
     member: number,
@@ -7258,16 +7258,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getMemberResourceAttributes.'
+        'Required parameter member was null or undefined when calling getMemberResourceAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getMemberResourceAttributes.'
+        'Required parameter resource was null or undefined when calling getMemberResourceAttributes.',
       );
     }
 
@@ -7276,14 +7276,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -7360,32 +7360,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<AttributeDefinition>>;
   public getRequiredAttributesDefinition(
     service: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<AttributeDefinition>>>;
   public getRequiredAttributesDefinition(
     service: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<AttributeDefinition>>>;
   public getRequiredAttributesDefinition(
     service: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesDefinition.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesDefinition.',
       );
     }
 
@@ -7394,7 +7394,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
 
@@ -7471,32 +7471,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesFacility(
     facility: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesFacility(
     facility: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getRequiredAttributesFacility.'
+        'Required parameter facility was null or undefined when calling getRequiredAttributesFacility.',
       );
     }
 
@@ -7505,7 +7505,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -7584,7 +7584,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesFacilityService(
     service: number,
@@ -7592,7 +7592,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesFacilityService(
     service: number,
@@ -7600,7 +7600,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesFacilityService(
     service: number,
@@ -7608,16 +7608,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesFacilityService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesFacilityService.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getRequiredAttributesFacilityService.'
+        'Required parameter facility was null or undefined when calling getRequiredAttributesFacilityService.',
       );
     }
 
@@ -7626,14 +7626,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (facility !== undefined && facility !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -7712,7 +7712,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
@@ -7720,7 +7720,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
@@ -7728,7 +7728,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesFacilityServices(
     services: Array<number>,
@@ -7736,16 +7736,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling getRequiredAttributesFacilityServices.'
+        'Required parameter services was null or undefined when calling getRequiredAttributesFacilityServices.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getRequiredAttributesFacilityServices.'
+        'Required parameter facility was null or undefined when calling getRequiredAttributesFacilityServices.',
       );
     }
 
@@ -7755,7 +7755,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -7763,7 +7763,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -7844,7 +7844,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesGroupResourceService(
     service: number,
@@ -7853,7 +7853,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesGroupResourceService(
     service: number,
@@ -7862,7 +7862,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesGroupResourceService(
     service: number,
@@ -7871,21 +7871,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesGroupResourceService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesGroupResourceService.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesGroupResourceService.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesGroupResourceService.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getRequiredAttributesGroupResourceService.'
+        'Required parameter group was null or undefined when calling getRequiredAttributesGroupResourceService.',
       );
     }
 
@@ -7894,14 +7894,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -7983,7 +7983,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesHostService(
     service: number,
@@ -7991,7 +7991,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesHostService(
     service: number,
@@ -7999,7 +7999,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesHostService(
     service: number,
@@ -8007,16 +8007,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesHostService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesHostService.',
       );
     }
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling getRequiredAttributesHostService.'
+        'Required parameter host was null or undefined when calling getRequiredAttributesHostService.',
       );
     }
 
@@ -8025,7 +8025,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (host !== undefined && host !== null) {
@@ -8107,7 +8107,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMember(
     member: number,
@@ -8115,7 +8115,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMember(
     member: number,
@@ -8123,7 +8123,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMember(
     member: number,
@@ -8131,11 +8131,11 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMember.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMember.',
       );
     }
 
@@ -8144,14 +8144,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8232,7 +8232,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMemberGroup(
     member: number,
@@ -8241,7 +8241,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMemberGroup(
     member: number,
@@ -8250,7 +8250,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMemberGroup(
     member: number,
@@ -8259,16 +8259,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroup.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroup.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroup.'
+        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroup.',
       );
     }
 
@@ -8277,7 +8277,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -8287,7 +8287,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8372,7 +8372,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMemberGroupResourceService(
     service: number,
@@ -8383,7 +8383,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMemberGroupResourceService(
     service: number,
@@ -8394,7 +8394,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMemberGroupResourceService(
     service: number,
@@ -8405,26 +8405,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupResourceService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupResourceService.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberGroupResourceService.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberGroupResourceService.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroupResourceService.'
+        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroupResourceService.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroupResourceService.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroupResourceService.',
       );
     }
 
@@ -8433,14 +8433,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -8450,14 +8450,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8540,7 +8540,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMemberGroupService(
     service: number,
@@ -8550,7 +8550,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMemberGroupService(
     service: number,
@@ -8560,7 +8560,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMemberGroupService(
     service: number,
@@ -8570,21 +8570,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesMemberGroupService.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroupService.'
+        'Required parameter group was null or undefined when calling getRequiredAttributesMemberGroupService.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroupService.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMemberGroupService.',
       );
     }
 
@@ -8593,7 +8593,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (group !== undefined && group !== null) {
@@ -8603,14 +8603,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8691,7 +8691,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMemberResource(
     member: number,
@@ -8700,7 +8700,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMemberResource(
     member: number,
@@ -8709,7 +8709,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMemberResource(
     member: number,
@@ -8718,16 +8718,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMemberResource.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMemberResource.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberResource.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberResource.',
       );
     }
 
@@ -8736,21 +8736,21 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8833,7 +8833,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesMemberResourceService(
     service: number,
@@ -8843,7 +8843,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesMemberResourceService(
     service: number,
@@ -8853,7 +8853,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesMemberResourceService(
     service: number,
@@ -8863,21 +8863,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesMemberResourceService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesMemberResourceService.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberResourceService.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesMemberResourceService.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getRequiredAttributesMemberResourceService.'
+        'Required parameter member was null or undefined when calling getRequiredAttributesMemberResourceService.',
       );
     }
 
@@ -8886,28 +8886,28 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (member !== undefined && member !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (workWithUserAttributes !== undefined && workWithUserAttributes !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -8984,32 +8984,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesResource(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesResource(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesResource(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesResource.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesResource.',
       );
     }
 
@@ -9018,7 +9018,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -9097,7 +9097,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesResourceService(
     service: number,
@@ -9105,7 +9105,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesResourceService(
     service: number,
@@ -9113,7 +9113,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesResourceService(
     service: number,
@@ -9121,16 +9121,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesResourceService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesResourceService.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesResourceService.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesResourceService.',
       );
     }
 
@@ -9139,14 +9139,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -9225,7 +9225,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesResourceServices(
     services: Array<number>,
@@ -9233,7 +9233,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesResourceServices(
     services: Array<number>,
@@ -9241,7 +9241,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesResourceServices(
     services: Array<number>,
@@ -9249,16 +9249,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (services === null || services === undefined) {
       throw new Error(
-        'Required parameter services was null or undefined when calling getRequiredAttributesResourceServices.'
+        'Required parameter services was null or undefined when calling getRequiredAttributesResourceServices.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getRequiredAttributesResourceServices.'
+        'Required parameter resource was null or undefined when calling getRequiredAttributesResourceServices.',
       );
     }
 
@@ -9268,7 +9268,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'services[]'
+          'services[]',
         );
       });
     }
@@ -9276,7 +9276,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -9353,32 +9353,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesUser(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesUser(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesUser(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getRequiredAttributesUser.'
+        'Required parameter user was null or undefined when calling getRequiredAttributesUser.',
       );
     }
 
@@ -9462,7 +9462,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesUserFacility(
     user: number,
@@ -9470,7 +9470,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesUserFacility(
     user: number,
@@ -9478,7 +9478,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesUserFacility(
     user: number,
@@ -9486,16 +9486,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getRequiredAttributesUserFacility.'
+        'Required parameter user was null or undefined when calling getRequiredAttributesUserFacility.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getRequiredAttributesUserFacility.'
+        'Required parameter facility was null or undefined when calling getRequiredAttributesUserFacility.',
       );
     }
 
@@ -9507,7 +9507,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -9586,7 +9586,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getRequiredAttributesVoService(
     service: number,
@@ -9594,7 +9594,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getRequiredAttributesVoService(
     service: number,
@@ -9602,7 +9602,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getRequiredAttributesVoService(
     service: number,
@@ -9610,16 +9610,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (service === null || service === undefined) {
       throw new Error(
-        'Required parameter service was null or undefined when calling getRequiredAttributesVoService.'
+        'Required parameter service was null or undefined when calling getRequiredAttributesVoService.',
       );
     }
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getRequiredAttributesVoService.'
+        'Required parameter vo was null or undefined when calling getRequiredAttributesVoService.',
       );
     }
 
@@ -9628,7 +9628,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>service,
-        'service'
+        'service',
       );
     }
     if (vo !== undefined && vo !== null) {
@@ -9711,7 +9711,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getResourceAttributeById(
     resource: number,
@@ -9719,7 +9719,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getResourceAttributeById(
     resource: number,
@@ -9727,7 +9727,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getResourceAttributeById(
     resource: number,
@@ -9735,16 +9735,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceAttributeById.'
+        'Required parameter resource was null or undefined when calling getResourceAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getResourceAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getResourceAttributeById.',
       );
     }
 
@@ -9753,14 +9753,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -9840,7 +9840,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getResourceAttributeByName(
     resource: number,
@@ -9848,7 +9848,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getResourceAttributeByName(
     resource: number,
@@ -9856,7 +9856,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getResourceAttributeByName(
     resource: number,
@@ -9864,16 +9864,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceAttributeByName.'
+        'Required parameter resource was null or undefined when calling getResourceAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getResourceAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getResourceAttributeByName.',
       );
     }
 
@@ -9882,14 +9882,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -9966,32 +9966,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceAttributes(
     resource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceAttributes(
     resource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceAttributes(
     resource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceAttributes.'
+        'Required parameter resource was null or undefined when calling getResourceAttributes.',
       );
     }
 
@@ -10000,7 +10000,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
 
@@ -10079,7 +10079,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceAttributesByNames(
     resource: number,
@@ -10087,7 +10087,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceAttributesByNames(
     resource: number,
@@ -10095,7 +10095,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceAttributesByNames(
     resource: number,
@@ -10103,16 +10103,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceAttributesByNames.'
+        'Required parameter resource was null or undefined when calling getResourceAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getResourceAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getResourceAttributesByNames.',
       );
     }
 
@@ -10121,7 +10121,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attrNames) {
@@ -10129,7 +10129,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -10211,7 +10211,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceGroupAndGroupAttributes(
     resource: number,
@@ -10220,7 +10220,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceGroupAndGroupAttributes(
     resource: number,
@@ -10229,7 +10229,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceGroupAndGroupAttributes(
     resource: number,
@@ -10238,21 +10238,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributes.'
+        'Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributes.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourceGroupAndGroupAttributes.'
+        'Required parameter group was null or undefined when calling getResourceGroupAndGroupAttributes.',
       );
     }
     if (workWithGroupAttributes === null || workWithGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithGroupAttributes was null or undefined when calling getResourceGroupAndGroupAttributes.'
+        'Required parameter workWithGroupAttributes was null or undefined when calling getResourceGroupAndGroupAttributes.',
       );
     }
 
@@ -10261,7 +10261,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -10271,7 +10271,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithGroupAttributes,
-        'workWithGroupAttributes'
+        'workWithGroupAttributes',
       );
     }
 
@@ -10354,7 +10354,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceGroupAndGroupAttributesByNames(
     resource: number,
@@ -10364,7 +10364,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceGroupAndGroupAttributesByNames(
     resource: number,
@@ -10374,7 +10374,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceGroupAndGroupAttributesByNames(
     resource: number,
@@ -10384,26 +10384,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributesByNames.'
+        'Required parameter resource was null or undefined when calling getResourceGroupAndGroupAttributesByNames.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourceGroupAndGroupAttributesByNames.'
+        'Required parameter group was null or undefined when calling getResourceGroupAndGroupAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getResourceGroupAndGroupAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getResourceGroupAndGroupAttributesByNames.',
       );
     }
     if (workWithGroupAttributes === null || workWithGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithGroupAttributes was null or undefined when calling getResourceGroupAndGroupAttributesByNames.'
+        'Required parameter workWithGroupAttributes was null or undefined when calling getResourceGroupAndGroupAttributesByNames.',
       );
     }
 
@@ -10412,7 +10412,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -10423,7 +10423,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -10431,7 +10431,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithGroupAttributes,
-        'workWithGroupAttributes'
+        'workWithGroupAttributes',
       );
     }
 
@@ -10510,7 +10510,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceGroupAttributes(
     resource: number,
@@ -10518,7 +10518,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceGroupAttributes(
     resource: number,
@@ -10526,7 +10526,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceGroupAttributes(
     resource: number,
@@ -10534,16 +10534,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceGroupAttributes.'
+        'Required parameter resource was null or undefined when calling getResourceGroupAttributes.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourceGroupAttributes.'
+        'Required parameter group was null or undefined when calling getResourceGroupAttributes.',
       );
     }
 
@@ -10552,7 +10552,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -10638,7 +10638,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getResourceGroupMemberAttributesByNames(
     resource: number,
@@ -10648,7 +10648,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getResourceGroupMemberAttributesByNames(
     resource: number,
@@ -10658,7 +10658,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getResourceGroupMemberAttributesByNames(
     resource: number,
@@ -10668,26 +10668,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling getResourceGroupMemberAttributesByNames.'
+        'Required parameter resource was null or undefined when calling getResourceGroupMemberAttributesByNames.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getResourceGroupMemberAttributesByNames.'
+        'Required parameter group was null or undefined when calling getResourceGroupMemberAttributesByNames.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getResourceGroupMemberAttributesByNames.'
+        'Required parameter member was null or undefined when calling getResourceGroupMemberAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getResourceGroupMemberAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getResourceGroupMemberAttributesByNames.',
       );
     }
 
@@ -10696,7 +10696,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -10706,7 +10706,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attrNames) {
@@ -10714,7 +10714,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -10795,7 +10795,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserAttributeById(
     user: number,
@@ -10803,7 +10803,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserAttributeById(
     user: number,
@@ -10811,7 +10811,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserAttributeById(
     user: number,
@@ -10819,16 +10819,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserAttributeById.'
+        'Required parameter user was null or undefined when calling getUserAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getUserAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getUserAttributeById.',
       );
     }
 
@@ -10840,7 +10840,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -10920,7 +10920,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserAttributeByName(
     user: number,
@@ -10928,7 +10928,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserAttributeByName(
     user: number,
@@ -10936,7 +10936,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserAttributeByName(
     user: number,
@@ -10944,16 +10944,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserAttributeByName.'
+        'Required parameter user was null or undefined when calling getUserAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getUserAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getUserAttributeByName.',
       );
     }
 
@@ -10965,7 +10965,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -11042,32 +11042,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getUserAttributes(
     user: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserAttributes(
     user: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserAttributes(
     user: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserAttributes.'
+        'Required parameter user was null or undefined when calling getUserAttributes.',
       );
     }
 
@@ -11151,7 +11151,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getUserAttributesByNames(
     user: number,
@@ -11159,7 +11159,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserAttributesByNames(
     user: number,
@@ -11167,7 +11167,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserAttributesByNames(
     user: number,
@@ -11175,16 +11175,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserAttributesByNames.'
+        'Required parameter user was null or undefined when calling getUserAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getUserAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getUserAttributesByNames.',
       );
     }
 
@@ -11197,7 +11197,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -11278,7 +11278,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserExtSourceAttributeById(
     userExtSource: number,
@@ -11286,7 +11286,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserExtSourceAttributeById(
     userExtSource: number,
@@ -11294,7 +11294,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserExtSourceAttributeById(
     userExtSource: number,
@@ -11302,16 +11302,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeById.'
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getUserExtSourceAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getUserExtSourceAttributeById.',
       );
     }
 
@@ -11320,14 +11320,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -11407,7 +11407,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserExtSourceAttributeByName(
     userExtSource: number,
@@ -11415,7 +11415,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserExtSourceAttributeByName(
     userExtSource: number,
@@ -11423,7 +11423,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserExtSourceAttributeByName(
     userExtSource: number,
@@ -11431,16 +11431,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeByName.'
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getUserExtSourceAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getUserExtSourceAttributeByName.',
       );
     }
 
@@ -11449,14 +11449,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -11533,32 +11533,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserExtSourceAttributes(
     userExtSource: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributes.'
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributes.',
       );
     }
 
@@ -11567,7 +11567,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
 
@@ -11646,7 +11646,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
@@ -11654,7 +11654,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
@@ -11662,7 +11662,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserExtSourceAttributesByNames(
     userExtSource: number,
@@ -11670,16 +11670,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributesByNames.'
+        'Required parameter userExtSource was null or undefined when calling getUserExtSourceAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getUserExtSourceAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getUserExtSourceAttributesByNames.',
       );
     }
 
@@ -11688,7 +11688,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (attrNames) {
@@ -11696,7 +11696,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -11779,7 +11779,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserFacilityAttributeById(
     user: number,
@@ -11788,7 +11788,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserFacilityAttributeById(
     user: number,
@@ -11797,7 +11797,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserFacilityAttributeById(
     user: number,
@@ -11806,21 +11806,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserFacilityAttributeById.'
+        'Required parameter user was null or undefined when calling getUserFacilityAttributeById.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getUserFacilityAttributeById.'
+        'Required parameter facility was null or undefined when calling getUserFacilityAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getUserFacilityAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getUserFacilityAttributeById.',
       );
     }
 
@@ -11832,14 +11832,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributeId !== undefined && attributeId !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -11921,7 +11921,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getUserFacilityAttributeByName(
     user: number,
@@ -11930,7 +11930,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getUserFacilityAttributeByName(
     user: number,
@@ -11939,7 +11939,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getUserFacilityAttributeByName(
     user: number,
@@ -11948,21 +11948,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserFacilityAttributeByName.'
+        'Required parameter user was null or undefined when calling getUserFacilityAttributeByName.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getUserFacilityAttributeByName.'
+        'Required parameter facility was null or undefined when calling getUserFacilityAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getUserFacilityAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getUserFacilityAttributeByName.',
       );
     }
 
@@ -11974,14 +11974,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributeName !== undefined && attributeName !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -12060,7 +12060,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getUserFacilityAttributes(
     user: number,
@@ -12068,7 +12068,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getUserFacilityAttributes(
     user: number,
@@ -12076,7 +12076,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getUserFacilityAttributes(
     user: number,
@@ -12084,16 +12084,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getUserFacilityAttributes.'
+        'Required parameter user was null or undefined when calling getUserFacilityAttributes.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling getUserFacilityAttributes.'
+        'Required parameter facility was null or undefined when calling getUserFacilityAttributes.',
       );
     }
 
@@ -12105,7 +12105,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
 
@@ -12185,7 +12185,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getVoAttributeById(
     vo: number,
@@ -12193,7 +12193,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getVoAttributeById(
     vo: number,
@@ -12201,7 +12201,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getVoAttributeById(
     vo: number,
@@ -12209,16 +12209,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoAttributeById.'
+        'Required parameter vo was null or undefined when calling getVoAttributeById.',
       );
     }
     if (attributeId === null || attributeId === undefined) {
       throw new Error(
-        'Required parameter attributeId was null or undefined when calling getVoAttributeById.'
+        'Required parameter attributeId was null or undefined when calling getVoAttributeById.',
       );
     }
 
@@ -12230,7 +12230,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeId,
-        'attributeId'
+        'attributeId',
       );
     }
 
@@ -12310,7 +12310,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Attribute>;
   public getVoAttributeByName(
     vo: number,
@@ -12318,7 +12318,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Attribute>>;
   public getVoAttributeByName(
     vo: number,
@@ -12326,7 +12326,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Attribute>>;
   public getVoAttributeByName(
     vo: number,
@@ -12334,16 +12334,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoAttributeByName.'
+        'Required parameter vo was null or undefined when calling getVoAttributeByName.',
       );
     }
     if (attributeName === null || attributeName === undefined) {
       throw new Error(
-        'Required parameter attributeName was null or undefined when calling getVoAttributeByName.'
+        'Required parameter attributeName was null or undefined when calling getVoAttributeByName.',
       );
     }
 
@@ -12355,7 +12355,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeName,
-        'attributeName'
+        'attributeName',
       );
     }
 
@@ -12432,28 +12432,28 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getVoAttributes(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getVoAttributes(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getVoAttributes(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getVoAttributes.');
@@ -12539,7 +12539,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Attribute>>;
   public getVoAttributesByNames(
     vo: number,
@@ -12547,7 +12547,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Attribute>>>;
   public getVoAttributesByNames(
     vo: number,
@@ -12555,7 +12555,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Attribute>>>;
   public getVoAttributesByNames(
     vo: number,
@@ -12563,16 +12563,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoAttributesByNames.'
+        'Required parameter vo was null or undefined when calling getVoAttributesByNames.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getVoAttributesByNames.'
+        'Required parameter attrNames was null or undefined when calling getVoAttributesByNames.',
       );
     }
 
@@ -12585,7 +12585,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -12673,7 +12673,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeAttributesForFacilityResourceGroupUserMember(
     facility: number,
@@ -12685,7 +12685,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeAttributesForFacilityResourceGroupUserMember(
     facility: number,
@@ -12697,7 +12697,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeAttributesForFacilityResourceGroupUserMember(
     facility: number,
@@ -12709,36 +12709,36 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter resource was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter group was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter user was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter member was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.'
+        'Required parameter attributes was null or undefined when calling removeAttributesForFacilityResourceGroupUserMember.',
       );
     }
 
@@ -12747,14 +12747,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (group !== undefined && group !== null) {
@@ -12767,7 +12767,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributes) {
@@ -12775,7 +12775,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -12861,7 +12861,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeAttributesForFacilityResourceUserMember(
     facility: number,
@@ -12872,7 +12872,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeAttributesForFacilityResourceUserMember(
     facility: number,
@@ -12883,7 +12883,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeAttributesForFacilityResourceUserMember(
     facility: number,
@@ -12894,31 +12894,31 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceUserMember.'
+        'Required parameter facility was null or undefined when calling removeAttributesForFacilityResourceUserMember.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeAttributesForFacilityResourceUserMember.'
+        'Required parameter resource was null or undefined when calling removeAttributesForFacilityResourceUserMember.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeAttributesForFacilityResourceUserMember.'
+        'Required parameter user was null or undefined when calling removeAttributesForFacilityResourceUserMember.',
       );
     }
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeAttributesForFacilityResourceUserMember.'
+        'Required parameter member was null or undefined when calling removeAttributesForFacilityResourceUserMember.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeAttributesForFacilityResourceUserMember.'
+        'Required parameter attributes was null or undefined when calling removeAttributesForFacilityResourceUserMember.',
       );
     }
 
@@ -12927,14 +12927,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (user !== undefined && user !== null) {
@@ -12944,7 +12944,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributes) {
@@ -12952,7 +12952,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -13032,7 +13032,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeEntitylessAttribute(
     key: string,
@@ -13040,7 +13040,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeEntitylessAttribute(
     key: string,
@@ -13048,7 +13048,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeEntitylessAttribute(
     key: string,
@@ -13056,16 +13056,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (key === null || key === undefined) {
       throw new Error(
-        'Required parameter key was null or undefined when calling removeEntitylessAttribute.'
+        'Required parameter key was null or undefined when calling removeEntitylessAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeEntitylessAttribute.'
+        'Required parameter attribute was null or undefined when calling removeEntitylessAttribute.',
       );
     }
 
@@ -13077,7 +13077,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -13156,7 +13156,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAttribute(
     facility: number,
@@ -13164,7 +13164,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAttribute(
     facility: number,
@@ -13172,7 +13172,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAttribute(
     facility: number,
@@ -13180,16 +13180,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAttribute.'
+        'Required parameter facility was null or undefined when calling removeFacilityAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeFacilityAttribute.'
+        'Required parameter attribute was null or undefined when calling removeFacilityAttribute.',
       );
     }
 
@@ -13198,14 +13198,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -13284,7 +13284,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeFacilityAttributes(
     facility: number,
@@ -13292,7 +13292,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeFacilityAttributes(
     facility: number,
@@ -13300,7 +13300,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeFacilityAttributes(
     facility: number,
@@ -13308,16 +13308,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeFacilityAttributes.'
+        'Required parameter facility was null or undefined when calling removeFacilityAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeFacilityAttributes.'
+        'Required parameter attributes was null or undefined when calling removeFacilityAttributes.',
       );
     }
 
@@ -13326,7 +13326,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributes) {
@@ -13334,7 +13334,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -13414,7 +13414,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupAttribute(
     group: number,
@@ -13422,7 +13422,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupAttribute(
     group: number,
@@ -13430,7 +13430,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupAttribute(
     group: number,
@@ -13438,16 +13438,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupAttribute.'
+        'Required parameter group was null or undefined when calling removeGroupAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeGroupAttribute.'
+        'Required parameter attribute was null or undefined when calling removeGroupAttribute.',
       );
     }
 
@@ -13459,7 +13459,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -13538,7 +13538,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupAttributes(
     group: number,
@@ -13546,7 +13546,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupAttributes(
     group: number,
@@ -13554,7 +13554,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupAttributes(
     group: number,
@@ -13562,16 +13562,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupAttributes.'
+        'Required parameter group was null or undefined when calling removeGroupAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeGroupAttributes.'
+        'Required parameter attributes was null or undefined when calling removeGroupAttributes.',
       );
     }
 
@@ -13584,7 +13584,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -13666,7 +13666,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupResourceAttribute(
     group: number,
@@ -13675,7 +13675,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupResourceAttribute(
     group: number,
@@ -13684,7 +13684,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupResourceAttribute(
     group: number,
@@ -13693,21 +13693,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupResourceAttribute.'
+        'Required parameter group was null or undefined when calling removeGroupResourceAttribute.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupResourceAttribute.'
+        'Required parameter resource was null or undefined when calling removeGroupResourceAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeGroupResourceAttribute.'
+        'Required parameter attribute was null or undefined when calling removeGroupResourceAttribute.',
       );
     }
 
@@ -13719,14 +13719,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -13807,7 +13807,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupResourceAttributes(
     group: number,
@@ -13816,7 +13816,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupResourceAttributes(
     group: number,
@@ -13825,7 +13825,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupResourceAttributes(
     group: number,
@@ -13834,21 +13834,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupResourceAttributes.'
+        'Required parameter group was null or undefined when calling removeGroupResourceAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupResourceAttributes.'
+        'Required parameter resource was null or undefined when calling removeGroupResourceAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeGroupResourceAttributes.'
+        'Required parameter attributes was null or undefined when calling removeGroupResourceAttributes.',
       );
     }
 
@@ -13860,7 +13860,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributes) {
@@ -13868,7 +13868,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -13952,7 +13952,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeGroupResourceAttributesWorkWithGroupAttributes(
     group: number,
@@ -13962,7 +13962,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeGroupResourceAttributesWorkWithGroupAttributes(
     group: number,
@@ -13972,7 +13972,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeGroupResourceAttributesWorkWithGroupAttributes(
     group: number,
@@ -13982,26 +13982,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.'
+        'Required parameter group was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.'
+        'Required parameter resource was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.'
+        'Required parameter attributes was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.',
       );
     }
     if (workWithGroupAttributes === null || workWithGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithGroupAttributes was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.'
+        'Required parameter workWithGroupAttributes was null or undefined when calling removeGroupResourceAttributesWorkWithGroupAttributes.',
       );
     }
 
@@ -14013,7 +14013,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributes) {
@@ -14021,7 +14021,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -14029,7 +14029,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithGroupAttributes,
-        'workWithGroupAttributes'
+        'workWithGroupAttributes',
       );
     }
 
@@ -14108,7 +14108,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHostAttribute(
     host: number,
@@ -14116,7 +14116,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHostAttribute(
     host: number,
@@ -14124,7 +14124,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHostAttribute(
     host: number,
@@ -14132,16 +14132,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling removeHostAttribute.'
+        'Required parameter host was null or undefined when calling removeHostAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeHostAttribute.'
+        'Required parameter attribute was null or undefined when calling removeHostAttribute.',
       );
     }
 
@@ -14153,7 +14153,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -14232,7 +14232,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeHostAttributes(
     host: number,
@@ -14240,7 +14240,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeHostAttributes(
     host: number,
@@ -14248,7 +14248,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeHostAttributes(
     host: number,
@@ -14256,16 +14256,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (host === null || host === undefined) {
       throw new Error(
-        'Required parameter host was null or undefined when calling removeHostAttributes.'
+        'Required parameter host was null or undefined when calling removeHostAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeHostAttributes.'
+        'Required parameter attributes was null or undefined when calling removeHostAttributes.',
       );
     }
 
@@ -14278,7 +14278,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -14358,7 +14358,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberAttribute(
     member: number,
@@ -14366,7 +14366,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberAttribute(
     member: number,
@@ -14374,7 +14374,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberAttribute(
     member: number,
@@ -14382,16 +14382,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberAttribute.'
+        'Required parameter member was null or undefined when calling removeMemberAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeMemberAttribute.'
+        'Required parameter attribute was null or undefined when calling removeMemberAttribute.',
       );
     }
 
@@ -14400,14 +14400,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -14486,7 +14486,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberAttributes(
     member: number,
@@ -14494,7 +14494,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberAttributes(
     member: number,
@@ -14502,7 +14502,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberAttributes(
     member: number,
@@ -14510,16 +14510,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberAttributes.'
+        'Required parameter member was null or undefined when calling removeMemberAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeMemberAttributes.'
+        'Required parameter attributes was null or undefined when calling removeMemberAttributes.',
       );
     }
 
@@ -14528,7 +14528,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributes) {
@@ -14536,7 +14536,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -14618,7 +14618,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberAttributesWorkWithUserAttributes(
     member: number,
@@ -14627,7 +14627,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberAttributesWorkWithUserAttributes(
     member: number,
@@ -14636,7 +14636,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberAttributesWorkWithUserAttributes(
     member: number,
@@ -14645,21 +14645,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.'
+        'Required parameter member was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.'
+        'Required parameter attributes was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.'
+        'Required parameter workWithUserAttributes was null or undefined when calling removeMemberAttributesWorkWithUserAttributes.',
       );
     }
 
@@ -14668,7 +14668,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (attributes) {
@@ -14676,7 +14676,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -14684,7 +14684,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -14765,7 +14765,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberGroupAttribute(
     member: number,
@@ -14774,7 +14774,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberGroupAttribute(
     member: number,
@@ -14783,7 +14783,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberGroupAttribute(
     member: number,
@@ -14792,21 +14792,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberGroupAttribute.'
+        'Required parameter member was null or undefined when calling removeMemberGroupAttribute.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeMemberGroupAttribute.'
+        'Required parameter group was null or undefined when calling removeMemberGroupAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeMemberGroupAttribute.'
+        'Required parameter attribute was null or undefined when calling removeMemberGroupAttribute.',
       );
     }
 
@@ -14815,7 +14815,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -14825,7 +14825,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -14906,7 +14906,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberGroupAttributes(
     member: number,
@@ -14915,7 +14915,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberGroupAttributes(
     member: number,
@@ -14924,7 +14924,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberGroupAttributes(
     member: number,
@@ -14933,21 +14933,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberGroupAttributes.'
+        'Required parameter member was null or undefined when calling removeMemberGroupAttributes.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeMemberGroupAttributes.'
+        'Required parameter group was null or undefined when calling removeMemberGroupAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeMemberGroupAttributes.'
+        'Required parameter attributes was null or undefined when calling removeMemberGroupAttributes.',
       );
     }
 
@@ -14956,7 +14956,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -14967,7 +14967,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -15051,7 +15051,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberGroupAttributesWorkWithUserAttributes(
     member: number,
@@ -15061,7 +15061,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberGroupAttributesWorkWithUserAttributes(
     member: number,
@@ -15071,7 +15071,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberGroupAttributesWorkWithUserAttributes(
     member: number,
@@ -15081,26 +15081,26 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.'
+        'Required parameter member was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.',
       );
     }
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.'
+        'Required parameter group was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.'
+        'Required parameter attributes was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.',
       );
     }
     if (workWithUserAttributes === null || workWithUserAttributes === undefined) {
       throw new Error(
-        'Required parameter workWithUserAttributes was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.'
+        'Required parameter workWithUserAttributes was null or undefined when calling removeMemberGroupAttributesWorkWithUserAttributes.',
       );
     }
 
@@ -15109,7 +15109,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (group !== undefined && group !== null) {
@@ -15120,7 +15120,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -15128,7 +15128,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>workWithUserAttributes,
-        'workWithUserAttributes'
+        'workWithUserAttributes',
       );
     }
 
@@ -15209,7 +15209,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberResourceAttribute(
     member: number,
@@ -15218,7 +15218,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberResourceAttribute(
     member: number,
@@ -15227,7 +15227,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberResourceAttribute(
     member: number,
@@ -15236,21 +15236,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberResourceAttribute.'
+        'Required parameter member was null or undefined when calling removeMemberResourceAttribute.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeMemberResourceAttribute.'
+        'Required parameter resource was null or undefined when calling removeMemberResourceAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeMemberResourceAttribute.'
+        'Required parameter attribute was null or undefined when calling removeMemberResourceAttribute.',
       );
     }
 
@@ -15259,21 +15259,21 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -15354,7 +15354,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberResourceAttributes(
     member: number,
@@ -15363,7 +15363,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberResourceAttributes(
     member: number,
@@ -15372,7 +15372,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberResourceAttributes(
     member: number,
@@ -15381,21 +15381,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeMemberResourceAttributes.'
+        'Required parameter member was null or undefined when calling removeMemberResourceAttributes.',
       );
     }
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeMemberResourceAttributes.'
+        'Required parameter resource was null or undefined when calling removeMemberResourceAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeMemberResourceAttributes.'
+        'Required parameter attributes was null or undefined when calling removeMemberResourceAttributes.',
       );
     }
 
@@ -15404,14 +15404,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
     if (resource !== undefined && resource !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributes) {
@@ -15419,7 +15419,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -15499,7 +15499,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceAttribute(
     resource: number,
@@ -15507,7 +15507,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceAttribute(
     resource: number,
@@ -15515,7 +15515,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceAttribute(
     resource: number,
@@ -15523,16 +15523,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeResourceAttribute.'
+        'Required parameter resource was null or undefined when calling removeResourceAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeResourceAttribute.'
+        'Required parameter attribute was null or undefined when calling removeResourceAttribute.',
       );
     }
 
@@ -15541,14 +15541,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -15627,7 +15627,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeResourceAttributes(
     resource: number,
@@ -15635,7 +15635,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeResourceAttributes(
     resource: number,
@@ -15643,7 +15643,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeResourceAttributes(
     resource: number,
@@ -15651,16 +15651,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (resource === null || resource === undefined) {
       throw new Error(
-        'Required parameter resource was null or undefined when calling removeResourceAttributes.'
+        'Required parameter resource was null or undefined when calling removeResourceAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeResourceAttributes.'
+        'Required parameter attributes was null or undefined when calling removeResourceAttributes.',
       );
     }
 
@@ -15669,7 +15669,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>resource,
-        'resource'
+        'resource',
       );
     }
     if (attributes) {
@@ -15677,7 +15677,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -15757,7 +15757,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUesAttributes(
     userExtSource: number,
@@ -15765,7 +15765,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUesAttributes(
     userExtSource: number,
@@ -15773,7 +15773,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUesAttributes(
     userExtSource: number,
@@ -15781,16 +15781,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling removeUesAttributes.'
+        'Required parameter userExtSource was null or undefined when calling removeUesAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeUesAttributes.'
+        'Required parameter attributes was null or undefined when calling removeUesAttributes.',
       );
     }
 
@@ -15799,7 +15799,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (attributes) {
@@ -15807,7 +15807,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -15887,7 +15887,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserAttribute(
     user: number,
@@ -15895,7 +15895,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserAttribute(
     user: number,
@@ -15903,7 +15903,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserAttribute(
     user: number,
@@ -15911,16 +15911,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserAttribute.'
+        'Required parameter user was null or undefined when calling removeUserAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeUserAttribute.'
+        'Required parameter attribute was null or undefined when calling removeUserAttribute.',
       );
     }
 
@@ -15932,7 +15932,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -16011,7 +16011,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserAttributes(
     user: number,
@@ -16019,7 +16019,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserAttributes(
     user: number,
@@ -16027,7 +16027,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserAttributes(
     user: number,
@@ -16035,16 +16035,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserAttributes.'
+        'Required parameter user was null or undefined when calling removeUserAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeUserAttributes.'
+        'Required parameter attributes was null or undefined when calling removeUserAttributes.',
       );
     }
 
@@ -16057,7 +16057,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -16137,7 +16137,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserExtSourceAttribute(
     userExtSource: number,
@@ -16145,7 +16145,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserExtSourceAttribute(
     userExtSource: number,
@@ -16153,7 +16153,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserExtSourceAttribute(
     userExtSource: number,
@@ -16161,16 +16161,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (userExtSource === null || userExtSource === undefined) {
       throw new Error(
-        'Required parameter userExtSource was null or undefined when calling removeUserExtSourceAttribute.'
+        'Required parameter userExtSource was null or undefined when calling removeUserExtSourceAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeUserExtSourceAttribute.'
+        'Required parameter attribute was null or undefined when calling removeUserExtSourceAttribute.',
       );
     }
 
@@ -16179,14 +16179,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>userExtSource,
-        'userExtSource'
+        'userExtSource',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -16267,7 +16267,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserFacilityAttribute(
     user: number,
@@ -16276,7 +16276,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserFacilityAttribute(
     user: number,
@@ -16285,7 +16285,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserFacilityAttribute(
     user: number,
@@ -16294,21 +16294,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserFacilityAttribute.'
+        'Required parameter user was null or undefined when calling removeUserFacilityAttribute.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeUserFacilityAttribute.'
+        'Required parameter facility was null or undefined when calling removeUserFacilityAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeUserFacilityAttribute.'
+        'Required parameter attribute was null or undefined when calling removeUserFacilityAttribute.',
       );
     }
 
@@ -16320,14 +16320,14 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attribute !== undefined && attribute !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -16408,7 +16408,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeUserFacilityAttributes(
     user: number,
@@ -16417,7 +16417,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeUserFacilityAttributes(
     user: number,
@@ -16426,7 +16426,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeUserFacilityAttributes(
     user: number,
@@ -16435,21 +16435,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeUserFacilityAttributes.'
+        'Required parameter user was null or undefined when calling removeUserFacilityAttributes.',
       );
     }
     if (facility === null || facility === undefined) {
       throw new Error(
-        'Required parameter facility was null or undefined when calling removeUserFacilityAttributes.'
+        'Required parameter facility was null or undefined when calling removeUserFacilityAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeUserFacilityAttributes.'
+        'Required parameter attributes was null or undefined when calling removeUserFacilityAttributes.',
       );
     }
 
@@ -16461,7 +16461,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>facility,
-        'facility'
+        'facility',
       );
     }
     if (attributes) {
@@ -16469,7 +16469,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -16549,7 +16549,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoAttribute(
     vo: number,
@@ -16557,7 +16557,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoAttribute(
     vo: number,
@@ -16565,7 +16565,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoAttribute(
     vo: number,
@@ -16573,16 +16573,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeVoAttribute.'
+        'Required parameter vo was null or undefined when calling removeVoAttribute.',
       );
     }
     if (attribute === null || attribute === undefined) {
       throw new Error(
-        'Required parameter attribute was null or undefined when calling removeVoAttribute.'
+        'Required parameter attribute was null or undefined when calling removeVoAttribute.',
       );
     }
 
@@ -16594,7 +16594,7 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attribute,
-        'attribute'
+        'attribute',
       );
     }
 
@@ -16673,7 +16673,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoAttributes(
     vo: number,
@@ -16681,7 +16681,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoAttributes(
     vo: number,
@@ -16689,7 +16689,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoAttributes(
     vo: number,
@@ -16697,16 +16697,16 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeVoAttributes.'
+        'Required parameter vo was null or undefined when calling removeVoAttributes.',
       );
     }
     if (attributes === null || attributes === undefined) {
       throw new Error(
-        'Required parameter attributes was null or undefined when calling removeVoAttributes.'
+        'Required parameter attributes was null or undefined when calling removeVoAttributes.',
       );
     }
 
@@ -16719,7 +16719,7 @@ export class AttributesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attributes[]'
+          'attributes[]',
         );
       });
     }
@@ -16803,7 +16803,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setAttributeActionCriticality(
     attributeDefinition: number,
@@ -16813,7 +16813,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setAttributeActionCriticality(
     attributeDefinition: number,
@@ -16823,7 +16823,7 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setAttributeActionCriticality(
     attributeDefinition: number,
@@ -16833,21 +16833,21 @@ export class AttributesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (attributeDefinition === null || attributeDefinition === undefined) {
       throw new Error(
-        'Required parameter attributeDefinition was null or undefined when calling setAttributeActionCriticality.'
+        'Required parameter attributeDefinition was null or undefined when calling setAttributeActionCriticality.',
       );
     }
     if (action === null || action === undefined) {
       throw new Error(
-        'Required parameter action was null or undefined when calling setAttributeActionCriticality.'
+        'Required parameter action was null or undefined when calling setAttributeActionCriticality.',
       );
     }
     if (critical === null || critical === undefined) {
       throw new Error(
-        'Required parameter critical was null or undefined when calling setAttributeActionCriticality.'
+        'Required parameter critical was null or undefined when calling setAttributeActionCriticality.',
       );
     }
 
@@ -16856,28 +16856,28 @@ export class AttributesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>attributeDefinition,
-        'attributeDefinition'
+        'attributeDefinition',
       );
     }
     if (action !== undefined && action !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>action,
-        'action'
+        'action',
       );
     }
     if (critical !== undefined && critical !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>critical,
-        'critical'
+        'critical',
       );
     }
     if (global !== undefined && global !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>global,
-        'global'
+        'global',
       );
     }
 
@@ -16954,32 +16954,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setAttributePolicyCollections(
     InputAttributePolicyCollections: InputAttributePolicyCollections,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAttributePolicyCollections === null || InputAttributePolicyCollections === undefined) {
       throw new Error(
-        'Required parameter InputAttributePolicyCollections was null or undefined when calling setAttributePolicyCollections.'
+        'Required parameter InputAttributePolicyCollections was null or undefined when calling setAttributePolicyCollections.',
       );
     }
 
@@ -17063,32 +17063,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setAttributeRights(
     InputAttributeRights: InputAttributeRights,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAttributeRights === null || InputAttributeRights === undefined) {
       throw new Error(
-        'Required parameter InputAttributeRights was null or undefined when calling setAttributeRights.'
+        'Required parameter InputAttributeRights was null or undefined when calling setAttributeRights.',
       );
     }
 
@@ -17172,32 +17172,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setEntitylessAttribute(
     InputEntitylessAttribute: InputEntitylessAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputEntitylessAttribute === null || InputEntitylessAttribute === undefined) {
       throw new Error(
-        'Required parameter InputEntitylessAttribute was null or undefined when calling setEntitylessAttribute.'
+        'Required parameter InputEntitylessAttribute was null or undefined when calling setEntitylessAttribute.',
       );
     }
 
@@ -17281,32 +17281,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setFacilityAttribute(
     InputSetFacilityAttribute: InputSetFacilityAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetFacilityAttribute === null || InputSetFacilityAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetFacilityAttribute was null or undefined when calling setFacilityAttribute.'
+        'Required parameter InputSetFacilityAttribute was null or undefined when calling setFacilityAttribute.',
       );
     }
 
@@ -17390,32 +17390,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setFacilityAttributes(
     InputSetFacilityAttributes: InputSetFacilityAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetFacilityAttributes === null || InputSetFacilityAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetFacilityAttributes was null or undefined when calling setFacilityAttributes.'
+        'Required parameter InputSetFacilityAttributes was null or undefined when calling setFacilityAttributes.',
       );
     }
 
@@ -17499,35 +17499,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setFacilityResourceGroupUserMemberAttributes(
     InputSetFacilityResourceGroupUserMemberAttributes: InputSetFacilityResourceGroupUserMemberAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetFacilityResourceGroupUserMemberAttributes === null ||
       InputSetFacilityResourceGroupUserMemberAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetFacilityResourceGroupUserMemberAttributes was null or undefined when calling setFacilityResourceGroupUserMemberAttributes.'
+        'Required parameter InputSetFacilityResourceGroupUserMemberAttributes was null or undefined when calling setFacilityResourceGroupUserMemberAttributes.',
       );
     }
 
@@ -17599,7 +17599,7 @@ export class AttributesManagerService {
         headers: localVarHeaders,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 
@@ -17615,35 +17615,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setFacilityResourceUserMemberAttributes(
     InputSetFacilityResourceUserMemberAttributes: InputSetFacilityResourceUserMemberAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetFacilityResourceUserMemberAttributes === null ||
       InputSetFacilityResourceUserMemberAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetFacilityResourceUserMemberAttributes was null or undefined when calling setFacilityResourceUserMemberAttributes.'
+        'Required parameter InputSetFacilityResourceUserMemberAttributes was null or undefined when calling setFacilityResourceUserMemberAttributes.',
       );
     }
 
@@ -17727,32 +17727,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setFacilityUserAttributes(
     InputSetFacilityUserAttributes: InputSetFacilityUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetFacilityUserAttributes === null || InputSetFacilityUserAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetFacilityUserAttributes was null or undefined when calling setFacilityUserAttributes.'
+        'Required parameter InputSetFacilityUserAttributes was null or undefined when calling setFacilityUserAttributes.',
       );
     }
 
@@ -17836,32 +17836,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setGroupAttribute(
     InputSetGroupAttribute: InputSetGroupAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetGroupAttribute === null || InputSetGroupAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetGroupAttribute was null or undefined when calling setGroupAttribute.'
+        'Required parameter InputSetGroupAttribute was null or undefined when calling setGroupAttribute.',
       );
     }
 
@@ -17945,32 +17945,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setGroupAttributes(
     InputSetGroupAttributes: InputSetGroupAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetGroupAttributes === null || InputSetGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetGroupAttributes was null or undefined when calling setGroupAttributes.'
+        'Required parameter InputSetGroupAttributes was null or undefined when calling setGroupAttributes.',
       );
     }
 
@@ -18054,32 +18054,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setGroupResourceAttribute(
     InputSetGroupResourceAttribute: InputSetGroupResourceAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetGroupResourceAttribute === null || InputSetGroupResourceAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetGroupResourceAttribute was null or undefined when calling setGroupResourceAttribute.'
+        'Required parameter InputSetGroupResourceAttribute was null or undefined when calling setGroupResourceAttribute.',
       );
     }
 
@@ -18163,32 +18163,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setGroupResourceAttributes(
     InputSetGroupResourceAttributes: InputSetGroupResourceAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetGroupResourceAttributes === null || InputSetGroupResourceAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetGroupResourceAttributes was null or undefined when calling setGroupResourceAttributes.'
+        'Required parameter InputSetGroupResourceAttributes was null or undefined when calling setGroupResourceAttributes.',
       );
     }
 
@@ -18272,32 +18272,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setHostAttribute(
     InputSetHostAttribute: InputSetHostAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetHostAttribute === null || InputSetHostAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetHostAttribute was null or undefined when calling setHostAttribute.'
+        'Required parameter InputSetHostAttribute was null or undefined when calling setHostAttribute.',
       );
     }
 
@@ -18381,32 +18381,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setHostAttributes(
     InputSetHostAttributes: InputSetHostAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetHostAttributes === null || InputSetHostAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetHostAttributes was null or undefined when calling setHostAttributes.'
+        'Required parameter InputSetHostAttributes was null or undefined when calling setHostAttributes.',
       );
     }
 
@@ -18490,32 +18490,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberAttribute(
     InputSetMemberAttribute: InputSetMemberAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetMemberAttribute === null || InputSetMemberAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetMemberAttribute was null or undefined when calling setMemberAttribute.'
+        'Required parameter InputSetMemberAttribute was null or undefined when calling setMemberAttribute.',
       );
     }
 
@@ -18599,32 +18599,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberAttributes(
     InputSetMemberAttributes: InputSetMemberAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetMemberAttributes === null || InputSetMemberAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetMemberAttributes was null or undefined when calling setMemberAttributes.'
+        'Required parameter InputSetMemberAttributes was null or undefined when calling setMemberAttributes.',
       );
     }
 
@@ -18708,32 +18708,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberGroupAttribute(
     InputSetMemberGroupAttribute: InputSetMemberGroupAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetMemberGroupAttribute === null || InputSetMemberGroupAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetMemberGroupAttribute was null or undefined when calling setMemberGroupAttribute.'
+        'Required parameter InputSetMemberGroupAttribute was null or undefined when calling setMemberGroupAttribute.',
       );
     }
 
@@ -18817,32 +18817,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberGroupAttributes(
     InputSetMemberGroupAttributes: InputSetMemberGroupAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetMemberGroupAttributes === null || InputSetMemberGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetMemberGroupAttributes was null or undefined when calling setMemberGroupAttributes.'
+        'Required parameter InputSetMemberGroupAttributes was null or undefined when calling setMemberGroupAttributes.',
       );
     }
 
@@ -18926,35 +18926,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberGroupWithUserAttributes(
     InputSetMemberGroupWithUserAttributes: InputSetMemberGroupWithUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetMemberGroupWithUserAttributes === null ||
       InputSetMemberGroupWithUserAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetMemberGroupWithUserAttributes was null or undefined when calling setMemberGroupWithUserAttributes.'
+        'Required parameter InputSetMemberGroupWithUserAttributes was null or undefined when calling setMemberGroupWithUserAttributes.',
       );
     }
 
@@ -19038,35 +19038,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAndUserAttributes(
     InputSetMemberResourceAndUserAttributes: InputSetMemberResourceAndUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetMemberResourceAndUserAttributes === null ||
       InputSetMemberResourceAndUserAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetMemberResourceAndUserAttributes was null or undefined when calling setMemberResourceAndUserAttributes.'
+        'Required parameter InputSetMemberResourceAndUserAttributes was null or undefined when calling setMemberResourceAndUserAttributes.',
       );
     }
 
@@ -19150,32 +19150,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAttribute(
     InputSetMemberResourceAttribute: InputSetMemberResourceAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetMemberResourceAttribute === null || InputSetMemberResourceAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetMemberResourceAttribute was null or undefined when calling setMemberResourceAttribute.'
+        'Required parameter InputSetMemberResourceAttribute was null or undefined when calling setMemberResourceAttribute.',
       );
     }
 
@@ -19259,35 +19259,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberResourceAttributes(
     InputSetMemberResourceAttributes: InputSetMemberResourceAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetMemberResourceAttributes === null ||
       InputSetMemberResourceAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetMemberResourceAttributes was null or undefined when calling setMemberResourceAttributes.'
+        'Required parameter InputSetMemberResourceAttributes was null or undefined when calling setMemberResourceAttributes.',
       );
     }
 
@@ -19371,35 +19371,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setMemberWithUserAttributes(
     InputSetMemberWithUserAttributes: InputSetMemberWithUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetMemberWithUserAttributes === null ||
       InputSetMemberWithUserAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetMemberWithUserAttributes was null or undefined when calling setMemberWithUserAttributes.'
+        'Required parameter InputSetMemberWithUserAttributes was null or undefined when calling setMemberWithUserAttributes.',
       );
     }
 
@@ -19483,32 +19483,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setResourceAttribute(
     InputSetResourceAttribute: InputSetResourceAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetResourceAttribute === null || InputSetResourceAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetResourceAttribute was null or undefined when calling setResourceAttribute.'
+        'Required parameter InputSetResourceAttribute was null or undefined when calling setResourceAttribute.',
       );
     }
 
@@ -19592,32 +19592,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setResourceAttributes(
     InputSetResourceAttributes: InputSetResourceAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetResourceAttributes === null || InputSetResourceAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetResourceAttributes was null or undefined when calling setResourceAttributes.'
+        'Required parameter InputSetResourceAttributes was null or undefined when calling setResourceAttributes.',
       );
     }
 
@@ -19701,32 +19701,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setResourceGroupAttributes(
     InputSetResourceGroupAttributes: InputSetResourceGroupAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetResourceGroupAttributes === null || InputSetResourceGroupAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetResourceGroupAttributes was null or undefined when calling setResourceGroupAttributes.'
+        'Required parameter InputSetResourceGroupAttributes was null or undefined when calling setResourceGroupAttributes.',
       );
     }
 
@@ -19810,35 +19810,35 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setResourceGroupWithGroupAttributes(
     InputSetResourceGroupWithGroupAttributes: InputSetResourceGroupWithGroupAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (
       InputSetResourceGroupWithGroupAttributes === null ||
       InputSetResourceGroupWithGroupAttributes === undefined
     ) {
       throw new Error(
-        'Required parameter InputSetResourceGroupWithGroupAttributes was null or undefined when calling setResourceGroupWithGroupAttributes.'
+        'Required parameter InputSetResourceGroupWithGroupAttributes was null or undefined when calling setResourceGroupWithGroupAttributes.',
       );
     }
 
@@ -19922,32 +19922,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserAttribute(
     InputSetUserAttribute: InputSetUserAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserAttribute === null || InputSetUserAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetUserAttribute was null or undefined when calling setUserAttribute.'
+        'Required parameter InputSetUserAttribute was null or undefined when calling setUserAttribute.',
       );
     }
 
@@ -20031,32 +20031,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserAttributes(
     InputSetUserAttributes: InputSetUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserAttributes === null || InputSetUserAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetUserAttributes was null or undefined when calling setUserAttributes.'
+        'Required parameter InputSetUserAttributes was null or undefined when calling setUserAttributes.',
       );
     }
 
@@ -20140,32 +20140,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserExtSourceAttribute(
     InputSetUserExtSourceAttribute: InputSetUserExtSourceAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserExtSourceAttribute === null || InputSetUserExtSourceAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetUserExtSourceAttribute was null or undefined when calling setUserExtSourceAttribute.'
+        'Required parameter InputSetUserExtSourceAttribute was null or undefined when calling setUserExtSourceAttribute.',
       );
     }
 
@@ -20249,32 +20249,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserExtSourceAttributes(
     InputSetUserExtSourceAttributes: InputSetUserExtSourceAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserExtSourceAttributes === null || InputSetUserExtSourceAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetUserExtSourceAttributes was null or undefined when calling setUserExtSourceAttributes.'
+        'Required parameter InputSetUserExtSourceAttributes was null or undefined when calling setUserExtSourceAttributes.',
       );
     }
 
@@ -20358,32 +20358,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserFacilityAttribute(
     InputSetUserFacilityAttribute: InputSetUserFacilityAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserFacilityAttribute === null || InputSetUserFacilityAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetUserFacilityAttribute was null or undefined when calling setUserFacilityAttribute.'
+        'Required parameter InputSetUserFacilityAttribute was null or undefined when calling setUserFacilityAttribute.',
       );
     }
 
@@ -20467,32 +20467,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setUserFacilityAttributes(
     InputSetUserFacilityAttributes: InputSetUserFacilityAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetUserFacilityAttributes === null || InputSetUserFacilityAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetUserFacilityAttributes was null or undefined when calling setUserFacilityAttributes.'
+        'Required parameter InputSetUserFacilityAttributes was null or undefined when calling setUserFacilityAttributes.',
       );
     }
 
@@ -20576,32 +20576,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setVoAttribute(
     InputSetVoAttribute: InputSetVoAttribute,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetVoAttribute === null || InputSetVoAttribute === undefined) {
       throw new Error(
-        'Required parameter InputSetVoAttribute was null or undefined when calling setVoAttribute.'
+        'Required parameter InputSetVoAttribute was null or undefined when calling setVoAttribute.',
       );
     }
 
@@ -20685,32 +20685,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public setVoAttributes(
     InputSetVoAttributes: InputSetVoAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetVoAttributes === null || InputSetVoAttributes === undefined) {
       throw new Error(
-        'Required parameter InputSetVoAttributes was null or undefined when calling setVoAttributes.'
+        'Required parameter InputSetVoAttributes was null or undefined when calling setVoAttributes.',
       );
     }
 
@@ -20794,32 +20794,32 @@ export class AttributesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<AttributeDefinition>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<AttributeDefinition>>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<AttributeDefinition>>;
   public updateAttributeDefinition(
     InputAttributeDefinition: InputAttributeDefinition,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputAttributeDefinition === null || InputAttributeDefinition === undefined) {
       throw new Error(
-        'Required parameter InputAttributeDefinition was null or undefined when calling updateAttributeDefinition.'
+        'Required parameter InputAttributeDefinition was null or undefined when calling updateAttributeDefinition.',
       );
     }
 

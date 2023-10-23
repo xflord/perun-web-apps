@@ -32,7 +32,7 @@ export class FacilitySelectPageComponent implements OnInit, AfterViewChecked {
     private facilityManager: FacilitiesManagerService,
     private sideMenuService: SideMenuService,
     private guiAuthResolver: GuiAuthResolver,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

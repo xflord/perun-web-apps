@@ -43,7 +43,7 @@ export class MoveGroupDialogComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private apiRequest: ApiRequestConfigurationService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {
     this.translate
       .get('DIALOGS.MOVE_GROUP.SUCCESS')
@@ -59,7 +59,7 @@ export class MoveGroupDialogComponent implements OnInit {
       (allGroups) => {
         this.otherGroups = allGroups.filter(
           (group) =>
-            group.id !== this.data.group.id && group.name !== 'members' && this.canMove(group)
+            group.id !== this.data.group.id && group.name !== 'members' && this.canMove(group),
         );
         if (this.otherGroups.length === 0) {
           this.toGroupOptionDisabled = true;
@@ -75,11 +75,11 @@ export class MoveGroupDialogComponent implements OnInit {
         }
         this.filteredGroups = this.otherGroupsCtrl.valueChanges.pipe(
           startWith(''),
-          map((group: string) => (group ? this._filterGroups(group) : this.otherGroups.slice()))
+          map((group: string) => (group ? this._filterGroups(group) : this.otherGroups.slice())),
         );
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 
@@ -106,7 +106,7 @@ export class MoveGroupDialogComponent implements OnInit {
     this.groupService
       .moveGroupWithDestinationGroupMovingGroup(
         this.data.group.id,
-        this.otherGroupsCtrl.value ? (this.otherGroupsCtrl.value as Group).id : undefined
+        this.otherGroupsCtrl.value ? (this.otherGroupsCtrl.value as Group).id : undefined,
       )
       .subscribe(
         () => {
@@ -116,7 +116,7 @@ export class MoveGroupDialogComponent implements OnInit {
         (error: RPCError) => {
           this.notificator.showRPCError(error, this.errorMessage);
           this.dialogRef.close(false);
-        }
+        },
       );
   }
 

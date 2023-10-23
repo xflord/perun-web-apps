@@ -27,7 +27,7 @@ export class DeleteUserDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: DeleteUserDialogComponentData,
     private notificator: NotificatorService,
     private usersService: UsersManagerService,
-    private translate: PerunTranslateService
+    private translate: PerunTranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class DeleteUserDialogComponent implements OnInit {
     this.usersService.deleteUser(this.data.user.id, this.force).subscribe({
       next: () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.DELETE_USER.SUCCESS_NOTIFICATION')
+          this.translate.instant('DIALOGS.DELETE_USER.SUCCESS_NOTIFICATION'),
         );
         this.loading = false;
         this.dialogRef.close(true);

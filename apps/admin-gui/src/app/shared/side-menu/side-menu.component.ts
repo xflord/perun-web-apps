@@ -33,7 +33,7 @@ export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
     private sideMenuItemService: SideMenuItemService,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   private static areSameItems(item1: SideMenuItem, item2: SideMenuItem): boolean {

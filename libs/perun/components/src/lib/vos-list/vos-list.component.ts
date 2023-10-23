@@ -84,9 +84,9 @@ export class VosListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -99,9 +99,9 @@ export class VosListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -115,7 +115,7 @@ export class VosListComponent implements OnChanges {
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumnFun
+          this.getDataForColumnFun,
         );
       this.dataSource.sortData = (data: Vo[], sort: MatSort): (Vo | EnrichedVo)[] =>
         customDataSourceSort(data, sort, this.getDataForColumnFun);

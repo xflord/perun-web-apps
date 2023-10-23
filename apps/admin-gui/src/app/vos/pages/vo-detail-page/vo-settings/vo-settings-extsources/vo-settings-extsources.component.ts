@@ -36,7 +36,7 @@ export class VoSettingsExtsourcesComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: TranslateService,
     private authResolver: GuiAuthResolver,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {
     this.translate
       .get('VO_DETAIL.SETTINGS.EXT_SOURCES.SUCCESS_REMOVED')

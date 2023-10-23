@@ -25,7 +25,7 @@ export class MfaHandlerService {
     private dialog: MatDialog,
     private oauthService: OAuthService,
     private authService: AuthService,
-    private store: StoreService
+    private store: StoreService,
   ) {}
 
   /**

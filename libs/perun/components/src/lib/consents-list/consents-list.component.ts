@@ -80,9 +80,9 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        ConsentsListComponent.getDataForColumn
+        ConsentsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -95,9 +95,9 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        ConsentsListComponent.getDataForColumn
+        ConsentsListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -108,7 +108,7 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          ConsentsListComponent.getDataForColumn
+          ConsentsListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Consent[], sort: MatSort): Consent[] =>
         customDataSourceSort(data, sort, ConsentsListComponent.getDataForColumn);
@@ -131,7 +131,7 @@ export class ConsentsListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 }

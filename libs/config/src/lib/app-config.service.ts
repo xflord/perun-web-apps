@@ -56,12 +56,12 @@ export class AppConfigService {
     private storeService: StoreService,
     private authzSevice: AuthzResolverService,
     private titleService: Title,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
   ) {}
 
   initializeColors(
     entityColorConfigs: EntityColorConfig[],
-    colorConfigs: ColorConfig[]
+    colorConfigs: ColorConfig[],
   ): Promise<void> {
     return new Promise<void>((resolve) => {
       colorConfigs.forEach((cc) => {
@@ -196,7 +196,7 @@ export class AppConfigService {
           this.storeService.setAppsConfig(appsConfig);
           resolve();
         },
-        (error) => reject(error)
+        (error) => reject(error),
       );
     });
   }

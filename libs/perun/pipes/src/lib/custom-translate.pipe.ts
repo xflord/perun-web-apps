@@ -12,7 +12,10 @@ interface CustomLabel {
   name: 'customTranslate',
 })
 export class CustomTranslatePipe implements PipeTransform {
-  constructor(private translate: TranslateService, private storage: StoreService) {}
+  constructor(
+    private translate: TranslateService,
+    private storage: StoreService,
+  ) {}
 
   transform(value: string, lang = 'en'): string {
     const customLabelElements: CustomLabel[] = this.storage.getProperty('custom_labels');

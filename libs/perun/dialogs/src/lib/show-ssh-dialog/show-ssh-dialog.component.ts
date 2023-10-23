@@ -15,7 +15,7 @@ export class ShowSshDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ShowSshDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: ShowSshDialogData
+    @Inject(MAT_DIALOG_DATA) private data: ShowSshDialogData,
   ) {}
 
   ngOnInit(): void {

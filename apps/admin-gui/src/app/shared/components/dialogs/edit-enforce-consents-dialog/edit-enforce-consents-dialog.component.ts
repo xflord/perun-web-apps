@@ -15,7 +15,7 @@ export interface EditEnforceConsentsDialogData {
 export class EditEnforceConsentsDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<EditEnforceConsentsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EditEnforceConsentsDialogData
+    @Inject(MAT_DIALOG_DATA) public data: EditEnforceConsentsDialogData,
   ) {}
 
   onCancel(): void {

@@ -43,7 +43,7 @@ export class RoutePolicyService {
       (vo): boolean =>
         this.authResolver.isAuthorized(
           'getAllRichGroupsWithAttributesByNames_Vo_List<String>_policy',
-          [vo]
+          [vo],
         ),
     ],
     [
@@ -80,7 +80,7 @@ export class RoutePolicyService {
       (vo): boolean =>
         this.authResolver.isAuthorized(
           `createSpecificMember_Vo_Candidate_List<User>_SpecificUserType_List<Group>_policy`,
-          [vo]
+          [vo],
         ),
     ],
     [
@@ -171,7 +171,7 @@ export class RoutePolicyService {
       (group): boolean =>
         this.authResolver.isAuthorized(
           'group-getMembersPage_Vo_MembersPageQuery_List<String>_policy',
-          [group]
+          [group],
         ),
     ],
     [
@@ -179,7 +179,7 @@ export class RoutePolicyService {
       (group): boolean =>
         this.authResolver.isAuthorized(
           'getAllRichSubGroupsWithAttributesByNames_Group_List<String>_policy',
-          [group]
+          [group],
         ),
     ],
     [
@@ -396,7 +396,7 @@ export class RoutePolicyService {
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private apiRequest: ApiRequestConfigurationService,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**

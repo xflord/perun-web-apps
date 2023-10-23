@@ -50,7 +50,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
   constructor(
     private memberTypePipe: MemberTypePipe,
     private disabledCandidatePipe: DisabledCandidatePipe,
-    private tableCheckbox: TableCheckbox
+    private tableCheckbox: TableCheckbox,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -140,9 +140,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getExportDataForColumnFun
+        this.getExportDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -155,9 +155,9 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        this.getExportDataForColumnFun
+        this.getExportDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -170,7 +170,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
           data,
           filter,
           this.displayedColumns,
-          this.getDataForColumnFun
+          this.getDataForColumnFun,
         );
       this.dataSource.sortData = (data: MemberCandidate[], sort: MatSort): MemberCandidate[] =>
         customDataSourceSort(data, sort, this.getDataForColumnFun);
@@ -267,7 +267,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
     return this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.dataSource,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 
@@ -281,7 +281,7 @@ export class MembersCandidatesListComponent implements OnChanges, AfterViewInit 
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      this.canBeSelected,
     );
   }
 }

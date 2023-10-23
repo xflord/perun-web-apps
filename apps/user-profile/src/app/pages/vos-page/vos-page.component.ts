@@ -29,7 +29,7 @@ export class VosPageComponent implements OnInit {
   constructor(
     private usersService: UsersManagerService,
     private store: StoreService,
-    private membersService: MembersManagerService
+    private membersService: MembersManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +82,7 @@ export class VosPageComponent implements OnInit {
         } else {
           this.membersService.getRichMemberWithAttributes(member.id).subscribe((richMember) => {
             const expirationAtt = richMember.memberAttributes.find(
-              (att) => att.friendlyName === 'membershipExpiration'
+              (att) => att.friendlyName === 'membershipExpiration',
             );
             memberships.push({
               entity: vo,

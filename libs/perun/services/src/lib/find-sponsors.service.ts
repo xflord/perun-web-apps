@@ -11,7 +11,7 @@ import { GuiAuthResolver } from './gui-auth-resolver.service';
 export class FindSponsorsService {
   constructor(
     private guiAuthResolver: GuiAuthResolver,
-    private authzResolver: AuthzResolverService
+    private authzResolver: AuthzResolverService,
   ) {}
 
   findSponsorsAuth(vo: Vo): boolean {

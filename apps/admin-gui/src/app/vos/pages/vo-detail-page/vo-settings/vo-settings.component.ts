@@ -15,7 +15,10 @@ export class VoSettingsComponent implements OnInit {
   private currentUrl: string;
   private backButtonDisplayed = false;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.currentUrl = router.url;
     this.backButtonDisplayed = this.backButtonRegex.test(this.currentUrl);
 

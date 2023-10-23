@@ -49,7 +49,10 @@ export class MemberApplicationsComponent implements OnInit {
   dateFrom: Date = new Date('1970-01-01');
   refresh: boolean;
 
-  constructor(private entityStorageService: EntityStorageService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private entityStorageService: EntityStorageService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.loading$ = of(true);

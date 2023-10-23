@@ -41,7 +41,7 @@ export class RouteAuthGuardService {
     private apiRequest: ApiRequestConfigurationService,
     private memberManager: MembersManagerService,
     private groupManager: GroupsManagerService,
-    private resourceManager: ResourcesManagerService
+    private resourceManager: ResourcesManagerService,
   ) {}
 
   private static getBeanName(key: string): string {
@@ -91,7 +91,7 @@ export class RouteAuthGuardService {
 
   canActivateChild(
     _childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.authResolver.isPerunAdminOrObserver()) {
       return true;
@@ -109,7 +109,7 @@ export class RouteAuthGuardService {
         }),
         catchError((error: RPCError) => {
           return this.errorRedirectUrl(error);
-        })
+        }),
       );
     } else if (authPair.key.startsWith('groups')) {
       this.apiRequest.dontHandleErrorForNext();
@@ -120,7 +120,7 @@ export class RouteAuthGuardService {
         }),
         catchError((error: RPCError) => {
           return this.errorRedirectUrl(error);
-        })
+        }),
       );
     } else if (authPair.key.startsWith('resources')) {
       this.apiRequest.dontHandleErrorForNext();
@@ -132,7 +132,7 @@ export class RouteAuthGuardService {
         }),
         catchError((error: RPCError) => {
           return this.errorRedirectUrl(error);
-        })
+        }),
       );
     } else {
       return this.finalizeCanActivateChild(authPair);
@@ -142,7 +142,7 @@ export class RouteAuthGuardService {
   finalizeCanActivateChild(authPair: AuthPair): boolean | UrlTree {
     const isAuthorized: boolean = this.routePolicyService.canNavigate(
       authPair.key,
-      authPair.entity
+      authPair.entity,
     );
 
     if (isAuthorized) {

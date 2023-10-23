@@ -55,7 +55,7 @@ export class GroupApplicationsComponent implements OnInit {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private translate: PerunTranslateService,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class GroupApplicationsComponent implements OnInit {
           }
           this.viewPreferences$ = this.attributeService.getGroupAttributeByName(
             this.group.id,
-            'urn:perun:group:attribute-def:def:applicationViewPreferences'
+            'urn:perun:group:attribute-def:def:applicationViewPreferences',
           );
         });
       });
@@ -93,7 +93,7 @@ export class GroupApplicationsComponent implements OnInit {
         // and subscribe to the new one
         this.viewPreferences$ = this.attributeService.getGroupAttributeByName(
           this.group.id,
-          'urn:perun:group:attribute-def:def:applicationViewPreferences'
+          'urn:perun:group:attribute-def:def:applicationViewPreferences',
         );
       }
     });
@@ -102,19 +102,19 @@ export class GroupApplicationsComponent implements OnInit {
   setAuthRights(): void {
     this.authRights.approve = this.authResolver.isAuthorized(
       'group-approveApplicationInternal_int_policy',
-      [this.group]
+      [this.group],
     );
     this.authRights.reject = this.authResolver.isAuthorized(
       'group-rejectApplication_int_String_policy',
-      [this.group]
+      [this.group],
     );
     this.authRights.delete = this.authResolver.isAuthorized(
       'group-deleteApplication_Application_policy',
-      [this.group]
+      [this.group],
     );
     this.authRights.resend = this.authResolver.isAuthorized(
       'group-sendMessage_Application_MailType_String_policy',
-      [this.group]
+      [this.group],
     );
   }
 }

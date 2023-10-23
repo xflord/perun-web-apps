@@ -27,7 +27,7 @@ export class CancelConfigurationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CancelConfigurationDialogData,
     private facilityService: FacilitiesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -51,12 +51,12 @@ export class CancelConfigurationDialogComponent implements OnInit {
     this.facilityService.deleteFacility(this.data.facilityId, true).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS') as string
+          this.translate.instant('DIALOGS.CANCEL_CONFIG.SUCCESS') as string,
         );
         this.dialogRef.close(true);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

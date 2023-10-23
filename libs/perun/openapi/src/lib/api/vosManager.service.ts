@@ -71,7 +71,7 @@ export class VosManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -102,7 +102,7 @@ export class VosManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -116,8 +116,8 @@ export class VosManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -142,7 +142,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addMemberVo(
     vo: number,
@@ -150,7 +150,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addMemberVo(
     vo: number,
@@ -158,7 +158,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addMemberVo(
     vo: number,
@@ -166,14 +166,14 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling addMemberVo.');
     }
     if (memberVo === null || memberVo === undefined) {
       throw new Error(
-        'Required parameter memberVo was null or undefined when calling addMemberVo.'
+        'Required parameter memberVo was null or undefined when calling addMemberVo.',
       );
     }
 
@@ -185,7 +185,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>memberVo,
-        'memberVo'
+        'memberVo',
       );
     }
 
@@ -264,7 +264,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addSponsorRoleToGroup(
     vo: number,
@@ -272,7 +272,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addSponsorRoleToGroup(
     vo: number,
@@ -280,7 +280,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addSponsorRoleToGroup(
     vo: number,
@@ -288,16 +288,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling addSponsorRoleToGroup.'
+        'Required parameter vo was null or undefined when calling addSponsorRoleToGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling addSponsorRoleToGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling addSponsorRoleToGroup.',
       );
     }
 
@@ -309,7 +309,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -388,7 +388,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addSponsorRoleToUser(
     vo: number,
@@ -396,7 +396,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addSponsorRoleToUser(
     vo: number,
@@ -404,7 +404,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addSponsorRoleToUser(
     vo: number,
@@ -412,16 +412,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling addSponsorRoleToUser.'
+        'Required parameter vo was null or undefined when calling addSponsorRoleToUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling addSponsorRoleToUser.'
+        'Required parameter user was null or undefined when calling addSponsorRoleToUser.',
       );
     }
 
@@ -508,7 +508,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addVoAdminGroup(
     vo: number,
@@ -516,7 +516,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addVoAdminGroup(
     vo: number,
@@ -524,7 +524,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addVoAdminGroup(
     vo: number,
@@ -532,14 +532,14 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling addVoAdminGroup.');
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling addVoAdminGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling addVoAdminGroup.',
       );
     }
 
@@ -551,7 +551,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -630,7 +630,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addVoAdminUser(
     vo: number,
@@ -638,7 +638,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addVoAdminUser(
     vo: number,
@@ -646,7 +646,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addVoAdminUser(
     vo: number,
@@ -654,7 +654,7 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling addVoAdminUser.');
@@ -746,7 +746,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public createVoWithName(
     name: string,
@@ -754,7 +754,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public createVoWithName(
     name: string,
@@ -762,7 +762,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public createVoWithName(
     name: string,
@@ -770,16 +770,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling createVoWithName.'
+        'Required parameter name was null or undefined when calling createVoWithName.',
       );
     }
     if (shortName === null || shortName === undefined) {
       throw new Error(
-        'Required parameter shortName was null or undefined when calling createVoWithName.'
+        'Required parameter shortName was null or undefined when calling createVoWithName.',
       );
     }
 
@@ -791,7 +791,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>shortName,
-        'shortName'
+        'shortName',
       );
     }
 
@@ -868,32 +868,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public createVoWithVo(
     InputCreateVoWithVo: InputCreateVoWithVo,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputCreateVoWithVo === null || InputCreateVoWithVo === undefined) {
       throw new Error(
-        'Required parameter InputCreateVoWithVo was null or undefined when calling createVoWithVo.'
+        'Required parameter InputCreateVoWithVo was null or undefined when calling createVoWithVo.',
       );
     }
 
@@ -979,7 +979,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteVo(
     vo: number,
@@ -987,7 +987,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteVo(
     vo: number,
@@ -995,7 +995,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteVo(
     vo: number,
@@ -1003,7 +1003,7 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling deleteVo.');
@@ -1094,7 +1094,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Candidate>>;
   public findCandidates(
     id: number,
@@ -1103,7 +1103,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Candidate>>>;
   public findCandidates(
     id: number,
@@ -1112,7 +1112,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Candidate>>>;
   public findCandidates(
     id: number,
@@ -1121,14 +1121,14 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling findCandidates.');
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findCandidates.'
+        'Required parameter searchString was null or undefined when calling findCandidates.',
       );
     }
 
@@ -1140,14 +1140,14 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
     if (maxNumOfResults !== undefined && maxNumOfResults !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>maxNumOfResults,
-        'maxNumOfResults'
+        'maxNumOfResults',
       );
     }
 
@@ -1226,7 +1226,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Candidate>>;
   public findCandidatesForGroup(
     group: number,
@@ -1234,7 +1234,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Candidate>>>;
   public findCandidatesForGroup(
     group: number,
@@ -1242,7 +1242,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Candidate>>>;
   public findCandidatesForGroup(
     group: number,
@@ -1250,16 +1250,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling findCandidatesForGroup.'
+        'Required parameter group was null or undefined when calling findCandidatesForGroup.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling findCandidatesForGroup.'
+        'Required parameter searchString was null or undefined when calling findCandidatesForGroup.',
       );
     }
 
@@ -1271,7 +1271,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -1346,25 +1346,25 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getAllVos(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getAllVos(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getAllVos(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1442,7 +1442,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<MemberCandidate>>;
   public getCompleteCandidatesForGroup(
     group: number,
@@ -1451,7 +1451,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<MemberCandidate>>>;
   public getCompleteCandidatesForGroup(
     group: number,
@@ -1460,7 +1460,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<MemberCandidate>>>;
   public getCompleteCandidatesForGroup(
     group: number,
@@ -1469,21 +1469,21 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getCompleteCandidatesForGroup.'
+        'Required parameter group was null or undefined when calling getCompleteCandidatesForGroup.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getCompleteCandidatesForGroup.'
+        'Required parameter attrNames was null or undefined when calling getCompleteCandidatesForGroup.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling getCompleteCandidatesForGroup.'
+        'Required parameter searchString was null or undefined when calling getCompleteCandidatesForGroup.',
       );
     }
 
@@ -1496,7 +1496,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -1504,7 +1504,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -1585,7 +1585,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<MemberCandidate>>;
   public getCompleteCandidatesForVo(
     vo: number,
@@ -1594,7 +1594,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<MemberCandidate>>>;
   public getCompleteCandidatesForVo(
     vo: number,
@@ -1603,7 +1603,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<MemberCandidate>>>;
   public getCompleteCandidatesForVo(
     vo: number,
@@ -1612,21 +1612,21 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getCompleteCandidatesForVo.'
+        'Required parameter vo was null or undefined when calling getCompleteCandidatesForVo.',
       );
     }
     if (attrNames === null || attrNames === undefined) {
       throw new Error(
-        'Required parameter attrNames was null or undefined when calling getCompleteCandidatesForVo.'
+        'Required parameter attrNames was null or undefined when calling getCompleteCandidatesForVo.',
       );
     }
     if (searchString === null || searchString === undefined) {
       throw new Error(
-        'Required parameter searchString was null or undefined when calling getCompleteCandidatesForVo.'
+        'Required parameter searchString was null or undefined when calling getCompleteCandidatesForVo.',
       );
     }
 
@@ -1639,7 +1639,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames'
+          'attrNames',
         );
       });
     }
@@ -1647,7 +1647,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>searchString,
-        'searchString'
+        'searchString',
       );
     }
 
@@ -1726,7 +1726,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnVo>>;
   public getEnrichedBansForVo(
     vo: number,
@@ -1734,7 +1734,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnVo>>>;
   public getEnrichedBansForVo(
     vo: number,
@@ -1742,7 +1742,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnVo>>>;
   public getEnrichedBansForVo(
     vo: number,
@@ -1750,11 +1750,11 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getEnrichedBansForVo.'
+        'Required parameter vo was null or undefined when calling getEnrichedBansForVo.',
       );
     }
 
@@ -1767,7 +1767,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -1847,7 +1847,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedBanOnVo>>;
   public getEnrichedVoBansForUser(
     user: number,
@@ -1855,7 +1855,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedBanOnVo>>>;
   public getEnrichedVoBansForUser(
     user: number,
@@ -1863,7 +1863,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedBanOnVo>>>;
   public getEnrichedVoBansForUser(
     user: number,
@@ -1871,11 +1871,11 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling getEnrichedVoBansForUser.'
+        'Required parameter user was null or undefined when calling getEnrichedVoBansForUser.',
       );
     }
 
@@ -1888,7 +1888,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'attrNames[]'
+          'attrNames[]',
         );
       });
     }
@@ -1966,32 +1966,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<EnrichedVo>;
   public getEnrichedVoById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<EnrichedVo>>;
   public getEnrichedVoById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<EnrichedVo>>;
   public getEnrichedVoById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getEnrichedVoById.'
+        'Required parameter id was null or undefined when calling getEnrichedVoById.',
       );
     }
 
@@ -2073,28 +2073,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getMemberVos(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getMemberVos(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getMemberVos(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getMemberVos.');
@@ -2176,25 +2176,25 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<EnrichedVo>>;
   public getMyEnrichedVos(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<EnrichedVo>>>;
   public getMyEnrichedVos(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<EnrichedVo>>>;
   public getMyEnrichedVos(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2266,25 +2266,25 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getMyVos(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getMyVos(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getMyVos(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -2358,28 +2358,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getParentVos(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getParentVos(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getParentVos(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getParentVos.');
@@ -2471,7 +2471,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<RichUser>>;
   public getRichAdminsForVo(
     vo: number,
@@ -2482,7 +2482,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<RichUser>>>;
   public getRichAdminsForVo(
     vo: number,
@@ -2493,7 +2493,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<RichUser>>>;
   public getRichAdminsForVo(
     vo: number,
@@ -2504,31 +2504,31 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getRichAdminsForVo.'
+        'Required parameter vo was null or undefined when calling getRichAdminsForVo.',
       );
     }
     if (role === null || role === undefined) {
       throw new Error(
-        'Required parameter role was null or undefined when calling getRichAdminsForVo.'
+        'Required parameter role was null or undefined when calling getRichAdminsForVo.',
       );
     }
     if (specificAttributes === null || specificAttributes === undefined) {
       throw new Error(
-        'Required parameter specificAttributes was null or undefined when calling getRichAdminsForVo.'
+        'Required parameter specificAttributes was null or undefined when calling getRichAdminsForVo.',
       );
     }
     if (allUserAttributes === null || allUserAttributes === undefined) {
       throw new Error(
-        'Required parameter allUserAttributes was null or undefined when calling getRichAdminsForVo.'
+        'Required parameter allUserAttributes was null or undefined when calling getRichAdminsForVo.',
       );
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getRichAdminsForVo.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getRichAdminsForVo.',
       );
     }
 
@@ -2544,7 +2544,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'specificAttributes'
+          'specificAttributes',
         );
       });
     }
@@ -2552,14 +2552,14 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>allUserAttributes,
-        'allUserAttributes'
+        'allUserAttributes',
       );
     }
     if (onlyDirectAdmins !== undefined && onlyDirectAdmins !== null) {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -2638,7 +2638,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Group>>;
   public getVoAdminGroups(
     vo: number,
@@ -2646,7 +2646,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Group>>>;
   public getVoAdminGroups(
     vo: number,
@@ -2654,7 +2654,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Group>>>;
   public getVoAdminGroups(
     vo: number,
@@ -2662,14 +2662,14 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getVoAdminGroups.');
     }
     if (role === null || role === undefined) {
       throw new Error(
-        'Required parameter role was null or undefined when calling getVoAdminGroups.'
+        'Required parameter role was null or undefined when calling getVoAdminGroups.',
       );
     }
 
@@ -2758,7 +2758,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getVoAdminUsers(
     vo: number,
@@ -2767,7 +2767,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getVoAdminUsers(
     vo: number,
@@ -2776,7 +2776,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getVoAdminUsers(
     vo: number,
@@ -2785,19 +2785,19 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getVoAdminUsers.');
     }
     if (role === null || role === undefined) {
       throw new Error(
-        'Required parameter role was null or undefined when calling getVoAdminUsers.'
+        'Required parameter role was null or undefined when calling getVoAdminUsers.',
       );
     }
     if (onlyDirectAdmins === null || onlyDirectAdmins === undefined) {
       throw new Error(
-        'Required parameter onlyDirectAdmins was null or undefined when calling getVoAdminUsers.'
+        'Required parameter onlyDirectAdmins was null or undefined when calling getVoAdminUsers.',
       );
     }
 
@@ -2812,7 +2812,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>onlyDirectAdmins,
-        'onlyDirectAdmins'
+        'onlyDirectAdmins',
       );
     }
 
@@ -2889,28 +2889,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnVo>;
   public getVoBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnVo>>;
   public getVoBanById(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnVo>>;
   public getVoBanById(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error('Required parameter banId was null or undefined when calling getVoBanById.');
@@ -2994,32 +2994,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnVo>;
   public getVoBanForMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnVo>>;
   public getVoBanForMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnVo>>;
   public getVoBanForMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling getVoBanForMember.'
+        'Required parameter member was null or undefined when calling getVoBanForMember.',
       );
     }
 
@@ -3028,7 +3028,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -3105,28 +3105,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<BanOnVo>>;
   public getVoBansForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<BanOnVo>>>;
   public getVoBansForVo(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<BanOnVo>>>;
   public getVoBansForVo(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getVoBansForVo.');
@@ -3210,28 +3210,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public getVoById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public getVoById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public getVoById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getVoById.');
@@ -3315,32 +3315,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public getVoByShortName(
     shortName: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public getVoByShortName(
     shortName: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public getVoByShortName(
     shortName: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (shortName === null || shortName === undefined) {
       throw new Error(
-        'Required parameter shortName was null or undefined when calling getVoByShortName.'
+        'Required parameter shortName was null or undefined when calling getVoByShortName.',
       );
     }
 
@@ -3349,7 +3349,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>shortName,
-        'shortName'
+        'shortName',
       );
     }
 
@@ -3426,32 +3426,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<{ [key: string]: number }>;
   public getVoMembersCountsByStatus(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<{ [key: string]: number }>>;
   public getVoMembersCountsByStatus(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<{ [key: string]: number }>>;
   public getVoMembersCountsByStatus(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling getVoMembersCountsByStatus.'
+        'Required parameter vo was null or undefined when calling getVoMembersCountsByStatus.',
       );
     }
 
@@ -3533,28 +3533,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Vo>>;
   public getVosByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Vo>>>;
   public getVosByIds(
     ids: Array<number>,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Vo>>>;
   public getVosByIds(
     ids: Array<number>,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ids === null || ids === undefined) {
       throw new Error('Required parameter ids was null or undefined when calling getVosByIds.');
@@ -3566,7 +3566,7 @@ export class VosManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'ids[]'
+          'ids[]',
         );
       });
     }
@@ -3642,25 +3642,25 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<number>;
   public getVosCount(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<number>>;
   public getVosCount(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<number>>;
   public getVosCount(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -3736,7 +3736,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeMemberVo(
     vo: number,
@@ -3744,7 +3744,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeMemberVo(
     vo: number,
@@ -3752,7 +3752,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeMemberVo(
     vo: number,
@@ -3760,14 +3760,14 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling removeMemberVo.');
     }
     if (memberVo === null || memberVo === undefined) {
       throw new Error(
-        'Required parameter memberVo was null or undefined when calling removeMemberVo.'
+        'Required parameter memberVo was null or undefined when calling removeMemberVo.',
       );
     }
 
@@ -3779,7 +3779,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>memberVo,
-        'memberVo'
+        'memberVo',
       );
     }
 
@@ -3858,7 +3858,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSponsorRoleFromGroup(
     vo: number,
@@ -3866,7 +3866,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSponsorRoleFromGroup(
     vo: number,
@@ -3874,7 +3874,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSponsorRoleFromGroup(
     vo: number,
@@ -3882,16 +3882,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeSponsorRoleFromGroup.'
+        'Required parameter vo was null or undefined when calling removeSponsorRoleFromGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling removeSponsorRoleFromGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling removeSponsorRoleFromGroup.',
       );
     }
 
@@ -3903,7 +3903,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -3982,7 +3982,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeSponsorRoleFromUser(
     vo: number,
@@ -3990,7 +3990,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeSponsorRoleFromUser(
     vo: number,
@@ -3998,7 +3998,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeSponsorRoleFromUser(
     vo: number,
@@ -4006,16 +4006,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeSponsorRoleFromUser.'
+        'Required parameter vo was null or undefined when calling removeSponsorRoleFromUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeSponsorRoleFromUser.'
+        'Required parameter user was null or undefined when calling removeSponsorRoleFromUser.',
       );
     }
 
@@ -4102,7 +4102,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoAdminGroup(
     vo: number,
@@ -4110,7 +4110,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoAdminGroup(
     vo: number,
@@ -4118,7 +4118,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoAdminGroup(
     vo: number,
@@ -4126,16 +4126,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeVoAdminGroup.'
+        'Required parameter vo was null or undefined when calling removeVoAdminGroup.',
       );
     }
     if (authorizedGroup === null || authorizedGroup === undefined) {
       throw new Error(
-        'Required parameter authorizedGroup was null or undefined when calling removeVoAdminGroup.'
+        'Required parameter authorizedGroup was null or undefined when calling removeVoAdminGroup.',
       );
     }
 
@@ -4147,7 +4147,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>authorizedGroup,
-        'authorizedGroup'
+        'authorizedGroup',
       );
     }
 
@@ -4226,7 +4226,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoAdminUser(
     vo: number,
@@ -4234,7 +4234,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoAdminUser(
     vo: number,
@@ -4242,7 +4242,7 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoAdminUser(
     vo: number,
@@ -4250,16 +4250,16 @@ export class VosManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeVoAdminUser.'
+        'Required parameter vo was null or undefined when calling removeVoAdminUser.',
       );
     }
     if (user === null || user === undefined) {
       throw new Error(
-        'Required parameter user was null or undefined when calling removeVoAdminUser.'
+        'Required parameter user was null or undefined when calling removeVoAdminUser.',
       );
     }
 
@@ -4344,28 +4344,28 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoBan(
     banId: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoBan(
     banId: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoBan(
     banId: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (banId === null || banId === undefined) {
       throw new Error('Required parameter banId was null or undefined when calling removeVoBan.');
@@ -4449,32 +4449,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeVoBanForMember(
     member: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeVoBanForMember(
     member: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeVoBanForMember(
     member: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (member === null || member === undefined) {
       throw new Error(
-        'Required parameter member was null or undefined when calling removeVoBanForMember.'
+        'Required parameter member was null or undefined when calling removeVoBanForMember.',
       );
     }
 
@@ -4483,7 +4483,7 @@ export class VosManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>member,
-        'member'
+        'member',
       );
     }
 
@@ -4560,32 +4560,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnVo>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnVo>>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnVo>>;
   public setVoBan(
     InputSetVoBan: InputSetVoBan,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputSetVoBan === null || InputSetVoBan === undefined) {
       throw new Error(
-        'Required parameter InputSetVoBan was null or undefined when calling setVoBan.'
+        'Required parameter InputSetVoBan was null or undefined when calling setVoBan.',
       );
     }
 
@@ -4669,32 +4669,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Vo>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Vo>>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Vo>>;
   public updateVo(
     InputUpdateVo: InputUpdateVo,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateVo === null || InputUpdateVo === undefined) {
       throw new Error(
-        'Required parameter InputUpdateVo was null or undefined when calling updateVo.'
+        'Required parameter InputUpdateVo was null or undefined when calling updateVo.',
       );
     }
 
@@ -4778,32 +4778,32 @@ export class VosManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<BanOnVo>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<BanOnVo>>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<BanOnVo>>;
   public updateVoBan(
     InputUpdateBan1: InputUpdateBan1,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputUpdateBan1 === null || InputUpdateBan1 === undefined) {
       throw new Error(
-        'Required parameter InputUpdateBan1 was null or undefined when calling updateVoBan.'
+        'Required parameter InputUpdateBan1 was null or undefined when calling updateVoBan.',
       );
     }
 

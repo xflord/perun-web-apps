@@ -30,7 +30,7 @@ export class RemoveVoDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveVoDialogData,
     private notificator: NotificatorService,
     private voService: VosManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.REMOVE_VO.SUCCESS')
@@ -58,7 +58,7 @@ export class RemoveVoDialogComponent implements OnInit {
         this.loading = false;
         this.dialogRef.close(true);
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

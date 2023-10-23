@@ -114,9 +114,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        AuthorsListComponent.getExportDataForColumn
+        AuthorsListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -129,9 +129,9 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        AuthorsListComponent.getExportDataForColumn
+        AuthorsListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -162,7 +162,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 
@@ -173,7 +173,7 @@ export class AuthorsListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          AuthorsListComponent.getFilterDataForColumn
+          AuthorsListComponent.getFilterDataForColumn,
         );
       this.dataSource.sortData = (data: Author[], sort: MatSort): Author[] =>
         customDataSourceSort(data, sort, AuthorsListComponent.getSortDataForColumn);

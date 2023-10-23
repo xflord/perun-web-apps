@@ -34,9 +34,9 @@ export class StringListComponent implements OnChanges, AfterViewInit {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        StringListComponent.getExportDataForColumn
+        StringListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -49,9 +49,9 @@ export class StringListComponent implements OnChanges, AfterViewInit {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        StringListComponent.getExportDataForColumn
+        StringListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
   setDataSource(): void {

@@ -29,7 +29,7 @@ export class AddGroupToVoRegistrationComponent implements OnInit {
     public dialogRef: MatDialogRef<AddGroupToVoRegistrationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddGroupToVoRegistrationDialogData,
     private groupService: GroupsManagerService,
-    private registrarService: RegistrarManagerService
+    private registrarService: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class AddGroupToVoRegistrationComponent implements OnInit {
     this.groupService.getAllGroups(this.data.voId).subscribe({
       next: (groups) => {
         this.unAssignedGroups = groups.filter(
-          (group) => !this.data.assignedGroups.includes(group.id)
+          (group) => !this.data.assignedGroups.includes(group.id),
         );
         this.loading = false;
       },
@@ -51,7 +51,7 @@ export class AddGroupToVoRegistrationComponent implements OnInit {
     this.registrarService
       .addVoGroupsToAutoRegistration(
         this.selection.selected.map((group) => group.id),
-        this.data.embeddedFormItemId
+        this.data.embeddedFormItemId,
       )
       .subscribe({
         next: () => {

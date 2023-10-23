@@ -77,7 +77,7 @@ export class UserDestinationGraphComponent implements OnInit {
     private resourceManager: ResourcesManagerService,
     private groupService: GroupsManagerService,
     private voService: VosManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   static findConnectedGroups(groups1: Group[], groups2: Group[]): Group[] {
@@ -220,14 +220,14 @@ export class UserDestinationGraphComponent implements OnInit {
   private connectToGroups(
     facility: Facility,
     member: Member,
-    connectedResources: Resource[]
+    connectedResources: Resource[],
   ): void {
     this.facilityManager.getAllowedGroups(facility.id, member.voId).subscribe((allowedGroups) => {
       if (allowedGroups.length !== 0) {
         this.groupService.getMemberGroups(member.id).subscribe((memberGroups) => {
           const connectedGroups: Group[] = UserDestinationGraphComponent.findConnectedGroups(
             allowedGroups,
-            memberGroups
+            memberGroups,
           );
           if (connectedGroups.length !== 0) {
             for (const group of connectedGroups) {
@@ -254,12 +254,12 @@ export class UserDestinationGraphComponent implements OnInit {
   private connectToResource(
     facility: Facility,
     group: Group,
-    connectedResources: Resource[]
+    connectedResources: Resource[],
   ): void {
     this.resourceManager.getAssignedResourcesWithGroup(group.id).subscribe((assignedResources) => {
       const resources: Resource[] = UserDestinationGraphComponent.findConnectedResources(
         assignedResources,
-        connectedResources
+        connectedResources,
       );
       for (const resource of resources) {
         this.resourceManager
@@ -278,7 +278,7 @@ export class UserDestinationGraphComponent implements OnInit {
     voId: number,
     group: Group,
     resource: Resource,
-    facility: Facility
+    facility: Facility,
   ): void {
     if (this.findEntityInGraph('Facility: ' + facility.id.toString()) === -1) {
       const nodeId3 = '' + this.id().toString();

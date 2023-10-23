@@ -39,7 +39,7 @@ export class PerunFooterComponent implements OnInit {
     private storeService: StoreService,
     private translateService: TranslateService,
     private utilsService: UtilsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

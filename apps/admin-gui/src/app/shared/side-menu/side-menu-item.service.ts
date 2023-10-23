@@ -35,7 +35,7 @@ export class SideMenuItemService {
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     public guiAuthResolver: GuiAuthResolver,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   getFacilitiesManagementItem(): SideMenuItem {
@@ -1053,7 +1053,7 @@ export class SideMenuItemService {
   private getResourceLinks(
     baseUrl: string,
     regexStart: string,
-    resource: Resource
+    resource: Resource,
   ): SideMenuLink[] {
     const links: SideMenuLink[] = [
       {

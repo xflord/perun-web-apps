@@ -47,7 +47,7 @@ export class ExtSourcesManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -78,7 +78,7 @@ export class ExtSourcesManagerService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -92,8 +92,8 @@ export class ExtSourcesManagerService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -118,7 +118,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addExtSourceWithGroupSource(
     group: number,
@@ -126,7 +126,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addExtSourceWithGroupSource(
     group: number,
@@ -134,7 +134,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addExtSourceWithGroupSource(
     group: number,
@@ -142,16 +142,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling addExtSourceWithGroupSource.'
+        'Required parameter group was null or undefined when calling addExtSourceWithGroupSource.',
       );
     }
     if (source === null || source === undefined) {
       throw new Error(
-        'Required parameter source was null or undefined when calling addExtSourceWithGroupSource.'
+        'Required parameter source was null or undefined when calling addExtSourceWithGroupSource.',
       );
     }
 
@@ -163,7 +163,7 @@ export class ExtSourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>source,
-        'source'
+        'source',
       );
     }
 
@@ -242,7 +242,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addExtSourceWithVoSource(
     vo: number,
@@ -250,7 +250,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addExtSourceWithVoSource(
     vo: number,
@@ -258,7 +258,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addExtSourceWithVoSource(
     vo: number,
@@ -266,16 +266,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling addExtSourceWithVoSource.'
+        'Required parameter vo was null or undefined when calling addExtSourceWithVoSource.',
       );
     }
     if (source === null || source === undefined) {
       throw new Error(
-        'Required parameter source was null or undefined when calling addExtSourceWithVoSource.'
+        'Required parameter source was null or undefined when calling addExtSourceWithVoSource.',
       );
     }
 
@@ -287,7 +287,7 @@ export class ExtSourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>source,
-        'source'
+        'source',
       );
     }
 
@@ -366,7 +366,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addExtSourcesWithGroupSource(
     group: number,
@@ -374,7 +374,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addExtSourcesWithGroupSource(
     group: number,
@@ -382,7 +382,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addExtSourcesWithGroupSource(
     group: number,
@@ -390,16 +390,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling addExtSourcesWithGroupSource.'
+        'Required parameter group was null or undefined when calling addExtSourcesWithGroupSource.',
       );
     }
     if (extSources === null || extSources === undefined) {
       throw new Error(
-        'Required parameter extSources was null or undefined when calling addExtSourcesWithGroupSource.'
+        'Required parameter extSources was null or undefined when calling addExtSourcesWithGroupSource.',
       );
     }
 
@@ -412,7 +412,7 @@ export class ExtSourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'extSources[]'
+          'extSources[]',
         );
       });
     }
@@ -492,7 +492,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public addExtSourcesWithVoSource(
     vo: number,
@@ -500,7 +500,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public addExtSourcesWithVoSource(
     vo: number,
@@ -508,7 +508,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public addExtSourcesWithVoSource(
     vo: number,
@@ -516,16 +516,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling addExtSourcesWithVoSource.'
+        'Required parameter vo was null or undefined when calling addExtSourcesWithVoSource.',
       );
     }
     if (extSources === null || extSources === undefined) {
       throw new Error(
-        'Required parameter extSources was null or undefined when calling addExtSourcesWithVoSource.'
+        'Required parameter extSources was null or undefined when calling addExtSourcesWithVoSource.',
       );
     }
 
@@ -538,7 +538,7 @@ export class ExtSourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'extSources[]'
+          'extSources[]',
         );
       });
     }
@@ -616,32 +616,32 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ExtSource>;
   public createExtSourceFromExtSourceObject(
     ExtSourceObject: ExtSourceObject,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ExtSource>>;
   public createExtSourceFromExtSourceObject(
     ExtSourceObject: ExtSourceObject,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ExtSource>>;
   public createExtSourceFromExtSourceObject(
     ExtSourceObject: ExtSourceObject,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (ExtSourceObject === null || ExtSourceObject === undefined) {
       throw new Error(
-        'Required parameter ExtSourceObject was null or undefined when calling createExtSourceFromExtSourceObject.'
+        'Required parameter ExtSourceObject was null or undefined when calling createExtSourceFromExtSourceObject.',
       );
     }
 
@@ -727,7 +727,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ExtSource>;
   public createExtSourceWithNameType(
     name: string,
@@ -735,7 +735,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ExtSource>>;
   public createExtSourceWithNameType(
     name: string,
@@ -743,7 +743,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ExtSource>>;
   public createExtSourceWithNameType(
     name: string,
@@ -751,16 +751,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling createExtSourceWithNameType.'
+        'Required parameter name was null or undefined when calling createExtSourceWithNameType.',
       );
     }
     if (type === null || type === undefined) {
       throw new Error(
-        'Required parameter type was null or undefined when calling createExtSourceWithNameType.'
+        'Required parameter type was null or undefined when calling createExtSourceWithNameType.',
       );
     }
 
@@ -845,28 +845,28 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public deleteExtSource(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public deleteExtSource(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public deleteExtSource(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling deleteExtSource.');
@@ -950,28 +950,28 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ExtSource>;
   public getExtSourceById(
     id: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ExtSource>>;
   public getExtSourceById(
     id: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ExtSource>>;
   public getExtSourceById(
     id: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling getExtSourceById.');
@@ -1055,32 +1055,32 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<ExtSource>;
   public getExtSourceByName(
     name: string,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<ExtSource>>;
   public getExtSourceByName(
     name: string,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<ExtSource>>;
   public getExtSourceByName(
     name: string,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (name === null || name === undefined) {
       throw new Error(
-        'Required parameter name was null or undefined when calling getExtSourceByName.'
+        'Required parameter name was null or undefined when calling getExtSourceByName.',
       );
     }
 
@@ -1160,25 +1160,25 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ExtSource>>;
   public getExtSources(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ExtSource>>>;
   public getExtSources(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ExtSource>>>;
   public getExtSources(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1252,32 +1252,32 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ExtSource>>;
   public getGroupExtSources(
     group: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ExtSource>>>;
   public getGroupExtSources(
     group: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ExtSource>>>;
   public getGroupExtSources(
     group: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling getGroupExtSources.'
+        'Required parameter group was null or undefined when calling getGroupExtSources.',
       );
     }
 
@@ -1359,28 +1359,28 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<ExtSource>>;
   public getVoExtSources(
     vo: number,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<ExtSource>>>;
   public getVoExtSources(
     vo: number,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<ExtSource>>>;
   public getVoExtSources(
     vo: number,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error('Required parameter vo was null or undefined when calling getVoExtSources.');
@@ -1462,25 +1462,25 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public loadExtSourcesDefinitions(
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public loadExtSourcesDefinitions(
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public loadExtSourcesDefinitions(
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     let localVarHeaders = this.defaultHeaders;
 
@@ -1556,7 +1556,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeExtSourceWithGroupSource(
     group: number,
@@ -1564,7 +1564,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeExtSourceWithGroupSource(
     group: number,
@@ -1572,7 +1572,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeExtSourceWithGroupSource(
     group: number,
@@ -1580,16 +1580,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeExtSourceWithGroupSource.'
+        'Required parameter group was null or undefined when calling removeExtSourceWithGroupSource.',
       );
     }
     if (source === null || source === undefined) {
       throw new Error(
-        'Required parameter source was null or undefined when calling removeExtSourceWithGroupSource.'
+        'Required parameter source was null or undefined when calling removeExtSourceWithGroupSource.',
       );
     }
 
@@ -1601,7 +1601,7 @@ export class ExtSourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>source,
-        'source'
+        'source',
       );
     }
 
@@ -1680,7 +1680,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeExtSourceWithVoSource(
     vo: number,
@@ -1688,7 +1688,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeExtSourceWithVoSource(
     vo: number,
@@ -1696,7 +1696,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeExtSourceWithVoSource(
     vo: number,
@@ -1704,16 +1704,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeExtSourceWithVoSource.'
+        'Required parameter vo was null or undefined when calling removeExtSourceWithVoSource.',
       );
     }
     if (source === null || source === undefined) {
       throw new Error(
-        'Required parameter source was null or undefined when calling removeExtSourceWithVoSource.'
+        'Required parameter source was null or undefined when calling removeExtSourceWithVoSource.',
       );
     }
 
@@ -1725,7 +1725,7 @@ export class ExtSourcesManagerService {
       localVarQueryParameters = this.addToHttpParams(
         localVarQueryParameters,
         <any>source,
-        'source'
+        'source',
       );
     }
 
@@ -1804,7 +1804,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeExtSourcesWithGroupSource(
     group: number,
@@ -1812,7 +1812,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeExtSourcesWithGroupSource(
     group: number,
@@ -1820,7 +1820,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeExtSourcesWithGroupSource(
     group: number,
@@ -1828,16 +1828,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (group === null || group === undefined) {
       throw new Error(
-        'Required parameter group was null or undefined when calling removeExtSourcesWithGroupSource.'
+        'Required parameter group was null or undefined when calling removeExtSourcesWithGroupSource.',
       );
     }
     if (extSources === null || extSources === undefined) {
       throw new Error(
-        'Required parameter extSources was null or undefined when calling removeExtSourcesWithGroupSource.'
+        'Required parameter extSources was null or undefined when calling removeExtSourcesWithGroupSource.',
       );
     }
 
@@ -1850,7 +1850,7 @@ export class ExtSourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'extSources[]'
+          'extSources[]',
         );
       });
     }
@@ -1930,7 +1930,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any>;
   public removeExtSourcesWithVoSource(
     vo: number,
@@ -1938,7 +1938,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<any>>;
   public removeExtSourcesWithVoSource(
     vo: number,
@@ -1946,7 +1946,7 @@ export class ExtSourcesManagerService {
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<any>>;
   public removeExtSourcesWithVoSource(
     vo: number,
@@ -1954,16 +1954,16 @@ export class ExtSourcesManagerService {
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (vo === null || vo === undefined) {
       throw new Error(
-        'Required parameter vo was null or undefined when calling removeExtSourcesWithVoSource.'
+        'Required parameter vo was null or undefined when calling removeExtSourcesWithVoSource.',
       );
     }
     if (extSources === null || extSources === undefined) {
       throw new Error(
-        'Required parameter extSources was null or undefined when calling removeExtSourcesWithVoSource.'
+        'Required parameter extSources was null or undefined when calling removeExtSourcesWithVoSource.',
       );
     }
 
@@ -1976,7 +1976,7 @@ export class ExtSourcesManagerService {
         localVarQueryParameters = this.addToHttpParams(
           localVarQueryParameters,
           <any>element,
-          'extSources[]'
+          'extSources[]',
         );
       });
     }

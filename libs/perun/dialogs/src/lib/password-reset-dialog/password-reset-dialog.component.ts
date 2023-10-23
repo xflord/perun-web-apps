@@ -39,7 +39,7 @@ export class PasswordResetDialogComponent implements OnInit {
     private apiRequestConfiguration: ApiRequestConfigurationService,
     private usersService: UsersManagerService,
     private formBuilder: FormBuilder,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class PasswordResetDialogComponent implements OnInit {
             loginAsyncValidator(
               this.data.namespace,
               this.usersService,
-              this.apiRequestConfiguration
+              this.apiRequestConfiguration,
             ),
           ],
         ],
@@ -60,7 +60,7 @@ export class PasswordResetDialogComponent implements OnInit {
       },
       {
         validators: CustomValidators.passwordMatchValidator as ValidatorFn,
-      }
+      },
     );
     this.setLabels(this.translate.currentLang);
   }
@@ -75,7 +75,7 @@ export class PasswordResetDialogComponent implements OnInit {
       })
       .subscribe(() => {
         this.notificator.showInstantSuccess(
-          'SHARED_LIB.PERUN.COMPONENTS.RESET_PASSWORD_DIALOG.SUCCESS'
+          'SHARED_LIB.PERUN.COMPONENTS.RESET_PASSWORD_DIALOG.SUCCESS',
         );
         this.loading = false;
         this.dialogRef.close(true);
@@ -88,7 +88,7 @@ export class PasswordResetDialogComponent implements OnInit {
 
   private setLabels(lang: string): void {
     this.labels = this.storeService.getProperty(
-      lang === 'en' ? 'password_labels' : 'password_labels_cs'
+      lang === 'en' ? 'password_labels' : 'password_labels_cs',
     );
   }
 }

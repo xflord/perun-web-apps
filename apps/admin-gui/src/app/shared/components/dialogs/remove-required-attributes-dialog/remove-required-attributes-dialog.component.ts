@@ -28,7 +28,7 @@ export class RemoveRequiredAttributesDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveRequiredAttributesDialogData,
     public serviceManager: ServicesManagerService,
     private notificator: NotificatorService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -44,12 +44,12 @@ export class RemoveRequiredAttributesDialogComponent implements OnInit {
     this.serviceManager.removeRequiredAttributes(this.serviceId, attrDefinitionsIds).subscribe(
       () => {
         this.notificator.showSuccess(
-          this.translate.instant('DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.SUCCESS') as string
+          this.translate.instant('DIALOGS.REMOVE_REQUIRED_ATTRIBUTES.SUCCESS') as string,
         );
         this.dialogRef.close(true);
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

@@ -48,7 +48,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     private resourceManager: ResourcesManagerService,
     private groupService: GroupsManagerService,
     public guiAuthResolver: GuiAuthResolver,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -56,13 +56,13 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
     this.theme = this.data.theme;
     this.resource = this.data.resource;
     this.autoAssignHint = this.translate.instant(
-      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT'
+      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT',
     ) as string;
     this.asActiveHint = this.translate.instant(
-      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT'
+      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ACTIVE_ON_HINT',
     ) as string;
     this.asyncHint = this.translate.instant(
-      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT'
+      'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.ASYNC_ON_HINT',
     ) as string;
     this.resourceManager.getAssignedGroups(this.resource.id).subscribe({
       next: (assignedGroups) => {
@@ -74,7 +74,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
                 assignedGroups.findIndex((item) => item.id === allGroup.id) === -1 &&
                 this.guiAuthResolver.isAuthorized(
                   'assignGroupsToResource_List<Group>_Resource_policy',
-                  [this.resource, allGroup]
+                  [this.resource, allGroup],
                 )
               ) {
                 this.unAssignedGroups.push(allGroup);
@@ -107,7 +107,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
         this.resource.id,
         this.async,
         !this.asActive,
-        this.autoAssignSubgroups
+        this.autoAssignSubgroups,
       )
       .subscribe(
         () => {
@@ -118,7 +118,7 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
               this.dialogRef.close(true);
             });
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 
@@ -144,10 +144,10 @@ export class AssignGroupToResourceDialogComponent implements OnInit {
   changeSubgroupsMessage(): void {
     this.autoAssignHint = this.autoAssignSubgroups
       ? (this.translate.instant(
-          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT'
+          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_OFF_HINT',
         ) as string)
       : (this.translate.instant(
-          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_ON_HINT'
+          'DIALOGS.ASSIGN_GROUP_TO_RESOURCE.AUTO_SUBGROUPS_ON_HINT',
         ) as string);
   }
 

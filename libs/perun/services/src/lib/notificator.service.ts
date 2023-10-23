@@ -17,7 +17,7 @@ export class NotificatorService {
   getDefaultActionMessage(): string {
     if (this.defaultAction === undefined) {
       return (this.defaultAction = this.translate.instant(
-        'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_ACTION'
+        'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_ACTION',
       ));
     } else {
       return this.defaultAction;
@@ -27,7 +27,7 @@ export class NotificatorService {
   getDefaultRpcMessage(): string {
     if (this.defaultRpcMessage === undefined) {
       return (this.defaultRpcMessage = this.translate.instant(
-        'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_RPC_ERROR_MESSAGE'
+        'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.DEFAULT_RPC_ERROR_MESSAGE',
       ));
     } else {
       return this.defaultRpcMessage;
@@ -44,10 +44,10 @@ export class NotificatorService {
     if (rpcError.name === 'PrivilegeException') {
       this.showError(
         this.translate.instant(
-          'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.PRIVILEGE_EXCEPTION'
+          'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.PRIVILEGE_EXCEPTION',
         ),
         rpcError,
-        rpcError.message
+        rpcError.message,
       );
     } else {
       const title =
@@ -60,7 +60,7 @@ export class NotificatorService {
     this.showInstantError(
       'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_ERROR',
       null,
-      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_DESC'
+      'SHARED_LIB.PERUN.COMPONENTS.NOTIFICATOR.NOTIFICATION.ROUTE_DENIED_DESC',
     );
   }
 
@@ -78,7 +78,7 @@ export class NotificatorService {
     error?: RPCError,
     description?: string,
     actionText?: string,
-    action?: () => void
+    action?: () => void,
   ): void {
     this.addNotification.emit({
       type: 'error',
@@ -110,7 +110,7 @@ export class NotificatorService {
     error?: RPCError,
     description?: string,
     actionText?: string,
-    action?: () => void
+    action?: () => void,
   ): void {
     const translatedDescription = description ? this.translate.instant(description) : null;
     const translatedActionText = actionText ? this.translate.instant(actionText) : null;
@@ -120,7 +120,7 @@ export class NotificatorService {
         error,
         translatedDescription,
         translatedActionText,
-        action
+        action,
       );
     } else {
       this.showError(this.translate.instant(title), error, translatedDescription);
@@ -163,7 +163,7 @@ export class NotificatorService {
     title: string,
     description?: string,
     actionText?: string,
-    action?: () => void
+    action?: () => void,
   ): void {
     const translatedDescription = description ? this.translate.instant(description) : undefined;
     const translatedActionText = actionText ? this.translate.instant(actionText) : undefined;
@@ -172,7 +172,7 @@ export class NotificatorService {
         this.translate.instant(title),
         translatedDescription,
         translatedActionText,
-        action
+        action,
       );
     } else {
       this.showSuccess(this.translate.instant(title), translatedDescription);

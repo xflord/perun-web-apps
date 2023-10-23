@@ -37,7 +37,7 @@ export class ResourceTagsComponent implements OnInit {
     private dialog: MatDialog,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class ResourceTagsComponent implements OnInit {
           })
           .subscribe(() => {
             this.notificator.showSuccess(
-              this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY')
+              this.translate.instant('RESOURCE_DETAIL.TAGS.REMOVED_SUCCESSFULLY'),
             );
             return this.updateData();
           });
@@ -93,7 +93,7 @@ export class ResourceTagsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((success) => {
       if (success) {
         this.notificator.showSuccess(
-          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY')
+          this.translate.instant('RESOURCE_DETAIL.TAGS.ADDED_SUCCESSFULLY'),
         );
         this.updateData();
       }
@@ -110,7 +110,7 @@ export class ResourceTagsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((success: string) => {
       if (success) {
         this.notificator.showSuccess(
-          this.translate.instant('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS')
+          this.translate.instant('VO_DETAIL.RESOURCES.TAGS.CREATE_SUCCESS'),
         );
         this.updateData();
       }
@@ -139,11 +139,11 @@ export class ResourceTagsComponent implements OnInit {
     ]);
     this.addAuth = this.authResolver.isAuthorized(
       'assignResourceTagToResource_ResourceTag_Resource_policy',
-      [this.resource]
+      [this.resource],
     );
     this.removeAuth = this.authResolver.isAuthorized(
       'removeResourceTagFromResource_ResourceTag_Resource_policy',
-      [this.resource]
+      [this.resource],
     );
     this.displayedColumns = this.removeAuth ? ['select', 'id', 'name'] : ['id', 'name'];
   }

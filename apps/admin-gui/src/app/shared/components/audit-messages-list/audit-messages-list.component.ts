@@ -64,7 +64,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
   constructor(
     private dialog: MatDialog,
     private dynamicPaginatingService: DynamicPaginatingService,
-    private tableConfigService: TableConfigService
+    private tableConfigService: TableConfigService,
   ) {}
 
   static getExportDataForColumn(data: AuditMessage, column: string): string {
@@ -98,7 +98,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
       this.tableConfigService.getTablePageSize(this.tableId),
       0,
       'DESCENDING',
-      this.selectedEvents
+      this.selectedEvents,
     );
     this.loading$.emit(this.dataSource.loading$);
   }
@@ -116,7 +116,7 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       sortDirection,
-      this.selectedEvents
+      this.selectedEvents,
     );
   }
 
@@ -136,9 +136,9 @@ export class AuditMessagesListComponent implements OnInit, OnChanges, AfterViewI
       getDataForExport(
         this.dataSource.getData(),
         this.displayedColumns.filter((v) => v !== 'detail'),
-        AuditMessagesListComponent.getExportDataForColumn
+        AuditMessagesListComponent.getExportDataForColumn,
       ),
-      format
+      format,
     );
   }
 }

@@ -29,7 +29,7 @@ export class AddGroupToGroupRegistrationComponent implements OnInit {
     public dialogRef: MatDialogRef<AddGroupToGroupRegistrationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddGroupToGroupRegistrationDialogData,
     private groupService: GroupsManagerService,
-    private registrarService: RegistrarManagerService
+    private registrarService: RegistrarManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class AddGroupToGroupRegistrationComponent implements OnInit {
     this.groupService.getAllSubGroups(this.data.groupId).subscribe({
       next: (groups) => {
         this.unAssignedGroups = groups.filter(
-          (group) => !this.data.assignedGroups.includes(group.id)
+          (group) => !this.data.assignedGroups.includes(group.id),
         );
         this.loading = false;
       },
@@ -52,7 +52,7 @@ export class AddGroupToGroupRegistrationComponent implements OnInit {
       .addSubgroupsToAutoRegistration(
         this.selection.selected.map((group) => group.id),
         this.data.groupId,
-        this.data.embeddedFormItemId
+        this.data.embeddedFormItemId,
       )
       .subscribe({
         next: () => {

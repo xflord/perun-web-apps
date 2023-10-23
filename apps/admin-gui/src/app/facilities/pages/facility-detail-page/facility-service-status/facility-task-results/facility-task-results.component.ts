@@ -44,7 +44,7 @@ export class FacilityTaskResultsComponent implements OnInit {
     private taskManager: TasksManagerService,
     private authResolver: GuiAuthResolver,
     private dialog: MatDialog,
-    private entityStorageService: EntityStorageService
+    private entityStorageService: EntityStorageService,
   ) {}
 
   ngOnInit(): void {

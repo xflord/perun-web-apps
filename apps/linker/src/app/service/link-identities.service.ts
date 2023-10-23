@@ -8,7 +8,10 @@ import { RPCError } from '@perun-web-apps/perun/models';
   providedIn: 'root',
 })
 export class LinkIdentitiesService {
-  constructor(private registrarService: RegistrarManagerService, private router: Router) {}
+  constructor(
+    private registrarService: RegistrarManagerService,
+    private router: Router,
+  ) {}
 
   consolidate(): Promise<void> {
     const queryParams = location.search.substring(1);
@@ -48,7 +51,7 @@ export class LinkIdentitiesService {
             queryParamsHandling: 'merge',
           });
           resolve();
-        }
+        },
       );
     });
   }
@@ -65,7 +68,7 @@ export class LinkIdentitiesService {
           },
           () => {
             void this.consolidatePreviousLogins(index + 1, queryParams).then(() => resolve());
-          }
+          },
         );
       }
     });

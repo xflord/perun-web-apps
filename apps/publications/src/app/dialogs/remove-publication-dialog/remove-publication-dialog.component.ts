@@ -18,7 +18,7 @@ export class RemovePublicationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: PublicationForGUI[],
     private notificator: NotificatorService,
     private translate: TranslateService,
-    private cabinetService: CabinetManagerService
+    private cabinetService: CabinetManagerService,
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class RemovePublicationDialogComponent implements OnInit {
           this.remove();
         }
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 }

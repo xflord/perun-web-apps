@@ -41,7 +41,7 @@ export class UserManagerService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -64,26 +64,26 @@ export class UserManagerService {
   public getUserExtSourceById(
     id: number,
     observe?: 'body',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<UserExtSource>;
   public getUserExtSourceById(
     id: number,
     observe?: 'response',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpResponse<UserExtSource>>;
   public getUserExtSourceById(
     id: number,
     observe?: 'events',
-    reportProgress?: boolean
+    reportProgress?: boolean,
   ): Observable<HttpEvent<UserExtSource>>;
   public getUserExtSourceById(
     id: number,
     observe: any = 'body',
-    reportProgress: boolean = false
+    reportProgress: boolean = false,
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling getUserExtSourceById.'
+        'Required parameter id was null or undefined when calling getUserExtSourceById.',
       );
     }
 
@@ -103,7 +103,7 @@ export class UserManagerService {
     if (this.configuration.username || this.configuration.password) {
       headers = headers.set(
         'Authorization',
-        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password)
+        'Basic ' + btoa(this.configuration.username + ':' + this.configuration.password),
       );
     }
     // authentication (BearerAuth) required
@@ -130,7 +130,7 @@ export class UserManagerService {
         headers: headers,
         observe: observe,
         reportProgress: reportProgress,
-      }
+      },
     );
   }
 }

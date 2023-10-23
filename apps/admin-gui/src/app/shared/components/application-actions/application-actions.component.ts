@@ -103,7 +103,7 @@ export class ApplicationActionsComponent implements OnInit {
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   @Input() set viewPreferences(att: Attribute) {
@@ -111,7 +111,7 @@ export class ApplicationActionsComponent implements OnInit {
     if ((att?.value as Array<string>)?.length > 0) {
       this.configuredColumns = att.value as Array<string>;
       this.configuredFedColumns = this.configuredColumns.filter((column) =>
-        this.fedAttrs.some((attr) => attr.friendlyName === column)
+        this.fedAttrs.some((attr) => attr.friendlyName === column),
       );
     } else {
       this.configuredColumns = [];
@@ -144,7 +144,7 @@ export class ApplicationActionsComponent implements OnInit {
       'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.APPROVE',
       'APPROVE',
       this.selectedApplications,
-      this.currentColumns
+      this.currentColumns,
     );
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
@@ -167,7 +167,7 @@ export class ApplicationActionsComponent implements OnInit {
       'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.REJECT',
       'REJECT',
       this.selectedApplications,
-      this.currentColumns
+      this.currentColumns,
     );
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
@@ -190,7 +190,7 @@ export class ApplicationActionsComponent implements OnInit {
       'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.DELETE',
       'DELETE',
       this.selectedApplications,
-      this.currentColumns
+      this.currentColumns,
     );
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
@@ -213,7 +213,7 @@ export class ApplicationActionsComponent implements OnInit {
       'VO_DETAIL.APPLICATION.APPLICATION_DETAIL.SEND_NOTIFICATION',
       'RESEND',
       this.selectedApplications,
-      this.currentColumns
+      this.currentColumns,
     );
     dialogRef.afterClosed().subscribe((resendForm: { type: MailType; reason: string }) => {
       if (resendForm) {
@@ -249,7 +249,7 @@ export class ApplicationActionsComponent implements OnInit {
     this.tooltipMessages.columnSettings = this.translate.instant(
       this.showAllDetails
         ? 'VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP'
-        : 'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS'
+        : 'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS',
     );
     this.cd.detectChanges();
   }
@@ -291,22 +291,22 @@ export class ApplicationActionsComponent implements OnInit {
   private setButtonsTooltips(state: AppState): void {
     if (state) {
       this.tooltipMessages.approve = this.translate.instant(
-        `VO_DETAIL.APPLICATION.TOOLTIPS.APPROVE.${state}`
+        `VO_DETAIL.APPLICATION.TOOLTIPS.APPROVE.${state}`,
       );
       this.tooltipMessages.reject = this.translate.instant(
-        `VO_DETAIL.APPLICATION.TOOLTIPS.REJECT.${state}`
+        `VO_DETAIL.APPLICATION.TOOLTIPS.REJECT.${state}`,
       );
       this.tooltipMessages.delete = this.translate.instant(
-        `VO_DETAIL.APPLICATION.TOOLTIPS.DELETE.${state}`
+        `VO_DETAIL.APPLICATION.TOOLTIPS.DELETE.${state}`,
       );
       this.tooltipMessages.resend = this.translate.instant(
-        `VO_DETAIL.APPLICATION.TOOLTIPS.SEND_NOTIFICATION.${state}`
+        `VO_DETAIL.APPLICATION.TOOLTIPS.SEND_NOTIFICATION.${state}`,
       );
     } else {
       const tooltip = this.translate.instant(
         this.selectedApplications.length
           ? 'VO_DETAIL.APPLICATION.TOOLTIPS.MULTIPLE_STATUSES_SELECTED'
-          : 'VO_DETAIL.APPLICATION.TOOLTIPS.NO_APPLICATION_SELECTED'
+          : 'VO_DETAIL.APPLICATION.TOOLTIPS.NO_APPLICATION_SELECTED',
       );
       this.tooltipMessages.approve = tooltip;
       this.tooltipMessages.reject = tooltip;
@@ -317,7 +317,7 @@ export class ApplicationActionsComponent implements OnInit {
     this.tooltipMessages.columnSettings = this.translate.instant(
       this.showAllDetails
         ? 'VO_DETAIL.APPLICATION.COLUMNS_TOOLTIP'
-        : 'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS'
+        : 'VO_DETAIL.APPLICATION.SET_COLUMN_SETTINGS',
     );
   }
 
@@ -327,10 +327,10 @@ export class ApplicationActionsComponent implements OnInit {
     confirmButtonLabel: string,
     selectedAction: 'APPROVE' | 'REJECT' | 'DELETE' | 'RESEND',
     applications: Application[],
-    columns: string[]
+    columns: string[],
   ): MatDialogRef<ApplicationsBulkOperationDialogComponent> {
     const columnsToDisplay = columns.filter(
-      (column) => column !== 'checkbox' && column !== 'state'
+      (column) => column !== 'checkbox' && column !== 'state',
     );
 
     const config = getDefaultDialogConfig();
@@ -346,7 +346,7 @@ export class ApplicationActionsComponent implements OnInit {
       allowGroupMailType: !!this.group,
       fedColumnsFriendly: this.configuredFedColumns,
       fedColumnsDisplay: this.configuredFedColumns.map(
-        (name) => this.fedAttrs.find((attr) => attr.friendlyName === name)?.displayName || ''
+        (name) => this.fedAttrs.find((attr) => attr.friendlyName === name)?.displayName || '',
       ),
     };
 

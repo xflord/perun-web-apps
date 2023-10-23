@@ -63,7 +63,7 @@ export class ManagersPageComponent implements OnInit {
     public guiAuthResolver: GuiAuthResolver,
     private router: Router,
     private reloadEntityDetail: ReloadEntityDetailService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -73,10 +73,10 @@ export class ManagersPageComponent implements OnInit {
     this.guiAuthResolver.setRolesAuthorization(
       this.availableRoles,
       this.complementaryObject,
-      this.availableRolesPrivileges
+      this.availableRolesPrivileges,
     );
     this.availableRoles = this.availableRoles.filter(
-      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth
+      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth,
     );
 
     if (this.availableRoles.length !== 0) {
@@ -89,10 +89,10 @@ export class ManagersPageComponent implements OnInit {
     this.guiAuthResolver.setRolesAuthorization(
       this.availableRoles,
       this.complementaryObject,
-      this.availableRolesPrivileges
+      this.availableRolesPrivileges,
     );
     this.availableRoles = this.availableRoles.filter(
-      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth
+      (role) => this.availableRolesPrivileges.get(role.roleName).readAuth,
     );
 
     this.manageAuth = this.availableRolesPrivileges.get(this.selectedRole).manageAuth;
@@ -137,7 +137,7 @@ export class ManagersPageComponent implements OnInit {
     if (this.showIndirectAdmins) {
       if (refreshDirectAdmins) {
         this.managers$ = this.getDirectAdmins(attributes).pipe(
-          mergeMap(() => this.getIndirectAdmins(attributes))
+          mergeMap(() => this.getIndirectAdmins(attributes)),
         );
       } else {
         this.managers$ = this.getIndirectAdmins(attributes);
@@ -166,7 +166,7 @@ export class ManagersPageComponent implements OnInit {
         this.complementaryObjectType,
         attributes,
         false,
-        true
+        true,
       )
       .pipe(tap((managers) => (this.directAdminsIds = managers.map((manager) => manager.id))));
   }
@@ -179,7 +179,7 @@ export class ManagersPageComponent implements OnInit {
       this.complementaryObjectType,
       attributes,
       false,
-      false
+      false,
     );
   }
 
@@ -191,7 +191,7 @@ export class ManagersPageComponent implements OnInit {
       .getAuthzAdminGroups(
         this.selectedRole,
         this.complementaryObject.id,
-        this.complementaryObjectType
+        this.complementaryObjectType,
       )
       .subscribe({
         next: (groups) => {
@@ -303,7 +303,7 @@ export class ManagersPageComponent implements OnInit {
           {
             relativeTo: this.route,
             queryParamsHandling: 'merge',
-          }
+          },
         );
       } else if (
         this.guiAuthResolver.isAuthorized('getVoById_int_policy', [this.complementaryObject])

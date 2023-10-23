@@ -28,7 +28,7 @@ export class RemoveGroupManagerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: RemoveGroupDialogData,
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private authzService: AuthzResolverService
+    private authzService: AuthzResolverService,
   ) {}
 
   ngOnInit(): void {

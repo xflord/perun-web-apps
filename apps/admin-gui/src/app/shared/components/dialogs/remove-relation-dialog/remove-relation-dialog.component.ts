@@ -29,7 +29,7 @@ export class RemoveRelationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: RemoveRelationDialogData,
     private notificator: NotificatorService,
     private groupService: GroupsManagerService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     translate
       .get('DIALOGS.REMOVE_RELATION.SUCCESS')
@@ -56,7 +56,7 @@ export class RemoveRelationDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     } else {
       const thisGroup = this.data.reverse ? this.data.groups.shift().id : this.data.groupId;
@@ -66,7 +66,7 @@ export class RemoveRelationDialogComponent implements OnInit {
           this.onSubmit();
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
     }
   }

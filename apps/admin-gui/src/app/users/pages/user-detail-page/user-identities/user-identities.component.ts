@@ -34,7 +34,7 @@ export class UserIdentitiesComponent implements OnInit {
     private registrarManagerService: RegistrarManagerService,
     private dialog: MatDialog,
     protected route: ActivatedRoute,
-    public authResolver: GuiAuthResolver
+    public authResolver: GuiAuthResolver,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class UserIdentitiesComponent implements OnInit {
         this.userExtSources = userExtSources;
         this.loading = false;
       },
-      () => (this.loading = false)
+      () => (this.loading = false),
     );
   }
 

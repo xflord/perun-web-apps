@@ -57,7 +57,10 @@ export class ResourcesListComponent implements OnChanges {
   disabledRouting: boolean;
   private sort: MatSort;
 
-  constructor(private guiAuthResolver: GuiAuthResolver, private tableCheckbox: TableCheckbox) {}
+  constructor(
+    private guiAuthResolver: GuiAuthResolver,
+    private tableCheckbox: TableCheckbox,
+  ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
     this.sort = ms;
@@ -120,9 +123,9 @@ export class ResourcesListComponent implements OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -135,9 +138,9 @@ export class ResourcesListComponent implements OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        this.getDataForColumnFun
+        this.getDataForColumnFun,
       ),
-      format
+      format,
     );
   }
 
@@ -152,7 +155,7 @@ export class ResourcesListComponent implements OnChanges {
           filter,
           this.displayedColumns,
           this.getDataForColumnFun,
-          true
+          true,
         );
       this.dataSource.sortData = (data: RichResource[], sort: MatSort): RichResource[] =>
         customDataSourceSort(data, sort, this.getDataForColumnFun);
@@ -168,7 +171,7 @@ export class ResourcesListComponent implements OnChanges {
     const isAllSelected = this.tableCheckbox.isAllSelected(
       this.selection.selected.length,
       this.dataSource,
-      this.canBeSelected
+      this.canBeSelected,
     );
     this.allSelected.emit(isAllSelected);
     return isAllSelected;
@@ -185,7 +188,7 @@ export class ResourcesListComponent implements OnChanges {
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
       true,
-      this.canBeSelected
+      this.canBeSelected,
     );
     this.setAuth();
   }
@@ -197,18 +200,18 @@ export class ResourcesListComponent implements OnChanges {
         acc &&
         this.guiAuthResolver.isAuthorized(
           'removeGroupFromResources_Group_List<Resource>_policy',
-          objects.concat([res])
+          objects.concat([res]),
         ),
-      true
+      true,
     );
     this.addAuth = this.selection.selected.reduce(
       (acc, res) =>
         acc &&
         this.guiAuthResolver.isAuthorized(
           'assignGroupToResources_Group_List<Resource>_policy',
-          objects.concat([res])
+          objects.concat([res]),
         ),
-      true
+      true,
     );
   }
 

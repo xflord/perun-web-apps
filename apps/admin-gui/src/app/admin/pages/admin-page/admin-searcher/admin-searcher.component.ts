@@ -37,7 +37,7 @@ export class AdminSearcherComponent implements OnInit {
   constructor(
     private attributesManager: AttributesManagerService,
     private searcher: SearcherService,
-    private voService: VosManagerService
+    private voService: VosManagerService,
   ) {}
 
   ngOnInit(): void {

@@ -21,7 +21,10 @@ export class AdminUsersComponent implements OnInit {
   attributes: string[] = [];
   update = false;
 
-  constructor(private storeService: StoreService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private storeService: StoreService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.loading$ = of(true);

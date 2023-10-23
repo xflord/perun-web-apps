@@ -43,7 +43,7 @@ export class UserBansComponent implements OnInit {
     private resourceService: ResourcesManagerService,
     private facilityService: FacilitiesManagerService,
     private entityService: EntityStorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

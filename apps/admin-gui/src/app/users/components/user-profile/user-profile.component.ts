@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
     private sideMenuService: SideMenuService,
     private store: StoreService,
     private entityStore: EntityStorageService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

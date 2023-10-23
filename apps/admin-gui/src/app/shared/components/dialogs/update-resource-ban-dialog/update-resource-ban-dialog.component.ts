@@ -17,7 +17,7 @@ export class UpdateResourceBanDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: UpdateBanData<BanOnResource>,
     private dialogRef: MatDialogRef<UpdateResourceBanDialogComponent>,
     private resourceService: ResourcesManagerService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {}
 
   update(banForm: BanForm): void {

@@ -20,7 +20,7 @@ export class DeleteOwnerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Owner[],
     private notificator: NotificatorService,
     private translate: PerunTranslateService,
-    private ownersManagerService: OwnersManagerService
+    private ownersManagerService: OwnersManagerService,
   ) {}
 
   ngOnInit(): void {

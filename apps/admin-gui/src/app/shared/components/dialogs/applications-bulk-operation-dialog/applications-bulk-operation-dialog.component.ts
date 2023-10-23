@@ -30,7 +30,7 @@ export class ApplicationsBulkOperationDialogComponent implements OnInit, AfterVi
 
   constructor(
     private dialogRef: MatDialogRef<ApplicationsBulkOperationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ApplicationsBulkOperationDialogData
+    @Inject(MAT_DIALOG_DATA) public data: ApplicationsBulkOperationDialogData,
   ) {}
 
   ngOnInit(): void {

@@ -31,7 +31,7 @@ import {
 } from '@perun-web-apps/perun/openapi';
 
 export function isPaginatedDataSource<T>(
-  ds: MatTableDataSource<T> | DynamicDataSource<T> | NewDynamicDataSource<T>
+  ds: MatTableDataSource<T> | DynamicDataSource<T> | NewDynamicDataSource<T>,
 ): ds is DynamicDataSource<T> {
   return 'allObjectCount' in ds;
 }
@@ -47,7 +47,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
 
   constructor(
     private dynamicPaginatingService: DynamicPaginatingService,
-    private authzService: GuiAuthResolver
+    private authzService: GuiAuthResolver,
   ) {
     this.loading$ = this.loadingSubject.asObservable();
   }
@@ -62,7 +62,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     statuses: VoMemberStatuses[],
     searchString?: string,
     groupId?: number,
-    groupStatuses?: MemberGroupStatus[]
+    groupStatuses?: MemberGroupStatus[],
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -79,11 +79,11 @@ export class DynamicDataSource<T> implements DataSource<T> {
         statuses,
         searchString,
         groupId,
-        groupStatuses
+        groupStatuses,
       )
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe((paginatedRichMembers) => {
         if (this.latestQueryTime <= thisQueryTime) {
@@ -109,7 +109,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     statuses: VoMemberStatuses[],
     searchString?: string,
     groupId?: number,
-    groupStatuses?: MemberGroupStatus[]
+    groupStatuses?: MemberGroupStatus[],
   ): Observable<RichMember[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -125,14 +125,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
             statuses,
             searchString,
             groupId,
-            groupStatuses
-          )
+            groupStatuses,
+          ),
         );
       }
       forkJoin(requests).subscribe({
         next: (results) => {
           const mergedData = [].concat(
-            ...results.map((result) => (result as PaginatedRichMembers).data)
+            ...results.map((result) => (result as PaginatedRichMembers).data),
           );
           subscriber.next(mergedData as RichMember[]);
           subscriber.complete();
@@ -155,7 +155,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     resourceId: number,
     serviceId: number,
     onlyAllowed: boolean,
-    consentStatuses: ConsentStatus[]
+    consentStatuses: ConsentStatus[],
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -175,11 +175,11 @@ export class DynamicDataSource<T> implements DataSource<T> {
         resourceId,
         serviceId,
         onlyAllowed,
-        consentStatuses
+        consentStatuses,
       )
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe((paginatedRichUsers) => {
         if (this.latestQueryTime <= thisQueryTime) {
@@ -202,7 +202,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     resourceId: number,
     serviceId: number,
     onlyAllowed: boolean,
-    consentStatuses: ConsentStatus[]
+    consentStatuses: ConsentStatus[],
   ): Observable<RichUser[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -221,14 +221,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
             resourceId,
             serviceId,
             onlyAllowed,
-            consentStatuses
-          )
+            consentStatuses,
+          ),
         );
       }
       forkJoin(requests).subscribe({
         next: (results) => {
           const mergedData = [].concat(
-            ...results.map((result) => (result as PaginatedRichUsers).data)
+            ...results.map((result) => (result as PaginatedRichUsers).data),
           );
           subscriber.next(mergedData as RichUser[]);
           subscriber.complete();
@@ -244,7 +244,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     sortOrder: SortingOrder,
     sortColumn: BlockedLoginsOrderColumn,
     searchString?: string,
-    namespaces?: string[]
+    namespaces?: string[],
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -254,7 +254,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
       .getBlockedLogins(pageSize, pageIndex, sortOrder, sortColumn, searchString, namespaces)
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe((paginatedBlockedLogins) => {
         if (this.latestQueryTime <= thisQueryTime) {
@@ -270,7 +270,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     totalCount: number,
     sortColumn: BlockedLoginsOrderColumn,
     searchString: string,
-    namespaces: string[]
+    namespaces: string[],
   ): Observable<BlockedLogin[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -282,14 +282,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
             order,
             sortColumn,
             searchString,
-            namespaces
-          )
+            namespaces,
+          ),
         );
       }
       forkJoin(requests).subscribe({
         next: (results) => {
           const mergedData = [].concat(
-            ...results.map((result) => (result as PaginatedBlockedLogins).data)
+            ...results.map((result) => (result as PaginatedBlockedLogins).data),
           );
           subscriber.next(mergedData as BlockedLogin[]);
           subscriber.complete();
@@ -303,7 +303,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     pageSize: number,
     pageIndex: number,
     sortOrder: SortingOrder,
-    selectedEvents: string[]
+    selectedEvents: string[],
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -313,7 +313,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
       .getAuditMessages(sortOrder, pageIndex, pageSize, selectedEvents)
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe((paginatedAuditMessages) => {
         if (this.latestQueryTime <= thisQueryTime) {
@@ -327,7 +327,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
   getAllAuditMessages(
     totalCount: number,
     sortOrder: SortingOrder,
-    selectedEvents: string[]
+    selectedEvents: string[],
   ): Observable<AuditMessage[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -337,14 +337,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
             sortOrder,
             pageNumber,
             this.step,
-            selectedEvents
-          )
+            selectedEvents,
+          ),
         );
       }
       forkJoin(requests).subscribe({
         next: (results) => {
           const mergedData = [].concat(
-            ...results.map((result) => (result as PaginatedAuditMessages).data)
+            ...results.map((result) => (result as PaginatedAuditMessages).data),
           );
           subscriber.next(mergedData as AuditMessage[]);
           subscriber.complete();
@@ -367,7 +367,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     userId: number,
     groupId: number,
     voId: number,
-    details?: boolean
+    details?: boolean,
   ): void {
     this.loadingSubject.next(true);
     this.latestQueryTime = Date.now();
@@ -387,11 +387,11 @@ export class DynamicDataSource<T> implements DataSource<T> {
         userId,
         voId,
         groupId,
-        details ?? false
+        details ?? false,
       )
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false)),
       )
       .subscribe((paginatedApplications) => {
         if (this.latestQueryTime <= thisQueryTime) {
@@ -401,12 +401,12 @@ export class DynamicDataSource<T> implements DataSource<T> {
             if (d[0].group) {
               this.routeAuth = this.authzService.isAuthorized(
                 'getApplicationsForGroup_Group_List<String>_policy',
-                [d[0].group]
+                [d[0].group],
               );
             } else {
               this.routeAuth = this.authzService.isAuthorized(
                 'getApplicationsForVo_Vo_List<String>_Boolean_policy',
-                [d[0].vo]
+                [d[0].vo],
               );
             }
           }
@@ -428,7 +428,7 @@ export class DynamicDataSource<T> implements DataSource<T> {
     userId: number,
     groupId: number,
     voId: number,
-    details?: boolean
+    details?: boolean,
   ): Observable<RichApplication[]> {
     return new Observable((subscriber) => {
       const requests = [];
@@ -447,14 +447,14 @@ export class DynamicDataSource<T> implements DataSource<T> {
             userId,
             voId,
             groupId,
-            details ?? false
-          )
+            details ?? false,
+          ),
         );
       }
       forkJoin(requests).subscribe({
         next: (results) => {
           const mergedData = [].concat(
-            ...results.map((result) => (result as PaginatedRichApplications).data)
+            ...results.map((result) => (result as PaginatedRichApplications).data),
           );
           subscriber.next(mergedData as RichApplication[]);
           subscriber.complete();

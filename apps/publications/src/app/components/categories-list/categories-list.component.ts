@@ -46,7 +46,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
     private guiAuthResolver: GuiAuthResolver,
     private tableCheckbox: TableCheckbox,
     private dialog: MatDialog,
-    private authResolver: GuiAuthResolver
+    private authResolver: GuiAuthResolver,
   ) {}
 
   @ViewChild(MatSort, { static: true }) set matSort(ms: MatSort) {
@@ -78,9 +78,9 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
       getDataForExport(
         this.dataSource.filteredData,
         this.displayedColumns,
-        CategoriesListComponent.getDataForColumn
+        CategoriesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -93,9 +93,9 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
           .sortData(this.dataSource.filteredData, this.dataSource.sort)
           .slice(start, end),
         this.displayedColumns,
-        CategoriesListComponent.getDataForColumn
+        CategoriesListComponent.getDataForColumn,
       ),
-      format
+      format,
     );
   }
 
@@ -106,7 +106,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
           data,
           filter,
           this.displayedColumns,
-          CategoriesListComponent.getDataForColumn
+          CategoriesListComponent.getDataForColumn,
         );
       this.dataSource.sortData = (data: Category[], sort: MatSort): Category[] =>
         customDataSourceSort(data, sort, CategoriesListComponent.getDataForColumn);
@@ -130,7 +130,7 @@ export class CategoriesListComponent implements AfterViewInit, OnChanges {
       this.sort,
       this.child.paginator.pageSize,
       this.child.paginator.pageIndex,
-      false
+      false,
     );
   }
 

@@ -36,7 +36,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: ApplicationsListColumnsChangeDialogData,
     private translate: PerunTranslateService,
     private notificator: NotificatorService,
-    public columnNamePipe: ApplicationColumnSelectLabelPipe
+    public columnNamePipe: ApplicationColumnSelectLabelPipe,
   ) {}
 
   columnTranslation = (name: string): string =>
@@ -53,7 +53,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
           this.attributesManager
             .getVoAttributeByName(
               this.data.voId,
-              'urn:perun:vo:attribute-def:def:applicationViewPreferences'
+              'urn:perun:vo:attribute-def:def:applicationViewPreferences',
             )
             .subscribe((voAttr) => {
               if (voAttr.value !== null) {
@@ -62,7 +62,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
               this.attributesManager
                 .getGroupAttributeByName(
                   this.data.groupId,
-                  'urn:perun:group:attribute-def:def:applicationViewPreferences'
+                  'urn:perun:group:attribute-def:def:applicationViewPreferences',
                 )
                 .subscribe((groupAttr) => {
                   this.processCurrentSettings(groupAttr);
@@ -78,7 +78,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
           this.attributesManager
             .getVoAttributeByName(
               this.data.voId,
-              'urn:perun:vo:attribute-def:def:applicationViewPreferences'
+              'urn:perun:vo:attribute-def:def:applicationViewPreferences',
             )
             .subscribe((attribute) => {
               this.processCurrentSettings(attribute);
@@ -135,7 +135,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SUCCESS')
+            this.translate.instant('DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SUCCESS'),
           );
         },
         error: () => {
@@ -156,7 +156,7 @@ export class ApplicationsListColumnsChangeDialogComponent implements OnInit {
           this.loading = false;
           this.dialogRef.close(true);
           this.notificator.showSuccess(
-            this.translate.instant('DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SUCCESS')
+            this.translate.instant('DIALOGS.APPLICATIONS_LIST_COLUMNS_CHANGE.SUCCESS'),
           );
         },
         error: () => {

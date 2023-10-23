@@ -32,7 +32,7 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
     private memberManager: MembersManagerService,
     private groupManager: GroupsManagerService,
     private translate: TranslateService,
-    private notificator: NotificatorService
+    private notificator: NotificatorService,
   ) {
     translate
       .get('DIALOGS.CHANGE_EXPIRATION.SUCCESS')
@@ -47,7 +47,7 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
     this.minDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      currentDate.getDate()
+      currentDate.getDate(),
     );
     this.loading = false;
   }
@@ -64,7 +64,7 @@ export class ChangeSponsorshipExpirationDialogComponent implements OnInit {
           this.notificator.showSuccess(this.successMessage);
           this.dialogRef.close(true);
         },
-        () => (this.loading = false)
+        () => (this.loading = false),
       );
   }
 }

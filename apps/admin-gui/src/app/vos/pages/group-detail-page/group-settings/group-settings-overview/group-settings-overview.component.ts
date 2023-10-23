@@ -36,7 +36,7 @@ export class GroupSettingsOverviewComponent implements OnInit {
     private attributesManager: AttributesManagerService,
     private notificator: NotificatorService,
     private entityStorageService: EntityStorageService,
-    private routePolicyService: RoutePolicyService
+    private routePolicyService: RoutePolicyService,
   ) {}
 
   ngOnInit(): void {

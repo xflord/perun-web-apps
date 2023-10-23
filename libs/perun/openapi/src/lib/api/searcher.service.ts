@@ -61,7 +61,7 @@ export class SearcherService {
   constructor(
     protected httpClient: HttpClient,
     @Optional() @Inject(BASE_PATH) basePath: string,
-    @Optional() configuration: Configuration
+    @Optional() configuration: Configuration,
   ) {
     if (configuration) {
       this.configuration = configuration;
@@ -92,7 +92,7 @@ export class SearcherService {
     if (typeof value === 'object') {
       if (Array.isArray(value)) {
         (value as any[]).forEach(
-          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
+          (elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)),
         );
       } else if (value instanceof Date) {
         if (key != null) {
@@ -106,8 +106,8 @@ export class SearcherService {
             (httpParams = this.addToHttpParamsRecursive(
               httpParams,
               value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+              key != null ? `${key}.${k}` : k,
+            )),
         );
       }
     } else if (key != null) {
@@ -130,32 +130,32 @@ export class SearcherService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAttributesMatchResources(
     InputGetMatchResources: InputGetMatchResources,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAttributesMatchResources(
     InputGetMatchResources: InputGetMatchResources,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAttributesMatchResources(
     InputGetMatchResources: InputGetMatchResources,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetMatchResources === null || InputGetMatchResources === undefined) {
       throw new Error(
-        'Required parameter InputGetMatchResources was null or undefined when calling getAttributesMatchResources.'
+        'Required parameter InputGetMatchResources was null or undefined when calling getAttributesMatchResources.',
       );
     }
 
@@ -239,32 +239,32 @@ export class SearcherService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Resource>>;
   public getAttributesResources(
     InputGetResources: InputGetResources,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Resource>>>;
   public getAttributesResources(
     InputGetResources: InputGetResources,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Resource>>>;
   public getAttributesResources(
     InputGetResources: InputGetResources,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetResources === null || InputGetResources === undefined) {
       throw new Error(
-        'Required parameter InputGetResources was null or undefined when calling getAttributesResources.'
+        'Required parameter InputGetResources was null or undefined when calling getAttributesResources.',
       );
     }
 
@@ -348,32 +348,32 @@ export class SearcherService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Facility>>;
   public getFacilities(
     InputGetFacilities: InputGetFacilities,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Facility>>>;
   public getFacilities(
     InputGetFacilities: InputGetFacilities,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Facility>>>;
   public getFacilities(
     InputGetFacilities: InputGetFacilities,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetFacilities === null || InputGetFacilities === undefined) {
       throw new Error(
-        'Required parameter InputGetFacilities was null or undefined when calling getFacilities.'
+        'Required parameter InputGetFacilities was null or undefined when calling getFacilities.',
       );
     }
 
@@ -457,32 +457,32 @@ export class SearcherService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<Member>>;
   public getMembersByUserAttributes(
     InputGetMembersByUserAttributes: InputGetMembersByUserAttributes,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<Member>>>;
   public getMembersByUserAttributes(
     InputGetMembersByUserAttributes: InputGetMembersByUserAttributes,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<Member>>>;
   public getMembersByUserAttributes(
     InputGetMembersByUserAttributes: InputGetMembersByUserAttributes,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetMembersByUserAttributes === null || InputGetMembersByUserAttributes === undefined) {
       throw new Error(
-        'Required parameter InputGetMembersByUserAttributes was null or undefined when calling getMembersByUserAttributes.'
+        'Required parameter InputGetMembersByUserAttributes was null or undefined when calling getMembersByUserAttributes.',
       );
     }
 
@@ -566,32 +566,32 @@ export class SearcherService {
     useNon?: boolean,
     observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<Array<User>>;
   public getUsersSearcher(
     InputGetUsers: InputGetUsers,
     useNon?: boolean,
     observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpResponse<Array<User>>>;
   public getUsersSearcher(
     InputGetUsers: InputGetUsers,
     useNon?: boolean,
     observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<HttpEvent<Array<User>>>;
   public getUsersSearcher(
     InputGetUsers: InputGetUsers,
     useNon: boolean = false,
     observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext }
+    options?: { httpHeaderAccept?: 'application/json'; context?: HttpContext },
   ): Observable<any> {
     if (InputGetUsers === null || InputGetUsers === undefined) {
       throw new Error(
-        'Required parameter InputGetUsers was null or undefined when calling getUsersSearcher.'
+        'Required parameter InputGetUsers was null or undefined when calling getUsersSearcher.',
       );
     }
 

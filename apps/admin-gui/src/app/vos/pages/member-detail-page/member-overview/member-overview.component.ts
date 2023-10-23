@@ -60,7 +60,7 @@ export class MemberOverviewComponent implements OnInit {
     public authResolver: GuiAuthResolver,
     private storeService: StoreService,
     private routePolicyService: RoutePolicyService,
-    private findSponsors: FindSponsorsService
+    private findSponsors: FindSponsorsService,
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +79,7 @@ export class MemberOverviewComponent implements OnInit {
         this.attributesManager.getLogins(member.userId).subscribe({
           next: (logins) => {
             this.logins = logins.filter((login) =>
-              this.attUrns.includes(login.friendlyNameParameter)
+              this.attUrns.includes(login.friendlyNameParameter),
             );
             this.member = member;
 
@@ -92,7 +92,7 @@ export class MemberOverviewComponent implements OnInit {
             };
             this.pwdResetAuth = this.authResolver.isAuthorized(
               'sendPasswordResetLinkEmail_Member_String_String_String_String_policy',
-              [this.vo, this.member]
+              [this.vo, this.member],
             );
             this.isPerunAdmin = this.authResolver.isPerunAdmin();
             this.isSponsor = this.authResolver.principalHasRole(Role.SPONSOR, 'Vo', this.vo.id);
@@ -157,7 +157,7 @@ export class MemberOverviewComponent implements OnInit {
       theme: 'member-theme',
       member: this.member,
       sponsors: this.voSponsors.filter(
-        (s) => !this.sponsors.map((sponsor) => sponsor.user.id).includes(s.id)
+        (s) => !this.sponsors.map((sponsor) => sponsor.user.id).includes(s.id),
       ),
     };
 

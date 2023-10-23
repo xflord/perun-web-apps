@@ -49,7 +49,7 @@ export class FacilityResourcesComponent implements OnInit, AfterViewInit {
     private servicesManager: ServicesManagerService,
     private authResolver: GuiAuthResolver,
     private entityStorageService: EntityStorageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
