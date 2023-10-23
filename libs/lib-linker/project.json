@@ -14,7 +14,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/lib-linker/src/**/*.ts", "libs/lib-linker/src/**/*.html"]
       }

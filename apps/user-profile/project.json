@@ -107,7 +107,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["apps/user-profile/src/**/*.ts", "apps/user-profile/src/**/*.html"]
       },

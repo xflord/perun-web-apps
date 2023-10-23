@@ -23,7 +23,7 @@ import { PERUN_API_SERVICE } from '@perun-web-apps/perun/tokens';
 import { AdminGuiConfigService } from './core/services/common/admin-gui-config.service';
 import { ApiModule, Configuration, ConfigurationParameters } from '@perun-web-apps/perun/openapi';
 import { GeneralModule } from '@perun-web-apps/general';
-import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NG_SCROLLBAR_OPTIONS, NgScrollbarModule } from 'ngx-scrollbar';
 import { PerunSharedComponentsModule } from '@perun-web-apps/perun/components';
 import { PerunLoginModule } from '@perun-web-apps/perun/login';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
@@ -72,10 +72,7 @@ const loadConfigs: (appConfig: AdminGuiConfigService) => () => Promise<void> =
     ApiModule,
     PerunSharedComponentsModule,
     PerunLoginModule,
-    NgScrollbarModule.withConfig({
-      autoWidthDisabled: false,
-      visibility: 'hover',
-    }),
+    NgScrollbarModule,
     OAuthModule.forRoot(),
   ],
   providers: [
@@ -103,11 +100,21 @@ const loadConfigs: (appConfig: AdminGuiConfigService) => () => Promise<void> =
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
     { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
+    {
+      provide: NG_SCROLLBAR_OPTIONS,
+      useValue: {
+        autoWidthDisabled: false,
+        visibility: 'hover',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private customIconService: CustomIconService, private translate: TranslateService) {
+  constructor(
+    private customIconService: CustomIconService,
+    private translate: TranslateService,
+  ) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
     this.customIconService.registerPerunRefreshIcon();

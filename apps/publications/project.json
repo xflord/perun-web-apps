@@ -128,7 +128,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["apps/publications/src/**/*.ts", "apps/publications/src/**/*.html"]
       },

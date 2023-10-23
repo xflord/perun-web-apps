@@ -6,7 +6,7 @@
   "prefix": "perun-web-apps",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/perun/pipes/src/**/*.ts", "libs/perun/pipes/src/**/*.html"]
       },

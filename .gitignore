@@ -69,3 +69,5 @@ apps/linker/src/styles.scss
 apps/password-reset/src/styles.scss
 apps/publications/src/styles.scss
 apps/user-profile/src/styles.scss
+
+.nx/cache
