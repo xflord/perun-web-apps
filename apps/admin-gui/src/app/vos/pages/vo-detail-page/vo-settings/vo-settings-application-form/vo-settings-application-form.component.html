@@ -41,6 +41,7 @@
 
     <button
       *ngIf="editAuth"
+      [disabled]="loadingTable"
       (click)="add()"
       color="accent"
       class="me-2 action-button"
