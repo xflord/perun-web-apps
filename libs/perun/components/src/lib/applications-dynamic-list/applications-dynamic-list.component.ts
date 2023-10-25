@@ -145,6 +145,7 @@ export class ApplicationsDynamicListComponent implements OnInit, OnChanges, Afte
     if (this.dataSource) {
       this.child.paginator.pageIndex = 0;
       this.loadApplicationsPage();
+      this.loading$.emit(this.dataSource.loading$);
     }
     this.selection.clear();
   }

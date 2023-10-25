@@ -107,6 +107,7 @@ export class ApplicationActionsComponent implements OnInit {
   ) {}
 
   @Input() set viewPreferences(att: Attribute) {
+    this.loading$ = of(true);
     if ((att?.value as Array<string>)?.length > 0) {
       this.configuredColumns = att.value as Array<string>;
       this.configuredFedColumns = this.configuredColumns.filter((column) =>
