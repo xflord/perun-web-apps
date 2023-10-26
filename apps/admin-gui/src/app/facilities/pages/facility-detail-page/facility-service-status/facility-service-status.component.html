@@ -4,7 +4,7 @@
   <button
     *ngIf="propagationAuth"
     (click)="forcePropagation()"
-    [disabled]="selected.selected.length === 0 || loading"
+    [disabled]="selected.selected.length === 0 || this.disableForcePropagationButton || loading"
     class="me-2"
     color="accent"
     mat-flat-button>

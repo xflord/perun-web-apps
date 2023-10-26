@@ -39,6 +39,7 @@ export class FacilityServiceStatusComponent implements OnInit {
   disableAllowButton = true;
   disableBlockButton = true;
   disableRemoveButton = true;
+  disableForcePropagationButton = false;
   taskIsNull: boolean;
   taskId: number;
 
@@ -87,7 +88,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.servicesManager.unblockServicesOnFacility(serviceIds, this.facility.id).subscribe({
       next: () => {
         this.notificator.showInstantSuccess('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_ALLOW');
-        this.loading = false;
+        this.refreshTable();
       },
       error: () => {
         this.loading = false;
@@ -100,7 +101,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.servicesManager.blockServicesOnFacility(serviceIds, this.facility.id).subscribe({
       next: () => {
         this.notificator.showInstantSuccess('FACILITY_DETAIL.SERVICES_STATUS.SUCCESS_BLOCK');
-        this.loading = false;
+        this.refreshTable();
       },
       error: () => {
         this.loading = false;
@@ -215,6 +216,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     this.disableBlockButton = true;
     this.disableAllowButton = true;
     this.disableRemoveButton = this.selected.selected.length !== 1;
+    this.disableForcePropagationButton = false;
 
     if (!this.disableRemoveButton) {
       this.taskIsNull = this.selected.selected[0].task === null;
@@ -223,6 +225,7 @@ export class FacilityServiceStatusComponent implements OnInit {
     for (const ss of this.selected.selected) {
       if (ss.blockedOnFacility) {
         this.disableAllowButton = false;
+        this.disableForcePropagationButton = true;
       } else {
         this.disableBlockButton = false;
       }
