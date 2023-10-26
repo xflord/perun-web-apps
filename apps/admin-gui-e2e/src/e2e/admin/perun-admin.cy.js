@@ -295,7 +295,7 @@ describe('Perun admin management with role Perun admin', () => {
       .type(dbSearcherAttrValue, {force: true})
       .get(`[data-cy=search-select-input]`)
       .click()
-      .get('[data-cy=find-input] > div > input')
+      .get('[data-cy=find-input] > div > div > input')
       .type(dbSearcherAttrDisplayName, {force: true})
       .get('mat-option')
       .contains(dbSearcherAttrDisplayName)

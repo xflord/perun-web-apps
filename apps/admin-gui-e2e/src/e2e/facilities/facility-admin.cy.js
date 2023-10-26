@@ -77,7 +77,7 @@ describe('Facility management with role Facility admin', () => {
       .wait('@getAllVos')
       .get('[data-cy=create-resource-select-vo]')
       .click()
-      .get('[data-cy=find-input] > div > input')
+      .get('[data-cy=find-input] > div > div > input')
       .type(dbVoName, {force: true})
       .get('mat-option')
       .contains(dbVoName)
