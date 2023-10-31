@@ -48,6 +48,7 @@ export class MemberOverviewComponent implements OnInit {
   loading = false;
   pwdResetAuth: boolean;
   isSponsor = false;
+  canReadSponsors = false;
   isPerunAdmin = false;
   sponsorButtonEnabled = false;
 
@@ -96,12 +97,11 @@ export class MemberOverviewComponent implements OnInit {
             );
             this.isPerunAdmin = this.authResolver.isPerunAdmin();
             this.isSponsor = this.authResolver.principalHasRole(Role.SPONSOR, 'Vo', this.vo.id);
-            if (
-              this.member.sponsored &&
-              this.authResolver.isAuthorized('getSponsorsForMember_Member_List<String>_policy', [
-                this.member,
-              ])
-            ) {
+            this.canReadSponsors = this.authResolver.isAuthorized(
+              'getSponsorsForMember_Member_List<String>_policy',
+              [this.member],
+            );
+            if (this.member.sponsored && this.canReadSponsors) {
               this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
                 this.sponsors = sponsors;
                 this.sponsorsDataSource = new MatTableDataSource<Sponsor>(this.sponsors);
@@ -255,10 +255,10 @@ export class MemberOverviewComponent implements OnInit {
     this.membersService.getRichMemberWithAttributes(this.member.id).subscribe({
       next: (member) => {
         this.member = member;
-        this.findSponsors.getSponsors(member.voId).subscribe((sponsors) => {
-          this.voSponsors = sponsors;
-        });
-        if (member.sponsored) {
+        if (member.sponsored && this.canReadSponsors) {
+          this.findSponsors.getSponsors(member.voId).subscribe((sponsors) => {
+            this.voSponsors = sponsors;
+          });
           this.usersManager.getSponsorsForMember(this.member.id, null).subscribe((sponsors) => {
             this.sponsors = sponsors;
             this.sponsorsDataSource.data = this.sponsors;
