@@ -5,7 +5,7 @@ export class SelectedRoleFilterValuesPipe implements PipeTransform {
   transform(selectedValues: string[], totalCount: number): string {
     switch (selectedValues.length) {
       case totalCount:
-        return 'ALL';
+        return 'All';
       case 0:
         return '';
       default:
