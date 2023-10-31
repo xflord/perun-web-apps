@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { GroupFlatNode } from '@perun-web-apps/perun/models';
 import { GuiAuthResolver } from '@perun-web-apps/perun/services';
 
@@ -7,7 +7,7 @@ import { GuiAuthResolver } from '@perun-web-apps/perun/services';
   templateUrl: './group-menu.component.html',
   styleUrls: ['./group-menu.component.scss'],
 })
-export class GroupMenuComponent implements OnInit {
+export class GroupMenuComponent implements OnChanges {
   @Input() group: GroupFlatNode;
   @Input() disabled = false;
   @Input() displayButtons: boolean;
@@ -21,7 +21,7 @@ export class GroupMenuComponent implements OnInit {
 
   constructor(private authResolver: GuiAuthResolver) {}
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.syncAuth = this.authResolver.isAuthorized('forceGroupSynchronization_Group_policy', [
       this.group,
     ]);
