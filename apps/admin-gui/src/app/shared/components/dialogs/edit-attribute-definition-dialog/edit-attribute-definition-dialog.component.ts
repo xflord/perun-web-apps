@@ -47,6 +47,14 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
   });
   urn = `${this.attDef.namespace}:${this.attDef.friendlyName}`;
   collections$ = new BehaviorSubject<AttributePolicyCollection[]>([]);
+  emptyCollections: AttributePolicyCollection[] = [
+    {
+      id: -1,
+      attributeId: this.data.attDef.id,
+      action: AttributeAction.READ,
+      policies: [],
+    },
+  ];
   services$: Observable<Service[]> = this.serviceService
     .getServicesByAttributeDefinition(this.attDef.id)
     .pipe(startWith([]));
@@ -85,7 +93,12 @@ export class EditAttributeDefinitionDialogComponent implements OnInit {
         switchMap(() => of(this.collections$.getValue())),
         this.attributeRightsService.filterNullInPolicy(),
         switchMap((collections) =>
-          this.attributesManager.setAttributePolicyCollections({ policyCollections: collections }),
+          // If list of collections is empty then pass empty collection with attribute definition ID for which all existing policies should be removed.
+          this.attributesManager.setAttributePolicyCollections(
+            collections.length > 0
+              ? { policyCollections: collections }
+              : { policyCollections: this.emptyCollections },
+          ),
         ),
         switchMap(() =>
           this.attributeRightsService.updateAttributeAction(
