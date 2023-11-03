@@ -27,7 +27,6 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
   errorTooltip = 'AUTHENTICATION.MFA_DISABLED';
 
   enforceMfa: boolean;
-  originalMfa = false;
   enableDetailSettings = true;
   loadingCategories = false;
   unchangedSettings = true;
@@ -35,7 +34,6 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
   rpsSelections: Map<string, SelectionModel<string>> = new Map<string, SelectionModel<string>>();
   allRpsSelected = false;
 
-  categories = {};
   mfaUrl = '';
   settings: MfaSettings;
 
@@ -98,7 +96,6 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
         this.mfaApiService.updateDetailSettings().subscribe({
           next: () => {
             this.loadSettings();
-            this.loadingMfa = false;
             return;
           },
           error: () => {
@@ -106,29 +103,9 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
             this.loadingCategories = false;
           },
         });
-      } else {
-        // if settings missing in the storage, load them
-        this.loadSettings();
-        this.loadingMfa = false;
       }
-    } else {
-      // load enforce_mfa from attribute
-      const enforceMfaAttributeName = this.store.getProperty('mfa').enforce_mfa_attribute;
-      this.attributesManagerService
-        .getUserAttributeByName(this.store.getPerunPrincipal().userId, enforceMfaAttributeName)
-        .subscribe({
-          next: (attr) => {
-            this.originalMfa = !!attr.value;
-            this.loadSettings();
-            this.loadingMfa = false;
-          },
-          error: (e) => {
-            console.error(e);
-            this.loadingMfa = false;
-            this.loadingCategories = false;
-          },
-        });
     }
+    this.loadSettings();
   }
 
   loadSettings(): void {
@@ -137,6 +114,7 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
         this.settings = settings;
         this.setSelections();
         this.loadingCategories = false;
+        this.loadingMfa = false;
       },
       error: () => {
         this.loadingMfa = false;
@@ -232,7 +210,7 @@ export class AuthenticationMfaSettingsComponent implements OnInit {
     const newEnforce = this.enforceMfa && !this.checkbox.indeterminate;
     sessionStorage.setItem('enforce_mfa', newEnforce.toString());
     this.saveDetailSettings();
-    this.mfaApiService.saveSettings(newEnforce, enforceFirstMfa).subscribe({
+    this.mfaApiService.saveSettings(enforceFirstMfa).subscribe({
       next: () => {
         this.unchangedSettings = true;
         this.loadingMfa = false;

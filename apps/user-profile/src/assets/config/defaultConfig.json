@@ -79,7 +79,7 @@
     "enable_security_text": true,
     "security_image_attribute": "urn:perun:user:attribute-def:def:securityImage:mu",
     "security_text_attribute": "urn:perun:user:attribute-def:def:securityText:mu",
-    "enforce_mfa_attribute": "urn:perun:user:attribute-def:def:mfaEnforced:mu",
+    "mfa_instance": "mu",
     "url_en": "https://mfa.aai.muni.cz/",
     "url_cs": "https://mfa.aai.muni.cz/"
   },

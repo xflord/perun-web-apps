@@ -121,7 +121,7 @@ interface ProfileMFA {
   enable_security_text: boolean;
   security_image_attribute: string;
   security_text_attribute: string;
-  enforce_mfa_attribute: string;
+  mfa_instance: string;
   url_en: string;
   url_cs: string;
 }

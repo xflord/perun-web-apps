@@ -19,6 +19,7 @@ import { AttributesManagerService } from '@perun-web-apps/perun/openapi';
 })
 export class MfaApiService {
   mfaApiUrl = this.store.getProperty('mfa').api_url;
+
   constructor(
     private store: StoreService,
     private oauthService: OAuthService,
@@ -58,7 +59,7 @@ export class MfaApiService {
       rpsByCategory: new Map(),
     };
     return new Observable<MfaSettings>((res) => {
-      const categoriesKey = this.store.getProperty('mfa').enforce_mfa_attribute.split(':').pop();
+      const categoriesKey = this.store.getProperty('mfa').mfa_instance;
       this.attributesManagerService
         .getEntitylessAttributeByName(
           categoriesKey,
@@ -66,9 +67,12 @@ export class MfaApiService {
         )
         .subscribe({
           next: (categories) => {
-            result.categories = JSON.parse(String(categories.value));
-            for (const category in result.categories) {
-              result.rpsByCategory[category] = result.categories[category].rps;
+            const skipCategories = categories.value == null; // Checks also for undefined and null
+            if (!skipCategories) {
+              result.categories = JSON.parse(String(categories.value));
+              for (const category in result.categories) {
+                result.rpsByCategory[category] = result.categories[category].rps;
+              }
             }
             this.httpClient
               .get<any>(this.mfaApiUrl + 'settings', {
@@ -125,9 +129,10 @@ export class MfaApiService {
   saveDetailSettings(settings: MfaSettings): void {
     let allTrue = false;
     let allFalse = true;
+    const categoriesLength = Object.keys(settings.categories).length;
 
     if (
-      settings.includedCategories.length === Object.keys(settings.categories).length &&
+      settings.includedCategories.length === categoriesLength &&
       settings.excludedRps.length === 0
     ) {
       allTrue = true;
@@ -139,7 +144,10 @@ export class MfaApiService {
 
     let body: string;
 
-    if (allTrue) {
+    // No-categories check
+    if (settings.allEnforced && categoriesLength === 0) {
+      body = '{}';
+    } else if (allTrue) {
       body = JSON.stringify({ all: true });
     } else if (allFalse) {
       body = '{}';
@@ -154,7 +162,7 @@ export class MfaApiService {
   /**
    * This method fires logic for setting new values of enforceMfa and settings
    */
-  saveSettings(newEnforce: boolean, enforceFirstMfa = false): Observable<any> {
+  saveSettings(enforceFirstMfa = false): Observable<any> {
     return new Observable<any>((res) => {
       if (this.oauthService.getIdTokenExpiration() - now() > 0 && !enforceFirstMfa) {
         this.updateDetailSettings().subscribe({
@@ -206,7 +214,7 @@ export class MfaApiService {
           error: (err) => {
             // when token is valid, but user is logged in without MFA -> enforce MFA
             if (err.error.error === 'MFA is required') {
-              this.saveSettings(null, true).subscribe();
+              this.saveSettings(true).subscribe();
             } else {
               res.error(err);
             }
