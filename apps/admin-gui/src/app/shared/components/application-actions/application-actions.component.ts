@@ -16,6 +16,8 @@ import { NotificatorService, PerunTranslateService } from '@perun-web-apps/perun
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApplicationsBulkOperationDialogComponent } from '../dialogs/applications-bulk-operation-dialog/applications-bulk-operation-dialog.component';
 import { getDefaultDialogConfig } from '@perun-web-apps/perun/utils';
+import { NotificationData, RPCError } from '@perun-web-apps/perun/models';
+import { NotificationDialogComponent } from '@perun-web-apps/perun/dialogs';
 
 export interface AppAction {
   approve: boolean;
@@ -155,6 +157,16 @@ export class ApplicationActionsComponent implements OnInit {
               this.notificator.showInstantSuccess('VO_DETAIL.APPLICATION.SUCCESS.APPROVE');
               this.refreshTable();
             },
+            error: (error: RPCError) => {
+              this.showErrorDialog(
+                'VO_DETAIL.APPLICATION.ERROR.APPROVE',
+                error,
+                this.translate.instant('VO_DETAIL.APPLICATION.ERROR.APPROVE_DESCRIPTION', {
+                  error: error.message,
+                }),
+              );
+              this.refreshTable();
+            },
           });
       }
     });
@@ -176,6 +188,16 @@ export class ApplicationActionsComponent implements OnInit {
           .subscribe({
             next: () => {
               this.notificator.showInstantSuccess('VO_DETAIL.APPLICATION.SUCCESS.REJECT');
+              this.refreshTable();
+            },
+            error: (error: RPCError) => {
+              this.showErrorDialog(
+                'VO_DETAIL.APPLICATION.ERROR.REJECT',
+                error,
+                this.translate.instant('VO_DETAIL.APPLICATION.ERROR.REJECT_DESCRIPTION', {
+                  error: error.message,
+                }),
+              );
               this.refreshTable();
             },
           });
@@ -372,5 +394,38 @@ export class ApplicationActionsComponent implements OnInit {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() - 365);
     return newDate;
+  }
+
+  // FIXME: showErrorDialog() and createNotificationData() are part of a quickfix and to be remove after proper fix is made
+  private showErrorDialog(title: string, error: RPCError, description: string): void {
+    const notificationData: NotificationData = this.createNotificationData(
+      title,
+      error,
+      description,
+    );
+    this.dialog.open(NotificationDialogComponent, {
+      width: '550px',
+      data: notificationData,
+      autoFocus: false,
+    });
+  }
+
+  private createNotificationData(
+    title: string,
+    error?: RPCError,
+    description?: string,
+  ): NotificationData {
+    const notificationData: NotificationData = {
+      type: 'error',
+      error: error,
+      description: description,
+      title: this.translate.instant(title),
+      actionText: this.notificator.getDefaultActionMessage(),
+      delay: this.notificator.defaultErrorDelayMs,
+      icon: 'error_outline',
+      action: null,
+      timeStamp: `${new Date().getHours()}:${new Date().getMinutes()}`,
+    };
+    return notificationData;
   }
 }

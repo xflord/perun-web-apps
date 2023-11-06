@@ -674,6 +674,12 @@
         "DELETE": "Applications were successfully deleted.",
         "RESEND": "Notifications for applications were re-sent."
       },
+      "ERROR": {
+        "APPROVE": "Failed to approve some applications.",
+        "APPROVE_DESCRIPTION": "A problem occurred during approval: [{{error}}] and not all of the selected applications got approved. There may still be some of the selected applications that could possibly be approved.",
+        "REJECT": "Failed to reject some applications.",
+        "REJECT_DESCRIPTION": "A problem occurred during rejection: [{{error}}] and not all of the selected applications got rejected. There may still be some of the selected applications that could possibly be rejected."
+      },
 
       "APPLICATION_DETAIL": {
         "TITLE": "Application detail",
