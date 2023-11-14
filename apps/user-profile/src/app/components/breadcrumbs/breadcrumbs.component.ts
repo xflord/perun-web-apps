@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
 
 interface BreadcrumbItem {
   label: string;
@@ -21,7 +20,6 @@ export class BreadcrumbsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -44,9 +42,7 @@ export class BreadcrumbsComponent implements OnInit {
         routerLink += `/${routeURL}`;
       }
 
-      const label = this.translate.instant(
-        child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB] as string,
-      ) as string;
+      const label = child.snapshot.data[BreadcrumbsComponent.ROUTE_DATA_BREADCRUMB] as string;
       if (
         label &&
         (!this.menuItems[this.menuItems.length - 1] ||

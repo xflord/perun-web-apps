@@ -45,7 +45,8 @@
   },
   "PROFILE_PAGE": {
     "NAME": "Jméno",
-    "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn"
+    "MAIL_CHANGE_SUCCESS": "Preferovaný email byl změněn",
+    "CHANGE_EMAIL": "Změnit email"
   },
   "IDENTITIES": {
     "IDP": "Vaše spojené účty",
